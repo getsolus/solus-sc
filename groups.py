@@ -28,7 +28,7 @@ class GroupsView(Gtk.VBox):
 
     __gsignals__ = {
         'group-selected': (GObject.SIGNAL_RUN_FIRST, None,
-                          (str,))
+                          (object,))
     }
     
     def __init__(self, groups):
@@ -72,5 +72,6 @@ class GroupsView(Gtk.VBox):
             btn_layout.pack_start(image, False, False, 5)
             btn_layout.pack_start(label, True, True, 0)
 
-            btn.connect("clicked", lambda x: self.emit('group-selected', group))
+            btn.key_word = group
+            btn.connect("clicked", lambda x: self.emit('group-selected', x.key_word))
             self.grid.attach(btn, column-1, row, 1, 1)
