@@ -31,5 +31,26 @@ class SSCWindow(Gtk.Window):
         
         self.set_title("Software")
         self.connect("destroy", Gtk.main_quit)
-        pass
+        self.set_size_request(700, 500)
+        self.set_position(Gtk.WindowPosition.CENTER)
         
+        # header area
+        header = Gtk.Toolbar()
+        header.get_style_context().add_class(Gtk.STYLE_CLASS_PRIMARY_TOOLBAR)
+
+        # butt it all up to the end of the toolbar now
+        sep = Gtk.SeparatorToolItem()
+        sep.set_expand(True)
+        sep.set_draw(False)
+        header.add(sep)
+
+        # search
+        search = Gtk.ToolItem()
+        search_entry = Gtk.Entry()
+        search_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "edit-find-symbolic")
+        search.add(search_entry)
+        seach.set_margin_right(3)
+        header.add(search)
+        layout = Gtk.VBox()
+        layout.pack_start(header, False, False, 0)
+        self.add(layout)
