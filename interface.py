@@ -26,7 +26,27 @@ from gi.repository import Gtk
 import pisi.db.componentdb as componentdb
 import pisi.db.installdb as installdb
 import pisi.db.packagedb as packagedb
+import pisi.db.groupdb as groupdb
 import pisi.api
+
+from groups import GroupsView
+
+
+class PackagePanel(Gtk.VBox):
+
+    def __init__(self):
+        Gtk.VBox.__init__(self)
+
+        self.label_name = Gtk.Label("")
+        self.desc = Gtk.Label("")
+        
+        self.pack_start(self.label_name, False, False, 0)
+        self.pack_start(self.desc, True, True, 0)
+
+    def set_from_package(self, package):
+        self.label_name.set_label(package.name)
+        self.desc.set_markup(str(package.description))
+
 
 class SSCWindow(Gtk.Window):
     
@@ -37,6 +57,11 @@ class SSCWindow(Gtk.Window):
         self.connect("destroy", Gtk.main_quit)
         self.set_size_request(700, 500)
         self.set_position(Gtk.WindowPosition.CENTER)
+
+        self.groups = groupdb.GroupDB()
+        self.stack = Gtk.Stack()
+        self.groups_page = GroupsView(self.groups)
+        self.stack.add_named(self.groups_page, "groups")
         
         # header area
         header = Gtk.Toolbar()
@@ -77,6 +102,8 @@ class SSCWindow(Gtk.Window):
         scroller.add(self.components_view)
 
         self.treeview_packages = Gtk.TreeView()
+        selection = self.treeview_packages.get_selection()
+        selection.connect("changed", self.open_package)
         
         ren = Gtk.CellRendererText()
         column = Gtk.TreeViewColumn("Package", ren)
@@ -100,8 +127,27 @@ class SSCWindow(Gtk.Window):
         center = Gtk.HBox()
         center.pack_start(scroller, False, False, 0)
         center.pack_start(scroller2, True, True, 0)
-        layout.pack_start(center, True, True, 0)
+        #layout.pack_start(center, True, True, 0)
+
+        layout.pack_start(self.stack, True, True, 0)
         self.build_components()
+
+        # Package panel
+        self.package_panel = PackagePanel()
+        self.package_revealer = Gtk.Revealer()
+        self.package_revealer.add(self.package_panel)
+        layout.pack_end(self.package_revealer, False, False, 0)
+
+    def open_package(self, selection):
+        model, treeiter = selection.get_selected()
+        if treeiter is None:
+            self.package_revealer.set_reveal_child(False)
+            return
+        row = model[treeiter]
+        package = row[3]
+
+        self.package_panel.set_from_package(package)
+        self.package_revealer.set_reveal_child(True)
 
     def open_component(self, selection):
         model, treeiter = selection.get_selected()
@@ -114,16 +160,16 @@ class SSCWindow(Gtk.Window):
 
     def build_packages(self, component=None):
         pkgs = component.packages
-        model = Gtk.ListStore(str,str,str)
+        model = Gtk.ListStore(str,str,str,object,object)
         for pkg in component.packages:
             meta,pkg_ = pisi.api.info(pkg)
             package = meta.package
             n_vers = package.version
             if self.installdb.has_package(pkg):
                 i_pkg = self.installdb.get_package(pkg)
-                model.append(["<big>%s</big>\n<small>%s</small>" % (package.name, package.summary), i_pkg.version, n_vers])
+                model.append(["<big>%s</big>\n<small>%s</small>" % (package.name, package.summary), i_pkg.version, n_vers, package, i_pkg])
             else:
-                model.append(["<big>%s</big>\n<small>%s</small>" % (package.name, package.summary), None, n_vers])
+                model.append(["<big>%s</big>\n<small>%s</small>" % (package.name, package.summary), None, n_vers, package, None])
         model.set_sort_column_id(0, Gtk.SortType.ASCENDING)
         self.treeview_packages.set_model(model)
 
