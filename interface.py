@@ -23,6 +23,8 @@
 # 
 import gi.repository
 from gi.repository import Gtk
+import pisi.db.componentdb as componentdb
+
 
 class SSCWindow(Gtk.Window):
     
@@ -49,8 +51,33 @@ class SSCWindow(Gtk.Window):
         search_entry = Gtk.Entry()
         search_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "edit-find-symbolic")
         search.add(search_entry)
-        seach.set_margin_right(3)
+        search.set_margin_right(3)
         header.add(search)
         layout = Gtk.VBox()
         layout.pack_start(header, False, False, 0)
         self.add(layout)
+
+        self.componentdb = componentdb.ComponentDB()
+        self.components_view = Gtk.TreeView()
+        ren = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn("Component", ren)
+        column.add_attribute(ren, "markup", 0)
+        self.components_view.append_column(column)
+
+        scroller = Gtk.ScrolledWindow(None, None)
+        scroller.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scroller.add(self.components_view)
+
+        center = Gtk.HBox()
+        center.pack_start(scroller, False, False, 0)
+        layout.pack_start(center, True, True, 0)
+        self.build_components()
+
+    def build_components(self):
+        store = Gtk.ListStore(str,str,object)
+        for component_key in self.componentdb.list_components():
+            component = self.componentdb.get_component(component_key)
+            store.append([str(component.localName), str(component.description), component])
+        store.set_sort_column_id(0, Gtk.SortType.ASCENDING)
+        self.components_view.set_model(store)
+        
