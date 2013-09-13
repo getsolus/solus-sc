@@ -49,7 +49,7 @@ class PackageView(Gtk.VBox):
         self.title = Gtk.Label("")
         do_justif(self.title)
 
-        self.pack_start(self.title, False, False, 0)
+        self.pack_start(self.title, False, False, 5)
 
         self.desc = Gtk.Label("")
         self.desc.set_line_wrap(True)

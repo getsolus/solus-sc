@@ -122,14 +122,14 @@ class ComponentsView(Gtk.VBox):
         row = model[treeiter]
         component = row[2]
 
+        GObject.idle_add(self.build_packages, component)
+
+    def build_packages(self, component=None):
         for child in self.listbox_packages.get_children():
             self.listbox_packages.remove(child)
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
 
-        GObject.idle_add(self.build_packages, component)
-
-    def build_packages(self, component=None):
         pkgs = component.packages
         appends = list()
         for pkg in component.packages:

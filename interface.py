@@ -65,6 +65,7 @@ class SSCWindow(Gtk.Window):
         self.packagedb = packagedb.PackageDB()
         
         self.stack = Gtk.Stack()
+        self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
         
         self.groups_page = GroupsView(self.groupdb)
         self.groups_page.connect('group-selected', self.group_selected)
@@ -81,6 +82,11 @@ class SSCWindow(Gtk.Window):
         header = Gtk.Toolbar()
         header.get_style_context().add_class(Gtk.STYLE_CLASS_PRIMARY_TOOLBAR)
 
+        self.back = Gtk.ToolButton("Back")
+        self.back.set_icon_name("go-previous")
+        self.back.connect("clicked", self.nav)
+        header.add(self.back)
+        
         # butt it all up to the end of the toolbar now
         sep = Gtk.SeparatorToolItem()
         sep.set_expand(True)
@@ -108,15 +114,24 @@ class SSCWindow(Gtk.Window):
         self.package_revealer.add(self.package_panel)
         layout.pack_end(self.package_revealer, False, False, 0)
 
+    def nav(self, btn):
+        vis = self.stack.get_visible_child_name()
+        if vis == "package":
+            self.stack.set_visible_child_name('components')
+        elif vis == "components":
+            self.stack.set_visible_child_name("groups")
+            self.back.set_sensitive(False)
+
     def group_selected(self, groups_view, group):
         comps = self.groupdb.get_group_components(group.name)
         self.components_page.set_from_components(comps)
         self.stack.set_visible_child_name('components')
+        self.back.set_sensitive(True)
 
     def package_selected(self, package_view, package, old_package):
         self.package_page.set_from_package(package, old_package)
         self.stack.set_visible_child_name('package')
-        print package
+        self.back.set_sensitive(True)
 
     def open_package(self, selection):
         model, treeiter = selection.get_selected()
