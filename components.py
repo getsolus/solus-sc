@@ -26,6 +26,34 @@ from gi.repository import Gtk, GObject
 
 import pisi.api
 
+GENERIC = "package-x-generic"
+
+def do_justif(label):
+    label.set_alignment(0.0, 0.5)
+    label.set_justify(Gtk.Justification.LEFT)
+
+class PackageLabel(Gtk.VBox):
+
+    def __init__(self, pkg, old_pkg):
+        Gtk.VBox.__init__(self)
+
+        self.set_border_width(4)
+        self.header = Gtk.HBox()
+        self.image = Gtk.Image()
+        if pkg.icon is not None:
+            self.image.set_from_icon_name(pkg.icon, Gtk.IconSize.DIALOG)
+        else:
+            self.image.set_from_icon_name(GENERIC, Gtk.IconSize.DIALOG)
+
+        self.header.pack_start(self.image, False, False, 5)
+        self.label_title = Gtk.Label("<b>%s</b> - <small>%s</small>\n%s" % (pkg.name, pkg.version, str(pkg.summary)))
+        self.label_title.set_use_markup(True)
+        do_justif(self.label_title)
+        self.label_title.set_line_wrap(True)
+        self.header.pack_start(self.label_title, False, False, 0)
+        
+        self.pack_start(self.header, True, True, 0)
+
 class ComponentsView(Gtk.VBox):
 
     __gsignals__ = {
@@ -49,31 +77,20 @@ class ComponentsView(Gtk.VBox):
         self.components_view.append_column(column)
 
         scroller = Gtk.ScrolledWindow(None, None)
+        #scroller.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
         scroller.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scroller.add(self.components_view)
 
         self.treeview_packages = Gtk.TreeView()
         selection = self.treeview_packages.get_selection()
         #selection.connect("changed", self.open_package)
-        
-        ren = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Package", ren)
-        column.add_attribute(ren, "markup", 0)
-        self.treeview_packages.append_column(column)
-        
-        ren = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Installed Version", ren)
-        column.add_attribute(ren, "markup", 1)
-        self.treeview_packages.append_column(column)
 
-        ren = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Available Version", ren)
-        column.add_attribute(ren, "markup", 2)
-        self.treeview_packages.append_column(column)
-
+        self.listbox_packages = Gtk.ListBox()
+        
         scroller2 = Gtk.ScrolledWindow(None, None)
         scroller2.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        scroller2.add(self.treeview_packages)
+        scroller2.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+        scroller2.add(self.listbox_packages)
         
         center = Gtk.HBox()
         center.pack_start(scroller, False, False, 0)
@@ -100,19 +117,28 @@ class ComponentsView(Gtk.VBox):
         row = model[treeiter]
         component = row[2]
 
-        self.build_packages(component)
+        for child in self.listbox_packages.get_children():
+            self.listbox_packages.remove(child)
+            while (Gtk.events_pending()):
+                Gtk.main_iteration()
+
+        GObject.idle_add(self.build_packages, component)
 
     def build_packages(self, component=None):
         pkgs = component.packages
-        model = Gtk.ListStore(str,str,str,object,object)
+        appends = list()
         for pkg in component.packages:
             meta,pkg_ = pisi.api.info(pkg)
             package = meta.package
-            n_vers = package.version
-            if self.installdb.has_package(pkg):
-                i_pkg = self.installdb.get_package(pkg)
-                model.append(["<big>%s</big>\n<small>%s</small>" % (package.name, package.summary), i_pkg.version, n_vers, package, i_pkg])
-            else:
-                model.append(["<big>%s</big>\n<small>%s</small>" % (package.name, package.summary), None, n_vers, package, None])
-        model.set_sort_column_id(0, Gtk.SortType.ASCENDING)
-        self.treeview_packages.set_model(model)
+            old_package = self.installdb.get_package(pkg) if self.installdb.has_package(pkg) else None
+            appends.append((package, old_package))
+            while (Gtk.events_pending()):
+                Gtk.main_iteration()
+
+        appends.sort(key=lambda x: x[0].name)
+        for new,old in appends:
+            label = PackageLabel(new,old)
+            self.listbox_packages.add(label)
+            self.listbox_packages.show_all()
+            while (Gtk.events_pending()):
+                Gtk.main_iteration()
