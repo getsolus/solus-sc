@@ -59,6 +59,25 @@ class PackageView(Gtk.VBox):
         self.image_status = Gtk.Image()
         self.header.pack_end(self.image_status, False, False, 0)
 
+        # Begin serious business
+        self.content_left = Gtk.VBox()
+        self.content_right = Gtk.VBox()
+
+        self.link = Gtk.LinkButton("about:solusos", "Visit homepage")
+        self.content_right.pack_start(self.link, False, False, 0)
+
+        # Description
+        self.description = Gtk.Label("")
+        self.description.set_line_wrap(True)
+
+        self.content_left.pack_start(self.description, False, False, 0)
+
+        self.wrap = Gtk.HBox()
+        self.wrap.pack_start(self.content_left, True, True, 0)
+        self.wrap.pack_start(self.content_right, False, False, 0)
+
+        self.pack_start(self.wrap, False, False, 20)
+
 
     def set_from_package(self, package, old_package):
         self.title.set_markup("<span font='30.5'>%s</span> - <big>%s</big>" % (package.name, package.version))
@@ -75,4 +94,11 @@ class PackageView(Gtk.VBox):
             self.image_status.set_from_icon_name("package-available", Gtk.IconSize.LARGE_TOOLBAR)
         
         self.desc.set_markup('<span font=\'30.5\'>“</span><i>  %s  </i><span font=\'30.5\'>”</span>' % str(package.summary))
-        pass
+
+        if package.source.homepage is not None:
+            self.link.set_uri(package.source.homepage)
+            self.link.set_visible(True)
+        else:
+            self.link.set_visible(False)
+
+        self.description.set_markup(str(package.description))
