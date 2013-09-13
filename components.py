@@ -51,6 +51,9 @@ class PackageLabel(Gtk.VBox):
         do_justif(self.label_title)
         self.label_title.set_line_wrap(True)
         self.header.pack_start(self.label_title, False, False, 0)
+
+        self.package = pkg
+        self.old_package = old_pkg
         
         self.pack_start(self.header, True, True, 0)
 
@@ -58,7 +61,7 @@ class ComponentsView(Gtk.VBox):
 
     __gsignals__ = {
         'package-selected': (GObject.SIGNAL_RUN_FIRST, None,
-                          (object,))
+                          (object,object))
     }
     
     def __init__(self, components, installdb):
@@ -81,7 +84,7 @@ class ComponentsView(Gtk.VBox):
         scroller.add(self.components_view)
 
         self.listbox_packages = Gtk.ListBox()
-        
+        self.listbox_packages.connect("row-selected", self._selected)
         scroller2 = Gtk.ScrolledWindow(None, None)
         scroller2.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scroller2.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
@@ -93,6 +96,13 @@ class ComponentsView(Gtk.VBox):
 
         self.add(center)
 
+    def _selected(self, box, row):
+        if row is None:
+            return
+        child = row.get_children()[0]
+
+        self.emit('package-selected', child.package, child.old_package)
+        
     def set_from_components(self, components):
         store = Gtk.ListStore(str,str,object)
         for component_key in components:
