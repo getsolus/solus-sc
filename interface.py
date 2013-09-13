@@ -31,6 +31,7 @@ import pisi.api
 
 from groups import GroupsView
 from components import ComponentsView
+from package_view import PackageView
 
 class PackagePanel(Gtk.VBox):
 
@@ -70,7 +71,11 @@ class SSCWindow(Gtk.Window):
         self.stack.add_named(self.groups_page, "groups")
 
         self.components_page = ComponentsView(self.componentdb, self.installdb)
+        self.components_page.connect('package-selected', self.package_selected)
         self.stack.add_named(self.components_page, "components")
+
+        self.package_page = PackageView(self.packagedb, self.installdb)
+        self.stack.add_named(self.package_page, "package")
         
         # header area
         header = Gtk.Toolbar()
@@ -107,6 +112,11 @@ class SSCWindow(Gtk.Window):
         comps = self.groupdb.get_group_components(group.name)
         self.components_page.set_from_components(comps)
         self.stack.set_visible_child_name('components')
+
+    def package_selected(self, package_view, package, old_package):
+        self.package_page.set_from_package(package, old_package)
+        self.stack.set_visible_child_name('package')
+        print package
 
     def open_package(self, selection):
         model, treeiter = selection.get_selected()
