@@ -52,6 +52,20 @@ class PackageLabel(Gtk.VBox):
         self.label_title.set_line_wrap(True)
         self.header.pack_start(self.label_title, False, False, 0)
 
+
+        image_status = Gtk.Image()
+        if old_pkg is not None:
+            new_version = pkg.release
+            old_version = old_pkg.release
+
+            if new_version > old_version:
+                image_status.set_from_icon_name("package-installed-outdated", Gtk.IconSize.SMALL_TOOLBAR)
+            else:
+                image_status.set_from_icon_name("package-installed-updated", Gtk.IconSize.SMALL_TOOLBAR)
+        else:
+            image_status.set_from_icon_name("package-available", Gtk.IconSize.SMALL_TOOLBAR)
+        self.header.pack_end(image_status, False, False, 0)
+        
         self.package = pkg
         self.old_package = old_pkg
         
