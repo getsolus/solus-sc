@@ -77,13 +77,8 @@ class ComponentsView(Gtk.VBox):
         self.components_view.append_column(column)
 
         scroller = Gtk.ScrolledWindow(None, None)
-        #scroller.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
         scroller.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scroller.add(self.components_view)
-
-        self.treeview_packages = Gtk.TreeView()
-        selection = self.treeview_packages.get_selection()
-        #selection.connect("changed", self.open_package)
 
         self.listbox_packages = Gtk.ListBox()
         
