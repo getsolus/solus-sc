@@ -33,31 +33,46 @@ def do_justif(label):
     label.set_justify(Gtk.Justification.LEFT)
 
 class PackageView(Gtk.VBox):
-
-    __gsignals__ = {
-        'package-selected': (GObject.SIGNAL_RUN_FIRST, None,
-                          (object,object))
-    }
     
     def __init__(self, packagedb, installdb):
         Gtk.VBox.__init__(self)
 
-        self.set_border_width(20)
+        self.set_border_width(10)
+        
         self.packagedb = packagedb
         self.installdb = installdb
 
         self.title = Gtk.Label("")
         do_justif(self.title)
 
-        self.pack_start(self.title, False, False, 5)
+        self.header = Gtk.HBox()
+        self.header.set_border_width(20)
+
+        self.pack_start(self.header, False, False, 0)
+        self.header.pack_start(self.title, False, False, 5)
 
         self.desc = Gtk.Label("")
         self.desc.set_line_wrap(True)
         do_justif(self.desc)
         self.pack_start(self.desc, False, False, 0)
 
+        self.image_status = Gtk.Image()
+        self.header.pack_end(self.image_status, False, False, 0)
+
+
     def set_from_package(self, package, old_package):
         self.title.set_markup("<span font='30.5'>%s</span> - <big>%s</big>" % (package.name, package.version))
 
-        self.desc.set_markup(str(package.description))
+        if old_package is not None:
+            new_version = package.release
+            old_version = old_package.release
+
+            if new_version > old_version:
+                self.image_status.set_from_icon_name("package-installed-outdated", Gtk.IconSize.LARGE_TOOLBAR)
+            else:
+                self.image_status.set_from_icon_name("package-installed-updated", Gtk.IconSize.LARGE_TOOLBAR)
+        else:
+            self.image_status.set_from_icon_name("package-available", Gtk.IconSize.LARGE_TOOLBAR)
+        
+        self.desc.set_markup('<span font=\'30.5\'>“</span><i>  %s  </i><span font=\'30.5\'>”</span>' % str(package.summary))
         pass
