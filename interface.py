@@ -82,13 +82,20 @@ class SSCWindow(Gtk.Window):
         self.back.connect("clicked", self.nav)
         header.add(self.back)
 
+        self.buttons = dict()
         soft = Gtk.ToggleButton("Software")
+        self.buttons[soft] = "software"
+        soft.sig_id = soft.connect("clicked", self.main_header_nav, "software")
         box.add(soft)
 
         prefs = Gtk.ToggleButton("Preferences")
+        prefs.sig_id = prefs.connect("clicked", self.main_header_nav, "preferences")
+        self.buttons[prefs] = "preferences"
         box.add(prefs)
 
         self.update = Gtk.ToggleButton("Updates")
+        self.update.sig_id = self.update.connect("clicked", self.main_header_nav, "updates")
+        self.buttons[self.update] = "updates"
         box.add(self.update)
 
         item = Gtk.ToolItem()
@@ -112,15 +119,38 @@ class SSCWindow(Gtk.Window):
         layout.pack_start(header, False, False, 0)
         self.add(layout)
 
-        layout.pack_start(self.stack, True, True, 0)
+        self.stack_main = Gtk.Stack()
+        self.stack_main.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
+        self.stack_main.add_named(self.stack, "software")
+        
+        layout.pack_start(self.stack_main, True, True, 0)
         layout.pack_end(self.basket, False, False, 0)
 
         GObject.idle_add(self.update_count)
 
+        self.select_main_page("software")
+
     def update_count(self):
         count = len(pisi.api.list_upgradable())
         self.update.set_label("Updates (%d)" % count)
+
+    def main_header_nav(self, btn, data=None):
+        self.select_main_page(data)
+
+    def select_main_page(self, name):
+        buttons_disable = [btn for btn in self.buttons if self.buttons[btn] != name]
+        button_enable = [btn for btn in self.buttons if self.buttons[btn] == name][0]
+
+        button_enable.handler_block(button_enable.sig_id)
+        button_enable.set_active(True)
+        button_enable.handler_unblock(button_enable.sig_id)
         
+        for button in buttons_disable:
+            button.handler_block(button.sig_id)
+            button.set_active(False)
+            button.handler_unblock(button.sig_id)
+            
+        self.stack.set_visible_child_name(name)
 
     def nav(self, btn):
         vis = self.stack.get_visible_child_name()
