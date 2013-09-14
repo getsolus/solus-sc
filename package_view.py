@@ -34,7 +34,12 @@ def do_justif(label):
     label.set_justify(Gtk.Justification.LEFT)
 
 class PackageView(Gtk.VBox):
-    
+
+    __gsignals__ = {
+        'operation-selected': (GObject.SIGNAL_RUN_FIRST, None,
+                          (str,object,object))
+    }
+
     def __init__(self, packagedb, installdb):
         Gtk.VBox.__init__(self)
 
@@ -76,6 +81,7 @@ class PackageView(Gtk.VBox):
         #hbox_control.pack_start(self.image_status, False, False, 4)
 
         self.control_button = Gtk.Button()
+        self.control_button.connect("clicked", self._do_emit)
         self.status_label = Gtk.Label("")
         hbox_control.pack_start(self.status_label, False, False, 0)
         hbox_control.pack_end(self.control_button, False, False, 0)
@@ -103,6 +109,9 @@ class PackageView(Gtk.VBox):
         self.pack_start(self.update_label, False, False, 0)
 
 
+    def _do_emit(self, btn, data=None):
+        self.emit('operation-selected', self.operation_type, self.package, self.old_package)
+
     def num_deps(self, package):
         deps = package.runtimeDependencies()
         count = 0
@@ -124,6 +133,9 @@ class PackageView(Gtk.VBox):
         self.title.set_markup("<span font='30.5'>%s</span> - <big>%s</big>" % (package.name, package.version))
 
         self.update_label.set_visible(False)
+
+        self.package = package
+        self.old_package = old_package
         
         if old_package is not None:
             new_version = package.release
@@ -140,16 +152,19 @@ class PackageView(Gtk.VBox):
                 update = package.history[0]
                 msg = update.comment
                 self.update_label.set_markup("<b>Update</b>\n%s" % msg)
+                self.operation_type = 'UPDATE'
                 #self.update_label.set_visible(True)
             else:
                 self.image_status.set_from_icon_name("package-installed-updated", Gtk.IconSize.BUTTON)
                 self.control_button.set_label("Uninstall")
                 self.status_label.set_markup("<b>Installed on %s</b>" % date)
+                self.operation_type = 'UNINSTALL'
         else:
             self.image_status.set_from_icon_name("package-available", Gtk.IconSize.LARGE_TOOLBAR)
             self.control_button.set_label("Install")
 
             self.status_label.set_markup("<b>Calculating dependencies...</b>")
+            self.operation_type = 'INSTALL'
             GObject.idle_add(self.calculate_dependencies, package)
 
         self.desc.set_markup('<span font=\'30.5\'>“</span><i>  %s  </i><span font=\'30.5\'>”</span>' % str(package.summary))

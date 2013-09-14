@@ -32,6 +32,8 @@ import pisi.api
 from groups import GroupsView
 from components import ComponentsView
 from package_view import PackageView
+from basket import BasketView
+
 
 class SSCWindow(Gtk.Window):
     
@@ -60,7 +62,13 @@ class SSCWindow(Gtk.Window):
         self.stack.add_named(self.components_page, "components")
 
         self.package_page = PackageView(self.packagedb, self.installdb)
+        self.package_page.connect('operation-selected', self.operation_selected)
         self.stack.add_named(self.package_page, "package")
+
+        # Operations go in the basket
+        self.basket = BasketView(self.packagedb, self.installdb)
+        self.revealer = Gtk.Revealer()
+        self.revealer.add(self.basket)
         
         # header area
         header = Gtk.Toolbar()
@@ -108,6 +116,8 @@ class SSCWindow(Gtk.Window):
 
         layout.pack_start(self.stack, True, True, 0)
 
+        layout.pack_end(self.revealer, False, False, 0)
+
     def nav(self, btn):
         vis = self.stack.get_visible_child_name()
         if vis == "package":
@@ -126,3 +136,14 @@ class SSCWindow(Gtk.Window):
         self.package_page.set_from_package(package, old_package)
         self.stack.set_visible_child_name('package')
         self.back.set_sensitive(True)
+
+    def operation_selected(self, view, operation, package, old_package):
+        if operation == 'INSTALL':
+            self.basket.install_package(package)
+        elif operation == 'UNINSTALL':
+            self.basket.remove_package(old_package)
+        elif operation == 'UPDATE':
+            self.basket.update_package(old_package, new_package)
+
+        self.revealer.set_reveal_child(True)
+        print "%s %s" % (operation, package.name)
