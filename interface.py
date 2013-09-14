@@ -22,7 +22,7 @@
 #  
 # 
 import gi.repository
-from gi.repository import Gtk
+from gi.repository import Gtk, GObject
 import pisi.db.componentdb as componentdb
 import pisi.db.installdb as installdb
 import pisi.db.packagedb as packagedb
@@ -49,7 +49,9 @@ class SSCWindow(Gtk.Window):
         self.componentdb = componentdb.ComponentDB()
         self.installdb = installdb.InstallDB()
         self.packagedb = packagedb.PackageDB()
-        
+        # Operations go in the basket
+        self.basket = BasketView(self.packagedb, self.installdb)
+                
         self.stack = Gtk.Stack()
         self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
         
@@ -57,16 +59,13 @@ class SSCWindow(Gtk.Window):
         self.groups_page.connect('group-selected', self.group_selected)
         self.stack.add_named(self.groups_page, "groups")
 
-        self.components_page = ComponentsView(self.componentdb, self.installdb)
+        self.components_page = ComponentsView(self.componentdb, self.installdb, self.basket)
         self.components_page.connect('package-selected', self.package_selected)
         self.stack.add_named(self.components_page, "components")
 
         self.package_page = PackageView(self.packagedb, self.installdb)
         self.package_page.connect('operation-selected', self.operation_selected)
         self.stack.add_named(self.package_page, "package")
-
-        # Operations go in the basket
-        self.basket = BasketView(self.packagedb, self.installdb)
         
         # header area
         header = Gtk.Toolbar()
@@ -78,6 +77,7 @@ class SSCWindow(Gtk.Window):
         box.get_style_context().add_class(Gtk.STYLE_CLASS_RAISED)
 
         self.back = Gtk.ToolButton("Back")
+        self.back.set_sensitive(False)
         self.back.set_icon_name("go-previous")
         self.back.connect("clicked", self.nav)
         header.add(self.back)
@@ -88,8 +88,8 @@ class SSCWindow(Gtk.Window):
         prefs = Gtk.ToggleButton("Preferences")
         box.add(prefs)
 
-        updates = Gtk.ToggleButton("Updates")
-        box.add(updates)
+        self.update = Gtk.ToggleButton("Updates")
+        box.add(self.update)
 
         item = Gtk.ToolItem()
         item.add(box)
@@ -114,6 +114,13 @@ class SSCWindow(Gtk.Window):
 
         layout.pack_start(self.stack, True, True, 0)
         layout.pack_end(self.basket, False, False, 0)
+
+        GObject.idle_add(self.update_count)
+
+    def update_count(self):
+        count = len(pisi.api.list_upgradable())
+        self.update.set_label("Updates (%d)" % count)
+        
 
     def nav(self, btn):
         vis = self.stack.get_visible_child_name()
@@ -145,8 +152,9 @@ class SSCWindow(Gtk.Window):
             self.basket.remove_package(old_package)
             view.mark_selection('UNINSTALL')
         elif operation == 'UPDATE':
-            self.basket.update_package(old_package, new_package)
+            self.basket.update_package(old_package, package)
             view.mark_selection('UPDATE')
         elif operation == 'FORGET':
             self.basket.forget_package(package)
             view.mark_selection(None)
+        self.components_page.mark_selected(operation, package, old_package)

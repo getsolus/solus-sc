@@ -53,24 +53,36 @@ class PackageLabel(Gtk.VBox):
         self.header.pack_start(self.label_title, False, False, 0)
 
 
-        image_status = Gtk.Image()
-        if old_pkg is not None:
-            new_version = pkg.release
-            old_version = old_pkg.release
-
-            if new_version > old_version:
-                image_status.set_from_icon_name("package-installed-outdated", Gtk.IconSize.SMALL_TOOLBAR)
-            else:
-                image_status.set_from_icon_name("package-installed-updated", Gtk.IconSize.SMALL_TOOLBAR)
-        else:
-            image_status.set_from_icon_name("package-available", Gtk.IconSize.SMALL_TOOLBAR)
-        self.header.pack_end(image_status, False, False, 0)
+        self.image_status = Gtk.Image()
+        self.header.pack_end(self.image_status, False, False, 0)
         
         self.package = pkg
         self.old_package = old_pkg
         
         self.pack_start(self.header, True, True, 0)
 
+    def mark_status(self, status):
+        if status == 'INSTALL':
+            self.image_status.set_from_icon_name("package-install", Gtk.IconSize.SMALL_TOOLBAR)
+        elif status == 'UNINSTALL':
+            self.image_status.set_from_icon_name("package-remove", Gtk.IconSize.SMALL_TOOLBAR)
+        elif status == 'UPDATE':
+            self.image_status.set_from_icon_name("package-upgrade", Gtk.IconSize.SMALL_TOOLBAR)
+        elif status == None or status == 'FORGET':
+            self.reset_image()
+
+    def reset_image(self):
+        if self.old_package is not None:
+            new_version = self.package.release
+            old_version = self.old_package.release
+
+            if new_version > old_version:
+                self.image_status.set_from_icon_name("package-installed-outdated", Gtk.IconSize.SMALL_TOOLBAR)
+            else:
+                self.image_status.set_from_icon_name("package-installed-updated", Gtk.IconSize.SMALL_TOOLBAR)
+        else:
+            self.image_status.set_from_icon_name("package-available", Gtk.IconSize.SMALL_TOOLBAR)
+            
 class ComponentsView(Gtk.VBox):
 
     __gsignals__ = {
@@ -78,11 +90,12 @@ class ComponentsView(Gtk.VBox):
                           (object,object))
     }
     
-    def __init__(self, components, installdb):
+    def __init__(self, components, installdb, basket):
         Gtk.VBox.__init__(self)
 
         self.componentdb = components
         self.installdb = installdb
+        self.basket = basket
         
         self.components_view = Gtk.TreeView()
         self.components_view.set_headers_visible(False)
@@ -138,6 +151,12 @@ class ComponentsView(Gtk.VBox):
 
         GObject.idle_add(self.build_packages, component)
 
+    def mark_selected(self, operation, package, old_package):
+        for row in self.listbox_packages.get_children():
+            child = row.get_children()[0]
+            if child.package == package:
+                child.mark_status(operation)
+
     def build_packages(self, component=None):
         for child in self.listbox_packages.get_children():
             self.listbox_packages.remove(child)
@@ -157,6 +176,8 @@ class ComponentsView(Gtk.VBox):
         appends.sort(key=lambda x: x[0].name)
         for new,old in appends:
             label = PackageLabel(new,old)
+            status = self.basket.operation_for_package(new)
+            label.mark_status(status)
             self.listbox_packages.add(label)
             self.listbox_packages.show_all()
             while (Gtk.events_pending()):
