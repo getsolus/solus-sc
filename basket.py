@@ -230,15 +230,20 @@ class BasketView(Gtk.VBox):
         for packageset in [updates, installs, removals]:
             if len(packageset) == 0:
                 continue
-            self.total_size = self.get_sizes(packageset)
+                
             self.current_package = 1
             self.current_dl_package = 1
             self.total_packages = len(packageset)
-
-            self.step_offset = self.total_size / 10 # one tenth of progress is post install
-
+            
+            if packageset != removals:
+                self.total_size = self.get_sizes(packageset)
+                self.step_offset = self.total_size / 10 # one tenth of progress is post install
+                self.progress_total = self.total_size + ((self.step_offset * self.total_packages) * STEPS)
+            else:
+                self.total_size = self.total_packages * (STEPS / 2)
+                self.step_offset = 1
+                self.progress_total = self.total_size
             self.progress_current = 0
-            self.progress_total = self.total_size + ((self.step_offset * self.total_packages) * STEPS)
 
             self.current_operations = packageset
 
