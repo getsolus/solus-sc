@@ -98,6 +98,10 @@ class PackageView(Gtk.VBox):
 
         self.pack_start(self.wrap, False, False, 20)
 
+        # Last update
+        self.update_label = Gtk.Label("")
+        self.pack_start(self.update_label, False, False, 0)
+
 
     def num_deps(self, package):
         deps = package.runtimeDependencies()
@@ -119,6 +123,8 @@ class PackageView(Gtk.VBox):
     def set_from_package(self, package, old_package):
         self.title.set_markup("<span font='30.5'>%s</span> - <big>%s</big>" % (package.name, package.version))
 
+        self.update_label.set_visible(False)
+        
         if old_package is not None:
             new_version = package.release
             old_version = old_package.release
@@ -130,7 +136,11 @@ class PackageView(Gtk.VBox):
             if new_version > old_version:
                 self.image_status.set_from_icon_name("package-installed-outdated", Gtk.IconSize.BUTTON)
                 self.control_button.set_label("Update")
-                self.status_label.set_markup("<b>You should update as a new version is available</b>")
+                self.status_label.set_markup("<b>You should update as a new version is available. You are currently using %s-%s</b>" % (old_package.version, old_package.release))
+                update = package.history[0]
+                msg = update.comment
+                self.update_label.set_markup("<b>Update</b>\n%s" % msg)
+                #self.update_label.set_visible(True)
             else:
                 self.image_status.set_from_icon_name("package-installed-updated", Gtk.IconSize.BUTTON)
                 self.control_button.set_label("Uninstall")

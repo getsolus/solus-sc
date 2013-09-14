@@ -82,10 +82,28 @@ class SSCWindow(Gtk.Window):
         header = Gtk.Toolbar()
         header.get_style_context().add_class(Gtk.STYLE_CLASS_PRIMARY_TOOLBAR)
 
+        box = Gtk.ButtonBox()
+        box.set_layout(Gtk.ButtonBoxStyle.CENTER)
+        box.get_style_context().add_class(Gtk.STYLE_CLASS_LINKED)
+        box.get_style_context().add_class(Gtk.STYLE_CLASS_RAISED)
+
         self.back = Gtk.ToolButton("Back")
         self.back.set_icon_name("go-previous")
         self.back.connect("clicked", self.nav)
         header.add(self.back)
+
+        soft = Gtk.ToggleButton("Software")
+        box.add(soft)
+
+        prefs = Gtk.ToggleButton("Preferences")
+        box.add(prefs)
+
+        updates = Gtk.ToggleButton("Updates")
+        box.add(updates)
+
+        item = Gtk.ToolItem()
+        item.add(box)
+        header.add(item)
         
         # butt it all up to the end of the toolbar now
         sep = Gtk.SeparatorToolItem()
