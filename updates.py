@@ -25,7 +25,7 @@ import gi.repository
 from gi.repository import Gtk, GObject
 
 import pisi.api
-from components import PackageLabel
+from widgets import PackageLabel
 
 class UpdatesView(Gtk.VBox):
 

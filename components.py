@@ -25,64 +25,8 @@ import gi.repository
 from gi.repository import Gtk, GObject
 
 import pisi.api
+from widgets import PackageLabel
 
-GENERIC = "package-x-generic"
-
-def do_justif(label):
-    label.set_alignment(0.0, 0.5)
-    label.set_justify(Gtk.Justification.LEFT)
-
-class PackageLabel(Gtk.VBox):
-
-    def __init__(self, pkg, old_pkg):
-        Gtk.VBox.__init__(self)
-
-        self.set_border_width(4)
-        self.header = Gtk.HBox()
-        self.image = Gtk.Image()
-        if pkg.icon is not None:
-            self.image.set_from_icon_name(pkg.icon, Gtk.IconSize.DIALOG)
-        else:
-            self.image.set_from_icon_name(GENERIC, Gtk.IconSize.DIALOG)
-
-        self.header.pack_start(self.image, False, False, 5)
-        self.label_title = Gtk.Label("<b>%s</b> - <small>%s</small>\n%s" % (pkg.name, pkg.version, str(pkg.summary)))
-        self.label_title.set_use_markup(True)
-        do_justif(self.label_title)
-        self.label_title.set_line_wrap(True)
-        self.header.pack_start(self.label_title, False, False, 0)
-
-
-        self.image_status = Gtk.Image()
-        self.header.pack_end(self.image_status, False, False, 0)
-        
-        self.package = pkg
-        self.old_package = old_pkg
-        
-        self.pack_start(self.header, True, True, 0)
-
-    def mark_status(self, status):
-        if status == 'INSTALL':
-            self.image_status.set_from_icon_name("package-install", Gtk.IconSize.SMALL_TOOLBAR)
-        elif status == 'UNINSTALL':
-            self.image_status.set_from_icon_name("package-remove", Gtk.IconSize.SMALL_TOOLBAR)
-        elif status == 'UPDATE':
-            self.image_status.set_from_icon_name("package-upgrade", Gtk.IconSize.SMALL_TOOLBAR)
-        elif status == None or status == 'FORGET':
-            self.reset_image()
-
-    def reset_image(self):
-        if self.old_package is not None:
-            new_version = self.package.release
-            old_version = self.old_package.release
-
-            if new_version > old_version:
-                self.image_status.set_from_icon_name("package-installed-outdated", Gtk.IconSize.SMALL_TOOLBAR)
-            else:
-                self.image_status.set_from_icon_name("package-installed-updated", Gtk.IconSize.SMALL_TOOLBAR)
-        else:
-            self.image_status.set_from_icon_name("package-available", Gtk.IconSize.SMALL_TOOLBAR)
-            
 class ComponentsView(Gtk.VBox):
 
     __gsignals__ = {
