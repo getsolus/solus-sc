@@ -98,7 +98,7 @@ class ComponentsView(Gtk.VBox):
         scroller.add(self.components_view)
 
         self.listbox_packages = Gtk.ListBox()
-        self.listbox_packages.connect("row-selected", self._selected)
+        self.listbox_packages.connect("row-activated", self._selected)
         scroller2 = Gtk.ScrolledWindow(None, None)
         scroller2.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scroller2.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
