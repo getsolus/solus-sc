@@ -57,7 +57,7 @@ class PackageLabel(Gtk.VBox):
         self.label_title.set_line_wrap(True)
         self.header.pack_start(self.label_title, False, False, 0)
 
-
+        self.package_status = 'FORGET'
         self.image_status = Gtk.Image()
         if interactive:
             btn = Gtk.Button()
