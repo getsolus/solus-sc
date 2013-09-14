@@ -27,6 +27,11 @@ from gi.repository import Gtk, GObject
 import comar
 
 class BasketView(Gtk.VBox):
+
+    __gsignals__ = {
+        'basket-changed': (GObject.SIGNAL_RUN_FIRST, None,
+                          (object,))
+    }
     
     def __init__(self, packagedb, installdb):
         Gtk.VBox.__init__(self)
@@ -205,7 +210,12 @@ class BasketView(Gtk.VBox):
         for package in packages:
             totalSize += package.packageSize
         return totalSize
-        
+
+    def invalidate_all(self):
+        # Handle operations that finished.
+        self.operations = list()
+        self.emit('basket-changed', None)
+
     def apply_operations(self, btn):
         updates = [i for i in self.operations if self.operations[i] == 'UPDATE']
         installs = [i for i in self.operations if self.operations[i] == 'INSTALL']
@@ -231,6 +241,8 @@ class BasketView(Gtk.VBox):
             self.progress_total = self.total_size + ((self.step_offset * self.total_packages) * STEPS)
 
             self.current_operations = packageset
+
+            self.cb = self.invalidate_all
             if packageset == updates:
                 self.pmanager.updatePackage(",".join(packageset), async=self.pisi_callback)
             elif packageset == installs:

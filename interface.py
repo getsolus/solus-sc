@@ -25,6 +25,7 @@ import gi.repository
 import sys
 
 from gi.repository import Gtk, GObject
+import pisi.db
 import pisi.db.componentdb as componentdb
 import pisi.db.installdb as installdb
 import pisi.db.packagedb as packagedb
@@ -54,6 +55,7 @@ class SSCWindow(Gtk.Window):
 
         # Operations go in the basket
         self.basket = BasketView(self.packagedb, self.installdb)
+        self.basket.connect('basket-changed', self.do_reset)
                 
         self.stack = Gtk.Stack()
         self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
@@ -131,7 +133,7 @@ class SSCWindow(Gtk.Window):
         
         layout.pack_start(self.stack_main, True, True, 0)        
         layout.pack_end(self.basket, False, False, 0)
-
+        
         self.show_all()
         self.stack_main.hide()
         GObject.idle_add(self.update_count)
@@ -140,6 +142,22 @@ class SSCWindow(Gtk.Window):
             self.select_main_page("updates")
         else:
             self.select_main_page("software")
+
+    def do_reset(self, basket, extra=None):
+        pisi.db.invalidate_caches()
+        self.groupdb = groupdb.GroupDB()
+        self.componentdb = componentdb.ComponentDB()
+        self.installdb = installdb.InstallDB()
+        self.packagedb = packagedb.PackageDB()
+
+        for page in [self.components_page, self.package_page, self.groups_page, self.updates_view]:
+            page.groupdb = self.groupdb
+            page.componentdb = self.componentdb
+            page.installdb = self.installdb
+            page.packagedb = self.packagedb
+
+            if hasattr(page, 'do_reset'):
+                page.do_reset()
 
     def update_count(self):
         count = len(pisi.api.list_upgradable())

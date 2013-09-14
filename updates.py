@@ -63,6 +63,9 @@ class UpdatesView(Gtk.VBox):
 
         self.refresh_repos()
 
+    def do_reset(self):
+        self.load_updates()
+
     def refresh_repos(self, btn=None):
         self.basket.update_repo(cb=lambda : self.load_updates())
 
@@ -78,7 +81,8 @@ class UpdatesView(Gtk.VBox):
     def _load_updates(self):
         updates = pisi.api.list_upgradable()
         for child in self.updates_list.get_children():
-            child.disconnect(child.sig_id)
+            pan = child.get_children()[0]
+            pan.disconnect(pan.sig_id)
             self.updates_list.remove(child)
             while(Gtk.events_pending()):
                 Gtk.main_iteration()
