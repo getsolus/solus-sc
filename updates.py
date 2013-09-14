@@ -53,7 +53,7 @@ class UpdatesView(Gtk.VBox):
             old_pkg = self.installdb.get_package(update)
             new_pkg = self.packagedb.get_package(update)
 
-            panel = PackageLabel(new_pkg, old_pkg)
+            panel = PackageLabel(new_pkg, old_pkg, interactive=True)
             panel.mark_status(None)
             self.updates_list.add(panel)
             while (Gtk.events_pending()):

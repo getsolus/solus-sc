@@ -137,7 +137,7 @@ class ComponentsView(Gtk.VBox):
 
         appends.sort(key=lambda x: x[0].name)
         for new,old in appends:
-            label = PackageLabel(new,old)
+            label = PackageLabel(new,old, True)
             status = self.basket.operation_for_package(new)
             label.mark_status(status)
             self.listbox_packages.add(label)
