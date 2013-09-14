@@ -128,7 +128,14 @@ class PackageView(Gtk.VBox):
             self.status_label.set_markup("<b>Requires %d extra package to be installed</b>" % dep_count)
         else:
             self.status_label.set_markup("<b>Requires %d packages to be installed</b>" % dep_count)
-            
+
+    def mark_selection(self, selection):
+        if selection is None:
+            self.set_from_package(self.package, self.old_package)
+        else:
+            self.control_button.set_label("Undo selection")
+            self.operation_type = 'FORGET'
+
     def set_from_package(self, package, old_package):
         self.title.set_markup("<span font='30.5'>%s</span> - <big>%s</big>" % (package.name, package.version))
 

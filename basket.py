@@ -36,24 +36,32 @@ class BasketView(Gtk.VBox):
         
         self.set_border_width(10)
 
-        self.removals = list()
-        self.installs = list()
-        self.updates = list()
+        self.operations = dict()
 
     def update_label(self):
         self.title.set_markup("<b>Software basket: %d operations</b>" % self.operation_count())
 
+    def operation_for_package(self, package):
+        if package.name in self.operations:
+            return self.operations[package.name]
+        return None
+
     def operation_count(self):
-        return len(self.removals) + len(self.installs) + len(self.updates)
+        return len(self.operations)
+
+    def forget_package(self, package):
+        if package.name in self.operations:
+            self.operations.pop(package.name, None)
+        self.update_label()
 
     def remove_package(self, old_package):
-        self.removals.append(old_package)
+        self.operations[old_package.name] = 'UNINSTALL'
         self.update_label()
 
     def install_package(self, new_package):
-        self.installs.append(new_package)
+        self.operations[new_package.name] = 'INSTALL'
         self.update_label()
 
     def update_package(self, old_package, new_package):
-        self.updates.append((old_package, new_package))
+        self.operations[old_package.name] = 'UPDATE'
         self.update_label()

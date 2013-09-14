@@ -134,16 +134,27 @@ class SSCWindow(Gtk.Window):
 
     def package_selected(self, package_view, package, old_package):
         self.package_page.set_from_package(package, old_package)
+        op = self.basket.operation_for_package(package)
+        if op is not None:
+            self.package_page.mark_selection(op)
         self.stack.set_visible_child_name('package')
         self.back.set_sensitive(True)
 
     def operation_selected(self, view, operation, package, old_package):
         if operation == 'INSTALL':
             self.basket.install_package(package)
+            view.mark_selection('INSTALL')
         elif operation == 'UNINSTALL':
             self.basket.remove_package(old_package)
+            view.mark_selection('UNINSTALL')
         elif operation == 'UPDATE':
             self.basket.update_package(old_package, new_package)
+            view.mark_selection('UPDATE')
+        elif operation == 'FORGET':
+            self.basket.forget_package(package)
+            view.mark_selection(None)
 
-        self.revealer.set_reveal_child(True)
-        print "%s %s" % (operation, package.name)
+        if self.basket.operation_count() >= 1:
+            self.revealer.set_reveal_child(True)
+        else:
+            self.revealer.set_reveal_child(False)
