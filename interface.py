@@ -143,7 +143,10 @@ class SSCWindow(Gtk.Window):
 
     def update_count(self):
         count = len(pisi.api.list_upgradable())
-        self.update.set_label("Updates (%d)" % count)
+        if count > 0:
+            self.update.set_label("Updates (%d)" % count)
+        else:
+            self.update.set_label("Updates")
 
     def main_header_nav(self, btn, data=None):
         self.select_main_page(data)

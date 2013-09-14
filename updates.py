@@ -22,9 +22,12 @@
 #  
 # 
 import gi.repository
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GObject, Gdk
 
 import pisi.api
+import comar
+import threading
+
 from widgets import PackageLabel
 
 class UpdatesView(Gtk.VBox):
@@ -39,11 +42,38 @@ class UpdatesView(Gtk.VBox):
                 
         scroller = Gtk.ScrolledWindow(None, None)
         scroller.add(self.updates_list)
+        self.placeholder = Gtk.Label("")
+        self.placeholder.set_markup("<big>No updates are available at this time</big>")
+
+        self.placeholder_box = Gtk.HBox()
+        self.placeholder_box.add(self.placeholder)
+
+        # Check again for updates
+        check_updates = Gtk.Button("Check for updates now")
+        self.placeholder_box.pack_end(check_updates, False, False, 0)
+        check_updates.connect("clicked", self.refresh_repos)
+        
+        self.placeholder_box.set_border_width(50)
+        self.placeholder_box.show_all()
+
+        self.updates_list.set_placeholder(self.placeholder_box)
 
         self.pack_start(scroller, True, True, 0)
 
-        self.load_updates()
-        
+        #self.refresh_repos(self)
+
+    def refresh_repos(self, btn=None):
+        th = threading.Thread(target=self._refresh_repos)
+        th.start()
+
+    def _refresh_repos(self):
+        link = comar.Link()
+        pmanager = link.System.Manager["pisi"]
+        pmanager.updateAllRepositories()
+        Gdk.threads_enter()
+        self._load_updates()
+        Gdk.threads_leave()
+
     def load_updates(self):
         GObject.idle_add(self._load_updates)
 

@@ -22,11 +22,12 @@
 #  
 #
 import gi.repository
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk, GObject
 
 from interface import SSCWindow
 
 if __name__ == "__main__":
+    GObject.threads_init()
     win = SSCWindow()
     win.show()
     Gtk.main()
