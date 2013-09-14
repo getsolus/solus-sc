@@ -98,6 +98,18 @@ class ComponentsView(Gtk.VBox):
         
         self.show_all()
 
+    def do_reset(self):
+        for child in self.listbox_packages.get_children():
+            pan = child.get_children()[0]
+            pkg = pan.package
+            old_pkg = self.installdb.get_package(pkg.name) if self.installdb.has_package(pkg.name) else None
+            pan.old_package = old_pkg
+            pan.package = self.packagedb.get_package(pkg.name)
+            pan.package_status = 'FORGET'
+            pan.reset_image()
+            while (Gtk.events_pending()):
+                Gtk.main_iteration()
+
     def open_component(self, selection):
         model, treeiter = selection.get_selected()
         if treeiter is None:

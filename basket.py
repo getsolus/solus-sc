@@ -213,7 +213,7 @@ class BasketView(Gtk.VBox):
 
     def invalidate_all(self):
         # Handle operations that finished.
-        self.operations = list()
+        self.operations = dict()
         self.emit('basket-changed', None)
 
     def apply_operations(self, btn):
