@@ -31,6 +31,8 @@ class BasketView(Gtk.VBox):
     def __init__(self, packagedb, installdb):
         Gtk.VBox.__init__(self)
 
+        self.packagedb = packagedb
+        
         self.title = Gtk.Label("Software basket")
         self.title.set_use_markup(True)
 
@@ -71,12 +73,16 @@ class BasketView(Gtk.VBox):
 
         self.current_operations = None
 
+        self.downloaded = 0
+        self.current_package = None
+
     def set_progress(self, fraction, label):
         if fraction is None:
             # Hide
             self.revealer.set_reveal_child(False)
             self.update_ui()
             return
+        print "%s %f" % (label, fraction)
         self.title.set_markup(label)
         self.revealer.set_reveal_child(True)
         self.progress.set_fraction(fraction)
@@ -118,33 +124,52 @@ class BasketView(Gtk.VBox):
         self.operations[old_package.name] = 'UPDATE'
         self.update_ui()
 
+    def _get_prog(self, step):  
+        self.progress_current = step
+        total = float(self.progress_total)
+        current = float(self.progress_current)
+
+        fract = float(current/total)
+        return fract
+        
     def pisi_callback(self, package, signal, args):
-
-        print signal
-        print args
-
         if signal == 'status':
             cmd = args[0]
             what = args[1]
             if cmd == 'updatingrepo':
                 self.set_progress(1.0, "Updating %s repository" % what)
             elif cmd == 'extracting':
-                self.set_progress(self.current_progress, "Extracting %s" % what)
-                progress = (float(self.current_progress) / float(self.current_total))
-                self.current_progress += 1
+                prog = self._get_prog(self.progress_current + self.step_offset)
+                self.set_progress(prog, "Extracting %s" % what)
             elif cmd == 'configuring':
-                progress = (float(self.current_progress) / float(self.current_total))
-                self.current_progress += 1
-                self.set_progress(self.current_progress, "Configuring %s" % what)
+                prog = self._get_prog(self.progress_current + self.step_offset)
+                self.set_progress(prog, "Configuring %s" % what)
             elif cmd == 'upgraded':
-                progress = (float(self.current_progress) / float(self.current_total))
-                self.current_progress += 1
-                self.set_progress(self.current_progress, "Upgraded %s" % what)
+                prog = self._get_prog(self.progress_current + self.step_offset)
+                self.set_progress(prog, "Upgraded %s" % what)
 
         if signal == 'progress':
             cmd = args[0]
             if cmd == 'fetching':
-                self.set_progress(1.0, "Downloading %s" % args[1])
+                if self.current_operations is not None:
+                    # Doing real operations now.
+                    package = args[1]
+                    whatisthis = args[2]
+                    speed_number = args[3]
+                    speed_label = args[4]
+                    downloaded = args[5]
+                    download_size = args[6]
+                    down = downloaded
+                    speed = "%d %s" % (speed_number, speed_label)
+
+                    diff = downloaded - download_size
+                    inc = self.total_size + diff
+                    prog = self._get_prog(inc)
+
+                    self.set_progress(prog, "Downloading %s (%s) %d" % (package, speed, prog))
+                else:
+                    print args
+                    self.set_progress(1.0, "Downloading %s" % args[1])
         elif signal == 'finished' or signal == None:
             if self.cb is not None:
                 self.cb()
@@ -156,6 +181,13 @@ class BasketView(Gtk.VBox):
         self.cb = cb
         self.pmanager.updateAllRepositories()
 
+    def get_sizes(self, packages):
+        totalSize = 0
+        packages = [self.packagedb.get_package(pkg) for pkg in packages]
+        for package in packages:
+            totalSize += package.packageSize
+        return totalSize
+        
     def apply_operations(self, btn):
         updates = [i for i in self.operations if self.operations[i] == 'UPDATE']
         installs = [i for i in self.operations if self.operations[i] == 'INSTALL']
@@ -165,9 +197,16 @@ class BasketView(Gtk.VBox):
         print "%d packages installed" % len(installs)
         print "%d packages removed" % len(removals)
 
-        # Install upgrades -_-
-        self.current_operations = updates
-        self.current_progress = 0
-        self.current_total = len(self.current_operations) * 4 # Essentially 4 steps
+        self.total_size = self.get_sizes(updates)
+        self.current_package = 0
+        self.total_packages = len(updates)
+
+        self.step_offset = self.total_size / 10 # one tenth of progress is post install
         
+        STEPS = 3 # Currently we look at 3 post events
+        self.progress_current = 0
+        self.progress_total = self.total_size + ((self.step_offset * self.total_packages) * STEPS)
+        
+        # Install upgrades -_-
+        self.current_operations = updates        
         self.pmanager.updatePackage(",".join(updates), async=self.pisi_callback)
