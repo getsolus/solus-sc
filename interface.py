@@ -67,8 +67,6 @@ class SSCWindow(Gtk.Window):
 
         # Operations go in the basket
         self.basket = BasketView(self.packagedb, self.installdb)
-        self.revealer = Gtk.Revealer()
-        self.revealer.add(self.basket)
         
         # header area
         header = Gtk.Toolbar()
@@ -115,8 +113,7 @@ class SSCWindow(Gtk.Window):
         self.add(layout)
 
         layout.pack_start(self.stack, True, True, 0)
-
-        layout.pack_end(self.revealer, False, False, 0)
+        layout.pack_end(self.basket, False, False, 0)
 
     def nav(self, btn):
         vis = self.stack.get_visible_child_name()
@@ -153,8 +150,3 @@ class SSCWindow(Gtk.Window):
         elif operation == 'FORGET':
             self.basket.forget_package(package)
             view.mark_selection(None)
-
-        if self.basket.operation_count() >= 1:
-            self.revealer.set_reveal_child(True)
-        else:
-            self.revealer.set_reveal_child(False)

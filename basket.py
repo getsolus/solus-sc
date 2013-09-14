@@ -30,16 +30,42 @@ class BasketView(Gtk.VBox):
     def __init__(self, packagedb, installdb):
         Gtk.VBox.__init__(self)
 
-        self.title = Gtk.Label("<b>Software basket</b>")
+        self.title = Gtk.Label("Software basket")
         self.title.set_use_markup(True)
-        self.pack_start(self.title, False, False, 0)
-        
-        self.set_border_width(10)
 
+        toolbar = Gtk.Toolbar()
+        toolbar.get_style_context().add_class(Gtk.STYLE_CLASS_PRIMARY_TOOLBAR)
+        label_item = Gtk.ToolItem()
+        label_item.add(self.title)
+        toolbar.add(label_item)
+
+        self.pack_start(toolbar, False, False, 0)
+
+        sep = Gtk.SeparatorToolItem()
+        sep.set_expand(True)
+        sep.set_draw(False)
+        toolbar.add(sep)
+        
+        self.apply = Gtk.ToolButton("Apply")
+        self.apply.set_label("Apply")
+        self.apply.set_is_important(True)
+        self.apply.set_icon_name("emblem-ok-symbolic")
+        toolbar.add(self.apply)
         self.operations = dict()
 
-    def update_label(self):
-        self.title.set_markup("<b>Software basket: %d operations</b>" % self.operation_count())
+        self.update_ui()
+
+    def update_ui(self):
+        count = self.operation_count()
+        if count == 0:
+            self.title.set_markup("No operations are currently pending")
+            self.apply.set_sensitive(False)
+            return
+        self.apply.set_sensitive(True)
+        if count > 1:
+            self.title.set_markup("%d operations pending" % self.operation_count())
+        else:
+            self.title.set_markup("One operation pending")
 
     def operation_for_package(self, package):
         if package.name in self.operations:
@@ -52,16 +78,16 @@ class BasketView(Gtk.VBox):
     def forget_package(self, package):
         if package.name in self.operations:
             self.operations.pop(package.name, None)
-        self.update_label()
+        self.update_ui()
 
     def remove_package(self, old_package):
         self.operations[old_package.name] = 'UNINSTALL'
-        self.update_label()
+        self.update_ui()
 
     def install_package(self, new_package):
         self.operations[new_package.name] = 'INSTALL'
-        self.update_label()
+        self.update_ui()
 
     def update_package(self, old_package, new_package):
         self.operations[old_package.name] = 'UPDATE'
-        self.update_label()
+        self.update_ui()
