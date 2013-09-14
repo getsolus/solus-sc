@@ -33,28 +33,45 @@ class BasketView(Gtk.VBox):
         self.title = Gtk.Label("Software basket")
         self.title.set_use_markup(True)
 
-        toolbar = Gtk.Toolbar()
-        toolbar.get_style_context().add_class(Gtk.STYLE_CLASS_PRIMARY_TOOLBAR)
+
+        self.progress = Gtk.ProgressBar()
+        self.revealer = Gtk.Revealer()
+        self.revealer.add(self.progress)
+        self.pack_start(self.revealer, False, False, 0)
+        self.revealer.set_reveal_child(False)
+
+        self.toolbar = Gtk.Toolbar()
+        self.toolbar.get_style_context().add_class(Gtk.STYLE_CLASS_PRIMARY_TOOLBAR)
         label_item = Gtk.ToolItem()
         label_item.add(self.title)
-        toolbar.add(label_item)
+        self.toolbar.add(label_item)
 
-        self.pack_start(toolbar, False, False, 0)
+        self.pack_start(self.toolbar, False, False, 0)
 
         sep = Gtk.SeparatorToolItem()
         sep.set_expand(True)
         sep.set_draw(False)
-        toolbar.add(sep)
+        self.toolbar.add(sep)
         
         self.apply = Gtk.ToolButton("Apply")
         self.apply.set_label("Apply")
         self.apply.set_is_important(True)
         self.apply.set_icon_name("emblem-ok-symbolic")
-        toolbar.add(self.apply)
+        self.toolbar.add(self.apply)
         self.operations = dict()
-
+        
         self.update_ui()
 
+    def set_progress(self, fraction, label):
+        if fraction is None:
+            # Hide
+            self.revealer.set_reveal_child(False)
+            self.update_ui()
+            return
+        self.title.set_markup(label)
+        self.revealer.set_reveal_child(True)
+        self.progress.set_fraction(fraction)
+        
     def update_ui(self):
         count = self.operation_count()
         if count == 0:

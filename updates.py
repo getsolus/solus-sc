@@ -32,11 +32,12 @@ from widgets import PackageLabel
 
 class UpdatesView(Gtk.VBox):
 
-    def __init__(self, packagedb, installdb):
+    def __init__(self, packagedb, installdb, basket):
         Gtk.VBox.__init__(self)
 
         self.packagedb = packagedb
         self.installdb = installdb
+        self.basket = basket
         
         self.updates_list = Gtk.ListBox()
                 
@@ -60,21 +61,21 @@ class UpdatesView(Gtk.VBox):
 
         self.pack_start(scroller, True, True, 0)
 
-        #self.refresh_repos(self)
+        self.refresh_repos()
 
     def refresh_repos(self, btn=None):
-        #th = threading.Thread(target=self._refresh_repos)
-        #th.start()
         def cb(package, signal, arg):
-            print package
-            print signal
-            print arg
-            print "Finished!"
+            if signal == "finished":
+                self._load_updates()
+                return
+            if signal is None:
+                self.basket.set_progress(None,None)
+                return
+            self.basket.set_progress(1.0, "Updating repositories")
         link = comar.Link()
         pmanager = link.System.Manager["pisi"]
         link.listenSignals("System.Manager", cb)
         pmanager.updateAllRepositories(async=cb)
-        self._load_updates()
 
     def load_updates(self):
         GObject.idle_add(self._load_updates)

@@ -51,6 +51,7 @@ class SSCWindow(Gtk.Window):
         self.componentdb = componentdb.ComponentDB()
         self.installdb = installdb.InstallDB()
         self.packagedb = packagedb.PackageDB()
+
         # Operations go in the basket
         self.basket = BasketView(self.packagedb, self.installdb)
                 
@@ -124,13 +125,12 @@ class SSCWindow(Gtk.Window):
         self.stack_main = Gtk.Stack()
         self.stack_main.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
 
-        self.updates_view = UpdatesView(self.packagedb, self.installdb)
+        self.updates_view = UpdatesView(self.packagedb, self.installdb, self.basket)
         self.stack_main.add_named(self.stack, "software")
         self.stack_main.add_named(self.updates_view, "updates")
         
-        layout.pack_start(self.stack_main, True, True, 0)
+        layout.pack_start(self.stack_main, True, True, 0)        
         layout.pack_end(self.basket, False, False, 0)
-
 
         self.show_all()
         self.stack_main.hide()
