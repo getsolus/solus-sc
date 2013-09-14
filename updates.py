@@ -80,13 +80,26 @@ class UpdatesView(Gtk.VBox):
     def load_updates(self):
         GObject.idle_add(self._load_updates)
 
+    def op_selected(self, package_label, operation, package, old_package):
+        if operation == 'UPDATE':
+            self.basket.update_package(old_package, package)
+        elif operation == 'FORGET':
+            self.basket.forget_package(package)
+
     def _load_updates(self):
         updates = pisi.api.list_upgradable()
+        for child in self.updates_list.get_children():
+            child.disconnect(child.sig_id)
+            self.updates_list.remove(child)
+            while(Gtk.events_pending()):
+                Gtk.main_iteration()
+
         for update in updates:
             old_pkg = self.installdb.get_package(update)
             new_pkg = self.packagedb.get_package(update)
 
             panel = PackageLabel(new_pkg, old_pkg, interactive=True)
+            panel.sig_id = panel.connect('operation-selected', self.op_selected)
             panel.mark_status(None)
             self.updates_list.add(panel)
             while (Gtk.events_pending()):
