@@ -23,6 +23,7 @@
 # 
 import gi.repository
 from gi.repository import Gtk, GObject
+import time
 
 import pisi.api
 
@@ -48,6 +49,9 @@ class PackageView(Gtk.VBox):
         self.header = Gtk.HBox()
         self.header.set_border_width(20)
 
+        # Package's image
+        self.image = Gtk.Image()
+
         self.pack_start(self.header, False, False, 0)
         self.header.pack_start(self.title, False, False, 5)
 
@@ -56,21 +60,37 @@ class PackageView(Gtk.VBox):
         do_justif(self.desc)
         self.pack_start(self.desc, False, False, 0)
 
+        sep = Gtk.Separator()
+        self.pack_start(sep, False, True, 10)
+        
         self.image_status = Gtk.Image()
-        self.header.pack_end(self.image_status, False, False, 0)
+        #self.header.pack_end(self.image_status, False, False, 0)
+        self.header.pack_end(self.image, False, False, 0)
 
         # Begin serious business
         self.content_left = Gtk.VBox()
         self.content_right = Gtk.VBox()
+        self.content_left.set_hexpand(False)
+        
+        hbox_control = Gtk.HBox()
+        #hbox_control.pack_start(self.image_status, False, False, 4)
+
+        self.control_button = Gtk.Button()
+        self.status_label = Gtk.Label("")
+        hbox_control.pack_start(self.status_label, False, False, 0)
+        hbox_control.pack_end(self.control_button, False, False, 0)
+
+        self.pack_start(hbox_control, False, False, 0)
 
         self.link = Gtk.LinkButton("about:solusos", "Visit homepage")
-        self.content_right.pack_start(self.link, False, False, 0)
+        self.link.set_hexpand(False)
 
         # Description
         self.description = Gtk.Label("")
         self.description.set_line_wrap(True)
 
         self.content_left.pack_start(self.description, False, False, 0)
+        self.content_left.pack_start(self.link, False, False, 0)
 
         self.wrap = Gtk.HBox()
         self.wrap.pack_start(self.content_left, True, True, 0)
@@ -79,6 +99,23 @@ class PackageView(Gtk.VBox):
         self.pack_start(self.wrap, False, False, 20)
 
 
+    def num_deps(self, package):
+        deps = package.runtimeDependencies()
+        count = 0
+        for dep in deps:
+            if not dep.satisfied_by_installed():
+                count += 1
+        return count
+
+    def calculate_dependencies(self, package):
+        dep_count = self.num_deps(package)
+        if dep_count == 0:
+            self.status_label.set_markup("<b>No extra dependencies required</b>")
+        elif dep_count == 1:
+            self.status_label.set_markup("<b>Requires %d extra package to be installed</b>" % dep_count)
+        else:
+            self.status_label.set_markup("<b>Requires %d packages to be installed</b>" % dep_count)
+            
     def set_from_package(self, package, old_package):
         self.title.set_markup("<span font='30.5'>%s</span> - <big>%s</big>" % (package.name, package.version))
 
@@ -86,13 +123,25 @@ class PackageView(Gtk.VBox):
             new_version = package.release
             old_version = old_package.release
 
+            # Determine installation date
+            info = self.installdb.get_info(package.name)
+            date = time.asctime(info.time)
+            
             if new_version > old_version:
-                self.image_status.set_from_icon_name("package-installed-outdated", Gtk.IconSize.LARGE_TOOLBAR)
+                self.image_status.set_from_icon_name("package-installed-outdated", Gtk.IconSize.BUTTON)
+                self.control_button.set_label("Update")
+                self.status_label.set_markup("<b>You should update as a new version is available</b>")
             else:
-                self.image_status.set_from_icon_name("package-installed-updated", Gtk.IconSize.LARGE_TOOLBAR)
+                self.image_status.set_from_icon_name("package-installed-updated", Gtk.IconSize.BUTTON)
+                self.control_button.set_label("Uninstall")
+                self.status_label.set_markup("<b>Installed on %s</b>" % date)
         else:
             self.image_status.set_from_icon_name("package-available", Gtk.IconSize.LARGE_TOOLBAR)
-        
+            self.control_button.set_label("Install")
+
+            self.status_label.set_markup("<b>Calculating dependencies...</b>")
+            GObject.idle_add(self.calculate_dependencies, package)
+
         self.desc.set_markup('<span font=\'30.5\'>“</span><i>  %s  </i><span font=\'30.5\'>”</span>' % str(package.summary))
 
         if package.source.homepage is not None:
@@ -101,4 +150,9 @@ class PackageView(Gtk.VBox):
         else:
             self.link.set_visible(False)
 
+        if package.icon is not None:
+            self.image.set_from_icon_name(package.icon, Gtk.IconSize.DIALOG)
+        else:
+            self.image.set_from_icon_name(GENERIC, Gtk.IconSize.DIALOG)
+            
         self.description.set_markup(str(package.description))
