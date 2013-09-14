@@ -63,16 +63,18 @@ class UpdatesView(Gtk.VBox):
         #self.refresh_repos(self)
 
     def refresh_repos(self, btn=None):
-        th = threading.Thread(target=self._refresh_repos)
-        th.start()
-
-    def _refresh_repos(self):
+        #th = threading.Thread(target=self._refresh_repos)
+        #th.start()
+        def cb(package, signal, arg):
+            print package
+            print signal
+            print arg
+            print "Finished!"
         link = comar.Link()
         pmanager = link.System.Manager["pisi"]
-        pmanager.updateAllRepositories()
-        Gdk.threads_enter()
+        link.listenSignals("System.Manager", cb)
+        pmanager.updateAllRepositories(async=cb)
         self._load_updates()
-        Gdk.threads_leave()
 
     def load_updates(self):
         GObject.idle_add(self._load_updates)

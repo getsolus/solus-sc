@@ -23,11 +23,13 @@
 #
 import gi.repository
 from gi.repository import Gtk, Gdk, GObject
+from dbus.mainloop.glib import DBusGMainLoop
 
 from interface import SSCWindow
 
 if __name__ == "__main__":
     GObject.threads_init()
+    DBusGMainLoop(set_as_default=True)
     win = SSCWindow()
     win.show()
     Gtk.main()
