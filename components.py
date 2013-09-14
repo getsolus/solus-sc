@@ -160,6 +160,7 @@ class ComponentsView(Gtk.VBox):
         row = model[treeiter]
         component = row[2]
 
+        self.components_view.set_sensitive(False)
         GObject.idle_add(self.build_packages, component)
 
     def mark_selected(self, operation, package, old_package):
@@ -179,6 +180,7 @@ class ComponentsView(Gtk.VBox):
         appends = list()
         if len(pkgs) == 0:
             self.placeholder.set_markup("<big>No packages matched your query</big>")
+            self.components_view.set_sensitive(True)
             return
         for pkg in component.packages:
             meta,pkg_ = pisi.api.info(pkg)
@@ -197,3 +199,4 @@ class ComponentsView(Gtk.VBox):
             self.listbox_packages.show_all()
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
+        self.components_view.set_sensitive(True)
