@@ -24,6 +24,7 @@
 import gi.repository
 from gi.repository import Gtk, GObject
 
+import comar
 
 class BasketView(Gtk.VBox):
     
@@ -57,10 +58,18 @@ class BasketView(Gtk.VBox):
         self.apply.set_label("Apply")
         self.apply.set_is_important(True)
         self.apply.set_icon_name("emblem-ok-symbolic")
+        self.apply.connect("clicked", self.apply_operations)
         self.toolbar.add(self.apply)
         self.operations = dict()
         
         self.update_ui()
+
+        self.cb = None
+        self.link = comar.Link()
+        self.pmanager = self.link.System.Manager['pisi']
+        self.link.listenSignals("System.Manager", self.pisi_callback)
+
+        self.current_operations = None
 
     def set_progress(self, fraction, label):
         if fraction is None:
@@ -108,3 +117,57 @@ class BasketView(Gtk.VBox):
     def update_package(self, old_package, new_package):
         self.operations[old_package.name] = 'UPDATE'
         self.update_ui()
+
+    def pisi_callback(self, package, signal, args):
+
+        print signal
+        print args
+
+        if signal == 'status':
+            cmd = args[0]
+            what = args[1]
+            if cmd == 'updatingrepo':
+                self.set_progress(1.0, "Updating %s repository" % what)
+            elif cmd == 'extracting':
+                self.set_progress(self.current_progress, "Extracting %s" % what)
+                progress = (float(self.current_progress) / float(self.current_total))
+                self.current_progress += 1
+            elif cmd == 'configuring':
+                progress = (float(self.current_progress) / float(self.current_total))
+                self.current_progress += 1
+                self.set_progress(self.current_progress, "Configuring %s" % what)
+            elif cmd == 'upgraded':
+                progress = (float(self.current_progress) / float(self.current_total))
+                self.current_progress += 1
+                self.set_progress(self.current_progress, "Upgraded %s" % what)
+
+        if signal == 'progress':
+            cmd = args[0]
+            if cmd == 'fetching':
+                self.set_progress(1.0, "Downloading %s" % args[1])
+        elif signal == 'finished' or signal == None:
+            if self.cb is not None:
+                self.cb()
+            self.cb = None
+            self.set_progress(None,None)
+            return
+
+    def update_repo(self, cb=None):
+        self.cb = cb
+        self.pmanager.updateAllRepositories()
+
+    def apply_operations(self, btn):
+        updates = [i for i in self.operations if self.operations[i] == 'UPDATE']
+        installs = [i for i in self.operations if self.operations[i] == 'INSTALL']
+        removals = [i for i in self.operations if self.operations[i] == 'UNINSTALL']
+
+        print "%d packages updated" % len(updates)
+        print "%d packages installed" % len(installs)
+        print "%d packages removed" % len(removals)
+
+        # Install upgrades -_-
+        self.current_operations = updates
+        self.current_progress = 0
+        self.current_total = len(self.current_operations) * 4 # Essentially 4 steps
+        
+        self.pmanager.updatePackage(",".join(updates), async=self.pisi_callback)

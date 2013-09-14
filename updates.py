@@ -64,18 +64,7 @@ class UpdatesView(Gtk.VBox):
         self.refresh_repos()
 
     def refresh_repos(self, btn=None):
-        def cb(package, signal, arg):
-            if signal == "finished":
-                self._load_updates()
-                return
-            if signal is None:
-                self.basket.set_progress(None,None)
-                return
-            self.basket.set_progress(1.0, "Updating repositories")
-        link = comar.Link()
-        pmanager = link.System.Manager["pisi"]
-        link.listenSignals("System.Manager", cb)
-        pmanager.updateAllRepositories(async=cb)
+        self.basket.update_repo(cb=lambda : self.load_updates())
 
     def load_updates(self):
         GObject.idle_add(self._load_updates)
