@@ -100,7 +100,7 @@ class ComponentsView(Gtk.VBox):
         self.components_view = Gtk.TreeView()
         self.components_view.set_headers_visible(False)
         selection = self.components_view.get_selection()
-        selection.connect("changed", self.open_component)
+        self._sig_id = selection.connect("changed", self.open_component)
         ren = Gtk.CellRendererText()
         column = Gtk.TreeViewColumn("Component", ren)
         column.add_attribute(ren, "markup", 0)
@@ -146,6 +146,10 @@ class ComponentsView(Gtk.VBox):
         self.components_view.set_model(store)
 
         component = store[0][2]
+
+        self.components_view.get_selection().handler_block(self._sig_id)
+        self.components_view.set_cursor(0)
+        self.components_view.get_selection().handler_unblock(self._sig_id)
         self.build_packages(component)
         self.show_all()
 
