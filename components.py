@@ -151,6 +151,7 @@ class ComponentsView(Gtk.VBox):
         self.components_view.set_cursor(0)
         self.components_view.get_selection().handler_unblock(self._sig_id)
         self.build_packages(component)
+        
         self.show_all()
 
     def open_component(self, selection):

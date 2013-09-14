@@ -28,6 +28,6 @@ from interface import SSCWindow
 
 if __name__ == "__main__":
     win = SSCWindow()
-    win.show_all()
+    win.show()
     Gtk.main()
     

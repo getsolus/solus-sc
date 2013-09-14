@@ -22,6 +22,8 @@
 #  
 # 
 import gi.repository
+import sys
+
 from gi.repository import Gtk, GObject
 import pisi.db.componentdb as componentdb
 import pisi.db.installdb as installdb
@@ -33,7 +35,7 @@ from groups import GroupsView
 from components import ComponentsView
 from package_view import PackageView
 from basket import BasketView
-
+from updates import UpdatesView
 
 class SSCWindow(Gtk.Window):
     
@@ -121,14 +123,23 @@ class SSCWindow(Gtk.Window):
 
         self.stack_main = Gtk.Stack()
         self.stack_main.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
+
+        self.updates_view = UpdatesView(self.packagedb, self.installdb)
         self.stack_main.add_named(self.stack, "software")
+        self.stack_main.add_named(self.updates_view, "updates")
         
         layout.pack_start(self.stack_main, True, True, 0)
         layout.pack_end(self.basket, False, False, 0)
 
+
+        self.show_all()
+        self.stack_main.hide()
         GObject.idle_add(self.update_count)
 
-        self.select_main_page("software")
+        if "--update" in sys.argv:
+            self.select_main_page("updates")
+        else:
+            self.select_main_page("software")
 
     def update_count(self):
         count = len(pisi.api.list_upgradable())
@@ -149,8 +160,9 @@ class SSCWindow(Gtk.Window):
             button.handler_block(button.sig_id)
             button.set_active(False)
             button.handler_unblock(button.sig_id)
-            
-        self.stack.set_visible_child_name(name)
+        self.stack_main.set_visible_child_name(name)
+        self.stack_main.show_all()
+
 
     def nav(self, btn):
         vis = self.stack.get_visible_child_name()
