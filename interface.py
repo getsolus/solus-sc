@@ -131,9 +131,13 @@ class SSCWindow(Gtk.Window):
             self.back.set_sensitive(False)
 
     def group_selected(self, groups_view, group):
+        # Do not lock up for anyone :)
+        self.stack.set_visible_child_name('components')
+        GObject.idle_add(self._group_selected, group)
+
+    def _group_selected(self, group):
         comps = self.groupdb.get_group_components(group.name)
         self.components_page.set_from_components(comps)
-        self.stack.set_visible_child_name('components')
         self.back.set_sensitive(True)
 
     def package_selected(self, package_view, package, old_package):

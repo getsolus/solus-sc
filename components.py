@@ -111,6 +111,13 @@ class ComponentsView(Gtk.VBox):
         scroller.add(self.components_view)
 
         self.listbox_packages = Gtk.ListBox()
+
+        # placeholder to show folks we're loading
+        self.placeholder = Gtk.Label("<span font='30.5'>Loading..</span>")
+        self.placeholder.set_use_markup(True)
+        #self.listbox_packages.set_placeholder(self.placeholder)
+        self.placeholder.show_all()
+
         self.listbox_packages.connect("row-activated", self._selected)
         scroller2 = Gtk.ScrolledWindow(None, None)
         scroller2.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
@@ -158,6 +165,7 @@ class ComponentsView(Gtk.VBox):
                 child.mark_status(operation)
 
     def build_packages(self, component=None):
+        self.placeholder.set_markup("<span font='30.5'>Loading..</span>")
         for child in self.listbox_packages.get_children():
             self.listbox_packages.remove(child)
             while (Gtk.events_pending()):
@@ -165,6 +173,9 @@ class ComponentsView(Gtk.VBox):
 
         pkgs = component.packages
         appends = list()
+        if len(pkgs) == 0:
+            self.placeholder.set_markup("<big>No packages matched your query</big>")
+            return
         for pkg in component.packages:
             meta,pkg_ = pisi.api.info(pkg)
             package = meta.package
