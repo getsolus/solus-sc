@@ -140,13 +140,28 @@ class BasketView(Gtk.VBox):
                 self.set_progress(1.0, "Updating %s repository" % what)
             elif cmd == 'extracting':
                 prog = self._get_prog(self.progress_current + self.step_offset)
-                self.set_progress(prog, "Extracting %s" % what)
+                self.set_progress(prog, "Extracting %d of %d: %s" % (self.current_package, self.total_packages, what))
             elif cmd == 'configuring':
                 prog = self._get_prog(self.progress_current + self.step_offset)
-                self.set_progress(prog, "Configuring %s" % what)
-            elif cmd == 'upgraded':
+                self.set_progress(prog, "Configuring %d of %d: %s" % (self.current_package, self.total_packages, what))
+            elif cmd in ['removing', 'installing']:
                 prog = self._get_prog(self.progress_current + self.step_offset)
-                self.set_progress(prog, "Upgraded %s" % what)
+                lab = "Installing %s: %s"
+                if cmd == 'removing':
+                    lab = "Removing %s: %s"
+                count = "%d of %d" % (self.current_package, self.total_packages)
+                self.set_progress(prog, lab % (count, what))
+            elif cmd in ['upgraded', 'installed', 'removed']:
+                prog = self._get_prog(self.progress_current + self.step_offset)
+                if cmd == 'upgraded':
+                    lab = "Upgraded %s: %s"
+                elif cmd == 'removed':
+                    lab = "Removed %s: %s"
+                elif cmd == 'installed':
+                    lab = "Installed %s: %s"
+                count = "%d of %d" % (self.current_package, self.total_packages)
+                self.set_progress(prog, lab % (count, what))
+                self.current_package += 1
 
         if signal == 'progress':
             cmd = args[0]
@@ -166,7 +181,10 @@ class BasketView(Gtk.VBox):
                     inc = self.total_size + diff
                     prog = self._get_prog(inc)
 
-                    self.set_progress(prog, "Downloading %s (%s) %d" % (package, speed, prog))
+                    self.set_progress(prog, "Downloading %d of %d: %s (%s)" % (self.current_dl_package, self.total_packages, package, speed))
+
+                    if downloaded >= download_size:
+                        self.current_dl_package += 1
                 else:
                     print args
                     self.set_progress(1.0, "Downloading %s" % args[1])
@@ -193,20 +211,29 @@ class BasketView(Gtk.VBox):
         installs = [i for i in self.operations if self.operations[i] == 'INSTALL']
         removals = [i for i in self.operations if self.operations[i] == 'UNINSTALL']
 
+        STEPS = 4 # We monitor 4 post events
+
         print "%d packages updated" % len(updates)
         print "%d packages installed" % len(installs)
         print "%d packages removed" % len(removals)
 
-        self.total_size = self.get_sizes(updates)
-        self.current_package = 0
-        self.total_packages = len(updates)
+        for packageset in [updates, installs, removals]:
+            if len(packageset) == 0:
+                continue
+            self.total_size = self.get_sizes(packageset)
+            self.current_package = 1
+            self.current_dl_package = 1
+            self.total_packages = len(packageset)
 
-        self.step_offset = self.total_size / 10 # one tenth of progress is post install
-        
-        STEPS = 3 # Currently we look at 3 post events
-        self.progress_current = 0
-        self.progress_total = self.total_size + ((self.step_offset * self.total_packages) * STEPS)
-        
-        # Install upgrades -_-
-        self.current_operations = updates        
-        self.pmanager.updatePackage(",".join(updates), async=self.pisi_callback)
+            self.step_offset = self.total_size / 10 # one tenth of progress is post install
+
+            self.progress_current = 0
+            self.progress_total = self.total_size + ((self.step_offset * self.total_packages) * STEPS)
+
+            self.current_operations = packageset
+            if packageset == updates:
+                self.pmanager.updatePackage(",".join(packageset), async=self.pisi_callback)
+            elif packageset == installs:
+                self.pmanager.installPackage(",".join(packageset), async=self.pisi_callback)
+            elif packageset == removals:
+                self.pmanager.removePackage(",".join(packageset), async=self.pisi_callback)
