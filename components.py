@@ -117,6 +117,8 @@ class ComponentsView(Gtk.VBox):
     def build_packages(self, component=None):
         self.placeholder.set_markup("<span font='30.5'>Loading..</span>")
         for child in self.listbox_packages.get_children():
+            panel = child.get_children()[0]
+            panel.disconnect(panel.sig_id)
             self.listbox_packages.remove(child)
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
@@ -138,6 +140,7 @@ class ComponentsView(Gtk.VBox):
         appends.sort(key=lambda x: x[0].name)
         for new,old in appends:
             label = PackageLabel(new,old, True)
+            label.sig_id = label.connect('operation-selected', self.op_select)
             status = self.basket.operation_for_package(new)
             label.mark_status(status)
             self.listbox_packages.add(label)
@@ -145,3 +148,14 @@ class ComponentsView(Gtk.VBox):
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
         self.components_view.set_sensitive(True)
+
+    def op_select(self, package_label, operation, package, old_package):
+        if operation == 'INSTALL':
+            self.basket.install_package(package)
+        elif operation == 'UNINSTALL':
+            self.basket.remove_package(old_package)
+        elif operation == 'UPDATE':
+            self.basket.update_package(old_package, package)
+        elif operation == 'FORGET':
+            self.basket.forget_package(package)
+        #self.mark_selected(operation, package, old_package)

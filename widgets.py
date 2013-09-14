@@ -34,6 +34,11 @@ def do_justif(label):
 
 class PackageLabel(Gtk.VBox):
 
+    __gsignals__ = {
+        'operation-selected': (GObject.SIGNAL_RUN_FIRST, None,
+                          (str,object,object))
+    }
+
     def __init__(self, pkg, old_pkg, interactive=False):
         Gtk.VBox.__init__(self)
 
@@ -70,8 +75,9 @@ class PackageLabel(Gtk.VBox):
 
     def interactive_handler(self, btn, data=None):
         status = self.package_status
-        self.package_status = None
+        self.package_status = 'FORGET'
         self.mark_status(status)
+        self.emit('operation-selected', status, self.package, self.old_package)
         
     def mark_status(self, status):
         if status == 'INSTALL':
