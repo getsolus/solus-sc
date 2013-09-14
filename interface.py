@@ -33,22 +33,6 @@ from groups import GroupsView
 from components import ComponentsView
 from package_view import PackageView
 
-class PackagePanel(Gtk.VBox):
-
-    def __init__(self):
-        Gtk.VBox.__init__(self)
-
-        self.label_name = Gtk.Label("")
-        self.desc = Gtk.Label("")
-        
-        self.pack_start(self.label_name, False, False, 0)
-        self.pack_start(self.desc, True, True, 0)
-
-    def set_from_package(self, package):
-        self.label_name.set_label(package.name)
-        self.desc.set_markup(str(package.description))
-
-
 class SSCWindow(Gtk.Window):
     
     def __init__(self):
@@ -122,15 +106,7 @@ class SSCWindow(Gtk.Window):
         layout.pack_start(header, False, False, 0)
         self.add(layout)
 
-        #layout.pack_start(center, True, True, 0)
-
         layout.pack_start(self.stack, True, True, 0)
-
-        # Package panel
-        self.package_panel = PackagePanel()
-        self.package_revealer = Gtk.Revealer()
-        self.package_revealer.add(self.package_panel)
-        layout.pack_end(self.package_revealer, False, False, 0)
 
     def nav(self, btn):
         vis = self.stack.get_visible_child_name()
@@ -150,14 +126,3 @@ class SSCWindow(Gtk.Window):
         self.package_page.set_from_package(package, old_package)
         self.stack.set_visible_child_name('package')
         self.back.set_sensitive(True)
-
-    def open_package(self, selection):
-        model, treeiter = selection.get_selected()
-        if treeiter is None:
-            self.package_revealer.set_reveal_child(False)
-            return
-        row = model[treeiter]
-        package = row[3]
-
-        self.package_panel.set_from_package(package)
-        self.package_revealer.set_reveal_child(True)
