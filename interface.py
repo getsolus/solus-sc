@@ -35,7 +35,6 @@ import pisi.api
 from groups import GroupsView
 from components import ComponentsView
 from package_view import PackageView
-from search_view import SearchView
 from basket import BasketView
 from updates import UpdatesView
 
@@ -72,8 +71,6 @@ class SSCWindow(Gtk.Window):
         self.package_page = PackageView(self.packagedb, self.installdb)
         self.package_page.connect('operation-selected', self.operation_selected)
         self.stack.add_named(self.package_page, "package")
-
-        self.search_view = SearchView(self.installdb, self.packagedb, self.basket)
         
         # header area
         header = Gtk.Toolbar()
@@ -119,7 +116,6 @@ class SSCWindow(Gtk.Window):
         # search
         search = Gtk.ToolItem()
         search_entry = Gtk.Entry()
-        search_entry.connect("activate", self.go_search)
         search_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "edit-find-symbolic")
         search.add(search_entry)
         search.set_margin_right(3)
@@ -134,7 +130,6 @@ class SSCWindow(Gtk.Window):
         self.updates_view = UpdatesView(self.packagedb, self.installdb, self.basket)
         self.stack_main.add_named(self.stack, "software")
         self.stack_main.add_named(self.updates_view, "updates")
-        self.stack_main.add_named(self.search_view, "search")
         
         layout.pack_start(self.stack_main, True, True, 0)        
         layout.pack_end(self.basket, False, False, 0)
@@ -148,10 +143,6 @@ class SSCWindow(Gtk.Window):
         else:
             self.select_main_page("software")
 
-    def go_search(self, entry, event=None):
-        self.stack_main.set_visible_child_name("search")
-        self.search_view.search(name=entry.get_text())
-        
     def do_reset(self, basket, extra=None):
         pisi.db.invalidate_caches()
         self.groupdb = groupdb.GroupDB()
