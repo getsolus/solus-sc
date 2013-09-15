@@ -136,6 +136,13 @@ class PackageView(Gtk.VBox):
             self.control_button.set_label("Undo selection")
             self.operation_type = 'FORGET'
 
+    def do_reset(self):
+        if self.package is not None:
+            self.package = self.packagedb.get_package(self.package.name)
+            self.old_package = self.installdb.get_package(self.package.name) if self.installdb.has_package(self.package.name) else None
+
+            self.set_from_package(self.package, self.old_package)
+
     def set_from_package(self, package, old_package):
         self.title.set_markup("<span font='30.5'>%s</span> - <big>%s</big>" % (package.name, package.version))
 
