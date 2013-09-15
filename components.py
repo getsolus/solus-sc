@@ -129,11 +129,7 @@ class ComponentsView(Gtk.VBox):
     def build_packages(self, component=None):
         self.placeholder.set_markup("<span font='30.5'>Loading..</span>")
         for child in self.listbox_packages.get_children():
-            panel = child.get_children()[0]
-            panel.disconnect(panel.sig_id)
-            self.listbox_packages.remove(child)
-            while (Gtk.events_pending()):
-                Gtk.main_iteration()
+            child.destroy()
 
         pkgs = component.packages
         appends = list()

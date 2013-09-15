@@ -81,11 +81,7 @@ class UpdatesView(Gtk.VBox):
     def _load_updates(self):
         updates = pisi.api.list_upgradable()
         for child in self.updates_list.get_children():
-            pan = child.get_children()[0]
-            pan.disconnect(pan.sig_id)
-            self.updates_list.remove(child)
-            while(Gtk.events_pending()):
-                Gtk.main_iteration()
+            child.destroy()
 
         for update in updates:
             old_pkg = self.installdb.get_package(update)
