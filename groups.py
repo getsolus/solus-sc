@@ -24,6 +24,9 @@
 import gi.repository
 from gi.repository import Gtk, GObject
 
+import pisi.api
+from widgets import PackageLabel
+
 class GroupsView(Gtk.VBox):
 
     __gsignals__ = {
@@ -31,14 +34,39 @@ class GroupsView(Gtk.VBox):
                           (object,))
     }
     
-    def __init__(self, groups):
+    def __init__(self, groups, packagedb, installdb):
         Gtk.VBox.__init__(self)
         #self.set_border_width(20)
 
-        self.grid = Gtk.Grid()
-        self.grid.set_margin_top(80)
-        self.pack_end(self.grid, True, True, 0)
+        self.packagedb = packagedb
+        self.installdb = installdb
         
+        # Type-as-you-search
+        self.search = Gtk.Entry()
+        self.search.set_placeholder_text("Search for software")
+        self.search.set_property("margin-right", 100)
+        self.search.set_property("margin-top", 70)
+        self.search.set_property("margin-left", 100)
+
+        self.search.connect("changed", self.searching)
+        self.pack_start(self.search, False, False, 0)
+        
+        self.grid = Gtk.Grid()
+        self.grid.set_margin_top(20)
+
+        self.stack = Gtk.Stack()
+        self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
+        self.stack.add_named(self.grid, "groups")
+
+        self.packages_list = Gtk.ListBox()
+        self.scroller = Gtk.ScrolledWindow(None, None)
+        self.scroller.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+        self.scroller.add(self.packages_list)
+        self.stack.add_named(self.scroller, "packages")
+
+        self.pack_start(self.stack, True, True, 0)
+        
+        ## Grid logic
         row = 0
         column = 0
 
@@ -49,6 +77,9 @@ class GroupsView(Gtk.VBox):
         self.grid.set_border_width(40)
         row = 1
         column = 0
+        
+        row += 1
+        
         for group_name in self.groups.list_groups():
             if column >= max_columns:
                 column = 1
@@ -75,3 +106,50 @@ class GroupsView(Gtk.VBox):
             btn.key_word = group
             btn.connect("clicked", lambda x: self.emit('group-selected', x.key_word))
             self.grid.attach(btn, column-1, row, 1, 1)
+
+        self.packages = list()
+        self.do_reset()
+
+        self.packages_list.set_sort_func(self.sort, None)
+
+    def searching(self, entry, event=None):
+        text = entry.get_text().strip()
+        if text == "":
+            self.search.set_property("margin-top", 70)
+            self.stack.set_visible_child_name("groups")
+        else:
+            self.search.set_property("margin-top", 10)
+            self.stack.set_visible_child_name("packages")
+            self.packages_list.set_filter_func(self.filter, text)
+
+    def filter(self, row, text):
+        child = row.get_children()[0]
+        package = child.package
+        
+        if text in package.name or text in str(package.summary).lower():
+            return True
+        return False
+        
+    def sort(self, row1, row2, data=None):
+        package1 = row1.get_children()[0].package
+        package2 = row2.get_children()[0].package
+
+        return cmp(package1.name, package2.name)
+        
+    def rebuild_all_packages(self, data=None):
+        for child in self.packages_list.get_children():
+            child.destroy()
+            
+        for pkg in pisi.api.list_available():
+            package = self.packagedb.get_package(pkg)
+            old_package = self.installdb.get_package(pkg) if self.installdb.has_package(pkg) else None
+
+            panel = PackageLabel(package, old_package)
+            self.packages_list.add(panel)
+            self.packages_list.show_all()
+            while (Gtk.events_pending()):
+                Gtk.main_iteration()
+        print "Done"
+
+    def do_reset(self):
+        GObject.idle_add(self.rebuild_all_packages)

@@ -60,7 +60,7 @@ class SSCWindow(Gtk.Window):
         self.stack = Gtk.Stack()
         self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
         
-        self.groups_page = GroupsView(self.groupdb)
+        self.groups_page = GroupsView(self.groupdb, self.packagedb, self.installdb)
         self.groups_page.connect('group-selected', self.group_selected)
         self.stack.add_named(self.groups_page, "groups")
 
@@ -119,7 +119,7 @@ class SSCWindow(Gtk.Window):
         search_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "edit-find-symbolic")
         search.add(search_entry)
         search.set_margin_right(3)
-        header.add(search)
+        #header.add(search)
         layout = Gtk.VBox()
         layout.pack_start(header, False, False, 0)
         self.add(layout)
