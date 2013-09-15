@@ -60,7 +60,7 @@ class SSCWindow(Gtk.Window):
         self.stack = Gtk.Stack()
         self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
         
-        self.groups_page = GroupsView(self.groupdb, self.packagedb, self.installdb)
+        self.groups_page = GroupsView(self.groupdb, self.packagedb, self.installdb, self.basket)
         self.groups_page.connect('group-selected', self.group_selected)
         self.stack.add_named(self.groups_page, "groups")
 

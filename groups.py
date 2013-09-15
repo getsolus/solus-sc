@@ -34,12 +34,13 @@ class GroupsView(Gtk.VBox):
                           (object,))
     }
     
-    def __init__(self, groups, packagedb, installdb):
+    def __init__(self, groups, packagedb, installdb, basket):
         Gtk.VBox.__init__(self)
         #self.set_border_width(20)
 
         self.packagedb = packagedb
         self.installdb = installdb
+        self.basket = basket
         
         # Type-as-you-search
         self.search = Gtk.Entry()
@@ -144,12 +145,25 @@ class GroupsView(Gtk.VBox):
             package = self.packagedb.get_package(pkg)
             old_package = self.installdb.get_package(pkg) if self.installdb.has_package(pkg) else None
 
-            panel = PackageLabel(package, old_package)
+            status = self.basket.operation_for_package(package)
+            panel = PackageLabel(package, old_package, interactive=True)
+            panel.sig_id = panel.connect('operation-selected', self.op_select)
+            panel.mark_status(status)
             self.packages_list.add(panel)
             self.packages_list.show_all()
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
         print "Done"
 
+    def op_select(self, package_label, operation, package, old_package):
+        if operation == 'INSTALL':
+            self.basket.install_package(package)
+        elif operation == 'UNINSTALL':
+            self.basket.remove_package(old_package)
+        elif operation == 'UPDATE':
+            self.basket.update_package(old_package, package)
+        elif operation == 'FORGET':
+            self.basket.forget_package(package)
+            
     def do_reset(self):
         GObject.idle_add(self.rebuild_all_packages)
