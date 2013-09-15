@@ -108,6 +108,8 @@ class PackageView(Gtk.VBox):
         self.update_label = Gtk.Label("")
         self.pack_start(self.update_label, False, False, 0)
 
+        self.package = None
+
 
     def _do_emit(self, btn, data=None):
         self.emit('operation-selected', self.operation_type, self.package, self.old_package)
