@@ -81,12 +81,6 @@ class SSCWindow(Gtk.Window):
         box.get_style_context().add_class(Gtk.STYLE_CLASS_LINKED)
         box.get_style_context().add_class(Gtk.STYLE_CLASS_RAISED)
 
-        self.back = Gtk.ToolButton("Back")
-        self.back.set_sensitive(False)
-        self.back.set_icon_name("go-previous")
-        self.back.connect("clicked", self.nav)
-        header.add(self.back)
-
         self.buttons = dict()
         soft = Gtk.ToggleButton("Software")
         self.buttons[soft] = "software"
@@ -133,7 +127,23 @@ class SSCWindow(Gtk.Window):
         
         layout.pack_start(self.stack_main, True, True, 0)        
         layout.pack_end(self.basket, False, False, 0)
-        
+
+        self.back = Gtk.Button()
+        itheme = Gtk.IconTheme.get_default()
+        ic = itheme.load_icon("go-previous-symbolic", 16, Gtk.IconLookupFlags.GENERIC_FALLBACK)
+        im = Gtk.Image()
+        im.set_from_pixbuf(ic)
+        self.back.set_image(im)
+        self.back.connect('clicked', self.nav)
+        self.back.set_sensitive(False)
+
+        header = Gtk.HeaderBar()
+        header.set_title("Software Manager")
+        header.set_show_close_button(True)
+        header.show_all()
+        header.pack_start(self.back)
+        self.set_titlebar(header)
+
         self.show_all()
         self.stack_main.hide()
         GObject.idle_add(self.update_count)
