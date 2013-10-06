@@ -43,6 +43,7 @@ class SSCWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self)
         
+        self.set_wmclass("Software", "Software")
         self.set_title("Software")
         self.connect("destroy", Gtk.main_quit)
         self.set_size_request(700, 500)
