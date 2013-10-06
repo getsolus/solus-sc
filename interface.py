@@ -151,6 +151,9 @@ class SSCWindow(Gtk.Window):
 
             if hasattr(page, 'do_reset'):
                 page.do_reset()
+                
+        # reset update count
+        self.update_count()
 
     def update_count(self):
         count = len(pisi.api.list_upgradable())
