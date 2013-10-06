@@ -97,25 +97,7 @@ class SSCWindow(Gtk.Window):
         self.buttons[self.update] = "updates"
         box.add(self.update)
 
-        item = Gtk.ToolItem()
-        item.add(box)
-        header.add(item)
-        
-        # butt it all up to the end of the toolbar now
-        sep = Gtk.SeparatorToolItem()
-        sep.set_expand(True)
-        sep.set_draw(False)
-        header.add(sep)
-
-        # search
-        search = Gtk.ToolItem()
-        search_entry = Gtk.Entry()
-        search_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "edit-find-symbolic")
-        search.add(search_entry)
-        search.set_margin_right(3)
-        #header.add(search)
         layout = Gtk.VBox()
-        layout.pack_start(header, False, False, 0)
         self.add(layout)
 
         self.stack_main = Gtk.Stack()
@@ -138,10 +120,11 @@ class SSCWindow(Gtk.Window):
         self.back.set_sensitive(False)
 
         header = Gtk.HeaderBar()
-        header.set_title("Software Manager")
         header.set_show_close_button(True)
         header.show_all()
         header.pack_start(self.back)
+        
+        header.set_custom_title(box)
         self.set_titlebar(header)
 
         self.show_all()
