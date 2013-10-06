@@ -26,7 +26,7 @@ from gi.repository import Gtk, GObject
 
 import comar
 
-class BasketView(Gtk.VBox):
+class BasketView(Gtk.Revealer):
 
     __gsignals__ = {
         'basket-changed': (GObject.SIGNAL_RUN_FIRST, None,
@@ -34,18 +34,19 @@ class BasketView(Gtk.VBox):
     }
     
     def __init__(self, packagedb, installdb):
-        Gtk.VBox.__init__(self)
+        Gtk.Revealer.__init__(self)
 
         self.packagedb = packagedb
         
         self.title = Gtk.Label("Software basket")
         self.title.set_use_markup(True)
 
+        self.layout = Gtk.VBox()
 
         self.progress = Gtk.ProgressBar()
         self.revealer = Gtk.Revealer()
         self.revealer.add(self.progress)
-        self.pack_start(self.revealer, False, False, 0)
+        self.layout.pack_start(self.revealer, False, False, 0)
         self.revealer.set_reveal_child(False)
 
         self.toolbar = Gtk.Toolbar()
@@ -54,8 +55,9 @@ class BasketView(Gtk.VBox):
         label_item.add(self.title)
         self.toolbar.add(label_item)
 
-        self.pack_start(self.toolbar, False, False, 0)
+        self.layout.pack_start(self.toolbar, False, False, 0)
 
+        self.add(self.layout)
         sep = Gtk.SeparatorToolItem()
         sep.set_expand(True)
         sep.set_draw(False)
@@ -95,14 +97,15 @@ class BasketView(Gtk.VBox):
     def update_ui(self):
         count = self.operation_count()
         if count == 0:
-            self.title.set_markup("No operations are currently pending")
             self.apply.set_sensitive(False)
+            self.set_reveal_child(False)
             return
         self.apply.set_sensitive(True)
         if count > 1:
             self.title.set_markup("%d operations pending" % self.operation_count())
         else:
             self.title.set_markup("One operation pending")
+        self.set_reveal_child(True)
 
     def operation_for_package(self, package):
         if package.name in self.operations:
