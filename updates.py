@@ -51,6 +51,8 @@ class UpdatesView(Gtk.VBox):
 
         # Check again for updates
         check_updates = Gtk.Button("Check for updates now")
+        check_updates.set_valign(Gtk.Align.CENTER)
+        check_updates.set_halign(Gtk.Align.CENTER)
         self.placeholder_box.pack_end(check_updates, False, False, 0)
         check_updates.connect("clicked", self.refresh_repos)
         

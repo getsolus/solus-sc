@@ -36,16 +36,16 @@ class GroupsView(Gtk.VBox):
     
     def __init__(self, groups, packagedb, installdb, basket):
         Gtk.VBox.__init__(self)
-        #self.set_border_width(20)
 
         self.packagedb = packagedb
         self.installdb = installdb
         self.basket = basket
         
         # Type-as-you-search
-        self.search = Gtk.Entry()
+        self.search = Gtk.SearchEntry()
         self.search.set_placeholder_text("Search for software")
         self.search.set_property("margin-right", 100)
+        self.search.set_property("margin-bottom", 10)
         self.search.set_property("margin-top", 70)
         self.search.set_property("margin-left", 100)
 

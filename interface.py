@@ -72,31 +72,6 @@ class SSCWindow(Gtk.Window):
         self.package_page = PackageView(self.packagedb, self.installdb)
         self.package_page.connect('operation-selected', self.operation_selected)
         self.stack.add_named(self.package_page, "package")
-        
-        # header area
-        header = Gtk.Toolbar()
-        header.get_style_context().add_class(Gtk.STYLE_CLASS_PRIMARY_TOOLBAR)
-
-        box = Gtk.ButtonBox()
-        box.set_layout(Gtk.ButtonBoxStyle.CENTER)
-        box.get_style_context().add_class(Gtk.STYLE_CLASS_LINKED)
-        box.get_style_context().add_class(Gtk.STYLE_CLASS_RAISED)
-
-        self.buttons = dict()
-        soft = Gtk.ToggleButton("Software")
-        self.buttons[soft] = "software"
-        soft.sig_id = soft.connect("clicked", self.main_header_nav, "software")
-        box.add(soft)
-
-        prefs = Gtk.ToggleButton("Preferences")
-        prefs.sig_id = prefs.connect("clicked", self.main_header_nav, "preferences")
-        self.buttons[prefs] = "preferences"
-        box.add(prefs)
-
-        self.update = Gtk.ToggleButton("Updates")
-        self.update.sig_id = self.update.connect("clicked", self.main_header_nav, "updates")
-        self.buttons[self.update] = "updates"
-        box.add(self.update)
 
         layout = Gtk.VBox()
         self.add(layout)
@@ -106,17 +81,14 @@ class SSCWindow(Gtk.Window):
 
         self.updates_view = UpdatesView(self.packagedb, self.installdb, self.basket)
         self.stack_main.add_named(self.stack, "software")
+        self.stack_main.child_set_property(self.stack, "title", "Software")
         self.stack_main.add_named(self.updates_view, "updates")
+        self.stack_main.child_set_property(self.updates_view, "title", "Updates")
         
         layout.pack_start(self.stack_main, True, True, 0)        
         layout.pack_end(self.basket, False, False, 0)
 
-        self.back = Gtk.Button()
-        itheme = Gtk.IconTheme.get_default()
-        ic = itheme.load_icon("go-previous-symbolic", 16, Gtk.IconLookupFlags.GENERIC_FALLBACK)
-        im = Gtk.Image()
-        im.set_from_pixbuf(ic)
-        self.back.set_image(im)
+        self.back = Gtk.Button.new_from_icon_name("go-previous-symbolic", Gtk.IconSize.BUTTON)
         self.back.connect('clicked', self.nav)
         self.back.set_sensitive(False)
 
@@ -124,18 +96,19 @@ class SSCWindow(Gtk.Window):
         header.set_show_close_button(True)
         header.show_all()
         header.pack_start(self.back)
-        
-        header.set_custom_title(box)
+        self.switcher = Gtk.StackSwitcher()
+        self.switcher.set_stack(self.stack_main)
+        header.set_custom_title(self.switcher)
+        self.switcher.show_all()
         self.set_titlebar(header)
 
         self.show_all()
-        self.stack_main.hide()
         GObject.idle_add(self.update_count)
 
         if "--update" in sys.argv:
-            self.select_main_page("updates")
+            self.stack_main.set_visible_child_name("updates")
         else:
-            self.select_main_page("software")
+            self.stack_main.set_visible_child_name("software")
 
     def do_reset(self, basket, extra=None):
         pisi.db.invalidate_caches()
@@ -159,28 +132,9 @@ class SSCWindow(Gtk.Window):
     def update_count(self):
         count = len(pisi.api.list_upgradable())
         if count > 0:
-            self.update.set_label("Updates (%d)" % count)
+            self.stack_main.child_set_property(self.updates_view, "title", "Updates (%d)" % count)
         else:
-            self.update.set_label("Updates")
-
-    def main_header_nav(self, btn, data=None):
-        self.select_main_page(data)
-
-    def select_main_page(self, name):
-        buttons_disable = [btn for btn in self.buttons if self.buttons[btn] != name]
-        button_enable = [btn for btn in self.buttons if self.buttons[btn] == name][0]
-
-        button_enable.handler_block(button_enable.sig_id)
-        button_enable.set_active(True)
-        button_enable.handler_unblock(button_enable.sig_id)
-        
-        for button in buttons_disable:
-            button.handler_block(button.sig_id)
-            button.set_active(False)
-            button.handler_unblock(button.sig_id)
-        self.stack_main.set_visible_child_name(name)
-        self.stack_main.show_all()
-
+            self.stack_main.child_set_property(self.updates_view, "title", "Updates")
 
     def nav(self, btn):
         vis = self.stack.get_visible_child_name()
