@@ -1,7 +1,1 @@
-SolusOS Software Center
---------------------
-
-Authors
--------
- * Ikey Doherty <ikey@solusos.com>
- 
+Evolve OS Software Center
