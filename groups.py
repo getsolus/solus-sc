@@ -41,17 +41,6 @@ class GroupsView(Gtk.VBox):
         self.installdb = installdb
         self.basket = basket
         
-        # Type-as-you-search
-        self.search = Gtk.SearchEntry()
-        self.search.set_placeholder_text("Search for software")
-        self.search.set_property("margin-right", 100)
-        self.search.set_property("margin-bottom", 10)
-        self.search.set_property("margin-top", 70)
-        self.search.set_property("margin-left", 100)
-
-        self.search.connect("changed", self.searching)
-        self.pack_start(self.search, False, False, 0)
-        
         self.grid = Gtk.Grid()
         self.grid.set_margin_top(20)
 
@@ -116,10 +105,8 @@ class GroupsView(Gtk.VBox):
     def searching(self, entry, event=None):
         text = entry.get_text().strip()
         if text == "":
-            self.search.set_property("margin-top", 70)
             self.stack.set_visible_child_name("groups")
         else:
-            self.search.set_property("margin-top", 10)
             self.stack.set_visible_child_name("packages")
             self.packages_list.set_filter_func(self.filter, text)
 

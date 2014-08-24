@@ -76,6 +76,17 @@ class SSCWindow(Gtk.Window):
         layout = Gtk.VBox()
         self.add(layout)
 
+        self.search_bar = Gtk.SearchBar()
+        self.search_bar.set_halign(Gtk.Align.FILL)
+
+        entry = Gtk.SearchEntry()
+        entry.connect("search-changed", self.search_changed)
+        self.search_bar.add(entry)
+        self.search_bar.connect_entry(entry)
+        layout.pack_start(self.search_bar, False, False, 0)
+
+        self.connect("key-press-event", lambda x,y: self.search_bar.handle_event(y))
+
         self.stack_main = Gtk.Stack()
         self.stack_main.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
 
@@ -109,6 +120,12 @@ class SSCWindow(Gtk.Window):
             self.stack_main.set_visible_child_name("updates")
         else:
             self.stack_main.set_visible_child_name("software")
+
+    def search_changed(self, w, data=None):
+        text = w.get_text().strip()
+        if text == "":
+            self.search_bar.set_search_mode(False)
+        self.groups_page.searching(w)
 
     def do_reset(self, basket, extra=None):
         pisi.db.invalidate_caches()
