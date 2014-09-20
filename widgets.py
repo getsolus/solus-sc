@@ -27,6 +27,13 @@ from gi.repository import Gtk, GObject
 import pisi.api
 
 GENERIC = "package-x-generic"
+UPDATE_ICON = "package-upgrade"
+REMOVE_ICON = "package-remove"
+INSTALL_ICON = "package-install"
+
+INSTALLED_ICON = "emblem-ok-symbolic"
+OLD_ICON = "emblem-important-symbolic"
+AVAILABLE_ICON = "list-add-symbolic"
 
 def do_justif(label):
     label.set_alignment(0.0, 0.5)
@@ -81,11 +88,11 @@ class PackageLabel(Gtk.VBox):
         
     def mark_status(self, status):
         if status == 'INSTALL':
-            self.image_status.set_from_icon_name("package-install", Gtk.IconSize.SMALL_TOOLBAR)
+            self.image_status.set_from_icon_name(INSTALL_ICON, Gtk.IconSize.SMALL_TOOLBAR)
         elif status == 'UNINSTALL':
-            self.image_status.set_from_icon_name("package-remove", Gtk.IconSize.SMALL_TOOLBAR)
+            self.image_status.set_from_icon_name(REMOVE_ICON, Gtk.IconSize.SMALL_TOOLBAR)
         elif status == 'UPDATE':
-            self.image_status.set_from_icon_name("package-upgrade", Gtk.IconSize.SMALL_TOOLBAR)
+            self.image_status.set_from_icon_name(UPDATE_ICON, Gtk.IconSize.SMALL_TOOLBAR)
         elif status == None or status == 'FORGET':
             self.reset_image()
         self.status = status
@@ -96,11 +103,11 @@ class PackageLabel(Gtk.VBox):
             old_version = self.old_package.release
 
             if new_version > old_version:
-                self.image_status.set_from_icon_name("package-installed-outdated", Gtk.IconSize.SMALL_TOOLBAR)
+                self.image_status.set_from_icon_name(OLD_ICON, Gtk.IconSize.SMALL_TOOLBAR)
                 self.package_status = 'UPDATE'
             else:
-                self.image_status.set_from_icon_name("package-installed-updated", Gtk.IconSize.SMALL_TOOLBAR)
+                self.image_status.set_from_icon_name(INSTALLED_ICON, Gtk.IconSize.SMALL_TOOLBAR)
                 self.package_status = 'UNINSTALL'
         else:
-            self.image_status.set_from_icon_name("package-available", Gtk.IconSize.SMALL_TOOLBAR)
+            self.image_status.set_from_icon_name(AVAILABLE_ICON, Gtk.IconSize.SMALL_TOOLBAR)
             self.package_status = 'INSTALL'
