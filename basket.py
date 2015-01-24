@@ -34,6 +34,8 @@ class BasketView(Gtk.Revealer):
 
     __gsignals__ = {
         'basket-changed': (GObject.SIGNAL_RUN_FIRST, None,
+                          (object,)),
+        'apply': (GObject.SIGNAL_RUN_FIRST, None,
                           (object,))
     }
     
@@ -286,6 +288,7 @@ class BasketView(Gtk.Revealer):
 
         STEPS = 4 # We monitor 4 post events
 
+        self.emit('apply', None)
         print "%d packages updated" % len(updates)
         print "%d packages installed" % len(installs)
         print "%d packages removed" % len(removals)

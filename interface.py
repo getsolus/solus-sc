@@ -59,6 +59,7 @@ class SSCWindow(Gtk.Window):
         # Operations go in the basket
         self.basket = BasketView(self.packagedb, self.installdb)
         self.basket.connect('basket-changed', self.do_reset)
+        self.basket.connect('apply', self.do_apply)
                 
         self.stack = Gtk.Stack()
         self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
@@ -142,7 +143,7 @@ class SSCWindow(Gtk.Window):
     def init_css(self):
         ''' Temporary... '''
         css = Gtk.CssProvider()
-        f = Gio.File.new_for_path("style.css")
+        f = Gio.File.new_for_path("/usr/lib/evolve-sc/style.css")
         css.load_from_file(f)
         Gtk.StyleContext.add_provider_for_screen(self.get_screen(), css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
@@ -162,6 +163,11 @@ class SSCWindow(Gtk.Window):
         self.search_btn.thaw_notify()
 
         self.groups_page.searching(w)
+
+    def do_apply(self, basket, e=None):
+        self.stack.set_visible_child_name('groups')
+        self.back.set_sensitive(False)
+        self.search_entry.set_text("")
 
     def do_reset(self, basket, extra=None):
         pisi.db.invalidate_caches()
