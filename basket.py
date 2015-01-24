@@ -25,6 +25,10 @@ import gi.repository
 from gi.repository import Gtk, GObject
 
 import comar
+from pisi.operations.install import plan_install_pkg_names
+from pisi.operations.remove import plan_remove
+from pisi.operations.upgrade import plan_upgrade
+from widgets import PackageLabel
 
 class BasketView(Gtk.Revealer):
 
@@ -37,7 +41,8 @@ class BasketView(Gtk.Revealer):
         Gtk.Revealer.__init__(self)
 
         self.packagedb = packagedb
-        
+        self.installdb = installdb
+
         self.title = Gtk.Label("Software basket")
         self.title.set_use_markup(True)
 
@@ -201,6 +206,7 @@ class BasketView(Gtk.Revealer):
                 self.cb()
             self.cb = None
             self.set_progress(None,None)
+            self.update_ui()
             return
 
     def update_repo(self, cb=None):
@@ -219,6 +225,60 @@ class BasketView(Gtk.Revealer):
         self.operations = dict()
         self.emit('basket-changed', None)
 
+    def show_dialog(self, pkgs, remove=False, update=False, install=True):
+        markup = "<big>The following packages need to be installed to continue</big>"
+
+        dlg = Gtk.MessageDialog(self.get_toplevel(), Gtk.DialogFlags.MODAL | Gtk.DialogFlags.USE_HEADER_BAR,
+            Gtk.MessageType.QUESTION, Gtk.ButtonsType.OK_CANCEL)
+            
+        dlg = Gtk.Dialog(use_header_bar=1)
+        dlg.set_title("Installation confirmation")
+        if remove:
+            markup = "<big>The following packages need to be removed to continue</big>"
+            dlg.set_title("Removal confirmation")
+        elif update:
+            markup = "<big>The following packages need to be updated to continue</big>"
+            dlg.set_title("Update confirmation")
+
+        lab = Gtk.Label(markup)
+        lab.set_use_markup(True)
+        box = Gtk.HBox(0)
+        box.set_property("margin", 5)
+        box.pack_start(lab, True, True, 0)
+        dlg.get_content_area().pack_start(box, False, False, 0)
+        dlg.get_content_area().set_border_width(5)
+        dlg.get_action_area().set_border_width(5)
+        
+        scroll = Gtk.ScrolledWindow(None, None)
+        lbox = Gtk.ListBox()
+        scroll.add(lbox)
+        scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+        scroll.set_property("margin", 5)
+        
+        for pkg in pkgs:
+            if remove:
+                package = self.installdb.get_package(pkg)
+            else:
+                package = self.packagedb.get_package(pkg)
+            panel = PackageLabel(package, None, interactive=False)
+            lbox.add(panel)
+        dlg.get_content_area().pack_start(scroll, True, True, 0)
+        dlg.get_content_area().show_all()
+
+        btn = dlg.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        if not remove:
+            btn = dlg.add_button("Install" if install else "Update", Gtk.ResponseType.OK)
+            btn.get_style_context().add_class("suggested-action")
+        else:
+            btn = dlg.add_button("Remove", Gtk.ResponseType.OK)
+            btn.get_style_context().add_class("destructive-action")
+        dlg.set_default_size(250, 400)
+        res = dlg.run()
+        dlg.destroy()
+        if res == Gtk.ResponseType.OK:
+            return True
+        return False
+
     def apply_operations(self, btn):
         updates = [i for i in self.operations if self.operations[i] == 'UPDATE']
         installs = [i for i in self.operations if self.operations[i] == 'INSTALL']
@@ -229,6 +289,8 @@ class BasketView(Gtk.Revealer):
         print "%d packages updated" % len(updates)
         print "%d packages installed" % len(installs)
         print "%d packages removed" % len(removals)
+        
+        setAct = False
 
         for packageset in [updates, installs, removals]:
             if len(packageset) == 0:
@@ -236,8 +298,32 @@ class BasketView(Gtk.Revealer):
                 
             self.current_package = 1
             self.current_dl_package = 1
-            self.total_packages = len(packageset)
             
+            if packageset == installs:
+                (pg,pkgs) = plan_install_pkg_names(packageset)
+                if len(pkgs) > len(packageset):
+                    if self.show_dialog(pkgs):
+                        installs = packageset = pkgs
+                    else:
+                        print "Not installing"
+                        continue
+            elif packageset == removals:
+                (pk,pkgs) = plan_remove(packageset)
+                if self.show_dialog(pkgs, remove=True):
+                    removals = packageset = pkgs
+                else:
+                    print "Not removing"
+                    continue
+            elif packageset == removals:
+                (pk,pkgs) = plan_upgrade(packageset)
+                if self.show_dialog(pkgs, update=True):
+                    updates = packageset = pkgs
+                else:
+                    print "Not updating"
+                    continue
+            self.total_packages = len(packageset)
+            setAct = True
+
             if packageset != removals:
                 self.total_size = self.get_sizes(packageset)
                 self.step_offset = self.total_size / 10 # one tenth of progress is post install
@@ -257,3 +343,6 @@ class BasketView(Gtk.Revealer):
                 self.pmanager.installPackage(",".join(packageset), async=self.pisi_callback)
             elif packageset == removals:
                 self.pmanager.removePackage(",".join(packageset), async=self.pisi_callback)
+        if not setAct:
+            self.invalidate_all()
+            self.update_ui()
