@@ -134,6 +134,11 @@ class SSCWindow(Gtk.Window):
         Gtk.StyleContext.add_provider_for_screen(self.get_screen(), css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def search_changed(self, w, data=None):
+        if self.stack.get_visible_child_name() not in ["groups", "package"]:
+            print self.stack.get_visible_child_name()
+            self.stack.set_visible_child_name("groups")
+        if self.stack_main.get_visible_child_name() != "software":
+            self.stack_main.set_visible_child_name("software")
         text = w.get_text().strip()
         if text == "":
             self.search_bar.set_search_mode(False)
