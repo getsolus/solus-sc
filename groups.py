@@ -50,6 +50,12 @@ class GroupsView(Gtk.VBox):
         self.stack.add_named(self.grid, "groups")
 
         self.packages_list = Gtk.ListBox()
+        placeholder = Gtk.Label("<big>Searching</big>")
+        self.placeholder = placeholder
+        placeholder.set_use_markup(True)
+        placeholder.get_style_context().add_class("dim-label")
+        self.packages_list.set_placeholder(placeholder)
+        placeholder.show_all()
         self.packages_list.connect("row-activated", self._selected)
         self.scroller = Gtk.ScrolledWindow(None, None)
         self.scroller.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
@@ -107,6 +113,16 @@ class GroupsView(Gtk.VBox):
         else:
             self.stack.set_visible_child_name("packages")
             self.packages_list.set_filter_func(self.filter, text)
+            
+            res = False
+            for child in self.packages_list.get_children():
+                if child.get_visible() and child.get_child_visible():
+                    res = True
+                    break
+            if not res:
+                self.placeholder.set_markup("<big>Sorry, no results</big>")
+            else:
+                self.placeholder.set_markup("<big>Searching</big>")
 
     def filter(self, row, text):
         child = row.get_children()[0]
@@ -132,7 +148,7 @@ class GroupsView(Gtk.VBox):
     def rebuild_all_packages(self, data=None):
         for child in self.packages_list.get_children():
             child.destroy()
-            
+        
         for pkg in pisi.api.list_available():
             package = self.packagedb.get_package(pkg)
             old_package = self.installdb.get_package(pkg) if self.installdb.has_package(pkg) else None
