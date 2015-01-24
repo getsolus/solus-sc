@@ -109,6 +109,7 @@ class SSCWindow(Gtk.Window):
         self.back.set_sensitive(False)
 
         header = Gtk.HeaderBar()
+        header.set_title("Software Center")
         header.set_show_close_button(True)
         header.show_all()
         header.pack_start(self.back)

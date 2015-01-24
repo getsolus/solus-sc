@@ -21,6 +21,9 @@
 #  MA 02110-1301, USA.
 #  
 #
+import sys
+sys.path.append("/usr/lib/evolve-sc")
+
 import gi.repository
 from gi.repository import Gtk, Gdk, GObject
 from dbus.mainloop.glib import DBusGMainLoop
