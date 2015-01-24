@@ -42,17 +42,20 @@ class ComponentsView(Gtk.VBox):
         self.basket = basket
         
         self.components_view = Gtk.TreeView()
+        self.components_view.set_grid_lines(Gtk.TreeViewGridLines.HORIZONTAL)
+        self.components_view.set_size_request(10, 10)
         self.components_view.set_headers_visible(False)
         selection = self.components_view.get_selection()
         self._sig_id = selection.connect("changed", self.open_component)
         ren = Gtk.CellRendererText()
+        ren.set_property("ypad", 8)
         column = Gtk.TreeViewColumn("Component", ren)
         column.add_attribute(ren, "markup", 0)
         self.components_view.append_column(column)
 
         scroller = Gtk.ScrolledWindow(None, None)
         scroller.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        scroller.add(self.components_view)
+        scroller.add_with_viewport(self.components_view)
 
         self.listbox_packages = Gtk.ListBox()
 
@@ -72,7 +75,7 @@ class ComponentsView(Gtk.VBox):
         center.pack_start(scroller, False, False, 0)
         center.pack_start(scroller2, True, True, 0)
 
-        self.add(center)
+        self.pack_start(center, True, True, 0)
 
     def _selected(self, box, row):
         if row is None:
@@ -85,7 +88,7 @@ class ComponentsView(Gtk.VBox):
         store = Gtk.ListStore(str,str,object)
         for component_key in components:
             component = self.componentdb.get_component(component_key)
-            store.append([str(component.localName), str(component.description), component])
+            store.append([str(component.localName), str(component.localName), component])
         store.set_sort_column_id(0, Gtk.SortType.ASCENDING)
         self.components_view.set_model(store)
 

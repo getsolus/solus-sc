@@ -24,7 +24,7 @@
 import gi.repository
 import sys
 
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GObject, Gio
 import pisi.db
 import pisi.db.componentdb as componentdb
 import pisi.db.installdb as installdb
@@ -43,7 +43,7 @@ class SSCWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self)
         
-        self.set_wmclass("Software", "Software")
+        self.init_css()
         self.set_title("Software")
         self.connect("destroy", Gtk.main_quit)
         self.set_size_request(700, 500)
@@ -77,6 +77,7 @@ class SSCWindow(Gtk.Window):
         self.add(layout)
 
         self.search_bar = Gtk.SearchBar()
+        self.search_bar.get_style_context().add_class("primary-toolbar")
         self.search_bar.set_halign(Gtk.Align.FILL)
 
         entry = Gtk.SearchEntry()
@@ -120,6 +121,13 @@ class SSCWindow(Gtk.Window):
             self.stack_main.set_visible_child_name("updates")
         else:
             self.stack_main.set_visible_child_name("software")
+
+    def init_css(self):
+        ''' Temporary... '''
+        css = Gtk.CssProvider()
+        f = Gio.File.new_for_path("style.css")
+        css.load_from_file(f)
+        Gtk.StyleContext.add_provider_for_screen(self.get_screen(), css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def search_changed(self, w, data=None):
         text = w.get_text().strip()
