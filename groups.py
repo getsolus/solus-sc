@@ -31,7 +31,9 @@ class GroupsView(Gtk.VBox):
 
     __gsignals__ = {
         'group-selected': (GObject.SIGNAL_RUN_FIRST, None,
-                          (object,))
+                          (object,)),
+        'package-selected': (GObject.SIGNAL_RUN_FIRST, None,
+                          (object,object))
     }
     
     def __init__(self, groups, packagedb, installdb, basket):
@@ -48,6 +50,7 @@ class GroupsView(Gtk.VBox):
         self.stack.add_named(self.grid, "groups")
 
         self.packages_list = Gtk.ListBox()
+        self.packages_list.connect("row-activated", self._selected)
         self.scroller = Gtk.ScrolledWindow(None, None)
         self.scroller.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
         self.scroller.add(self.packages_list)
@@ -112,7 +115,14 @@ class GroupsView(Gtk.VBox):
         if text in package.name or text in str(package.summary).lower():
             return True
         return False
-        
+
+    def _selected(self, box, row):
+        if row is None:
+            return
+        child = row.get_children()[0]
+
+        self.emit('package-selected', child.package, child.old_package)
+
     def sort(self, row1, row2, data=None):
         package1 = row1.get_children()[0].package
         package2 = row2.get_children()[0].package

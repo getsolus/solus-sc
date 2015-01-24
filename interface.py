@@ -40,6 +40,8 @@ from updates import UpdatesView
 
 class SSCWindow(Gtk.Window):
     
+    old_view = ''
+
     def __init__(self):
         Gtk.Window.__init__(self)
         
@@ -63,6 +65,7 @@ class SSCWindow(Gtk.Window):
         
         self.groups_page = GroupsView(self.groupdb, self.packagedb, self.installdb, self.basket)
         self.groups_page.connect('group-selected', self.group_selected)
+        self.groups_page.connect('package-selected', self.package_selected)
         self.stack.add_named(self.groups_page, "groups")
 
         self.components_page = ComponentsView(self.componentdb, self.installdb, self.basket)
@@ -85,6 +88,7 @@ class SSCWindow(Gtk.Window):
         self.search_bar.add(entry)
         self.search_bar.connect_entry(entry)
         layout.pack_start(self.search_bar, False, False, 0)
+        self.search_entry = entry
 
         self.connect("key-press-event", lambda x,y: self.search_bar.handle_event(y))
 
@@ -163,14 +167,16 @@ class SSCWindow(Gtk.Window):
 
     def nav(self, btn):
         vis = self.stack.get_visible_child_name()
-        if vis == "package":
-            self.stack.set_visible_child_name('components')
-        elif vis == "components":
-            self.stack.set_visible_child_name("groups")
+        if (vis == self.old_view):
+            vis = self.old_view = "groups"
+        self.stack.set_visible_child_name(self.old_view)
+        if self.old_view == "groups":
             self.back.set_sensitive(False)
+        return
 
     def group_selected(self, groups_view, group):
         # Do not lock up for anyone :)
+        self.old_view= self.stack.get_visible_child_name()
         self.stack.set_visible_child_name('components')
         self.back.set_sensitive(True)
         GObject.idle_add(self._group_selected, group)
@@ -184,8 +190,10 @@ class SSCWindow(Gtk.Window):
         op = self.basket.operation_for_package(package)
         if op is not None:
             self.package_page.mark_selection(op)
+        self.old_view = self.stack.get_visible_child_name()
         self.stack.set_visible_child_name('package')
         self.back.set_sensitive(True)
+        self.search_entry.set_text("")
 
     def operation_selected(self, view, operation, package, old_package):
         if operation == 'INSTALL':
