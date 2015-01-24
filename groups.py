@@ -70,6 +70,8 @@ class GroupsView(Gtk.VBox):
 
         self.grid.set_border_width(40)
         self.grid.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.grid.set_row_spacing(0)
+        self.grid.set_valign(Gtk.Align.START)
 
         
         for group_name in self.groups.list_groups():
@@ -98,7 +100,7 @@ class GroupsView(Gtk.VBox):
             #btn.set_halign(Gtk.Align.CENTER)
             btn.set_hexpand(False)
             btn.set_vexpand(False)
-            btn.set_valign(Gtk.Align.CENTER)
+            btn.set_valign(Gtk.Align.START)
             self.grid.add(btn)
 
         self.packages = list()
