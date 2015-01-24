@@ -65,10 +65,11 @@ class GroupsView(Gtk.VBox):
         
         for group_name in self.groups.list_groups():
             group = self.groups.get_group(group_name)
-
+            components = self.groups.get_group_components(group_name)
+            if len(components) == 0:
+                continue
             btn = Gtk.Button()
             btn.set_relief(Gtk.ReliefStyle.NONE)
-            components = self.groups.get_group_components(group_name)
             label = Gtk.Label("<b>%s</b>\n<small>%d categories</small>" % (str(group.localName), len(components)))
             label.set_use_markup(True)
             label.set_justify(Gtk.Justification.LEFT)
