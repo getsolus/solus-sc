@@ -41,8 +41,7 @@ class GroupsView(Gtk.VBox):
         self.installdb = installdb
         self.basket = basket
         
-        self.grid = Gtk.Grid()
-        self.grid.set_margin_top(20)
+        self.grid = Gtk.FlowBox()
 
         self.stack = Gtk.Stack()
         self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
@@ -56,26 +55,15 @@ class GroupsView(Gtk.VBox):
 
         self.pack_start(self.stack, True, True, 0)
         
-        ## Grid logic
-        row = 0
-        column = 0
-
         self.groups = groups
         group_names = self.groups.list_groups()
         max_columns = int(len(group_names) / 2)
 
         self.grid.set_border_width(40)
-        row = 1
-        column = 0
-        
-        row += 1
+        self.grid.set_selection_mode(Gtk.SelectionMode.NONE)
+
         
         for group_name in self.groups.list_groups():
-            if column >= max_columns:
-                column = 1
-                row += 1
-            else:
-                column += 1
             group = self.groups.get_group(group_name)
 
             btn = Gtk.Button()
@@ -84,18 +72,24 @@ class GroupsView(Gtk.VBox):
             label = Gtk.Label("<b>%s</b>\n<small>%d categories</small>" % (str(group.localName), len(components)))
             label.set_use_markup(True)
             label.set_justify(Gtk.Justification.LEFT)
-            label.set_alignment(0.1, 0.1)
+            label.set_halign(Gtk.Align.START)
             image = Gtk.Image()
             image.set_from_icon_name(group.icon, Gtk.IconSize.DIALOG)
 
             btn_layout = Gtk.HBox()
             btn.add(btn_layout)
-            btn_layout.pack_start(image, False, False, 5)
+            btn_layout.pack_start(image, False, False, 0)
+            image.set_halign(Gtk.Align.START)
             btn_layout.pack_start(label, True, True, 0)
-
+            label.set_halign(Gtk.Align.START)
+            label.set_margin_left(10)
             btn.key_word = group
             btn.connect("clicked", lambda x: self.emit('group-selected', x.key_word))
-            self.grid.attach(btn, column-1, row, 1, 1)
+            #btn.set_halign(Gtk.Align.CENTER)
+            btn.set_hexpand(False)
+            btn.set_vexpand(False)
+            btn.set_valign(Gtk.Align.CENTER)
+            self.grid.add(btn)
 
         self.packages = list()
         self.do_reset()

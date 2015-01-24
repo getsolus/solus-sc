@@ -46,7 +46,7 @@ class SSCWindow(Gtk.Window):
         self.init_css()
         self.set_title("Software")
         self.connect("destroy", Gtk.main_quit)
-        self.set_size_request(700, 500)
+        self.set_default_size(700, 500)
         self.set_position(Gtk.WindowPosition.CENTER)
 
         self.groupdb = groupdb.GroupDB()
