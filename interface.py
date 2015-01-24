@@ -116,6 +116,13 @@ class SSCWindow(Gtk.Window):
         self.switcher.set_stack(self.stack_main)
         header.set_custom_title(self.switcher)
         self.switcher.show_all()
+
+        simg = Gtk.Image.new_from_icon_name("edit-find-symbolic", Gtk.IconSize.BUTTON)
+        search_btn = Gtk.ToggleButton()
+        search_btn.set_image(simg)
+        search_btn.connect('clicked', self.s_handler)
+        self.search_btn = search_btn
+        header.pack_end(search_btn)
         self.set_titlebar(header)
 
         self.show_all()
@@ -125,6 +132,11 @@ class SSCWindow(Gtk.Window):
             self.stack_main.set_visible_child_name("updates")
         else:
             self.stack_main.set_visible_child_name("software")
+
+    def s_handler(self, w):
+        w.freeze_notify()
+        self.search_bar.set_search_mode(w.get_active())
+        w.thaw_notify()
 
     def init_css(self):
         ''' Temporary... '''
@@ -142,6 +154,12 @@ class SSCWindow(Gtk.Window):
         text = w.get_text().strip()
         if text == "":
             self.search_bar.set_search_mode(False)
+
+        act =  False if text == "" else True
+        self.search_btn.freeze_notify()
+        self.search_btn.set_active(act)
+        self.search_btn.thaw_notify()
+
         self.groups_page.searching(w)
 
     def do_reset(self, basket, extra=None):
