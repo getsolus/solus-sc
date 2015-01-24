@@ -71,6 +71,7 @@ class PackageLabel(Gtk.VBox):
             btn.add(self.image_status)
             btn.set_relief(Gtk.ReliefStyle.NONE)
             btn.connect("clicked", self.interactive_handler)
+            btn.set_valign(Gtk.Align.CENTER)
             self.header.pack_end(btn, False, False, 0)
         else:
             self.header.pack_end(self.image_status, False, False, 0)

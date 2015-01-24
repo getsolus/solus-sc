@@ -81,12 +81,13 @@ class GroupsView(Gtk.VBox):
                 continue
             btn = Gtk.Button()
             btn.set_relief(Gtk.ReliefStyle.NONE)
-            label = Gtk.Label("<b>%s</b>\n<small>%d categories</small>" % (str(group.localName), len(components)))
+            label = Gtk.Label("<big>%s</big>\n%d categories" % (str(group.localName), len(components)))
             label.set_use_markup(True)
             label.set_justify(Gtk.Justification.LEFT)
             label.set_halign(Gtk.Align.START)
             image = Gtk.Image()
-            image.set_from_icon_name(group.icon, Gtk.IconSize.DIALOG)
+            image.set_from_icon_name(group.icon, Gtk.IconSize.INVALID)
+            image.set_pixel_size(64)
 
             btn_layout = Gtk.HBox()
             btn.add(btn_layout)
