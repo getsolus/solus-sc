@@ -97,7 +97,7 @@ class BasketView(Gtk.Revealer):
             self.revealer.set_reveal_child(False)
             self.update_ui()
             return
-        print "%s %f" % (label, fraction)
+        #print "%s %f" % (label, fraction)
         self.title.set_markup(label)
         self.revealer.set_reveal_child(True)
         self.progress.set_fraction(fraction)
@@ -202,7 +202,7 @@ class BasketView(Gtk.Revealer):
                     if downloaded >= download_size:
                         self.current_dl_package += 1
                 else:
-                    print args
+                    #print args
                     self.set_progress(1.0, "Downloading %s" % args[1])
         elif signal == 'finished' or signal == None:
             if self.cb is not None:
@@ -293,9 +293,9 @@ class BasketView(Gtk.Revealer):
         self.packagedb = pisi.db.packagedb.PackageDB()
 
         self.emit('apply', None)
-        print "%d packages updated" % len(updates)
-        print "%d packages installed" % len(installs)
-        print "%d packages removed" % len(removals)
+        #print "%d packages updated" % len(updates)
+        #print "%d packages installed" % len(installs)
+        #print "%d packages removed" % len(removals)
         
         setAct = False
 
@@ -312,7 +312,7 @@ class BasketView(Gtk.Revealer):
                     if self.show_dialog(pkgs):
                         installs = packageset = pkgs
                     else:
-                        print "Not installing"
+                        #print "Not installing"
                         continue
             elif packageset == removals:
                 (pk,pkgs) = plan_remove(packageset)
@@ -320,7 +320,7 @@ class BasketView(Gtk.Revealer):
                     if self.show_dialog(pkgs, remove=True):
                         removals = packageset = pkgs
                     else:
-                        print "Not removing"
+                        #print "Not removing"
                         continue
             elif packageset == removals:
                 (pk,pkgs) = plan_upgrade(packageset)
@@ -328,7 +328,7 @@ class BasketView(Gtk.Revealer):
                     if self.show_dialog(pkgs, update=True):
                         updates = packageset = pkgs
                     else:
-                        print "Not updating"
+                        #print "Not updating"
                         continue
             self.total_packages = len(packageset)
             setAct = True

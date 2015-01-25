@@ -149,7 +149,6 @@ class SSCWindow(Gtk.Window):
 
     def search_changed(self, w, data=None):
         if self.stack.get_visible_child_name() not in ["groups", "package"]:
-            print self.stack.get_visible_child_name()
             self.stack.set_visible_child_name("groups")
         if self.stack_main.get_visible_child_name() != "software":
             self.stack_main.set_visible_child_name("software")

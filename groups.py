@@ -164,7 +164,6 @@ class GroupsView(Gtk.VBox):
             self.packages_list.show_all()
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
-        print "Done"
 
     def op_select(self, package_label, operation, package, old_package):
         if operation == 'INSTALL':
