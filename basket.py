@@ -25,6 +25,7 @@ import gi.repository
 from gi.repository import Gtk, GObject
 
 import comar
+import pisi.db
 from pisi.operations.install import plan_install_pkg_names
 from pisi.operations.remove import plan_remove
 from pisi.operations.upgrade import plan_upgrade
@@ -287,6 +288,9 @@ class BasketView(Gtk.Revealer):
         removals = [i for i in self.operations if self.operations[i] == 'UNINSTALL']
 
         STEPS = 4 # We monitor 4 post events
+
+        self.installdb = pisi.db.installdb.InstallDB()
+        self.packagedb = pisi.db.packagedb.PackageDB()
 
         self.emit('apply', None)
         print "%d packages updated" % len(updates)
