@@ -100,8 +100,8 @@ class PackageLabel(Gtk.VBox):
         
     def reset_image(self):
         if self.old_package is not None:
-            new_version = self.package.release
-            old_version = self.old_package.release
+            new_version = int(self.package.release)
+            old_version = int(self.old_package.release)
 
             if new_version > old_version:
                 self.image_status.set_from_icon_name(OLD_ICON, Gtk.IconSize.SMALL_TOOLBAR)
