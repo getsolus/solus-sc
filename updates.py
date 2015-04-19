@@ -38,6 +38,22 @@ class UpdatesView(Gtk.VBox):
         self.packagedb = packagedb
         self.installdb = installdb
         self.basket = basket
+
+        updates = len(pisi.api.list_upgradable())
+        if updates > 1:
+            self.toolbar = Gtk.Toolbar()
+            self.pack_start(self.toolbar, False, True, 0)
+
+            sep = Gtk.SeparatorToolItem()
+            sep.set_expand(True)
+            sep.set_draw(False)
+            self.toolbar.add(sep)
+            self.select_all_btn = Gtk.ToolButton("Select All")
+            self.select_all_btn.set_label("Select All")
+            self.select_all_btn.set_is_important(True)
+            self.select_all_btn.set_icon_name("gtk-select-all")
+            self.select_all_btn.connect("clicked", self.select_all)
+            self.toolbar.add(self.select_all_btn)
         
         self.updates_list = Gtk.ListBox()
                 
@@ -79,6 +95,26 @@ class UpdatesView(Gtk.VBox):
             self.basket.update_package(old_package, package)
         elif operation == 'FORGET':
             self.basket.forget_package(package)
+
+    def select_all(self, w):
+        updates = pisi.api.list_upgradable()
+
+        for child in self.updates_list.get_children():
+            child.destroy()
+
+        for update in updates:
+            old_pkg = self.installdb.get_package(update)
+            new_pkg = self.packagedb.get_package(update)
+            
+            panel = PackageLabel(new_pkg, old_pkg, interactive=True)
+            panel.sig_id = panel.connect('operation-selected', self.op_selected)
+            panel.mark_status('UPDATE')
+            self.basket.update_package(old_pkg, new_pkg)
+            
+            self.updates_list.add(panel)
+            while (Gtk.events_pending()):
+                Gtk.main_iteration()
+            panel.show_all()
 
     def _load_updates(self):
         updates = pisi.api.list_upgradable()
