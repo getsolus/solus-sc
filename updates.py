@@ -41,12 +41,8 @@ class UpdatesView(Gtk.VBox):
 
         updates = len(pisi.api.list_upgradable())
         if updates > 1:
-            self.revealer = Gtk.Revealer()
-            self.pack_start(self.revealer, False, True, 0)
-            self.revealer.set_reveal_child(True)
-
             self.toolbar = Gtk.Toolbar()
-            self.revealer.add(self.toolbar)
+            self.pack_start(self.toolbar, False, True, 0)
 
             sep = Gtk.SeparatorToolItem()
             sep.set_expand(True)
