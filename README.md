@@ -1,1 +1,1 @@
-Evolve OS Software Center
+Solus Software Center
