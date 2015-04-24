@@ -40,6 +40,10 @@ class PackageView(Gtk.VBox):
                           (str,object,object))
     }
 
+    def make_valid(self, istr):
+        ret = istr.replace("&", "&amp;").replace("\"", "&quot;")
+        return ret
+
     def __init__(self, packagedb, installdb):
         Gtk.VBox.__init__(self)
 
@@ -183,7 +187,7 @@ class PackageView(Gtk.VBox):
             self.operation_type = 'INSTALL'
             GObject.idle_add(self.calculate_dependencies, package)
 
-        self.desc.set_markup('<span font=\'30.5\'>“</span><i>  %s  </i><span font=\'30.5\'>”</span>' % str(package.summary))
+        self.desc.set_markup('<span font=\'30.5\'>“</span><i>  %s  </i><span font=\'30.5\'>”</span>' % self.make_valid(str(package.summary)))
 
         if package.source.homepage is not None:
             self.link.set_uri(package.source.homepage)
@@ -196,4 +200,4 @@ class PackageView(Gtk.VBox):
         else:
             self.image.set_from_icon_name(GENERIC, Gtk.IconSize.DIALOG)
             
-        self.description.set_markup(str(package.description))
+        self.description.set_markup(self.make_valid(str(package.description)))

@@ -46,6 +46,10 @@ class PackageLabel(Gtk.VBox):
                           (str,object,object))
     }
 
+    def make_valid(self, istr):
+        ret = istr.replace("&", "&amp;").replace("\"", "&quot;")
+        return ret
+
     def __init__(self, pkg, old_pkg, interactive=False):
         Gtk.VBox.__init__(self)
 
@@ -58,7 +62,7 @@ class PackageLabel(Gtk.VBox):
             self.image.set_from_icon_name(GENERIC, Gtk.IconSize.DIALOG)
 
         self.header.pack_start(self.image, False, False, 5)
-        self.label_title = Gtk.Label("<b>%s</b> - <small>%s</small>\n%s" % (pkg.name, pkg.version, str(pkg.summary)))
+        self.label_title = Gtk.Label("<b>%s</b> - <small>%s</small>\n%s" % (pkg.name, pkg.version, self.make_valid(str(pkg.summary))))
         self.label_title.set_use_markup(True)
         do_justif(self.label_title)
         self.label_title.set_line_wrap(True)
