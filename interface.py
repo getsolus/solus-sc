@@ -41,6 +41,7 @@ from updates import UpdatesView
 class SSCWindow(Gtk.Window):
     
     old_view = ''
+    need_refresh = False
 
     def __init__(self):
         Gtk.Window.__init__(self)
@@ -55,6 +56,9 @@ class SSCWindow(Gtk.Window):
         self.componentdb = componentdb.ComponentDB()
         self.installdb = installdb.InstallDB()
         self.packagedb = packagedb.PackageDB()
+
+        if len(self.packagedb.list_packages(None)) == 0:
+            self.need_refresh = True
 
         # Operations go in the basket
         self.basket = BasketView(self.packagedb, self.installdb)
@@ -96,7 +100,7 @@ class SSCWindow(Gtk.Window):
         self.stack_main = Gtk.Stack()
         self.stack_main.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
 
-        self.updates_view = UpdatesView(self.packagedb, self.installdb, self.basket)
+        self.updates_view = UpdatesView(self, self.packagedb, self.installdb, self.basket)
         self.stack_main.add_named(self.stack, "software")
         self.stack_main.child_set_property(self.stack, "title", "Software")
         self.stack_main.add_named(self.updates_view, "updates")
@@ -168,14 +172,17 @@ class SSCWindow(Gtk.Window):
         self.back.set_sensitive(False)
         self.search_entry.set_text("")
 
-    def do_reset(self, basket, extra=None):
+    def do_reset(self, basket, extra=None, exclude=None):
         pisi.db.invalidate_caches()
         self.groupdb = groupdb.GroupDB()
         self.componentdb = componentdb.ComponentDB()
         self.installdb = installdb.InstallDB()
         self.packagedb = packagedb.PackageDB()
 
-        for page in [self.components_page, self.package_page, self.groups_page, self.updates_view]:
+        toiter = [self.components_page, self.package_page, self.groups_page, self.updates_view]
+        if exclude is not None:
+            toiter.remove(exclude)
+        for page in toiter:
             page.groupdb = self.groupdb
             page.componentdb = self.componentdb
             page.installdb = self.installdb

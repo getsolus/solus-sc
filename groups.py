@@ -64,8 +64,8 @@ class GroupsView(Gtk.VBox):
 
         self.pack_start(self.stack, True, True, 0)
         
-        self.groups = groups
-        group_names = self.groups.list_groups()
+        self.groupdb = groups
+        group_names = self.groupdb.list_groups()
         max_columns = int(len(group_names) / 2)
 
         self.grid.set_border_width(40)
@@ -73,10 +73,20 @@ class GroupsView(Gtk.VBox):
         self.grid.set_row_spacing(0)
         self.grid.set_valign(Gtk.Align.START)
 
-        
-        for group_name in self.groups.list_groups():
-            group = self.groups.get_group(group_name)
-            components = self.groups.get_group_components(group_name)
+        self.packages = list()
+
+        self.do_reset()
+
+        self.show_all()
+        self.packages_list.set_sort_func(self.sort, None)
+
+    def build_groups(self):
+        for kid in self.grid.get_children():
+            kid.destroy()
+
+        for group_name in self.groupdb.list_groups():
+            group = self.groupdb.get_group(group_name)
+            components = self.groupdb.get_group_components(group_name)
             if len(components) == 0:
                 continue
             btn = Gtk.Button()
@@ -103,11 +113,7 @@ class GroupsView(Gtk.VBox):
             btn.set_vexpand(False)
             btn.set_valign(Gtk.Align.START)
             self.grid.add(btn)
-
-        self.packages = list()
-        self.do_reset()
-
-        self.packages_list.set_sort_func(self.sort, None)
+        self.grid.show_all()
 
     def searching(self, entry, event=None):
         text = entry.get_text().strip()
@@ -151,7 +157,7 @@ class GroupsView(Gtk.VBox):
     def rebuild_all_packages(self, data=None):
         for child in self.packages_list.get_children():
             child.destroy()
-        
+        self.build_groups()
         for pkg in pisi.api.list_available():
             package = self.packagedb.get_package(pkg)
             old_package = self.installdb.get_package(pkg) if self.installdb.has_package(pkg) else None

@@ -32,12 +32,15 @@ from widgets import PackageLabel
 
 class UpdatesView(Gtk.VBox):
 
-    def __init__(self, packagedb, installdb, basket):
+    window = None
+
+    def __init__(self, window, packagedb, installdb, basket):
         Gtk.VBox.__init__(self)
 
         self.packagedb = packagedb
         self.installdb = installdb
         self.basket = basket
+        self.window = window
 
         updates = len(pisi.api.list_upgradable())
         if updates > 1:
@@ -99,6 +102,7 @@ class UpdatesView(Gtk.VBox):
     def select_all(self, w):
         updates = pisi.api.list_upgradable()
 
+
         for child in self.updates_list.get_children():
             child.destroy()
 
@@ -117,6 +121,10 @@ class UpdatesView(Gtk.VBox):
             panel.show_all()
 
     def _load_updates(self):
+
+        if self.window.need_refresh:
+            self.window.do_reset(self.basket, exclude=self)
+
         updates = pisi.api.list_upgradable()
         for child in self.updates_list.get_children():
             child.destroy()
