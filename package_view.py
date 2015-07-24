@@ -62,6 +62,7 @@ class PackageView(Gtk.VBox):
         self.image = Gtk.Image()
 
         self.pack_start(self.header, False, False, 0)
+        self.header.pack_start(self.image, False, False, 0)
         self.header.pack_start(self.title, False, False, 5)
 
         self.desc = Gtk.Label("")
@@ -73,8 +74,6 @@ class PackageView(Gtk.VBox):
         self.pack_start(sep, False, True, 10)
         
         self.image_status = Gtk.Image()
-        #self.header.pack_end(self.image_status, False, False, 0)
-        self.header.pack_end(self.image, False, False, 0)
 
         # Begin serious business
         self.content_left = Gtk.VBox()
@@ -87,6 +86,7 @@ class PackageView(Gtk.VBox):
         self.control_button = Gtk.Button()
         self.control_button.connect("clicked", self._do_emit)
         self.status_label = Gtk.Label("")
+        self.status_label.get_style_context().add_class("dim-label")
         hbox_control.pack_start(self.status_label, False, False, 0)
         hbox_control.pack_end(self.control_button, False, False, 0)
 
@@ -156,6 +156,8 @@ class PackageView(Gtk.VBox):
 
         self.package = package
         self.old_package = old_package
+
+        uninstall = False
         
         if old_package is not None:
             new_version = package.release
@@ -173,12 +175,12 @@ class PackageView(Gtk.VBox):
                 msg = update.comment
                 self.update_label.set_markup("<b>Update</b>\n%s" % msg)
                 self.operation_type = 'UPDATE'
-                #self.update_label.set_visible(True)
             else:
                 self.image_status.set_from_icon_name("package-installed-updated", Gtk.IconSize.BUTTON)
                 self.control_button.set_label("Uninstall")
                 self.status_label.set_markup("<b>Installed on %s</b>" % date)
                 self.operation_type = 'UNINSTALL'
+                uninstall = True
         else:
             self.image_status.set_from_icon_name("package-available", Gtk.IconSize.LARGE_TOOLBAR)
             self.control_button.set_label("Install")
@@ -187,7 +189,13 @@ class PackageView(Gtk.VBox):
             self.operation_type = 'INSTALL'
             GObject.idle_add(self.calculate_dependencies, package)
 
-        self.desc.set_markup('<span font=\'30.5\'>“</span><i>  %s  </i><span font=\'30.5\'>”</span>' % self.make_valid(str(package.summary)))
+        if uninstall:
+            self.control_button.get_style_context().add_class("destructive-action")
+        else:
+            self.control_button.get_style_context().add_class("suggested-action")
+
+
+        self.desc.set_markup('%s' % self.make_valid(str(package.summary)))
 
         if package.source.homepage is not None:
             self.link.set_uri(package.source.homepage)
@@ -196,8 +204,8 @@ class PackageView(Gtk.VBox):
             self.link.set_visible(False)
 
         if package.icon is not None:
-            self.image.set_from_icon_name(package.icon, Gtk.IconSize.DIALOG)
+            self.image.set_from_icon_name(package.icon, Gtk.IconSize.INVALID)
         else:
-            self.image.set_from_icon_name(GENERIC, Gtk.IconSize.DIALOG)
-            
+            self.image.set_from_icon_name(GENERIC, Gtk.IconSize.INVALID)
+        self.image.set_pixel_size(72)
         self.description.set_markup(self.make_valid(str(package.description)))
