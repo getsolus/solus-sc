@@ -33,6 +33,14 @@ from widgets import PackageLabel
 class UpdatesView(Gtk.VBox):
 
     window = None
+    revealer = Gtk.Revealer()
+
+    def set_bar_visible(self, v=False):
+        if v:
+            self.revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_DOWN)
+        else:
+            self.revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_UP)
+        self.revealer.set_reveal_child(v)
 
     def __init__(self, window, packagedb, installdb, basket):
         Gtk.VBox.__init__(self)
@@ -42,21 +50,35 @@ class UpdatesView(Gtk.VBox):
         self.basket = basket
         self.window = window
 
-        updates = len(pisi.api.list_upgradable())
-        if updates > 1:
-            self.toolbar = Gtk.Toolbar()
-            self.pack_start(self.toolbar, False, True, 0)
+        self.revealer = Gtk.Revealer()
+        self.revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_DOWN)
+        self.pack_start(self.revealer, False, True, 0)
 
-            sep = Gtk.SeparatorToolItem()
-            sep.set_expand(True)
-            sep.set_draw(False)
-            self.toolbar.add(sep)
-            self.select_all_btn = Gtk.ToolButton("Select All")
-            self.select_all_btn.set_label("Select All")
-            self.select_all_btn.set_is_important(True)
-            self.select_all_btn.set_icon_name("gtk-select-all")
-            self.select_all_btn.connect("clicked", self.select_all)
-            self.toolbar.add(self.select_all_btn)
+        self.toolbar = Gtk.Toolbar()
+        self.revealer.add(self.toolbar)
+
+        sep = Gtk.SeparatorToolItem()
+        sep.set_expand(True)
+        sep.set_draw(False)
+        self.toolbar.add(sep)
+
+        self.select_none_btn = Gtk.ToolButton("Deselect All")
+        self.select_none_btn.set_label("Deselect All")
+        self.select_none_btn.set_is_important(True)
+        self.select_none_btn.set_icon_name("edit-clear-all-symbolic")
+        self.select_none_btn.connect("clicked", self.deselect_all)
+        self.toolbar.add(self.select_none_btn)
+        self.toolbar.show_all()
+        self.toolbar.set_no_show_all(True)
+        self.select_none_btn.hide()
+
+        self.select_all_btn = Gtk.ToolButton("Select All")
+        self.select_all_btn.set_label("Select All")
+        self.select_all_btn.set_is_important(True)
+        self.select_all_btn.set_icon_name("edit-select-all-symbolic")
+        self.select_all_btn.connect("clicked", self.select_all)
+        self.toolbar.add(self.select_all_btn)
+        self.select_all_btn.show_all()
         
         self.updates_list = Gtk.ListBox()
                 
@@ -82,6 +104,8 @@ class UpdatesView(Gtk.VBox):
 
         self.pack_start(scroller, True, True, 0)
 
+        self.set_bar_visible(False)
+
         self.refresh_repos()
 
     def do_reset(self):
@@ -99,26 +123,24 @@ class UpdatesView(Gtk.VBox):
         elif operation == 'FORGET':
             self.basket.forget_package(package)
 
+        if self.basket.operation_count_type('UPDATE') > 0:
+            self.select_none_btn.show()
+        else:
+            self.select_none_btn.hide()
+
     def select_all(self, w):
-        updates = pisi.api.list_upgradable()
+        for row in self.updates_list.get_children():
+            child = row.get_child()
 
+            child.mark_status(None)
+            child.interactive_handler(None)
 
-        for child in self.updates_list.get_children():
-            child.destroy()
+    def deselect_all(self, w):
+        for row in self.updates_list.get_children():
+            child = row.get_child()
 
-        for update in updates:
-            old_pkg = self.installdb.get_package(update)
-            new_pkg = self.packagedb.get_package(update)
-            
-            panel = PackageLabel(new_pkg, old_pkg, interactive=True)
-            panel.sig_id = panel.connect('operation-selected', self.op_selected)
-            panel.mark_status('UPDATE')
-            self.basket.update_package(old_pkg, new_pkg)
-            
-            self.updates_list.add(panel)
-            while (Gtk.events_pending()):
-                Gtk.main_iteration()
-            panel.show_all()
+            child.mark_status('UPDATE')
+            child.interactive_handler(None)
 
     def _load_updates(self):
 
@@ -128,6 +150,12 @@ class UpdatesView(Gtk.VBox):
         updates = pisi.api.list_upgradable()
         for child in self.updates_list.get_children():
             child.destroy()
+
+        if len(updates) > 0:
+            self.set_bar_visible(True)
+        else:
+            self.set_bar_visible(False)
+            return
 
         for update in updates:
             old_pkg = self.installdb.get_package(update)

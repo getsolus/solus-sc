@@ -123,6 +123,9 @@ class BasketView(Gtk.Revealer):
     def operation_count(self):
         return len(self.operations)
 
+    def operation_count_type(self, type):
+        return len([x for x in self.operations if self.operations[x] == type])
+
     def forget_package(self, package):
         if package.name in self.operations:
             self.operations.pop(package.name, None)
