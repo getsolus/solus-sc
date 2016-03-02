@@ -46,7 +46,6 @@ class SSCWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self)
         
-        self.init_css()
         self.set_title("Software")
         self.connect("destroy", Gtk.main_quit)
         self.set_default_size(700, 500)
@@ -143,13 +142,6 @@ class SSCWindow(Gtk.Window):
         w.freeze_notify()
         self.search_bar.set_search_mode(w.get_active())
         w.thaw_notify()
-
-    def init_css(self):
-        ''' Temporary... '''
-        css = Gtk.CssProvider()
-        f = Gio.File.new_for_path("/usr/lib/evolve-sc/style.css")
-        css.load_from_file(f)
-        Gtk.StyleContext.add_provider_for_screen(self.get_screen(), css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def search_changed(self, w, data=None):
         if self.stack.get_visible_child_name() not in ["groups", "package"]:
