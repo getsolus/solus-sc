@@ -132,6 +132,7 @@ class SSCWindow(Gtk.Window):
 
         self.show_all()
         GObject.idle_add(self.update_count)
+        GObject.idle_add(self.updates_view.refresh_repos)
 
         if "--update" in sys.argv:
             self.stack_main.set_visible_child_name("updates")

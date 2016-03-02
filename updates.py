@@ -106,12 +106,14 @@ class UpdatesView(Gtk.VBox):
 
         self.set_bar_visible(False)
 
-        self.refresh_repos()
-
     def do_reset(self):
         self.load_updates()
 
     def refresh_repos(self, btn=None):
+        t = threading.Thread(target=self._refresh_repos)
+        t.start()
+
+    def _refresh_repos(self):
         self.basket.update_repo(cb=lambda : self.load_updates())
 
     def load_updates(self):
@@ -143,7 +145,6 @@ class UpdatesView(Gtk.VBox):
             child.interactive_handler(None)
 
     def _load_updates(self):
-
         if self.window.need_refresh:
             self.window.do_reset(self.basket, exclude=self)
 
@@ -165,7 +166,5 @@ class UpdatesView(Gtk.VBox):
             panel.sig_id = panel.connect('operation-selected', self.op_selected)
             panel.mark_status(None)
             self.updates_list.add(panel)
-            while (Gtk.events_pending()):
-                Gtk.main_iteration()
-
             panel.show_all()
+        self.updates_list.show_all()
