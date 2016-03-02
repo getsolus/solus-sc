@@ -33,7 +33,13 @@ from widgets import PackageLabel
 class UpdatesView(Gtk.VBox):
 
     window = None
-    revealer = Gtk.Revealer()
+    revealer = None
+    update_count = 0
+
+    __gsignals__ = {
+        'updates-counted': (GObject.SIGNAL_RUN_FIRST, None,
+                          (object,)),
+    }
 
     def set_bar_visible(self, v=False):
         if v:
@@ -151,6 +157,9 @@ class UpdatesView(Gtk.VBox):
         updates = pisi.api.list_upgradable()
         for child in self.updates_list.get_children():
             child.destroy()
+
+        self.update_count = len(updates)
+        self.emit('updates-counted', None)
 
         if len(updates) > 0:
             self.set_bar_visible(True)

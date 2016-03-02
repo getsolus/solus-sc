@@ -100,6 +100,7 @@ class SSCWindow(Gtk.Window):
         self.stack_main.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
 
         self.updates_view = UpdatesView(self, self.packagedb, self.installdb, self.basket)
+        self.updates_view.connect('updates-counted', self.update_count)
         self.stack_main.add_named(self.stack, "software")
         self.stack_main.child_set_property(self.stack, "title", "Software")
         self.stack_main.add_named(self.updates_view, "updates")
@@ -131,7 +132,6 @@ class SSCWindow(Gtk.Window):
         self.set_titlebar(header)
 
         self.show_all()
-        GObject.idle_add(self.update_count)
         GObject.idle_add(self.updates_view.refresh_repos)
 
         if "--update" in sys.argv:
@@ -187,8 +187,8 @@ class SSCWindow(Gtk.Window):
         # reset update count
         self.update_count()
 
-    def update_count(self):
-        count = len(pisi.api.list_upgradable())
+    def update_count(self, prop=None, prop2=None):
+        count = self.updates_view.update_count
         if count > 0:
             self.stack_main.child_set_property(self.updates_view, "title", "Updates (%d)" % count)
         else:
