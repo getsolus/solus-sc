@@ -38,16 +38,15 @@ from package_view import PackageView
 from basket import BasketView
 from updates import UpdatesView
 
-class SSCWindow(Gtk.Window):
+class SSCWindow(Gtk.ApplicationWindow):
     
     old_view = ''
     need_refresh = False
 
-    def __init__(self):
-        Gtk.Window.__init__(self)
+    def __init__(self, app):
+        Gtk.ApplicationWindow.__init__(self, application=app)
         
         self.set_title("Software")
-        self.connect("destroy", Gtk.main_quit)
         self.set_default_size(700, 500)
         self.set_position(Gtk.WindowPosition.CENTER)
 

@@ -22,18 +22,32 @@
 #  
 #
 import sys
-sys.path.append("/usr/lib/evolve-sc")
+sys.path.append("/usr/lib/solus-sc")
 
 import gi.repository
-from gi.repository import Gtk, Gdk, GObject
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, Gdk, GObject, Gio
 from dbus.mainloop.glib import DBusGMainLoop
+import sys
 
 from interface import SSCWindow
 
+class SSCApp(Gtk.Application):
+
+    app_win = None
+
+    def __init__(self):
+        Gtk.Application.__init__(self, application_id="com.solus_project.SSC",
+            flags=Gio.ApplicationFlags.FLAGS_NONE)
+
+    def do_activate(self):
+        if self.app_win is None:
+            self.app_win = SSCWindow(self)
+        self.app_win.present()
+
 if __name__ == "__main__":
-    GObject.threads_init()
     DBusGMainLoop(set_as_default=True)
-    win = SSCWindow()
-    win.show()
-    Gtk.main()
-    
+    GObject.threads_init()
+    app = SSCApp()
+    ex = app.run(sys.argv)
+    sys.exit(ex)
