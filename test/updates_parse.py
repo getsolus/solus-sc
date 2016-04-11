@@ -19,25 +19,51 @@ import re
 cve_hit = re.compile(r".*(CVE\-[0-9]+\-[0-9]+).*")
 
 
+def cves_for_update(update):
+    ''' Grab a list of CVEs addressed in this version '''
+    cves = set()
+
+    com = str(update.comment)
+    for i in com.split(" "):
+        m = cve_hit.match(i)
+        if not m:
+            continue
+        cves.add(m.group(1))
+
+    return cves
+
+
+def get_history_between(old, new):
+    ret = set()
+
+    for i in new.history:
+        if i.release <= old.release:
+            continue
+        ret.add(i)
+    return ret
+
+
+def get_pkg_description(pkg):
+    return "{}-{}-{}".format(pkg.name, pkg.version, pkg.release)
+
+
 def main():
     pkg = "glibc"
 
     pdb = PackageDB()
     package = pdb.get_package(pkg)
+    idb = InstallDB()
 
-    cves = set()
+    local_package = idb.get_package(pkg)
+    new_package = pdb.get_package(pkg)
 
-    for item in package.history:
-        com = str(item.comment)
-        for i in com.split(" "):
-            m = cve_hit.match(i)
-            if not m:
-                continue
-            cves.add(m.group(1))
+    history = get_history_between(local_package, new_package)
 
-    c = ", ".join(cves)
-    print("CVE history for {}: {}".format(pkg, c))
-    pass
+    cves = [cves_for_update(x) for x in history]
+    o = get_pkg_description(local_package)
+    n = get_pkg_description(new_package)
+
+    print("CVEs between {} and {}: ".format(o, n, ", ".join(cves)))
 
 
 if __name__ == "__main__":
