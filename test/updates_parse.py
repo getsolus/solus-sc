@@ -34,12 +34,12 @@ def cves_for_update(update):
 
 
 def get_history_between(old, new):
-    ret = set()
+    ret = list()
 
     for i in new.history:
         if i.release <= old.release:
             continue
-        ret.add(i)
+        ret.append(i)
     return ret
 
 
@@ -55,15 +55,25 @@ def main():
     idb = InstallDB()
 
     local_package = idb.get_package(pkg)
+    # HACK for testing!!
+    local_package.release = 18
+    local_package.version = "2.22"
+
     new_package = pdb.get_package(pkg)
 
     history = get_history_between(local_package, new_package)
 
-    cves = [cves_for_update(x) for x in history]
+    cves = list()
+    for x in history:
+        c = cves_for_update(x)
+        if not c:
+            continue
+        cves.extend(c)
+
     o = get_pkg_description(local_package)
     n = get_pkg_description(new_package)
 
-    print("CVEs between {} and {}: ".format(o, n, ", ".join(cves)))
+    print("CVEs fixed between {} and {}: {}".format(o, n, ", ".join(cves)))
 
 
 if __name__ == "__main__":
