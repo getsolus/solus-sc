@@ -11,8 +11,32 @@
 #  (at your option) any later version.
 #
 
+from pisi.db.packagedb import PackageDB
+from pisi.db.installdb import InstallDB
+import pisi.specfile
+import re
+
+cve_hit = re.compile(r".*(CVE\-[0-9]+\-[0-9]+).*")
+
 
 def main():
+    pkg = "glibc"
+
+    pdb = PackageDB()
+    package = pdb.get_package(pkg)
+
+    cves = set()
+
+    for item in package.history:
+        com = str(item.comment)
+        for i in com.split(" "):
+            m = cve_hit.match(i)
+            if not m:
+                continue
+            cves.add(m.group(1))
+
+    c = ", ".join(cves)
+    print("CVE history for {}: {}".format(pkg, c))
     pass
 
 
