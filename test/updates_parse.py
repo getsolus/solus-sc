@@ -43,6 +43,10 @@ def get_history_between(old, new):
     return ret
 
 
+def get_cve_uri(i):
+    return "http://cve.mitre.org/cgi-bin/cvename.cgi?name={}".format(i)
+
+
 def get_pkg_description(pkg):
     return "{}-{}-{}".format(pkg.name, pkg.version, pkg.release)
 
