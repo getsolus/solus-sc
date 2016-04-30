@@ -23,8 +23,27 @@ class ScGroupButton(Gtk.Button):
     def __init__(self, group):
         Gtk.Button.__init__(self)
 
+        icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
+        icon_theme = icon_theme.lower().replace("-", "")
+        # Sneaky, I know.
+        if icon_theme == "arcicons":
+            devIcon = "text-x-changelog"
+        else:
+            devIcon = "gnome-dev-computer"
+
+        replacements = {
+            "applications-system": "system-run",
+            "text-editor": "x-office-calendar",
+            "redhat-programming": devIcon,
+            "security-high": "preferences-system-privacy",
+            "network": "preferences-system-network",
+        }
+
         # Pretty things up with a Icon|Label setup
         icon = str(group.icon)
+        if icon in replacements:
+            icon = replacements[icon]
+
         gDesc = str(group.localName)
         image = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.DIALOG)
         image.set_halign(Gtk.Align.START)
