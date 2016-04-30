@@ -16,3 +16,12 @@
 .solus-sc .main-view {
     margin: 10px;
 }
+
+.solus-sc .sidebar {
+    background-color: rgba(53, 57, 69, 0.95);
+}
+
+.solus-sc .sidebar .list-row {
+    padding: 12px;
+}
+
