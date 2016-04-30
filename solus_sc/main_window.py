@@ -20,4 +20,13 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def __init__(self, app):
         Gtk.ApplicationWindow.__init__(self, application=app)
 
+        # Set up the headerbar. Because GNOME n stuff.
+        headerbar = Gtk.HeaderBar()
+        headerbar.set_show_close_button(True)
+        self.set_titlebar(headerbar)
+
         self.set_title("Software Center")
+
+        self.set_position(Gtk.WindowPosition.CENTER)
+        self.set_default_size(800, 600)
+        self.show_all()
