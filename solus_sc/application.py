@@ -30,8 +30,10 @@ class ScApplication(Gtk.Application):
             f = Gio.File.new_for_path(os.path.join(our_dir, "styling.css"))
             css = Gtk.CssProvider()
             css.load_from_file(f)
-            Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), css,
-                                                     Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+            prio = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
+                                                     css,
+                                                     prio)
         except Exception as e:
             print("Error loading CSS: {}".format(e))
 
