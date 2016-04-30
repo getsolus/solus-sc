@@ -22,9 +22,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
     main_layout = None
     sidebar = None
     stack = None
+    sidebar_revealer = None
 
     def init_view(self):
         self.stack.set_visible_child_name("home")
+        self.sidebar_revealer.set_reveal_child(True)
         return False
 
     def on_mapped(self, w, udata=None):
@@ -54,7 +56,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.add(self.main_layout)
 
         self.sidebar = ScSidebar()
-        self.main_layout.pack_start(self.sidebar, False, False, 0)
+        self.sidebar_revealer = Gtk.Revealer()
+        self.sidebar_revealer.add(self.sidebar)
+        self.sidebar_revealer.set_reveal_child(False)
+        self.main_layout.pack_start(self.sidebar_revealer, False, False, 0)
         self.main_layout.pack_start(self.stack, True, True, 0)
 
         # Dummy view for first time showing the application
@@ -62,8 +67,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.stack.add_titled(self.dummy_widget, "empty", "empty")
         self.stack.add_titled(self.groups_view, "home", "Home")
 
+        # set up intro animation
         self.stack.set_visible_child_name("empty")
         self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP)
+        revel = Gtk.RevealerTransitionType.SLIDE_RIGHT
+        self.sidebar_revealer.set_transition_type(revel)
 
         self.connect("map-event", self.on_mapped)
 

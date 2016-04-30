@@ -27,6 +27,7 @@ class ScSidebar(Gtk.ListBox):
             ("settings", "Settings", "system-run-symbolic"),
         ]
 
+        sel = None
         for item, label_sz, icon_sz in items:
             row = Gtk.HBox(0)
             label = Gtk.Label(label_sz)
@@ -39,4 +40,8 @@ class ScSidebar(Gtk.ListBox):
             row.pack_start(label, True, True, 0)
             label.set_halign(Gtk.Align.START)
 
+            if sel is None:
+                sel = row
+
             self.add(row)
+        self.select_row(sel.get_parent())
