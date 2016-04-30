@@ -42,19 +42,11 @@ class ScSidebar(Gtk.ListBox):
         self.size_group = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
         self.parent_stack = parent_stack
 
-        icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
-        icon_theme = icon_theme.lower().replace("-", "")
-        # Sneaky, like the sidebar.
-        if icon_theme == "arcicons":
-            downloadIcon = "browser-download-symbolic"
-        else:
-            downloadIcon = "folder-download-symbolic"
-
         items = [
             ("home", "Home", "user-home-symbolic"),
             ("updates", "Updates", "software-update-available-symbolic"),
             ("installed", "Installed", "system-software-install-symbolic"),
-            ("3rd-party", "Third Party", downloadIcon),
+            ("3rd-party", "Third Party", "folder-download-symbolic"),
             ("settings", "Settings", "system-run-symbolic"),
         ]
 
