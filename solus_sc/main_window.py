@@ -11,10 +11,13 @@
 #  (at your option) any later version.
 #
 
-import sys
-from solus_sc.application import ScApplication
+import gi.repository
+from gi.repository import Gtk
 
 
-if __name__ == "__main__":
-    app = ScApplication()
-    app.run(sys.argv)
+class ScMainWindow(Gtk.ApplicationWindow):
+
+    def __init__(self, app):
+        Gtk.ApplicationWindow.__init__(self, application=app)
+
+        self.set_title("Software Center")
