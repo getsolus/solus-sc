@@ -1,1 +1,0 @@
-Solus Software Center
