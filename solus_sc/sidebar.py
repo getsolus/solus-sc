@@ -16,10 +16,30 @@ from gi.repository import Gtk
 
 class ScSidebar(Gtk.ListBox):
 
-    def __init__(self):
+    parent_stack = None
+    first_real_show = False
+
+    def on_row_selected(self, us, udata=None):
+        """ Handle navigation for the primary view """
+        row = self.get_selected_row()
+        if not row:
+            return
+
+        # Don't interrupt the first animation
+        if not self.first_real_show:
+            typ = Gtk.StackTransitionType.SLIDE_UP_DOWN
+            self.parent_stack.set_transition_type(typ)
+            self.first_real_show = True
+
+        child = row.get_child()
+        self.parent_stack.set_visible_child_name(child.row_entry)
+
+    def __init__(self, parent_stack):
         Gtk.ListBox.__init__(self)
 
         self.get_style_context().add_class("sidebar")
+
+        self.parent_stack = parent_stack
 
         items = [
             ("home", "Home", "user-home-symbolic"),
@@ -40,6 +60,7 @@ class ScSidebar(Gtk.ListBox):
             image.set_property("margin-end", 5)
             label.set_property("margin-end", 5)
             row.pack_start(label, True, True, 0)
+            row.row_entry = item
             label.set_halign(Gtk.Align.START)
 
             if sel is None:
@@ -47,3 +68,4 @@ class ScSidebar(Gtk.ListBox):
 
             self.add(row)
         self.select_row(sel.get_parent())
+        self.connect("row-selected", self.on_row_selected)

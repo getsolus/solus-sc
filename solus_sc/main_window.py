@@ -16,6 +16,15 @@ from .sidebar import ScSidebar
 from gi.repository import Gtk, GLib
 
 
+class ScPlaceholderBox(Gtk.VBox):
+    """ So we don't show empty boxes :) """
+
+    def __init__(self):
+        Gtk.VBox.__init__(self)
+        lab = Gtk.Label("Sorry, this page is not yet implemented.")
+        self.add(lab)
+
+
 class ScMainWindow(Gtk.ApplicationWindow):
 
     groups_view = None
@@ -55,7 +64,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.main_layout = Gtk.HBox(0)
         self.add(self.main_layout)
 
-        self.sidebar = ScSidebar()
+        self.sidebar = ScSidebar(self.stack)
         self.sidebar_revealer = Gtk.Revealer()
         self.sidebar_revealer.add(self.sidebar)
         self.sidebar_revealer.set_reveal_child(False)
@@ -64,8 +73,16 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         # Dummy view for first time showing the application
         self.dummy_widget = Gtk.EventBox()
+
+        # Supported views
         self.stack.add_titled(self.dummy_widget, "empty", "empty")
         self.stack.add_titled(self.groups_view, "home", "Home")
+
+        # These guys aren't yet implemented
+        self.stack.add_titled(ScPlaceholderBox(), "updates", "Updates")
+        self.stack.add_titled(ScPlaceholderBox(), "installed", "Installed")
+        self.stack.add_titled(ScPlaceholderBox(), "3rd-party", "Third Party")
+        self.stack.add_titled(ScPlaceholderBox(), "settings", "Settings")
 
         # set up intro animation
         self.stack.set_visible_child_name("empty")
