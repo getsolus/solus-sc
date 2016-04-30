@@ -11,11 +11,13 @@
 #  (at your option) any later version.
 #
 
-import gi.repository
+from .groups import ScGroupsView
 from gi.repository import Gtk
 
 
 class ScMainWindow(Gtk.ApplicationWindow):
+
+    groups_view = None
 
     def __init__(self, app):
         Gtk.ApplicationWindow.__init__(self, application=app)
@@ -29,4 +31,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_default_size(800, 600)
+
+        # We'll add view switching later
+        self.groups_view = ScGroupsView()
+
+        self.add(self.groups_view)
+
         self.show_all()
