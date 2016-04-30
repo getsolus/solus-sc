@@ -32,7 +32,6 @@ class ScGroupButton(Gtk.Button):
             devIcon = "gnome-dev-computer"
 
         replacements = {
-            "applications-system": "system-run",
             "text-editor": "x-office-calendar",
             "redhat-programming": devIcon,
             "security-high": "preferences-system-privacy",
