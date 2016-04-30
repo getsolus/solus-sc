@@ -12,8 +12,9 @@
 #
 
 from .main_window import ScMainWindow
-from gi.repository import Gio, Gtk
+from gi.repository import Gio, Gtk, Gdk
 
+import os
 
 SC_APP_ID = "com.solus_project.SoftwareCenter"
 
@@ -21,6 +22,18 @@ SC_APP_ID = "com.solus_project.SoftwareCenter"
 class ScApplication(Gtk.Application):
 
     app_window = None
+
+    def init_css(self):
+        """ Set up the CSS before we throw any windows up """
+        try:
+            our_dir = os.path.dirname(os.path.abspath(__file__))
+            f = Gio.File.new_for_path(os.path.join(our_dir, "styling.css"))
+            css = Gtk.CssProvider()
+            css.load_from_file(f)
+            Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), css,
+                                                     Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        except Exception as e:
+            print("Error loading CSS: {}".format(e))
 
     def __init__(self):
         Gtk.Application.__init__(self,
@@ -30,5 +43,6 @@ class ScApplication(Gtk.Application):
 
     def on_activate(self, app):
         if self.app_window is None:
+            self.init_css()
             self.app_window = ScMainWindow(self)
         self.app_window.present()

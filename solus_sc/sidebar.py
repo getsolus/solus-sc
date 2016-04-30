@@ -14,11 +14,20 @@
 from gi.repository import Gtk
 
 
-class ScSidebar(Gtk.VBox):
-
-    size_group = None
+class ScSidebar(Gtk.ListBox):
 
     def __init__(self):
-        Gtk.VBox.__init__(self, 0)
+        Gtk.ListBox.__init__(self)
 
-        self.size_group = Gtk.SizeGroup(Gtk.SizeGroupMode.BOTH)
+        items = [("home", "Home", "user-home-symbolic")]
+
+        for item, label_sz, icon_sz in items:
+            row = Gtk.HBox(0)
+            label = Gtk.Label(label_sz)
+
+            image = Gtk.Image.new_from_icon_name(icon_sz, Gtk.IconSize.LARGE_TOOLBAR)
+            row.pack_start(image, False, False, 0)
+            row.pack_start(label, True, True, 0)
+            label.set_halign(Gtk.Align.START)
+
+            self.add(row)
