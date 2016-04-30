@@ -27,15 +27,29 @@ class ScGroupButton(Gtk.Button):
         icon = str(group.icon)
         gDesc = str(group.localName)
         image = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.DIALOG)
+        image.set_halign(Gtk.Align.START)
+        image.set_pixel_size(64)
+
+        label_box = Gtk.VBox(0)
 
         box = Gtk.HBox(0)
         box.pack_start(image, False, False, 0)
         image.set_property("margin-right", 10)
         label = Gtk.Label(gDesc)
+        label.get_style_context().add_class("title")
         label.set_halign(Gtk.Align.START)
-        box.pack_start(label, True, True, 0)
+        label.set_valign(Gtk.Align.START)
+        label_box.pack_start(label, True, True, 0)
+        box.pack_start(label_box, True, True, 0)
         self.set_relief(Gtk.ReliefStyle.NONE)
         self.add(box)
+
+        info_label = Gtk.Label("0 packages")
+        info_label.set_halign(Gtk.Align.START)
+        info_label.get_style_context().add_class("info-label")
+        label_box.pack_start(info_label, False, False, 0)
+
+        self.get_style_context().add_class("group-button")
 
 
 class ScGroupsView(Gtk.EventBox):

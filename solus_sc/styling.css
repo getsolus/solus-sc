@@ -2,3 +2,17 @@
  * This is where we'll eventually put our overrides in for the sidebar, etc,
  * to make this less ugly.
  */
+
+.solus-sc .group-button .title {
+    font-size: 115%;
+    padding: 5px;
+}
+
+.solus-sc .group-button .info-label {
+    color: alpha(@fg_color, 0.8);
+    padding: 5px;
+}
+
+.solus-sc .main-view {
+    margin: 10px;
+}

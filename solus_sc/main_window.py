@@ -39,11 +39,13 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.set_titlebar(headerbar)
 
         self.set_title("Software Center")
+        self.get_style_context().add_class("solus-sc")
 
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_default_size(800, 600)
 
         self.stack = Gtk.Stack()
+        self.stack.get_style_context().add_class("main-view")
         # We'll add view switching later
         self.groups_view = ScGroupsView()
 
