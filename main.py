@@ -14,6 +14,7 @@
 import sys
 import solus_sc
 
+
 def main():
     sys.exit(1)
 

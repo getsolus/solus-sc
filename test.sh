@@ -1,4 +1,4 @@
 #!/bin/bash
 
-pep8 solus_sc/*.py || exit 1
+pep8 solus_sc/*.py main.py || exit 1
 
