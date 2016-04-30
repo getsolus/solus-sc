@@ -24,6 +24,8 @@ class ScSidebar(Gtk.ListBox):
         items = [
             ("home", "Home", "user-home-symbolic"),
             ("updates", "Updates", "software-update-available-symbolic"),
+            ("installed", "Installed", "system-software-install-symbolic"),
+            ("3rd-party", "Third Party", "folder-download-symbolic"),
             ("settings", "Settings", "system-run-symbolic"),
         ]
 
@@ -35,8 +37,8 @@ class ScSidebar(Gtk.ListBox):
             image = Gtk.Image.new_from_icon_name(icon_sz,
                                                  Gtk.IconSize.LARGE_TOOLBAR)
             row.pack_start(image, False, False, 0)
-            image.set_property("margin-end", 6)
-            label.set_property("margin-end", 6)
+            image.set_property("margin-end", 5)
+            label.set_property("margin-end", 5)
             row.pack_start(label, True, True, 0)
             label.set_halign(Gtk.Align.START)
 
