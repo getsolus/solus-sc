@@ -18,6 +18,7 @@ class ScSidebar(Gtk.ListBox):
 
     parent_stack = None
     first_real_show = False
+    size_group = None
 
     def on_row_selected(self, us, udata=None):
         """ Handle navigation for the primary view """
@@ -38,7 +39,7 @@ class ScSidebar(Gtk.ListBox):
         Gtk.ListBox.__init__(self)
 
         self.get_style_context().add_class("sidebar")
-
+        self.size_group = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
         self.parent_stack = parent_stack
 
         items = [
@@ -57,11 +58,15 @@ class ScSidebar(Gtk.ListBox):
             image = Gtk.Image.new_from_icon_name(icon_sz,
                                                  Gtk.IconSize.LARGE_TOOLBAR)
             row.pack_start(image, False, False, 0)
-            image.set_property("margin-end", 5)
+            image.set_property("margin-end", 10)
             label.set_property("margin-end", 5)
             row.pack_start(label, True, True, 0)
             row.row_entry = item
             label.set_halign(Gtk.Align.START)
+
+            self.size_group.add_widget(label)
+            # SizeGroup alignment "unfinished" since birth of iron age.
+            label.set_alignment(0.0, 0.5)
 
             if sel is None:
                 sel = row
