@@ -56,6 +56,7 @@ class ScPackageView(Gtk.VBox):
         ren.set_padding(5, 5)
         column = Gtk.TreeViewColumn("Details", ren, icon_name=3)
         self.tview.append_column(column)
+        ren.set_property("xalign", 1.0)
 
         GLib.idle_add(self.init_view)
 
