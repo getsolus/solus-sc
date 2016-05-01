@@ -51,17 +51,23 @@ class ScPackageView(Gtk.VBox):
         self.tview.append_column(column)
         self.tview.set_search_column(1)
 
+        # Details
+        ren = Gtk.CellRendererPixbuf()
+        ren.set_padding(5, 5)
+        column = Gtk.TreeViewColumn("Details", ren, icon_name=3)
+        self.tview.append_column(column)
+
         GLib.idle_add(self.init_view)
 
     def init_view(self):
-        model = Gtk.ListStore(str, str, str)
+        model = Gtk.ListStore(str, str, str, str)
         model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
         for pkg_name in self.installdb.list_installed():
             pkg = self.installdb.get_package(pkg_name)
 
             summary = str(pkg.summary)
-            if len(summary) > 80:
-                summary = "%s…" % summary[0:80]
+            if len(summary) > 76:
+                summary = "%s…" % summary[0:76]
 
             summary = GLib.markup_escape_text(summary)
 
@@ -71,7 +77,7 @@ class ScPackageView(Gtk.VBox):
             if pkg.icon is not None:
                 icon = str(pkg.icon)
 
-            model.append([p_print, pkg_name, icon])
+            model.append([p_print, pkg_name, icon, "go-next-symbolic"])
 
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
