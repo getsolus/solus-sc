@@ -58,8 +58,9 @@ class ScPackageView(Gtk.VBox):
         for pkg_name in self.installdb.list_installed():
             pkg = self.installdb.get_package(pkg_name)
 
+            summary = GLib.markup_escape_text(str(pkg.summary))
             p_print = "<b>%s</b> - %s\n%s" % (str(pkg.name), str(pkg.version),
-                                              str(pkg.summary))
+                                              summary)
 
             icon = "package-x-generic"
             if pkg.icon is not None:
