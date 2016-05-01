@@ -60,7 +60,11 @@ class ScPackageView(Gtk.VBox):
             p_print = "<b>%s</b> - %s\n%s" % (str(pkg.name), str(pkg.version),
                                               str(pkg.summary))
 
-            model.append([p_print, pkg_name, "package-x-generic"])
+            icon = "package-x-generic"
+            if pkg.icon is not None:
+                icon = str(pkg.icon)
+
+            model.append([p_print, pkg_name, icon])
 
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
