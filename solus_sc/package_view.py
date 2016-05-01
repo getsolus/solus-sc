@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib
 from pisi.db.installdb import InstallDB
 
 
@@ -46,3 +46,16 @@ class ScPackageView(Gtk.VBox):
         ren = Gtk.CellRendererText()
         column = Gtk.TreeViewColumn("Summary", ren, text=2)
         self.tview.append_column(column)
+
+        GLib.idle_add(self.init_view)
+
+    def init_view(self):
+        model = Gtk.ListStore(str, str, str)
+        for pkg_name in self.installdb.list_installed():
+            pkg = self.installdb.get_package(pkg_name)
+            model.append([str(pkg.name), str(pkg.version), str(pkg.summary)])
+
+            while (Gtk.events_pending()):
+                Gtk.main_iteration()
+        self.tview.set_model(model)
+        return False
