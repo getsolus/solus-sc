@@ -27,6 +27,7 @@ class ScPackageView(Gtk.VBox):
         self.installdb = InstallDB()
 
         self.scroll = Gtk.ScrolledWindow(None, None)
+        self.scroll.set_property("kinetic-scrolling", True)
         self.pack_start(self.scroll, True, True, 0)
 
         self.tview = Gtk.TreeView()
