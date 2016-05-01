@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, GdkPixbuf
 from pisi.db.installdb import InstallDB
 
 
@@ -35,6 +35,13 @@ class ScPackageView(Gtk.VBox):
         self.tview.set_property("headers-visible", False)
         self.scroll.add(self.tview)
 
+        # img view
+        ren = Gtk.CellRendererPixbuf()
+        ren.set_property("stock-size", Gtk.IconSize.DIALOG)
+        ren.set_padding(5, 2)
+        column = Gtk.TreeViewColumn("Icon", ren, icon_name=2)
+        self.tview.append_column(column)
+
         # Set up display columns
         ren = Gtk.CellRendererText()
         ren.set_padding(5, 5)
@@ -45,7 +52,7 @@ class ScPackageView(Gtk.VBox):
         GLib.idle_add(self.init_view)
 
     def init_view(self):
-        model = Gtk.ListStore(str, str)
+        model = Gtk.ListStore(str, str, str)
         model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
         for pkg_name in self.installdb.list_installed():
             pkg = self.installdb.get_package(pkg_name)
@@ -53,7 +60,7 @@ class ScPackageView(Gtk.VBox):
             p_print = "<b>%s</b> - %s\n%s" % (str(pkg.name), str(pkg.version),
                                               str(pkg.summary))
 
-            model.append([p_print, pkg_name])
+            model.append([p_print, pkg_name, "package-x-generic"])
 
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
