@@ -30,30 +30,30 @@ class ScPackageView(Gtk.VBox):
         self.pack_start(self.scroll, True, True, 0)
 
         self.tview = Gtk.TreeView()
+        # Defugly
+        self.tview.set_property("enable-grid-lines", False)
+        self.tview.set_property("headers-visible", False)
         self.scroll.add(self.tview)
 
         # Set up display columns
         ren = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Name", ren, text=0)
+        ren.set_padding(5, 5)
+        column = Gtk.TreeViewColumn("Name", ren, markup=0)
         self.tview.append_column(column)
-
-        # version
-        ren = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Version", ren, text=1)
-        self.tview.append_column(column)
-
-        # summary
-        ren = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Summary", ren, text=2)
-        self.tview.append_column(column)
+        self.tview.set_search_column(1)
 
         GLib.idle_add(self.init_view)
 
     def init_view(self):
-        model = Gtk.ListStore(str, str, str)
+        model = Gtk.ListStore(str, str)
+        model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
         for pkg_name in self.installdb.list_installed():
             pkg = self.installdb.get_package(pkg_name)
-            model.append([str(pkg.name), str(pkg.version), str(pkg.summary)])
+
+            p_print = "<b>%s</b> - %s\n%s" % (str(pkg.name), str(pkg.version),
+                                              str(pkg.summary))
+
+            model.append([p_print, pkg_name])
 
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
