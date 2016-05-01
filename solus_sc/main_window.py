@@ -12,6 +12,7 @@
 #
 
 from .groups import ScGroupsView
+from .package_view import ScPackageView
 from .sidebar import ScSidebar
 from gi.repository import Gtk, GLib
 
@@ -32,6 +33,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
     sidebar = None
     stack = None
     sidebar_revealer = None
+
+    # Pages
+    package_view = None
 
     def init_view(self):
         self.stack.set_visible_child_name("home")
@@ -81,9 +85,14 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.stack.add_titled(self.dummy_widget, "empty", "empty")
         self.stack.add_titled(self.groups_view, "home", "Home")
 
-        # These guys aren't yet implemented
+        # Not yet implemented
         self.stack.add_titled(ScPlaceholderBox(), "updates", "Updates")
-        self.stack.add_titled(ScPlaceholderBox(), "installed", "Installed")
+
+        # Package view for installed page
+        self.package_view = ScPackageView()
+
+        # These guys aren't yet implemented
+        self.stack.add_titled(self.package_view, "installed", "Installed")
         self.stack.add_titled(ScPlaceholderBox(), "3rd-party", "Third Party")
         self.stack.add_titled(ScPlaceholderBox(), "settings", "Settings")
 
