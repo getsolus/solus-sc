@@ -27,6 +27,7 @@ class ScPackageView(Gtk.VBox):
         self.installdb = InstallDB()
 
         self.scroll = Gtk.ScrolledWindow(None, None)
+        self.scroll.set_overlay_scrolling(False)
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scroll.set_property("kinetic-scrolling", True)
         self.pack_start(self.scroll, True, True, 0)
