@@ -27,6 +27,7 @@ class ScPackageView(Gtk.VBox):
         self.installdb = InstallDB()
 
         self.scroll = Gtk.ScrolledWindow(None, None)
+        self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scroll.set_property("kinetic-scrolling", True)
         self.pack_start(self.scroll, True, True, 0)
 
@@ -58,10 +59,14 @@ class ScPackageView(Gtk.VBox):
         for pkg_name in self.installdb.list_installed():
             pkg = self.installdb.get_package(pkg_name)
 
-            summary = GLib.markup_escape_text(str(pkg.summary))
+            summary = str(pkg.summary)
+            if len(summary) > 80:
+                summary = "%s…" % summary[0:80]
+
+            summary = GLib.markup_escape_text(summary)
+
             p_print = "<b>%s</b> - %s\n%s" % (str(pkg.name), str(pkg.version),
                                               summary)
-
             icon = "package-x-generic"
             if pkg.icon is not None:
                 icon = str(pkg.icon)
