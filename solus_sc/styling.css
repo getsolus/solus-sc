@@ -31,3 +31,7 @@
     background: alpha(@selected_bg_color, 0.76);
 }
 
+.solus-sc .basket-case {
+    border-top: 1px solid alpha(@fg_color, 0.15);
+    border-bottom: 1px solid alpha(@fg_color, 0.15);
+}
