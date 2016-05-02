@@ -27,6 +27,7 @@ class ScUpdatesView(Gtk.VBox):
         Gtk.VBox.__init__(self, 0)
 
         self.scroll = Gtk.ScrolledWindow(None, None)
+        self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
         self.scroll.set_overlay_scrolling(False)
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scroll.set_property("kinetic-scrolling", True)
