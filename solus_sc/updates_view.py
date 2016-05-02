@@ -79,6 +79,16 @@ class ScUpdatesView(Gtk.VBox):
         model = self.tview.get_model()
         model[path][4] = not model[path][4]
 
+    def get_history_between(self, old_release, new):
+        """ Get the history items between the old release and new pkg """
+        ret = list()
+
+        for i in new.history:
+            if i.release <= old_release:
+                continue
+            ret.append(i)
+        return ret
+
     def init_view(self):
         # Need a shared context for these guys
         self.installdb = InstallDB()
@@ -98,6 +108,7 @@ class ScUpdatesView(Gtk.VBox):
             old_pkg = None
             old_version = "Not installed"
             systemBase = False
+            oldRelease = 0
 
             icon = PACKAGE_ICON_NORMAL
             if new_pkg.partOf == "system.base":
@@ -107,6 +118,13 @@ class ScUpdatesView(Gtk.VBox):
                 old_pkg = self.installdb.get_package(item)
                 old_version = "%s-%s" % (str(old_pkg.version),
                                          str(old_pkg.release))
+                oldRelease = int(old_pkg.release)
+
+            histories = self.get_history_between(oldRelease, new_pkg)
+            # Initial security update detection
+            securities = [x for x in histories if x.type == "security"]
+            if len(securities) > 0:
+                icon = PACKAGE_ICON_SECURITY
 
             model.append([pkg_name, old_version, new_version,
                           icon, systemBase, not systemBase])
