@@ -33,6 +33,7 @@ class ScPackageView(Gtk.VBox):
         self.pack_start(self.scroll, True, True, 0)
 
         self.tview = Gtk.TreeView()
+        self.tview.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
         # Defugly
         self.tview.set_property("enable-grid-lines", False)
         self.tview.set_property("headers-visible", False)
