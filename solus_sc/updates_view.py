@@ -18,8 +18,8 @@ from pisi.db.installdb import InstallDB
 import pisi.api
 
 
-PACKAGE_ICON_SECURITY = "security-high-symbolic"
-# software-update-urgent-symbolic ?
+PACKAGE_ICON_SECURITY = "software-update-urgent-symbolic"
+# security-high-symbolic? doesn't stick out much..
 PACKAGE_ICON_NORMAL = "software-update-available-symbolic"
 
 
