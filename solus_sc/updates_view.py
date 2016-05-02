@@ -13,6 +13,10 @@
 
 from gi.repository import Gtk, GLib, GdkPixbuf
 
+PACKAGE_ICON_SECURITY = "security-high-symbolic"
+# software-update-urgent-symbolic ?
+PACKAGE_ICON_NORMAL = "software-update-available-symbolic"
+
 
 class ScUpdatesView(Gtk.VBox):
 
@@ -34,3 +38,49 @@ class ScUpdatesView(Gtk.VBox):
         self.tview.set_property("enable-grid-lines", False)
         self.tview.set_property("headers-visible", False)
         self.scroll.add(self.tview)
+
+        # Install it?
+        ren = Gtk.CellRendererToggle()
+        ren.set_activatable(True)
+        ren.connect('toggled', self.on_toggled)
+        ren.set_padding(5, 5)
+        column = Gtk.TreeViewColumn("Install?", ren, active=4, activatable=5)
+        self.tview.append_column(column)
+
+        # Type, image based.
+        ren = Gtk.CellRendererPixbuf()
+        ren.set_padding(5, 5)
+        column = Gtk.TreeViewColumn("Type", ren, icon_name=3)
+        self.tview.append_column(column)
+
+        ren = Gtk.CellRendererText()
+        ren.set_padding(5, 5)
+        column = Gtk.TreeViewColumn("Name", ren, text=0)
+        self.tview.append_column(column)
+
+        # Installed version
+        column = Gtk.TreeViewColumn("Version", ren, text=1)
+        self.tview.append_column(column)
+
+        # New version
+        column = Gtk.TreeViewColumn("New version", ren, text=2)
+        self.tview.append_column(column)
+
+        GLib.idle_add(self.init_view)
+
+    def on_toggled(self, w, path):
+        model = self.tview.get_model()
+        model[path][4] = not model[path][4]
+
+    def init_view(self):
+        model = Gtk.ListStore(str, str, str, str, bool, bool)
+
+        model.append(["security-update", "old", "new",
+                      PACKAGE_ICON_SECURITY, False, True])
+        model.append(["non-security-update", "old", "new",
+                      PACKAGE_ICON_NORMAL, False, True])
+        model.append(["system.base update", "old", "new",
+                      PACKAGE_ICON_NORMAL, True, False])
+
+        self.tview.set_model(model)
+        return False
