@@ -229,4 +229,49 @@ class ScUpdatesView(Gtk.VBox):
                 model.set(item, 0, False)
                 model.set(item, 1, False)
                 model.set(item, 5, False)
+
+        # Hook up events so we know what's going on (4 non blondes.)
+        model.connect_after('row-changed', self.on_model_row_changed)
         return False
+
+    should_ignore = False
+
+    def on_model_row_changed(self, tmodel, path, titer):
+        parent = tmodel.iter_parent(titer)
+
+        if self.should_ignore:
+            return
+
+        self.should_ignore = True
+
+        # Handle child set to parent
+        if parent is not None:
+            num_children = tmodel.iter_n_children(parent)
+            active_children = []
+            inactive_children = []
+
+            # Find all inactive checkboxes
+            for i in xrange(0, num_children):
+                child = tmodel.iter_nth_child(parent, i)
+                child_path = tmodel.get_path(child)
+                active = tmodel[child_path][0]
+                if not active:
+                    inactive_children.append(child_path)
+
+            ppath = tmodel.get_path(parent)
+            # One inactive means parent = FALSE, all active = TRUE
+            if len(inactive_children) > 0:
+                tmodel[ppath][0] = False
+            else:
+                tmodel[ppath][0] = True
+        else:
+            # Handle parent set children
+            num_children = tmodel.iter_n_children(titer)
+            active = tmodel[path][0]
+            for i in xrange(0, num_children):
+                child = tmodel.iter_nth_child(titer, i)
+                child_path = tmodel.get_path(child)
+
+                tmodel[child_path][0] = active
+
+        self.should_ignore = False
