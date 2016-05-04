@@ -141,27 +141,27 @@ class ScUpdatesView(Gtk.VBox):
         return delt.packageSize
 
     def init_view(self):
-        # Install? Modifiable? Display label | Size | Image | Sensitive
-        model = Gtk.TreeStore(bool, bool, str, str, str, bool)
+        # Install? Modifiable? Display label | Size | Image | Sensitive | iSize
+        model = Gtk.TreeStore(bool, bool, str, str, str, bool, int)
 
         # Mandatory updates
         m_label = "<b>Required updates</b>\n" \
                   "These updates are mandatory and will be selected " \
                   "automatically."
         row_m = model.append(None, [True, False, m_label, None,
-                                    PACKAGE_ICON_MANDATORY, True])
+                                    PACKAGE_ICON_MANDATORY, True, 0])
         # Security row
         s_label = "<b>Security Updates</b>\n" \
                   "These updates are strongly recommended to support safe " \
                   "usage of your device."
         row_s = model.append(None, [False, True, s_label, None,
-                                    PACKAGE_ICON_SECURITY, True])
+                                    PACKAGE_ICON_SECURITY, True, 0])
         # All other updates
         u_label = "<b>Other Updates</b>\n" \
                   "These updates may introduce new software versions and " \
                   "bug-fixes."
         row_u = model.append(None, [False, True, u_label, None,
-                                    PACKAGE_ICON_NORMAL, True])
+                                    PACKAGE_ICON_NORMAL, True, 0])
 
         self.tview.set_model(model)
 
@@ -218,7 +218,7 @@ class ScUpdatesView(Gtk.VBox):
                                                       new_version,
                                                       summary)
             model.append(parent_row, [systemBase, not systemBase,
-                                      p_print, dlSize, icon, True])
+                                      p_print, dlSize, icon, True, pkgSize])
 
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
@@ -231,12 +231,14 @@ class ScUpdatesView(Gtk.VBox):
                 model.set(item, 5, False)
 
         # Hook up events so we know what's going on (4 non blondes.)
+        self.update_from_selection()
         model.connect_after('row-changed', self.on_model_row_changed)
         return False
 
     should_ignore = False
 
     def on_model_row_changed(self, tmodel, path, titer):
+        """ Handle selection changes """
         parent = tmodel.iter_parent(titer)
 
         if self.should_ignore:
@@ -275,3 +277,34 @@ class ScUpdatesView(Gtk.VBox):
                 tmodel[child_path][0] = active
 
         self.should_ignore = False
+
+        self.update_from_selection()
+
+    """ Update selection, size, etc, from current view """
+    def update_from_selection(self):
+        model = self.tview.get_model()
+
+        total_update = 0
+        total_size = 0
+
+        # enumerate root nodes
+        for i in xrange(0, model.iter_n_children(None)):
+            root_kid = model.iter_nth_child(None, i)
+
+            # enumarate children in this root node
+            for j in xrange(0, model.iter_n_children(root_kid)):
+                child = model.iter_nth_child(root_kid, j)
+                child_path = model.get_path(child)
+
+                active = model[child_path][0]
+                if not active:
+                    continue
+                total_update += 1
+                total_size += model[child_path][6]
+        # Skip it.
+        if total_update == 0:
+            self.selection_label.set_text("%s items selected" % total_update)
+            return
+        dlSize = "%.2f %s" % pisi.util.human_readable_size(total_size)
+        newLabel = "%s items selected - (%s)" % (total_update, dlSize)
+        self.selection_label.set_text(newLabel)
