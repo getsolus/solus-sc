@@ -307,6 +307,6 @@ class ScUpdatesView(Gtk.VBox):
             self.selection_label.set_text("%s items selected" % total_update)
             return
         dlSize = "%.2f %s" % sc_format_size(total_size)
-        newLabel = "%s items selected - (%s to download)" % \
+        newLabel = "%s items selected (%s to download)" % \
                    (total_update, dlSize)
         self.selection_label.set_text(newLabel)
