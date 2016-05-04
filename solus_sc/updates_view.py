@@ -111,13 +111,13 @@ class ScUpdatesView(Gtk.VBox):
 
         # Mandatory updates
         m_label = "<b>Required updates</b>\n" \
-                  "These updates are mandatory and will be automatically " \
-                  "selected."
+                  "These updates are mandatory and will be selected " \
+                  "automatically."
         row_m = model.append(None, [True, False, m_label, None,
                                     PACKAGE_ICON_MANDATORY, True])
         # Security row
         s_label = "<b>Security Updates</b>\n" \
-                  "These updates are highly recommended for the safe " \
+                  "These updates are strongly recommended to support safe " \
                   "usage of your device."
         row_s = model.append(None, [False, True, s_label, None,
                                     PACKAGE_ICON_SECURITY, True])
