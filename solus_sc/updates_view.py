@@ -30,12 +30,56 @@ class ScUpdateObject(GObject.Object):
     old_pkg = None
     new_pkg = None
 
+    # Simple, really.
+    has_security_update = False
+
     __gtype_name__ = "ScUpdateObject"
 
     def __init__(self, old_pkg, new_pkg):
         GObject.Object.__init__(self)
         self.old_pkg = old_pkg
         self.new_pkg = new_pkg
+
+        if not self.old_pkg:
+            return
+        oldRelease = int(self.old_pkg.release)
+        histories = self.get_history_between(oldRelease, self.new_pkg)
+
+        # Initial security update detection
+        securities = [x for x in histories if x.type == "security"]
+        if len(securities) < 1:
+            return
+        self.has_security_update = True
+
+    def get_update_size(self):
+        """ Determine the update size for a given package """
+        # FIXME: Check pisi config
+        deltasEnabled = True
+
+        pkgSize = self.new_pkg.packageSize
+        if not deltasEnabled:
+            return pkgSize
+        if not self.old_pkg:
+            return pkgSize
+        delt = self.new_pkg.get_delta(int(self.old_pkg.release))
+        """ No delta available. """
+        if not delt:
+            return pkgSize
+        return delt.packageSize
+
+    def is_security_update(self):
+        """ Determine if the update introduces security fixes """
+        return self.has_security_update
+
+    def get_history_between(self, old_release, new):
+        """ Get the history items between the old release and new pkg """
+        ret = list()
+
+        for i in new.history:
+            if i.release <= old_release:
+                continue
+            ret.append(i)
+        return ret
 
 
 class ScUpdatesView(Gtk.VBox):
@@ -134,32 +178,6 @@ class ScUpdatesView(Gtk.VBox):
         model = self.tview.get_model()
         model[path][0] = not model[path][0]
 
-    def get_history_between(self, old_release, new):
-        """ Get the history items between the old release and new pkg """
-        ret = list()
-
-        for i in new.history:
-            if i.release <= old_release:
-                continue
-            ret.append(i)
-        return ret
-
-    def get_update_size(self, oldPkg, newPkg):
-        """ Determine the update size for a given package """
-        # FIXME: Check pisi config
-        deltasEnabled = True
-
-        pkgSize = newPkg.packageSize
-        if not deltasEnabled:
-            return pkgSize
-        if not oldPkg:
-            return pkgSize
-        delt = newPkg.get_delta(int(oldPkg.release))
-        """ No delta available. """
-        if not delt:
-            return pkgSize
-        return delt.packageSize
-
     def init_view(self):
         # Install? Modifiable? Display label | Size | Image | Sensitive | iSize
         # | UpdateObject
@@ -220,10 +238,7 @@ class ScUpdatesView(Gtk.VBox):
 
             sc_obj = ScUpdateObject(old_pkg, new_pkg)
 
-            histories = self.get_history_between(oldRelease, new_pkg)
-            # Initial security update detection
-            securities = [x for x in histories if x.type == "security"]
-            if len(securities) > 0:
+            if sc_obj.is_security_update():
                 parent_row = row_s
                 icon = PACKAGE_ICON_SECURITY
 
@@ -232,7 +247,7 @@ class ScUpdatesView(Gtk.VBox):
                 summary = "%s…" % summary[0:76]
 
             # Finally, actual size, and readable size
-            pkgSize = self.get_update_size(old_pkg, new_pkg)
+            pkgSize = sc_obj.get_update_size()
             dlSize = "%.1f %s" % sc_format_size(pkgSize)
 
             icon = "package-x-generic"
@@ -307,8 +322,8 @@ class ScUpdatesView(Gtk.VBox):
 
         self.update_from_selection()
 
-    """ Update selection, size, etc, from current view """
     def update_from_selection(self):
+        """ Update selection, size, etc, from current view """
         model = self.tview.get_model()
 
         total_update = 0
@@ -337,8 +352,8 @@ class ScUpdatesView(Gtk.VBox):
                    (total_update, dlSize)
         self.selection_label.set_text(newLabel)
 
-    """ Determine update info availablity """
     def on_row_activated(self, tview, path, column, udata=None):
+        """ Determine update info availablity """
         model = tview.get_model()
         titer = model.get_iter(path)
 
