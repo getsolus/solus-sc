@@ -75,7 +75,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.sidebar_revealer.add(self.sidebar)
         self.sidebar_revealer.set_reveal_child(False)
         self.main_layout.pack_start(self.sidebar_revealer, False, False, 0)
-
+        sep = Gtk.Separator()
+        sep.set_orientation(Gtk.Orientation.VERTICAL)
+        self.main_layout.pack_start(sep, False, False, 0)
         self.main_layout.pack_start(self.stack, True, True, 0)
 
         # Dummy view for first time showing the application

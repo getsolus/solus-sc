@@ -77,11 +77,17 @@ class ScGroupsView(Gtk.EventBox):
     flowbox = None
     groupdb = None
     group_names = None
+    scroll = None
 
     group_map = dict()
 
     def __init__(self):
         Gtk.EventBox.__init__(self)
+
+        self.scroll = Gtk.ScrolledWindow(None, None)
+        self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+        self.add(self.scroll)
 
         self.flowbox = Gtk.FlowBox()
         self.flowbox.set_property("margin-start", 40)
@@ -89,7 +95,7 @@ class ScGroupsView(Gtk.EventBox):
         self.flowbox.set_orientation(Gtk.Orientation.HORIZONTAL)
         self.flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
         self.flowbox.set_valign(Gtk.Align.START)
-        self.add(self.flowbox)
+        self.scroll.add(self.flowbox)
 
         # Consider making this guy global.
         self.groupdb = GroupDB()
