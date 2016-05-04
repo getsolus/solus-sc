@@ -65,6 +65,7 @@ class ScGroupButton(Gtk.Button):
         info_label = Gtk.Label("0 packages")
         info_label.set_halign(Gtk.Align.START)
         info_label.get_style_context().add_class("info-label")
+        info_label.get_style_context().add_class("dim-label")
         label_box.pack_start(info_label, False, False, 0)
 
         self.get_style_context().add_class("group-button")

@@ -9,7 +9,6 @@
 }
 
 .solus-sc .group-button .info-label {
-    color: alpha(@fg_color, 0.8);
     padding: 5px;
 }
 
