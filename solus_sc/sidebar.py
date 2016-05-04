@@ -38,7 +38,7 @@ class ScSidebar(Gtk.ListBox):
     def __init__(self, parent_stack):
         Gtk.ListBox.__init__(self)
 
-        self.get_style_context().add_class("sidebar")
+        self.get_style_context().add_class(Gtk.STYLE_CLASS_SIDEBAR)
         self.size_group = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
         self.parent_stack = parent_stack
 
@@ -76,6 +76,7 @@ class ScSidebar(Gtk.ListBox):
 
             if item == "basket":
                 row.get_parent().get_style_context().add_class("basket-case")
+            row.get_parent().get_style_context().add_class("sidebar-item")
 
         self.select_row(sel.get_parent())
         self.connect("row-selected", self.on_row_selected)
