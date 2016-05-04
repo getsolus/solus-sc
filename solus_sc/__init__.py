@@ -14,3 +14,13 @@
 import gi.repository
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gio', '2.0')
+
+
+# Helper for formatting sizes
+def sc_format_size(size):
+    labels = ["B", "KiB", "MiB", "GiB", "PiB", "EiB", "ZiB", "YiB"]
+
+    for i, label in enumerate(labels):
+        if size < 1000 or i == len(labels) - 1:
+            return size, label
+        size = float(size / 1024)

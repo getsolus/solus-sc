@@ -14,6 +14,7 @@
 from gi.repository import Gtk, GLib, GdkPixbuf
 from pisi.db.packagedb import PackageDB
 from pisi.db.installdb import InstallDB
+from . import sc_format_size
 
 import pisi.api
 
@@ -208,7 +209,7 @@ class ScUpdatesView(Gtk.VBox):
 
             # Finally, actual size, and readable size
             pkgSize = self.get_update_size(old_pkg, new_pkg)
-            dlSize = "%.1f %s" % pisi.util.human_readable_size(pkgSize)
+            dlSize = "%.1f %s" % sc_format_size(pkgSize)
 
             icon = "package-x-generic"
             if new_pkg.icon is not None:
@@ -305,7 +306,7 @@ class ScUpdatesView(Gtk.VBox):
         if total_update == 0:
             self.selection_label.set_text("%s items selected" % total_update)
             return
-        dlSize = "%.2f %s" % pisi.util.human_readable_size(total_size)
+        dlSize = "%.2f %s" % sc_format_size(total_size)
         newLabel = "%s items selected - (%s to download)" % \
                    (total_update, dlSize)
         self.selection_label.set_text(newLabel)
