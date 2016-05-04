@@ -306,5 +306,6 @@ class ScUpdatesView(Gtk.VBox):
             self.selection_label.set_text("%s items selected" % total_update)
             return
         dlSize = "%.2f %s" % pisi.util.human_readable_size(total_size)
-        newLabel = "%s items selected - (%s)" % (total_update, dlSize)
+        newLabel = "%s items selected - (%s to download)" % \
+                   (total_update, dlSize)
         self.selection_label.set_text(newLabel)
