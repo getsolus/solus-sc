@@ -146,7 +146,7 @@ class ScUpdatesView(Gtk.VBox):
         model = Gtk.TreeStore(bool, bool, str, str, str, bool, int)
 
         # Mandatory updates
-        m_label = "<b>Required updates</b>\n" \
+        m_label = "<b>Required Updates</b>\n" \
                   "These updates are mandatory and will be selected " \
                   "automatically."
         row_m = model.append(None, [True, False, m_label, None,
