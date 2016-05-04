@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GLib, GdkPixbuf
+from gi.repository import Gtk, GLib, GdkPixbuf, GObject
 from pisi.db.packagedb import PackageDB
 from pisi.db.installdb import InstallDB
 from . import sc_format_size
@@ -24,6 +24,20 @@ PACKAGE_ICON_NORMAL = "software-update-available-symbolic"
 PACKAGE_ICON_MANDATORY = "software-update-urgent-symbolic"
 
 
+class ScUpdateObject(GObject.Object):
+    """ Keep glib happy and allow us to store references in a liststore """
+
+    old_pkg = None
+    new_pkg = None
+
+    __gtype_name__ = "ScUpdateObject"
+
+    def __init__(self, old_pkg, new_pkg):
+        GObject.Object.__init__(self)
+        self.old_pkg = old_pkg
+        self.new_pkg = new_pkg
+
+
 class ScUpdatesView(Gtk.VBox):
 
     installdb = None
@@ -32,6 +46,9 @@ class ScUpdatesView(Gtk.VBox):
 
     toolbar = None
     selection_label = None
+    view_details = None
+
+    selected_object = None
 
     def __init__(self):
         Gtk.VBox.__init__(self, 0)
@@ -52,6 +69,8 @@ class ScUpdatesView(Gtk.VBox):
         self.scroll.add(self.tview)
         self.tview.set_property("enable-grid-lines", False)
         self.tview.set_property("headers-visible", False)
+        self.tview.set_activate_on_single_click(True)
+        self.tview.connect_after('row-activated', self.on_row_activated)
 
         # Can toggle?
         ren = Gtk.CellRendererToggle()
@@ -103,12 +122,12 @@ class ScUpdatesView(Gtk.VBox):
         self.toolbar.add(sep)
 
         # View details, i.e. changelog
-        view_details = Gtk.ToolButton(None, None)
-        view_details.set_sensitive(False)
-        view_details.set_property("label", "View Details")
-        view_details.set_property("icon-name", "view-list-details-symbolic")
-        view_details.set_is_important(True)
-        self.toolbar.add(view_details)
+        self.view_details = Gtk.ToolButton(None, None)
+        self.view_details.set_sensitive(False)
+        self.view_details.set_property("label", "Details" + u"…")
+        # view_details.set_property("icon-name", "view-list-details-symbolic")
+        self.view_details.set_is_important(True)
+        self.toolbar.add(self.view_details)
         GLib.idle_add(self.init_view)
 
     def on_toggled(self, w, path):
@@ -143,26 +162,29 @@ class ScUpdatesView(Gtk.VBox):
 
     def init_view(self):
         # Install? Modifiable? Display label | Size | Image | Sensitive | iSize
-        model = Gtk.TreeStore(bool, bool, str, str, str, bool, int)
+        # | UpdateObject
+        model = Gtk.TreeStore(bool, bool, str, str, str, bool, int,
+                              ScUpdateObject)
+        self.selected_object = None
 
         # Mandatory updates
         m_label = "<b>Required Updates</b>\n" \
                   "These updates are mandatory and will be selected " \
                   "automatically."
         row_m = model.append(None, [True, False, m_label, None,
-                                    PACKAGE_ICON_MANDATORY, True, 0])
+                                    PACKAGE_ICON_MANDATORY, True, 0, None])
         # Security row
         s_label = "<b>Security Updates</b>\n" \
                   "These updates are strongly recommended to support safe " \
                   "usage of your device."
         row_s = model.append(None, [False, True, s_label, None,
-                                    PACKAGE_ICON_SECURITY, True, 0])
+                                    PACKAGE_ICON_SECURITY, True, 0, None])
         # All other updates
         u_label = "<b>Other Updates</b>\n" \
                   "These updates may introduce new software versions and " \
                   "bug-fixes."
         row_u = model.append(None, [False, True, u_label, None,
-                                    PACKAGE_ICON_NORMAL, True, 0])
+                                    PACKAGE_ICON_NORMAL, True, 0, None])
 
         self.tview.set_model(model)
 
@@ -196,6 +218,8 @@ class ScUpdatesView(Gtk.VBox):
                                          str(old_pkg.release))
                 oldRelease = int(old_pkg.release)
 
+            sc_obj = ScUpdateObject(old_pkg, new_pkg)
+
             histories = self.get_history_between(oldRelease, new_pkg)
             # Initial security update detection
             securities = [x for x in histories if x.type == "security"]
@@ -218,8 +242,10 @@ class ScUpdatesView(Gtk.VBox):
             p_print = "%s - <small>%s</small>\n%s" % (pkg_name,
                                                       new_version,
                                                       summary)
+
             model.append(parent_row, [systemBase, not systemBase,
-                                      p_print, dlSize, icon, True, pkgSize])
+                                      p_print, dlSize, icon, True, pkgSize,
+                                      sc_obj])
 
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
@@ -310,3 +336,17 @@ class ScUpdatesView(Gtk.VBox):
         newLabel = "%s items selected (%s to download)" % \
                    (total_update, dlSize)
         self.selection_label.set_text(newLabel)
+
+    """ Determine update info availablity """
+    def on_row_activated(self, tview, path, column, udata=None):
+        model = tview.get_model()
+        titer = model.get_iter(path)
+
+        # Root node, disable our guy
+        parent = model.iter_parent(titer)
+        if not parent:
+            self.view_details.set_sensitive(False)
+            self.selected_object = None
+            return
+        self.view_details.set_sensitive(True)
+        self.selected_object = model[path][7]
