@@ -39,6 +39,7 @@ class ScSidebar(Gtk.ListBox):
         Gtk.ListBox.__init__(self)
 
         self.get_style_context().add_class(Gtk.STYLE_CLASS_SIDEBAR)
+        self.get_style_context().add_class(Gtk.STYLE_CLASS_VIEW)
         self.size_group = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
         self.parent_stack = parent_stack
 

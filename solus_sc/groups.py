@@ -93,6 +93,10 @@ class ScGroupsView(Gtk.EventBox):
         # Consider making this guy global.
         self.groupdb = GroupDB()
 
+        st = self.get_style_context()
+        st.add_class(Gtk.STYLE_CLASS_VIEW)
+        st.add_class("content")
+
         self.init_view()
 
     def init_view(self):
