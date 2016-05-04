@@ -29,6 +29,9 @@ class ScUpdatesView(Gtk.VBox):
     packagedb = None
     tview = None
 
+    toolbar = None
+    selection_label = None
+
     def __init__(self):
         Gtk.VBox.__init__(self, 0)
 
@@ -38,6 +41,10 @@ class ScUpdatesView(Gtk.VBox):
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scroll.set_property("kinetic-scrolling", True)
         self.pack_start(self.scroll, True, True, 0)
+
+        # Junction bottom for toolbar join
+        st = self.scroll.get_style_context()
+        st.set_junction_sides(Gtk.JunctionSides.BOTTOM)
 
         self.tview = Gtk.TreeView()
         self.tview.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
@@ -73,6 +80,34 @@ class ScUpdatesView(Gtk.VBox):
         column = Gtk.TreeViewColumn("Size", text_ren, text=3, sensitive=5)
         self.tview.append_column(column)
 
+        # Main toolbar
+        self.toolbar = Gtk.Toolbar()
+        st = self.toolbar.get_style_context()
+        st.set_junction_sides(Gtk.JunctionSides.TOP)
+        st.add_class(Gtk.STYLE_CLASS_INLINE_TOOLBAR)
+        st.add_class("update-toolbar")
+        self.pack_end(self.toolbar, False, False, 0)
+
+        # Selection label
+        self.selection_label = Gtk.Label("0 items selected")
+        titem = Gtk.ToolItem()
+        titem.set_property("margin-start", 6)
+        titem.add(self.selection_label)
+        self.toolbar.add(titem)
+
+        # Right align the toolbar
+        sep = Gtk.SeparatorToolItem()
+        sep.set_draw(False)
+        sep.set_expand(True)
+        self.toolbar.add(sep)
+
+        # View details, i.e. changelog
+        view_details = Gtk.ToolButton(None, None)
+        view_details.set_sensitive(False)
+        view_details.set_property("label", "View Details")
+        view_details.set_property("icon-name", "view-list-details-symbolic")
+        view_details.set_is_important(True)
+        self.toolbar.add(view_details)
         GLib.idle_add(self.init_view)
 
     def on_toggled(self, w, path):
