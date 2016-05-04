@@ -73,6 +73,11 @@ class ScUpdatesView(Gtk.VBox):
         column = Gtk.TreeViewColumn("New version", ren, text=2)
         self.tview.append_column(column)
 
+        # Update size
+        ren = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn("Size", ren, text=7)
+        self.tview.append_column(column)
+
         GLib.idle_add(self.init_view)
 
     def on_toggled(self, w, path):
@@ -89,12 +94,28 @@ class ScUpdatesView(Gtk.VBox):
             ret.append(i)
         return ret
 
+    def get_update_size(self, oldPkg, newPkg):
+        """ Determine the update size for a given package """
+        # FIXME: Check pisi config
+        deltasEnabled = True
+
+        pkgSize = newPkg.packageSize
+        if not deltasEnabled:
+            return pkgSize
+        if not oldPkg:
+            return pkgSize
+        delt = newPkg.get_delta(int(oldPkg.release))
+        """ No delta available. """
+        if not delt:
+            return pkgSize
+        return delt.packageSize
+
     def init_view(self):
         # Need a shared context for these guys
         self.installdb = InstallDB()
         self.packagedb = PackageDB()
 
-        model = Gtk.ListStore(str, str, str, str, bool, bool)
+        model = Gtk.ListStore(str, str, str, str, bool, bool, int, str)
 
         # Expand with a plan operation to be up front about new deps
         upgrades = pisi.api.list_upgradable()
@@ -126,8 +147,13 @@ class ScUpdatesView(Gtk.VBox):
             if len(securities) > 0:
                 icon = PACKAGE_ICON_SECURITY
 
+            # Finally, actual size, and readable size
+            pkgSize = self.get_update_size(old_pkg, new_pkg)
+            dlSize = "%.1f %s" % pisi.util.human_readable_size(pkgSize)
+
             model.append([pkg_name, old_version, new_version,
-                          icon, systemBase, not systemBase])
+                          icon, systemBase, not systemBase,
+                          pkgSize, dlSize])
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
 
