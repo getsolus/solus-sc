@@ -14,7 +14,7 @@
 from gi.repository import Gtk, GLib, GdkPixbuf, GObject
 from pisi.db.packagedb import PackageDB
 from pisi.db.installdb import InstallDB
-from . import sc_format_size_local
+from .util import sc_format_size_local
 
 import pisi.api
 
