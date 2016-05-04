@@ -18,9 +18,9 @@ from pisi.db.installdb import InstallDB
 import pisi.api
 
 
-PACKAGE_ICON_SECURITY = "software-update-urgent-symbolic"
-# security-high-symbolic? doesn't stick out much..
+PACKAGE_ICON_SECURITY = "security-high-symbolic"
 PACKAGE_ICON_NORMAL = "software-update-available-symbolic"
+PACKAGE_ICON_MANDATORY = "software-update-urgent-symbolic"
 
 
 class ScUpdatesView(Gtk.VBox):
@@ -41,48 +41,43 @@ class ScUpdatesView(Gtk.VBox):
 
         self.tview = Gtk.TreeView()
         self.tview.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
-        # Defugly
+        self.scroll.add(self.tview)
         self.tview.set_property("enable-grid-lines", False)
         self.tview.set_property("headers-visible", False)
-        self.scroll.add(self.tview)
 
-        # Install it?
+        # Can toggle?
         ren = Gtk.CellRendererToggle()
         ren.set_activatable(True)
         ren.connect('toggled', self.on_toggled)
         ren.set_padding(5, 5)
-        column = Gtk.TreeViewColumn("Install?", ren, active=4, activatable=5)
+        ren.set_property("xalign", 1.0)
+        column = Gtk.TreeViewColumn("Install?", ren, active=0,
+                                    activatable=1, sensitive=5)
         self.tview.append_column(column)
 
-        # Type, image based.
         ren = Gtk.CellRendererPixbuf()
         ren.set_padding(5, 5)
-        column = Gtk.TreeViewColumn("Type", ren, icon_name=3)
+        column = Gtk.TreeViewColumn("Type", ren, icon_name=4, sensitive=5)
         self.tview.append_column(column)
+        ren.set_property("stock-size", Gtk.IconSize.DIALOG)
 
-        ren = Gtk.CellRendererText()
-        ren.set_padding(5, 5)
-        column = Gtk.TreeViewColumn("Name", ren, text=0)
-        self.tview.append_column(column)
-
-        # Installed version
-        column = Gtk.TreeViewColumn("Version", ren, text=1)
-        self.tview.append_column(column)
-
-        # New version
-        column = Gtk.TreeViewColumn("New version", ren, text=2)
+        # Label of top row
+        text_ren = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn("Label", text_ren, markup=2, sensitive=5)
+        text_ren.set_padding(5, 5)
         self.tview.append_column(column)
 
         # Update size
-        ren = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Size", ren, text=7)
+        text_ren = Gtk.CellRendererText()
+        text_ren.set_property("xalign", 1.0)
+        column = Gtk.TreeViewColumn("Size", text_ren, text=3, sensitive=5)
         self.tview.append_column(column)
 
         GLib.idle_add(self.init_view)
 
     def on_toggled(self, w, path):
         model = self.tview.get_model()
-        model[path][4] = not model[path][4]
+        model[path][0] = not model[path][0]
 
     def get_history_between(self, old_release, new):
         """ Get the history items between the old release and new pkg """
@@ -111,17 +106,38 @@ class ScUpdatesView(Gtk.VBox):
         return delt.packageSize
 
     def init_view(self):
+        # Install? Modifiable? Display label | Size | Image | Sensitive
+        model = Gtk.TreeStore(bool, bool, str, str, str, bool)
+
+        # Mandatory updates
+        m_label = "<b>Required updates</b>\n" \
+                  "These updates are mandatory and will be automatically " \
+                  "selected."
+        row_m = model.append(None, [True, False, m_label, None,
+                                    PACKAGE_ICON_MANDATORY, True])
+        # Security row
+        s_label = "<b>Security Updates</b>\n" \
+                  "These updates are highly recommended for the safe " \
+                  "usage of your device."
+        row_s = model.append(None, [False, True, s_label, None,
+                                    PACKAGE_ICON_SECURITY, True])
+        # All other updates
+        u_label = "<b>Other Updates</b>\n" \
+                  "These updates may introduce new software versions and " \
+                  "bug-fixes."
+        row_u = model.append(None, [False, True, u_label, None,
+                                    PACKAGE_ICON_NORMAL, True])
+
+        self.tview.set_model(model)
+
         # Need a shared context for these guys
         self.installdb = InstallDB()
         self.packagedb = PackageDB()
 
-        model = Gtk.ListStore(str, str, str, str, bool, bool, int, str)
-
         # Expand with a plan operation to be up front about new deps
         upgrades = pisi.api.list_upgradable()
-        model.set_sort_column_id(0, Gtk.SortType.ASCENDING)
 
-        for item in upgrades:
+        for item in sorted(upgrades):
             new_pkg = self.packagedb.get_package(item)
             new_version = "%s-%s" % (str(new_pkg.version),
                                      str(new_pkg.release))
@@ -134,6 +150,9 @@ class ScUpdatesView(Gtk.VBox):
             icon = PACKAGE_ICON_NORMAL
             if new_pkg.partOf == "system.base":
                 systemBase = True
+                parent_row = row_m
+            else:
+                parent_row = row_u
 
             if self.installdb.has_package(item):
                 old_pkg = self.installdb.get_package(item)
@@ -145,25 +164,34 @@ class ScUpdatesView(Gtk.VBox):
             # Initial security update detection
             securities = [x for x in histories if x.type == "security"]
             if len(securities) > 0:
+                parent_row = row_s
                 icon = PACKAGE_ICON_SECURITY
+
+            summary = str(new_pkg.summary)
+            if len(summary) > 76:
+                summary = "%s…" % summary[0:76]
 
             # Finally, actual size, and readable size
             pkgSize = self.get_update_size(old_pkg, new_pkg)
             dlSize = "%.1f %s" % pisi.util.human_readable_size(pkgSize)
 
-            model.append([pkg_name, old_version, new_version,
-                          icon, systemBase, not systemBase,
-                          pkgSize, dlSize])
+            icon = "package-x-generic"
+            if new_pkg.icon is not None:
+                icon = str(new_pkg.icon)
+
+            p_print = "%s - <small>%s</small>\n%s" % (pkg_name,
+                                                      new_version,
+                                                      summary)
+            model.append(parent_row, [systemBase, not systemBase,
+                                      p_print, dlSize, icon, True])
+
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
 
-        """
-        model.append(["security-update", "old", "new",
-                      PACKAGE_ICON_SECURITY, False, True])
-        model.append(["non-security-update", "old", "new",
-                      PACKAGE_ICON_NORMAL, False, True])
-        model.append(["system.base update", "old", "new",
-                      PACKAGE_ICON_NORMAL, True, False])"""
-
-        self.tview.set_model(model)
+        # Disable empty rows
+        for item in [row_s, row_m, row_u]:
+            if model.iter_n_children(item) == 0:
+                model.set(item, 0, False)
+                model.set(item, 1, False)
+                model.set(item, 5, False)
         return False
