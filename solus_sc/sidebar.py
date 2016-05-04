@@ -46,7 +46,6 @@ class ScSidebar(Gtk.ListBox):
         gtkTheme = self.get_settings().get_property("gtk-theme-name").lower()
         if gtkTheme.startswith("arc ") or gtkTheme.startswith("arc-"):
             self.get_style_context().add_class("arc-sidebar")
-        print(gtkTheme)
 
         items = [
             ("home", "Home", "user-home-symbolic"),
