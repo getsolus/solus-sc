@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GLib, GdkPixbuf, GObject
+from gi.repository import Gtk, GLib, GdkPixbuf, GObject, Pango
 from pisi.db.packagedb import PackageDB
 from pisi.db.installdb import InstallDB
 from .util import sc_format_size_local
@@ -91,6 +91,9 @@ class ScChangelogEntry(Gtk.EventBox):
         sum_lab.set_property("margin-end", 4)
         sum_lab.set_property("margin-bottom", 4)
         sum_lab.set_use_markup(True)
+        sum_lab.set_line_wrap_mode(Pango.WrapMode.WORD)
+        sum_lab.set_line_wrap(True)
+        sum_lab.set_property("xalign", 0.0)
         vbox.pack_start(sum_lab, True, True, 0)
 
         # Timestamp is kinda useful.
