@@ -50,6 +50,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def __init__(self, app):
         Gtk.ApplicationWindow.__init__(self, application=app)
 
+        # !!HAX!! - we're missing a .desktop file atm. shush.
+        self.set_icon_name("system-software-install")
         # Set up the headerbar. Because GNOME n stuff.
         headerbar = Gtk.HeaderBar()
         headerbar.set_show_close_button(True)
