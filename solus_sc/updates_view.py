@@ -19,14 +19,31 @@ from operator import attrgetter
 
 import pisi.api
 import os
+import re
 
 
 PACKAGE_ICON_SECURITY = "security-high-symbolic"
 PACKAGE_ICON_NORMAL = "software-update-available-symbolic"
 PACKAGE_ICON_MANDATORY = "software-update-urgent-symbolic"
 
+# Helpful for determing CVE matches.
+CVE_HIT = re.compile(r".*(CVE\-[0-9]+\-[0-9]+).*")
+CVE_URI = "https://cve.mitre.org/cgi-bin/cvename.cgi?name={}"
+
 
 class ScChangelogEntry(Gtk.EventBox):
+
+    def markup_le_cves(self, text):
+        ret = ""
+
+        for i in text.split(" "):
+            if not CVE_HIT.match(i.upper()):
+                ret += i + " "
+                continue
+            i = i.upper()
+            href = "<a href=\"{}\">{}</a>".format(CVE_URI.format(i), i)
+            ret += href + " "
+        return ret.strip()
 
     def __init__(self, obj, history):
         Gtk.EventBox.__init__(self)
@@ -67,7 +84,7 @@ class ScChangelogEntry(Gtk.EventBox):
         vbox.pack_start(main_lab, False, False, 0)
 
         # Add the summary, etc.
-        sum_lab = Gtk.Label(text)
+        sum_lab = Gtk.Label(self.markup_le_cves(text))
         sum_lab.set_halign(Gtk.Align.START)
         sum_lab.set_valign(Gtk.Align.START)
         sum_lab.set_property("margin-start", 4)
