@@ -45,6 +45,23 @@ class ScChangelogViewer(Gtk.Dialog):
 
         self.get_style_context().add_class("osd")
 
+        # Display name
+        pkgName = str(obj.new_pkg.name)
+        builder.get_object("label_name").set_text(pkgName)
+
+        iVersion = "<i>Not installed</i>"
+        if obj.old_pkg:
+            iVersion = "%s-%s" % (
+                        str(obj.old_pkg.version),
+                        str(obj.old_pkg.release))
+        builder.get_object("label_iversion").set_markup(iVersion)
+        aVersion = "%s-%s" % (
+                    str(obj.new_pkg.version),
+                    str(obj.new_pkg.release))
+        builder.get_object("label_aversion").set_markup(aVersion)
+
+        isize = sc_format_size_local(obj.get_update_size(), True)
+        builder.get_object("label_upsize").set_text(isize)
         # wid = self.add_button("Close", Gtk.ResponseType.OK)
         # wid.get_style_context().add_class("suggested-action")
         # wid.set_property("margin", 6)
