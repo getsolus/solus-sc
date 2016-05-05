@@ -35,3 +35,14 @@
     border-top: 1px solid alpha(@fg_color, 0.15);
     border-bottom: 1px solid alpha(@fg_color, 0.15);
 }
+
+.sc-changelog {
+    background-image: none;
+    background-color: transparent;
+}
+
+.sc-changelog .list-row {
+    padding: 5px;
+    border: 1px solid alpha(@theme_fg_color, 0.25);
+    border-radius: 2px;
+}

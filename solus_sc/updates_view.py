@@ -26,20 +26,62 @@ PACKAGE_ICON_NORMAL = "software-update-available-symbolic"
 PACKAGE_ICON_MANDATORY = "software-update-urgent-symbolic"
 
 
-class ScChangelogEntry(Gtk.HBox):
+class ScChangelogEntry(Gtk.EventBox):
 
-    def __init__(self, history):
-        Gtk.HBox.__init__(self)
+    def __init__(self, obj, history):
+        Gtk.EventBox.__init__(self)
+
+        hbox = Gtk.HBox(0)
+        self.add(hbox)
+
+        # format name to correlate with git entry.
+        nom = "%s-%s-%s" % (
+                            str(obj.name),
+                            str(history.version),
+                            str(history.release))
 
         text = GLib.markup_escape_text(str(history.comment))
 
-        main_lab = Gtk.Label(text)
+        iname = PACKAGE_ICON_NORMAL
+        up_type = str(history.type).lower()
+        if up_type == "security":
+            iname = PACKAGE_ICON_SECURITY
+        image = Gtk.Image.new_from_icon_name(iname, Gtk.IconSize.LARGE_TOOLBAR)
+        image.set_valign(Gtk.Align.START)
+
+        hbox.pack_start(image, False, False, 0)
+        image.set_property("margin", 4)
+
+        main_lab = Gtk.Label("<b>%s</b>" % nom)
         main_lab.set_use_markup(True)
 
-        main_lab.set_halign(Gtk.Align.START)
-        main_lab.set_property("xalign", 0.0)
+        vbox = Gtk.VBox(0)
+        vbox.set_valign(Gtk.Align.START)
+        hbox.pack_start(vbox, True, True, 0)
 
-        self.pack_start(main_lab, True, True, 0)
+        main_lab.set_halign(Gtk.Align.START)
+        main_lab.set_valign(Gtk.Align.START)
+        main_lab.set_property("xalign", 0.0)
+        main_lab.set_property("margin", 4)
+
+        vbox.pack_start(main_lab, False, False, 0)
+
+        # Add the summary, etc.
+        sum_lab = Gtk.Label(text)
+        sum_lab.set_halign(Gtk.Align.START)
+        sum_lab.set_valign(Gtk.Align.START)
+        sum_lab.set_property("margin-start", 4)
+        sum_lab.set_property("margin-end", 4)
+        sum_lab.set_property("margin-bottom", 4)
+        sum_lab.set_use_markup(True)
+        vbox.pack_start(sum_lab, True, True, 0)
+
+        # Timestamp is kinda useful.
+        tstamp = Gtk.Label(str(history.date))
+        tstamp.set_valign(Gtk.Align.START)
+        hbox.pack_end(tstamp, False, False, 0)
+        tstamp.set_property("margin", 4)
+        tstamp.get_style_context().add_class("dim-label")
 
         self.show_all()
 
@@ -49,7 +91,7 @@ class ScChangelogViewer(Gtk.Dialog):
 
     def __init__(self, parent, obj):
         Gtk.Dialog.__init__(self, use_header_bar=1)
-        self.set_default_size(350, 400)
+        self.set_default_size(550, 450)
         self.set_transient_for(parent)
         self.set_title("Update details")
 
@@ -90,8 +132,9 @@ class ScChangelogViewer(Gtk.Dialog):
         changes = obj.get_history_between(oldRelease, obj.new_pkg)
 
         for change in changes:
-            item = ScChangelogEntry(change)
+            item = ScChangelogEntry(obj.new_pkg, change)
             builder.get_object("listbox_changes").add(item)
+            item.get_parent().set_property("margin", 5)
         # wid = self.add_button("Close", Gtk.ResponseType.OK)
         # wid.get_style_context().add_class("suggested-action")
         # wid.set_property("margin", 6)
