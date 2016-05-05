@@ -17,6 +17,7 @@ from pisi.db.installdb import InstallDB
 from .util import sc_format_size_local
 
 import pisi.api
+import os
 
 
 PACKAGE_ICON_SECURITY = "security-high-symbolic"
@@ -33,8 +34,14 @@ class ScChangelogViewer(Gtk.Dialog):
         self.set_title("Update details: {}".format(obj.new_pkg.name))
         wid = self.add_button("Close", Gtk.ResponseType.OK)
 
-        grid = Gtk.Grid()
-        self.get_content_area().add(grid)
+        builder = Gtk.Builder()
+        our_dir = os.path.dirname(os.path.abspath(__file__))
+        our_file = os.path.join(our_dir, "update_dialog.ui")
+        builder.add_from_file(our_file)
+
+        main_ui = builder.get_object("grid1")
+        main_ui.get_parent().remove(main_ui)
+        self.get_content_area().add(main_ui)
 
         wid.get_style_context().add_class("suggested-action")
 
