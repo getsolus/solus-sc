@@ -121,8 +121,6 @@ class ScChangelogViewer(Gtk.Dialog):
         main_ui.get_parent().remove(main_ui)
         self.get_content_area().add(main_ui)
 
-        # self.get_style_context().add_class("osd")
-
         # Display name
         pkgName = str(obj.new_pkg.name)
         builder.get_object("label_name").set_text(pkgName)
@@ -152,9 +150,6 @@ class ScChangelogViewer(Gtk.Dialog):
             item = ScChangelogEntry(obj.new_pkg, change)
             builder.get_object("listbox_changes").add(item)
             item.get_parent().set_property("margin", 5)
-        # wid = self.add_button("Close", Gtk.ResponseType.OK)
-        # wid.get_style_context().add_class("suggested-action")
-        # wid.set_property("margin", 6)
 
 
 class ScUpdateObject(GObject.Object):
