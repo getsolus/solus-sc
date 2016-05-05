@@ -15,6 +15,7 @@ from gi.repository import Gtk, GLib, GdkPixbuf, GObject
 from pisi.db.packagedb import PackageDB
 from pisi.db.installdb import InstallDB
 from .util import sc_format_size_local
+from operator import attrgetter
 
 import pisi.api
 import os
@@ -23,6 +24,24 @@ import os
 PACKAGE_ICON_SECURITY = "security-high-symbolic"
 PACKAGE_ICON_NORMAL = "software-update-available-symbolic"
 PACKAGE_ICON_MANDATORY = "software-update-urgent-symbolic"
+
+
+class ScChangelogEntry(Gtk.HBox):
+
+    def __init__(self, history):
+        Gtk.HBox.__init__(self)
+
+        text = GLib.markup_escape_text(str(history.comment))
+
+        main_lab = Gtk.Label(text)
+        main_lab.set_use_markup(True)
+
+        main_lab.set_halign(Gtk.Align.START)
+        main_lab.set_property("xalign", 0.0)
+
+        self.pack_start(main_lab, True, True, 0)
+
+        self.show_all()
 
 
 class ScChangelogViewer(Gtk.Dialog):
@@ -43,7 +62,7 @@ class ScChangelogViewer(Gtk.Dialog):
         main_ui.get_parent().remove(main_ui)
         self.get_content_area().add(main_ui)
 
-        self.get_style_context().add_class("osd")
+        # self.get_style_context().add_class("osd")
 
         # Display name
         pkgName = str(obj.new_pkg.name)
@@ -62,6 +81,17 @@ class ScChangelogViewer(Gtk.Dialog):
 
         isize = sc_format_size_local(obj.get_update_size(), True)
         builder.get_object("label_upsize").set_text(isize)
+
+        # Handle the changelog
+        oldRelease = int(obj.new_pkg.release) - 1
+        if obj.old_pkg:
+            oldRelease = int(obj.old_pkg.release)
+
+        changes = obj.get_history_between(oldRelease, obj.new_pkg)
+
+        for change in changes:
+            item = ScChangelogEntry(change)
+            builder.get_object("listbox_changes").add(item)
         # wid = self.add_button("Close", Gtk.ResponseType.OK)
         # wid.get_style_context().add_class("suggested-action")
         # wid.set_property("margin", 6)
@@ -119,10 +149,10 @@ class ScUpdateObject(GObject.Object):
         ret = list()
 
         for i in new.history:
-            if i.release <= old_release:
+            if int(i.release) <= int(old_release):
                 continue
             ret.append(i)
-        return ret
+        return sorted(ret, key=attrgetter('release'), reverse=True)
 
 
 class ScUpdatesView(Gtk.VBox):
