@@ -24,6 +24,21 @@ PACKAGE_ICON_NORMAL = "software-update-available-symbolic"
 PACKAGE_ICON_MANDATORY = "software-update-urgent-symbolic"
 
 
+class ScChangelogViewer(Gtk.Dialog):
+    """ Show an overview of changes for a given update """
+
+    def __init__(self, parent, obj):
+        Gtk.Dialog.__init__(self, use_header_bar=0)
+        self.set_transient_for(parent)
+        self.set_title("Update details: {}".format(obj.new_pkg.name))
+        wid = self.add_button("Close", Gtk.ResponseType.OK)
+
+        grid = Gtk.Grid()
+        self.get_content_area().add(grid)
+
+        wid.get_style_context().add_class("suggested-action")
+
+
 class ScUpdateObject(GObject.Object):
     """ Keep glib happy and allow us to store references in a liststore """
 
@@ -169,10 +184,16 @@ class ScUpdatesView(Gtk.VBox):
         self.view_details = Gtk.ToolButton(None, None)
         self.view_details.set_sensitive(False)
         self.view_details.set_property("label", "Details" + u"…")
-        # view_details.set_property("icon-name", "view-list-details-symbolic")
         self.view_details.set_is_important(True)
+        self.view_details.connect('clicked', self.on_details)
         self.toolbar.add(self.view_details)
         GLib.idle_add(self.init_view)
+
+    def on_details(self, b, wdata=None):
+        lewin = self.get_toplevel()
+        dialog = ScChangelogViewer(lewin, self.selected_object)
+        dialog.run()
+        dialog.destroy()
 
     def on_toggled(self, w, path):
         model = self.tview.get_model()
