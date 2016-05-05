@@ -113,7 +113,7 @@ class ScChangelogViewer(Gtk.Dialog):
         Gtk.Dialog.__init__(self, use_header_bar=1)
         self.set_default_size(550, 450)
         self.set_transient_for(parent)
-        self.set_title("Update details")
+        self.set_title("Update Details")
 
         builder = Gtk.Builder()
         our_dir = os.path.dirname(os.path.abspath(__file__))
