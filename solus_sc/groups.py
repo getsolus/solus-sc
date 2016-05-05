@@ -20,7 +20,7 @@ from pisi.db.groupdb import GroupDB
 class ScGroupButton(Gtk.Button):
     """ Manage the monotony of a Group """
 
-    def __init__(self, group):
+    def __init__(self, db, group):
         Gtk.Button.__init__(self)
 
         icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
@@ -62,7 +62,9 @@ class ScGroupButton(Gtk.Button):
         self.set_relief(Gtk.ReliefStyle.NONE)
         self.add(box)
 
-        info_label = Gtk.Label("0 packages")
+        # count the components
+        kids = db.get_group_components(group.name)
+        info_label = Gtk.Label("%s sections" % len(kids))
         info_label.set_halign(Gtk.Align.START)
         info_label.get_style_context().add_class("info-label")
         info_label.get_style_context().add_class("dim-label")
@@ -119,6 +121,6 @@ class ScGroupsView(Gtk.EventBox):
             group = self.groupdb.get_group(name)
             self.group_map[name] = group
 
-            button = ScGroupButton(group)
+            button = ScGroupButton(self.groupdb, group)
             button.show_all()
             self.flowbox.add(button)
