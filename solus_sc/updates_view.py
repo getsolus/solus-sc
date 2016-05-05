@@ -29,10 +29,10 @@ class ScChangelogViewer(Gtk.Dialog):
     """ Show an overview of changes for a given update """
 
     def __init__(self, parent, obj):
-        Gtk.Dialog.__init__(self, use_header_bar=0)
+        Gtk.Dialog.__init__(self, use_header_bar=1)
+        self.set_default_size(350, 400)
         self.set_transient_for(parent)
-        self.set_title("Update details: {}".format(obj.new_pkg.name))
-        wid = self.add_button("Close", Gtk.ResponseType.OK)
+        self.set_title("Update details")
 
         builder = Gtk.Builder()
         our_dir = os.path.dirname(os.path.abspath(__file__))
@@ -43,7 +43,11 @@ class ScChangelogViewer(Gtk.Dialog):
         main_ui.get_parent().remove(main_ui)
         self.get_content_area().add(main_ui)
 
-        wid.get_style_context().add_class("suggested-action")
+        self.get_style_context().add_class("osd")
+
+        # wid = self.add_button("Close", Gtk.ResponseType.OK)
+        # wid.get_style_context().add_class("suggested-action")
+        # wid.set_property("margin", 6)
 
 
 class ScUpdateObject(GObject.Object):
