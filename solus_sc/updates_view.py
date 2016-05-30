@@ -233,11 +233,6 @@ class ScUpdatesView(Gtk.VBox):
         self.scroll.set_overlay_scrolling(False)
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scroll.set_property("kinetic-scrolling", True)
-        self.pack_start(self.scroll, True, True, 0)
-
-        # Junction bottom for toolbar join
-        st = self.scroll.get_style_context()
-        st.set_junction_sides(Gtk.JunctionSides.BOTTOM)
 
         self.tview = Gtk.TreeView()
         self.tview.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
@@ -277,11 +272,19 @@ class ScUpdatesView(Gtk.VBox):
 
         # Main toolbar
         self.toolbar = Gtk.Toolbar()
+        self.toolbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR)
         st = self.toolbar.get_style_context()
-        st.set_junction_sides(Gtk.JunctionSides.TOP)
-        st.add_class(Gtk.STYLE_CLASS_INLINE_TOOLBAR)
+        # st.add_class(Gtk.STYLE_CLASS_INLINE_TOOLBAR)
         st.add_class("update-toolbar")
-        self.pack_end(self.toolbar, False, False, 0)
+
+        # Pack widgets
+        self.pack_start(self.toolbar, False, False, 0)
+        self.pack_start(self.scroll, True, True, 0)
+        # Junctions
+        st = self.scroll.get_style_context()
+        st.set_junction_sides(Gtk.JunctionSides.TOP)
+        st = self.toolbar.get_style_context()
+        st.set_junction_sides(Gtk.JunctionSides.BOTTOM)
 
         # Selection label
         self.selection_label = Gtk.Label("0 items selected")
@@ -298,9 +301,10 @@ class ScUpdatesView(Gtk.VBox):
 
         # View details, i.e. changelog
         self.view_details = Gtk.ToolButton(None, None)
+        self.view_details.set_icon_name("dialog-information-symbolic")
         self.view_details.set_sensitive(False)
-        self.view_details.set_property("label", "Details" + u"…")
-        self.view_details.set_is_important(True)
+        self.view_details.set_tooltip_text("Details" + u"…")
+        self.view_details.get_style_context().add_class("flat")
         self.view_details.connect('clicked', self.on_details)
         self.toolbar.add(self.view_details)
         GLib.idle_add(self.init_view)
@@ -390,6 +394,9 @@ class ScUpdatesView(Gtk.VBox):
             icon = "package-x-generic"
             if new_pkg.icon is not None:
                 icon = str(new_pkg.icon)
+
+            pkg_name = GLib.markup_escape_text(pkg_name)
+            summary = GLib.markup_escape_text(summary)
 
             p_print = "%s - <small>%s</small>\n%s" % (pkg_name,
                                                       new_version,
