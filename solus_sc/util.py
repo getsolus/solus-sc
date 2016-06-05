@@ -16,7 +16,7 @@ import locale
 
 def sc_format_size(size):
     """ Get the *ibyte size (not megabyte.. 90s ended) format """
-    labels = ["B", "KiB", "MiB", "GiB", "PiB", "EiB", "ZiB", "YiB"]
+    labels = ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"]
 
     for i, label in enumerate(labels):
         if size < 1000 or i == len(labels) - 1:
