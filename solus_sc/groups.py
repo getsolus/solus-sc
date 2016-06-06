@@ -26,7 +26,7 @@ class ScGroupButton(Gtk.Button):
         icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
         icon_theme = icon_theme.lower().replace("-", "")
         # Sneaky, I know.
-        if icon_theme == "arcicons":
+        if icon_theme == "arcicons" or icon_theme == "arc":
             devIcon = "text-x-changelog"
         else:
             devIcon = "gnome-dev-computer"
