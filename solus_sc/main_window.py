@@ -16,6 +16,7 @@ from .package_view import ScPackageView
 from .sidebar import ScSidebar
 from .updates_view import ScUpdatesView
 from gi.repository import Gtk, GLib
+import sys
 
 
 class ScPlaceholderBox(Gtk.VBox):
@@ -66,7 +67,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.stack = Gtk.Stack()
         self.stack.get_style_context().add_class("main-view")
         # We'll add view switching later
-        self.groups_view = ScGroupsView()
+        try:
+            self.groups_view = ScGroupsView()
+        except Exception as e:
+            print(e)
+            sys.exit(1)
 
         # Main horizontal layout (Sidebar|VIEW)
         self.main_layout = Gtk.HBox(0)

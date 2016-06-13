@@ -20,8 +20,12 @@ from pisi.db.groupdb import GroupDB
 class ScGroupButton(Gtk.Button):
     """ Manage the monotony of a Group """
 
+    group = None
+
     def __init__(self, db, group):
         Gtk.Button.__init__(self)
+
+        self.group = group
 
         icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
         icon_theme = icon_theme.lower().replace("-", "")
@@ -80,16 +84,26 @@ class ScGroupsView(Gtk.EventBox):
     groupdb = None
     group_names = None
     scroll = None
+    stack = None
 
     group_map = dict()
+
+    # Main component view
+    comp_view = None
 
     def __init__(self):
         Gtk.EventBox.__init__(self)
 
+        self.stack = Gtk.Stack()
+        t = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
+        self.stack.set_transition_type(t)
+        self.add(self.stack)
+
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
-        self.add(self.scroll)
+
+        self.stack.add_named(self.scroll, "groups")
 
         self.flowbox = Gtk.FlowBox()
         self.flowbox.set_property("margin-start", 40)
@@ -106,7 +120,13 @@ class ScGroupsView(Gtk.EventBox):
         st.add_class(Gtk.STYLE_CLASS_VIEW)
         st.add_class("content")
 
+        self.comp_view = Gtk.VBox(0)
+        self.stack.add_named(self.comp_view, "components")
         self.init_view()
+
+    def on_group_clicked(self, btn, data=None):
+        print btn.group.name
+        self.stack.set_visible_child_name("components")
 
     def init_view(self):
         """ Set up the groups and push them into the view """
@@ -122,5 +142,6 @@ class ScGroupsView(Gtk.EventBox):
             self.group_map[name] = group
 
             button = ScGroupButton(self.groupdb, group)
+            button.connect("clicked", self.on_group_clicked)
             button.show_all()
             self.flowbox.add(button)
