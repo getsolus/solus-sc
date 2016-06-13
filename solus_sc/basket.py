@@ -234,8 +234,7 @@ class BasketView(Gtk.Revealer):
         # Handle operations that finished.
         self.operations = dict()
         self.emit('basket-changed', None)
-        pisi.db.invalidate_caches()
-        pisi.db.update_caches()
+        pisi.db.regenerate_caches()
 
     def show_dialog(self, pkgs, remove=False, update=False, install=True):
         markup = "<big>The following packages need to be installed to continue</big>"
