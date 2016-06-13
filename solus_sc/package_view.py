@@ -11,6 +11,7 @@
 #  (at your option) any later version.
 #
 
+from .details import PackageDetailsView
 from gi.repository import Gtk, GLib
 
 
@@ -44,6 +45,7 @@ class ScPackageView(Gtk.VBox):
     basket = None
     stack = None
     load_page = None
+    details_view = None
 
     def __init__(self, basket, appsystem):
         Gtk.VBox.__init__(self, 0)
@@ -55,6 +57,10 @@ class ScPackageView(Gtk.VBox):
 
         self.load_page = LoadingPage()
         self.stack.add_named(self.load_page, "loading")
+
+        # Set up the details view
+        self.details_view = PackageDetailsView(self.appsystem)
+        self.stack.add_named(self.details_view, "details")
 
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
