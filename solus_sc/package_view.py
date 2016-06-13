@@ -36,7 +36,6 @@ class LoadingPage(Gtk.VBox):
         self.label.set_property("margin", 20)
 
 
-
 class ScPackageView(Gtk.VBox):
 
     scroll = None

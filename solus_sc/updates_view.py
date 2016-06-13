@@ -265,7 +265,7 @@ class ScUpdatesView(Gtk.VBox):
         return False
 
     def refresh_repos(self):
-        self.basket.update_repo(cb=lambda : self.load_updates())
+        self.basket.update_repo(cb=lambda: self.load_updates())
         return False
 
     def load_updates(self):
