@@ -44,6 +44,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
     package_view = None
     updates_view = None
 
+    prev_button = None
+
     def init_children(self):
         self.package_view.init_view()
         self.updates_view.init_view()
@@ -69,6 +71,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         headerbar = Gtk.HeaderBar()
         headerbar.set_show_close_button(True)
         self.set_titlebar(headerbar)
+
+        self.prev_button = Gtk.Button.new_from_icon_name(
+            "go-previous-symbolic", Gtk.IconSize.BUTTON)
+        headerbar.pack_start(self.prev_button)
 
         self.set_title("Software Center")
         self.get_style_context().add_class("solus-sc")
