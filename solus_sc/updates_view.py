@@ -379,7 +379,7 @@ class ScUpdatesView(Gtk.VBox):
 
             sc_obj = ScUpdateObject(old_pkg, new_pkg)
 
-            if sc_obj.is_security_update():
+            if sc_obj.is_security_update() and parent_row != row_m:
                 parent_row = row_s
                 icon = PACKAGE_ICON_SECURITY
 
