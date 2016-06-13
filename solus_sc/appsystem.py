@@ -12,7 +12,7 @@
 #
 
 from gi.repository import AppStreamGlib as As
-from gi.repository import Gio
+from gi.repository import Gio, GLib
 
 
 class AppSystem:
@@ -35,17 +35,17 @@ class AppSystem:
         """ Return a usable summary for a package """
         app = self.store.get_app_by_pkgname(package.name)
         if not app:
-            return package.summary
+            return GLib.markup_escape_text(str(package.summary))
         return app.get_comment("C")
 
     def get_description(self, package):
         """ Return a usable description for a package """
         app = self.store.get_app_by_pkgname(package.name)
         if not app:
-            return str(package.description)
+            return GLib.markup_escape_text(str(package.description))
         c = app.get_description("C")
         if not c:
-            return str(package.description)
+            return GLib.markup_escape_text(str(package.description))
         return c
 
     def get_name(self, package):
