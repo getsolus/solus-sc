@@ -68,10 +68,13 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.stack.get_style_context().add_class("main-view")
         # We'll add view switching later
         try:
-            self.groups_view = ScGroupsView()
+            self.init_first()
         except Exception as e:
             print(e)
             sys.exit(1)
+
+    def init_first(self):
+        self.groups_view = ScGroupsView()
 
         # Main horizontal layout (Sidebar|VIEW)
         self.main_layout = Gtk.HBox(0)
