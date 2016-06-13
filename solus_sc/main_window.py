@@ -107,7 +107,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.stack.add_titled(self.updates_view, "updates", "Updates")
 
         # Package view for installed page
-        self.package_view = ScPackageView(self.appsystem)
+        self.package_view = ScPackageView(self.basket, self.appsystem)
 
         # These guys aren't yet implemented
         self.stack.add_titled(self.package_view, "installed", "Installed")

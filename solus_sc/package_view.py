@@ -12,20 +12,18 @@
 #
 
 from gi.repository import Gtk, GLib, GdkPixbuf
-from pisi.db.installdb import InstallDB
 
 
 class ScPackageView(Gtk.VBox):
 
-    installdb = None
     scroll = None
     tview = None
     appsystem = None
+    basket = None
 
-    def __init__(self, appsystem):
+    def __init__(self, basket, appsystem):
         Gtk.VBox.__init__(self, 0)
-        # This stuff needs asyncing!
-        self.installdb = InstallDB()
+        self.basket = basket
         self.appsystem = appsystem
 
         self.scroll = Gtk.ScrolledWindow(None, None)
@@ -68,8 +66,8 @@ class ScPackageView(Gtk.VBox):
     def init_view(self):
         model = Gtk.ListStore(str, str, str, str)
         model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
-        for pkg_name in self.installdb.list_installed():
-            pkg = self.installdb.get_package(pkg_name)
+        for pkg_name in self.basket.installdb.list_installed():
+            pkg = self.basket.installdb.get_package(pkg_name)
 
             summary = self.appsystem.get_summary(pkg)
             summary = str(summary)
