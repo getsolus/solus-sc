@@ -20,11 +20,13 @@ class ScPackageView(Gtk.VBox):
     installdb = None
     scroll = None
     tview = None
+    appsystem = None
 
-    def __init__(self):
+    def __init__(self, appsystem):
         Gtk.VBox.__init__(self, 0)
         # This stuff needs asyncing!
         self.installdb = InstallDB()
+        self.appsystem = appsystem
 
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
@@ -69,13 +71,15 @@ class ScPackageView(Gtk.VBox):
         for pkg_name in self.installdb.list_installed():
             pkg = self.installdb.get_package(pkg_name)
 
-            summary = str(pkg.summary)
+            summary = self.appsystem.get_summary(pkg)
+            summary = str(summary)
             if len(summary) > 76:
                 summary = "%s…" % summary[0:76]
 
             summary = GLib.markup_escape_text(summary)
 
-            p_print = "<b>%s</b> - %s\n%s" % (str(pkg.name), str(pkg.version),
+            name = str(pkg.name)
+            p_print = "<b>%s</b> - %s\n%s" % (name, str(pkg.version),
                                               summary)
             icon = "package-x-generic"
             if pkg.icon is not None:

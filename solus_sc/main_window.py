@@ -11,6 +11,7 @@
 #  (at your option) any later version.
 #
 
+from .appsystem import AppSystem
 from .groups import ScGroupsView
 from .package_view import ScPackageView
 from .sidebar import ScSidebar
@@ -36,6 +37,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     sidebar = None
     stack = None
     sidebar_revealer = None
+    appsystem = None
 
     # Pages
     package_view = None
@@ -51,6 +53,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def __init__(self, app):
         Gtk.ApplicationWindow.__init__(self, application=app)
+
+        self.appsystem = AppSystem()
 
         # !!HAX!! - we're missing a .desktop file atm. shush.
         self.set_icon_name("system-software-install")
@@ -103,7 +107,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.stack.add_titled(self.updates_view, "updates", "Updates")
 
         # Package view for installed page
-        self.package_view = ScPackageView()
+        self.package_view = ScPackageView(self.appsystem)
 
         # These guys aren't yet implemented
         self.stack.add_titled(self.package_view, "installed", "Installed")
