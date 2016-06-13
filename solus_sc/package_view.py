@@ -61,8 +61,6 @@ class ScPackageView(Gtk.VBox):
         self.tview.append_column(column)
         ren.set_property("xalign", 1.0)
 
-        GLib.idle_add(self.init_view)
-
     def init_view(self):
         model = Gtk.ListStore(str, str, str, str)
         model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
@@ -85,7 +83,5 @@ class ScPackageView(Gtk.VBox):
 
             model.append([p_print, pkg_name, icon, "go-next-symbolic"])
 
-            while (Gtk.events_pending()):
-                Gtk.main_iteration()
         self.tview.set_model(model)
         return False

@@ -226,6 +226,7 @@ class LoadingPage(Gtk.VBox):
         self.set_halign(Gtk.Align.CENTER)
         self.spinner = Gtk.Spinner()
         self.spinner.set_size_request(-1, 64)
+        self.spinner.start()
         self.label = Gtk.Label("<big>Discombobulating update matrix" + u"…"
                                "</big>")
         self.label.set_use_markup(True)
@@ -252,15 +253,20 @@ class ScUpdatesView(Gtk.VBox):
     basket = None
 
     def perform_refresh(self, btn, wdata=None):
+        self.perform_refresh_internal()
+
+    def perform_refresh_internal(self):
         self.load_page.spinner.start()
         self.stack.set_visible_child_name("loading")
 
         t = threading.Thread(target=self.refresh_repos)
         t.daemon = True
         t.start()
+        return False
 
     def refresh_repos(self):
         self.basket.update_repo(cb=lambda : self.load_updates())
+        return False
 
     def load_updates(self):
         print("I AM LOADING TEH UPDATES")
@@ -400,8 +406,6 @@ class ScUpdatesView(Gtk.VBox):
         self.view_details.connect('clicked', self.on_details)
         self.toolbar.add(self.view_details)
 
-        self.perform_refresh(self, None)
-
     def on_details(self, b, wdata=None):
         lewin = self.get_toplevel()
         dialog = ScChangelogViewer(lewin, self.selected_object)
@@ -499,9 +503,6 @@ class ScUpdatesView(Gtk.VBox):
             model.append(parent_row, [systemBase, not systemBase,
                                       p_print, dlSize, icon, True, pkgSize,
                                       sc_obj])
-
-            while (Gtk.events_pending()):
-                Gtk.main_iteration()
 
         # Disable empty rows
         for item in [row_s, row_m, row_u]:

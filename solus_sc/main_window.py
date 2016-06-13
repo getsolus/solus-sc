@@ -19,6 +19,7 @@ from .updates_view import ScUpdatesView
 from .basket import BasketView
 from gi.repository import Gtk, GLib
 import sys
+import threading
 
 
 class ScPlaceholderBox(Gtk.VBox):
@@ -43,9 +44,15 @@ class ScMainWindow(Gtk.ApplicationWindow):
     package_view = None
     updates_view = None
 
+    def init_children(self):
+        self.package_view.init_view()
+        self.updates_view.init_view()
+
     def init_view(self):
         self.stack.set_visible_child_name("home")
         self.sidebar_revealer.set_reveal_child(True)
+        t = threading.Thread(target=self.init_children)
+        t.start()
         return False
 
     def on_mapped(self, w, udata=None):
