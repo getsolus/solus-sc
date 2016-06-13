@@ -237,7 +237,25 @@ class ScUpdatesView(Gtk.VBox):
         self.stack.add_named(main_box, "updates")
 
         # Our update checkerer
+        update_box = Gtk.VBox(0)
+        # Main toolbar
+        toolbar = Gtk.Toolbar()
+        sep = Gtk.SeparatorToolItem()
+        sep.set_draw(False)
+        sep.set_expand(True)
+        toolbar.add(sep)
+        toolbar.get_style_context().add_class("inline-toolbar")
+        toolbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR)
+        update_box.pack_start(toolbar, False, False, 0)
+
+        refresh_button = Gtk.ToolButton(None, "Check for updates")
+        refresh_button.set_is_important(True)
+        refresh_button.set_label("Check for updates")
+        toolbar.add(refresh_button)
+
+        self.stack.add_named(update_box, "check")
         updatec = Gtk.VBox(0)
+        update_box.pack_start(updatec, True, True, 0)
         updatec.set_halign(Gtk.Align.CENTER)
         updatec.set_valign(Gtk.Align.CENTER)
         img = Gtk.Image.new_from_icon_name("emblem-ok-symbolic",
@@ -248,7 +266,6 @@ class ScUpdatesView(Gtk.VBox):
         lab.set_use_markup(True)
         updatec.pack_start(lab, False, False, 0)
         lab.set_property("margin", 20)
-        self.stack.add_named(updatec, "check")
 
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
