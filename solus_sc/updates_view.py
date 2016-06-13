@@ -242,6 +242,7 @@ class ScUpdatesView(Gtk.VBox):
         updatec.set_valign(Gtk.Align.CENTER)
         img = Gtk.Image.new_from_icon_name("emblem-ok-symbolic",
                                            Gtk.IconSize.DIALOG)
+        img.set_pixel_size(96)
         updatec.pack_start(img, False, False, 0)
         lab = Gtk.Label("<big>{}</big>".format("Software is up to date"))
         lab.set_use_markup(True)
