@@ -62,7 +62,7 @@ class ScSidebar(Gtk.ListBox):
             label = Gtk.Label(label_sz)
 
             image = Gtk.Image.new_from_icon_name(icon_sz,
-                                                 Gtk.IconSize.LARGE_TOOLBAR)
+                                                 Gtk.IconSize.SMALL_TOOLBAR)
             row.pack_start(image, False, False, 0)
             image.set_property("margin-end", 10)
             label.set_property("margin-end", 5)
