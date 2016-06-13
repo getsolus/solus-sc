@@ -213,6 +213,27 @@ class ScUpdateObject(GObject.Object):
         return sorted(ret, key=attrgetter('release'), reverse=True)
 
 
+class LoadingPage(Gtk.VBox):
+    """ Simple loading page, nothing fancy. """
+
+    spinner = None
+
+    def __init__(self):
+        Gtk.VBox.__init__(self)
+
+        self.set_valign(Gtk.Align.CENTER)
+        self.set_halign(Gtk.Align.CENTER)
+        self.spinner = Gtk.Spinner()
+        self.spinner.set_size_request(-1, 64)
+        self.label = Gtk.Label("<big>Discombobulating update matrix" + u"…"
+                               "</big>")
+        self.label.set_use_markup(True)
+
+        self.pack_start(self.spinner, True, True, 0)
+        self.pack_start(self.label, False, False, 0)
+        self.label.set_property("margin", 20)
+
+
 class ScUpdatesView(Gtk.VBox):
 
     installdb = None
@@ -226,12 +247,22 @@ class ScUpdatesView(Gtk.VBox):
     selected_object = None
 
     stack = None
+    load_page = None
+
+    def perform_refresh(self, btn, wdata=None):
+        self.load_page.spinner.start()
+        self.stack.set_visible_child_name("loading")
 
     def __init__(self):
         Gtk.VBox.__init__(self, 0)
 
         self.stack = Gtk.Stack()
+        t = Gtk.StackTransitionType.CROSSFADE
+        self.stack.set_transition_type(t)
         self.pack_start(self.stack, True, True, 0)
+
+        self.load_page = LoadingPage()
+        self.stack.add_named(self.load_page, "loading")
 
         main_box = Gtk.VBox(0)
         self.stack.add_named(main_box, "updates")
@@ -251,6 +282,7 @@ class ScUpdatesView(Gtk.VBox):
         refresh_button = Gtk.ToolButton(None, "Check for updates")
         refresh_button.set_is_important(True)
         refresh_button.set_label("Check for updates")
+        refresh_button.connect("clicked", self.perform_refresh)
         toolbar.add(refresh_button)
 
         self.stack.add_named(update_box, "check")
