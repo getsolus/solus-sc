@@ -72,12 +72,14 @@ class PackageDetailsView(Gtk.VBox):
         action_line.set_halign(Gtk.Align.END)
         header.pack_end(action_line, False, False, 0)
         self.install_button = Gtk.Button("Install")
+        self.install_button.set_can_focus(False)
         self.install_button.get_style_context().add_class("suggested-action")
         action_line.pack_end(self.install_button, False, False, 0)
         self.install_button.set_no_show_all(True)
 
         # Remove button
         self.remove_button = Gtk.Button("Remove")
+        self.remove_button.set_can_focus(False)
         self.remove_button.get_style_context().add_class("destructive-action")
         action_line.pack_end(self.remove_button, False, False, 0)
         self.remove_button.set_no_show_all(True)
