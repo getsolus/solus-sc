@@ -14,24 +14,55 @@
 from gi.repository import Gtk, GLib, GdkPixbuf
 
 
+class LoadingPage(Gtk.VBox):
+    """ Simple loading page, nothing fancy. """
+
+    spinner = None
+
+    def __init__(self):
+        Gtk.VBox.__init__(self)
+
+        self.set_valign(Gtk.Align.CENTER)
+        self.set_halign(Gtk.Align.CENTER)
+        self.spinner = Gtk.Spinner()
+        self.spinner.set_size_request(-1, 64)
+        self.spinner.start()
+        self.label = Gtk.Label("<big>Solving the Paradox Of Choice" + u"…"
+                               "</big>")
+        self.label.set_use_markup(True)
+
+        self.pack_start(self.spinner, True, True, 0)
+        self.pack_start(self.label, False, False, 0)
+        self.label.set_property("margin", 20)
+
+
+
 class ScPackageView(Gtk.VBox):
 
     scroll = None
     tview = None
     appsystem = None
     basket = None
+    stack = None
+    load_page = None
 
     def __init__(self, basket, appsystem):
         Gtk.VBox.__init__(self, 0)
         self.basket = basket
         self.appsystem = appsystem
 
+        self.stack = Gtk.Stack()
+        self.pack_start(self.stack, True, True, 0)
+
+        self.load_page = LoadingPage()
+        self.stack.add_named(self.load_page, "loading")
+
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
         self.scroll.set_overlay_scrolling(False)
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scroll.set_property("kinetic-scrolling", True)
-        self.pack_start(self.scroll, True, True, 0)
+        self.stack.add_named(self.scroll, "packages")
 
         self.tview = Gtk.TreeView()
         self.tview.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
@@ -61,6 +92,8 @@ class ScPackageView(Gtk.VBox):
         self.tview.append_column(column)
         ren.set_property("xalign", 1.0)
 
+        self.stack.set_visible_child_name("loading")
+
     def init_view(self):
         model = Gtk.ListStore(str, str, str, str)
         model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
@@ -84,4 +117,10 @@ class ScPackageView(Gtk.VBox):
             model.append([p_print, pkg_name, icon, "go-next-symbolic"])
 
         self.tview.set_model(model)
+        GLib.idle_add(self.finish_view)
+        return False
+
+    def finish_view(self):
+        self.load_page.spinner.stop()
+        self.stack.set_visible_child_name("packages")
         return False
