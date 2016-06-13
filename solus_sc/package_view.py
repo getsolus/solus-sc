@@ -64,14 +64,12 @@ class ScPackageView(Gtk.VBox):
         self.appsystem = appsystem
 
         self.stack = Gtk.Stack()
+        t = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
+        self.stack.set_transition_type(t)
         self.pack_start(self.stack, True, True, 0)
 
         self.load_page = LoadingPage()
         self.stack.add_named(self.load_page, "loading")
-
-        # Set up the details view
-        self.details_view = PackageDetailsView(self.appsystem)
-        self.stack.add_named(self.details_view, "details")
 
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
@@ -111,6 +109,10 @@ class ScPackageView(Gtk.VBox):
         column = Gtk.TreeViewColumn("Details", ren, icon_name=3)
         self.tview.append_column(column)
         ren.set_property("xalign", 1.0)
+
+        # Set up the details view
+        self.details_view = PackageDetailsView(self.appsystem)
+        self.stack.add_named(self.details_view, "details")
 
         self.stack.set_visible_child_name("loading")
 
