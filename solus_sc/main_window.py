@@ -46,6 +46,16 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     prev_button = None
 
+    def handle_back(self, btn, udata=None):
+        """ Handle back navigation """
+        nom = self.stack.get_visible_child_name()
+        if nom == "installed":
+            self.package_view.handle_back()
+        elif nom == "home":
+            self.groups_view.handle_back()
+        else:
+            print("Shouldn't be happening boss")
+
     def init_children(self):
         self.package_view.init_view()
         self.updates_view.init_view()
@@ -75,6 +85,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.prev_button = Gtk.Button.new_from_icon_name(
             "go-previous-symbolic", Gtk.IconSize.BUTTON)
         headerbar.pack_start(self.prev_button)
+        self.prev_button.connect("clicked", self.handle_back)
 
         self.set_title("Software Center")
         self.get_style_context().add_class("solus-sc")

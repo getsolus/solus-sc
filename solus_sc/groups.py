@@ -90,6 +90,10 @@ class ScGroupsView(Gtk.EventBox):
     # Main component view
     comp_view = None
 
+    def handle_back(self):
+        """ Go back to the group selection view for now """
+        self.stack.set_visible_child_name("groups")
+
     def __init__(self):
         Gtk.EventBox.__init__(self)
 

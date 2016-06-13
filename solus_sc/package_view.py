@@ -54,6 +54,10 @@ class ScPackageView(Gtk.VBox):
     load_page = None
     details_view = None
 
+    def handle_back(self):
+        """ Go back to the main view """
+        self.stack.set_visible_child_name("packages")
+
     def __init__(self, basket, appsystem):
         Gtk.VBox.__init__(self, 0)
         self.basket = basket
