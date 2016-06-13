@@ -113,7 +113,19 @@ class ScPackageView(Gtk.VBox):
     def init_view(self):
         model = Gtk.ListStore(str, str, str, str)
         model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
+
+        # HAX: Allow me to test stuff.
+        whitelist_packages = [
+            "blender",
+            "firefox",
+            "libreoffice-writer",
+            "gnome-weather",
+            "steam"
+        ]
+
         for pkg_name in self.basket.installdb.list_installed():
+            if pkg_name not in whitelist_packages:
+                continue
             pkg = self.basket.installdb.get_package(pkg_name)
 
             summary = self.appsystem.get_summary(pkg)
