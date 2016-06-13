@@ -263,6 +263,7 @@ class ScUpdatesView(Gtk.VBox):
         self.basket.update_repo(cb=lambda : self.load_updates())
 
     def load_updates(self):
+        print("I AM LOADING TEH UPDATES")
         GObject.idle_add(self.init_view)
 
     def __init__(self, basket):
@@ -432,8 +433,8 @@ class ScUpdatesView(Gtk.VBox):
         self.tview.set_model(model)
 
         # Need a shared context for these guys
-        self.installdb = InstallDB()
-        self.packagedb = PackageDB()
+        self.installdb = self.basket.installdb
+        self.packagedb = self.basket.packagedb
 
         # Expand with a plan operation to be up front about new deps
         upgrades = pisi.api.list_upgradable()
@@ -505,8 +506,10 @@ class ScUpdatesView(Gtk.VBox):
         self.update_from_selection()
         model.connect_after('row-changed', self.on_model_row_changed)
         if n_updates < 1:
+            print("Nuh uh, only {} updates".format(n_updates))
             self.stack.set_visible_child_name("check")
         else:
+            print("Ermagahd {} updates".format(n_updates))
             self.stack.set_visible_child_name("updates")
         return False
 
