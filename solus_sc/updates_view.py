@@ -264,6 +264,7 @@ class ScUpdatesView(Gtk.VBox):
 
     def load_updates(self):
         print("I AM LOADING TEH UPDATES")
+        self.basket.invalidate_all()
         GObject.idle_add(self.init_view)
 
     def __init__(self, basket):

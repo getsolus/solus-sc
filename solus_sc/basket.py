@@ -232,9 +232,14 @@ class BasketView(Gtk.Revealer):
 
     def invalidate_all(self):
         # Handle operations that finished.
+        print("HAPPEND!")
         self.operations = dict()
         self.emit('basket-changed', None)
-        pisi.db.regenerate_caches()
+        pisi.db.invalidate_caches()
+        self.installdb = pisi.db.installdb.InstallDB()
+        self.packagedb = pisi.db.packagedb.PackageDB()
+        self.componentdb = pisi.db.componentdb.ComponentDB()
+        self.groupdb = pisi.db.groupdb.GroupDB()
 
     def show_dialog(self, pkgs, remove=False, update=False, install=True):
         markup = "<big>The following packages need to be installed to continue</big>"
