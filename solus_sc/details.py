@@ -67,6 +67,8 @@ class PackageDetailsView(Gtk.VBox):
         self.label_description.set_margin_start(8)
         # self.label_description.set_max_width_chars(1)
         self.label_description.set_line_wrap(True)
+        self.label_description.set_selectable(True)
+        self.label_description.set_can_focus(False)
         self.pack_start(self.label_description, True, True, 0)
 
     def update_from_package(self, package):
