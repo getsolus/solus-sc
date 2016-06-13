@@ -19,6 +19,7 @@ class ScSidebar(Gtk.ListBox):
     parent_stack = None
     first_real_show = False
     size_group = None
+    owner = None
 
     def on_row_selected(self, us, udata=None):
         """ Handle navigation for the primary view """
@@ -34,9 +35,12 @@ class ScSidebar(Gtk.ListBox):
 
         child = row.get_child()
         self.parent_stack.set_visible_child_name(child.row_entry)
+        self.owner.update_back(child.row_entry)
 
-    def __init__(self, parent_stack):
+    def __init__(self, owner, parent_stack):
         Gtk.ListBox.__init__(self)
+
+        self.owner = owner
 
         self.get_style_context().add_class(Gtk.STYLE_CLASS_SIDEBAR)
         self.get_style_context().add_class(Gtk.STYLE_CLASS_VIEW)

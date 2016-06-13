@@ -53,15 +53,22 @@ class ScPackageView(Gtk.VBox):
     stack = None
     load_page = None
     details_view = None
+    owner = None
 
     def handle_back(self):
         """ Go back to the main view """
         self.stack.set_visible_child_name("packages")
+        self.owner.set_can_back(False)
 
-    def __init__(self, basket, appsystem):
+    def can_back(self):
+        """ Whether we can go back """
+        return self.stack.get_visible_child_name() != "packages"
+
+    def __init__(self, owner, basket, appsystem):
         Gtk.VBox.__init__(self, 0)
         self.basket = basket
         self.appsystem = appsystem
+        self.owner = owner
 
         self.stack = Gtk.Stack()
         t = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
@@ -172,3 +179,4 @@ class ScPackageView(Gtk.VBox):
         pkg = self.basket.installdb.get_package(pkg_name)
         self.details_view.update_from_package(pkg)
         self.stack.set_visible_child_name("details")
+        self.owner.set_can_back(True)

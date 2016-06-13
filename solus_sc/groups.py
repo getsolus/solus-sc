@@ -84,6 +84,7 @@ class ScGroupsView(Gtk.EventBox):
     group_names = None
     scroll = None
     stack = None
+    owner = None
 
     group_map = dict()
 
@@ -93,9 +94,15 @@ class ScGroupsView(Gtk.EventBox):
     def handle_back(self):
         """ Go back to the group selection view for now """
         self.stack.set_visible_child_name("groups")
+        self.owner.set_can_back(False)
 
-    def __init__(self):
+    def can_back(self):
+        """ Whether we can go back """
+        return self.stack.get_visible_child_name() != "groups"
+
+    def __init__(self, owner):
         Gtk.EventBox.__init__(self)
+        self.owner = owner
 
         self.stack = Gtk.Stack()
         t = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
@@ -130,6 +137,7 @@ class ScGroupsView(Gtk.EventBox):
     def on_group_clicked(self, btn, data=None):
         print btn.group.name
         self.stack.set_visible_child_name("components")
+        self.owner.set_can_back(True)
 
     def init_view(self):
         """ Set up the groups and push them into the view """

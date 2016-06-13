@@ -56,6 +56,18 @@ class ScMainWindow(Gtk.ApplicationWindow):
         else:
             print("Shouldn't be happening boss")
 
+    def set_can_back(self, can_back):
+        self.prev_button.set_sensitive(can_back)
+
+    def update_back(self, nom):
+        """ Update back navigation """
+        sensitive = False
+        if nom == "installed":
+            sensitive = self.package_view.can_back()
+        elif nom == "home":
+            sensitive = self.groups_view.can_back()
+        self.set_can_back(sensitive)
+
     def init_children(self):
         self.package_view.init_view()
         self.updates_view.init_view()
@@ -95,6 +107,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         self.stack = Gtk.Stack()
         self.stack.get_style_context().add_class("main-view")
+        self.set_can_back(False)
         # We'll add view switching later
         try:
             self.init_first()
@@ -103,7 +116,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
             sys.exit(1)
 
     def init_first(self):
-        self.groups_view = ScGroupsView()
+        self.groups_view = ScGroupsView(self)
 
         self.basket = BasketView(None, None)
 
@@ -111,7 +124,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.main_layout = Gtk.HBox(0)
         self.add(self.main_layout)
 
-        self.sidebar = ScSidebar(self.stack)
+        self.sidebar = ScSidebar(self, self.stack)
         self.sidebar_revealer = Gtk.Revealer()
         self.sidebar_revealer.add(self.sidebar)
         self.sidebar_revealer.set_reveal_child(False)
@@ -131,7 +144,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.stack.add_titled(self.updates_view, "updates", "Updates")
 
         # Package view for installed page
-        self.package_view = ScPackageView(self.basket, self.appsystem)
+        self.package_view = ScPackageView(self, self.basket, self.appsystem)
 
         # These guys aren't yet implemented
         self.stack.add_titled(self.package_view, "installed", "Installed")
