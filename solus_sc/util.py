@@ -21,7 +21,7 @@ def sc_format_size(size):
     for i, label in enumerate(labels):
         if size < 1000 or i == len(labels) - 1:
             return size, label
-        size = float(size / 1024)
+        size = float(size / 1000)
 
 
 def sc_format_size_local(size, double_precision=False):
