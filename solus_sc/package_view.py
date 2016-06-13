@@ -118,10 +118,13 @@ class ScPackageView(Gtk.VBox):
         whitelist_packages = [
             "blender",
             "firefox",
+            "font-clear-sans-ttf",
             "libreoffice-writer",
             "gnome-weather",
             "pitivi",
-            "steam"
+            "gimp",
+            "steam",
+            "totem",
         ]
 
         for pkg_name in self.basket.installdb.list_installed():
