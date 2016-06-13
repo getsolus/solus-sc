@@ -236,6 +236,19 @@ class ScUpdatesView(Gtk.VBox):
         main_box = Gtk.VBox(0)
         self.stack.add_named(main_box, "updates")
 
+        # Our update checkerer
+        updatec = Gtk.VBox(0)
+        updatec.set_halign(Gtk.Align.CENTER)
+        updatec.set_valign(Gtk.Align.CENTER)
+        img = Gtk.Image.new_from_icon_name("emblem-ok-symbolic",
+                                           Gtk.IconSize.DIALOG)
+        updatec.pack_start(img, False, False, 0)
+        lab = Gtk.Label("<big>{}</big>".format("Software is up to date"))
+        lab.set_use_markup(True)
+        updatec.pack_start(lab, False, False, 0)
+        lab.set_property("margin", 20)
+        self.stack.add_named(updatec, "check")
+
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
         self.scroll.set_overlay_scrolling(False)
@@ -427,6 +440,7 @@ class ScUpdatesView(Gtk.VBox):
         # Hook up events so we know what's going on (4 non blondes.)
         self.update_from_selection()
         model.connect_after('row-changed', self.on_model_row_changed)
+        self.stack.set_visible_child_name("check")
         return False
 
     should_ignore = False
