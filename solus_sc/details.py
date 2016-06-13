@@ -36,6 +36,11 @@ class PackageDetailsView(Gtk.VBox):
     # Description for this package. Currently stripped of markup..
     label_description = None
 
+    install_button = None
+    remove_button = None
+
+    is_install_page = False
+
     def __init__(self, appsystem):
         Gtk.VBox.__init__(self)
         self.appsystem = appsystem
@@ -53,13 +58,29 @@ class PackageDetailsView(Gtk.VBox):
 
         # Set up the display label
         self.label_name = Gtk.Label("")
-        self.label_name.set_max_width_chars(80)
+        self.label_name.set_max_width_chars(60)
         self.label_name.set_line_wrap(True)
         self.label_name.set_property("xalign", 0.0)
         header.pack_start(self.label_name, False, False, 0)
         self.label_name.set_halign(Gtk.Align.START)
         self.label_name.set_valign(Gtk.Align.START)
         self.label_name.set_margin_top(6)
+
+        # Set up the action line
+        action_line = Gtk.HBox(0)
+        action_line.set_valign(Gtk.Align.CENTER)
+        action_line.set_halign(Gtk.Align.END)
+        header.pack_end(action_line, False, False, 0)
+        self.install_button = Gtk.Button("Install")
+        self.install_button.get_style_context().add_class("suggested-action")
+        action_line.pack_end(self.install_button, False, False, 0)
+        self.install_button.set_no_show_all(True)
+
+        # Remove button
+        self.remove_button = Gtk.Button("Remove")
+        self.remove_button.get_style_context().add_class("destructive-action")
+        action_line.pack_end(self.remove_button, False, False, 0)
+        self.remove_button.set_no_show_all(True)
 
         # Need the description down a bit and a fair bit padded
         self.label_description = Gtk.Label("")
@@ -106,6 +127,14 @@ class PackageDetailsView(Gtk.VBox):
 
         # Update the description
         self.label_description.set_label(self.render_plain(description))
+
+        # Take the appropriate action ..
+        if self.is_install_page:
+            self.remove_button.hide()
+            self.install_button.show()
+        else:
+            self.install_button.hide()
+            self.remove_button.show()
 
     def render_plain(self, input_string):
         """ Render a plain version of the description, no markdown """
