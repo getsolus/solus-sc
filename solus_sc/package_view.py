@@ -15,6 +15,13 @@ from .details import PackageDetailsView
 from gi.repository import Gtk, GLib
 
 
+""" enum for the model fields """
+INDEX_FIELD_DISPLAY = 0
+INDEX_FIELD_NAME = 1
+INDEX_FIELD_ICON = 2
+INDEX_FIELD_ARROW = 3
+
+
 class LoadingPage(Gtk.VBox):
     """ Simple loading page, nothing fancy. """
 
@@ -69,8 +76,12 @@ class ScPackageView(Gtk.VBox):
         self.scroll.set_property("kinetic-scrolling", True)
         self.stack.add_named(self.scroll, "packages")
 
+        # Main treeview where it's all happening. Single click activate
         self.tview = Gtk.TreeView()
         self.tview.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
+        self.tview.connect_after('row-activated', self.on_row_activated)
+        self.tview.set_activate_on_single_click(True)
+
         # Defugly
         self.tview.set_property("enable-grid-lines", False)
         self.tview.set_property("headers-visible", False)
@@ -129,3 +140,13 @@ class ScPackageView(Gtk.VBox):
         self.load_page.spinner.stop()
         self.stack.set_visible_child_name("packages")
         return False
+
+    def on_row_activated(self, tview, path, column, udata=None):
+        """ User clicked a row, now try to load the page """
+        model = tview.get_model()
+        row = model[path]
+
+        pkg_name = row[INDEX_FIELD_NAME]
+        pkg = self.basket.installdb.get_package(pkg_name)
+        self.details_view.update_from_package(pkg)
+        self.stack.set_visible_child_name("details")

@@ -33,6 +33,7 @@ class PackageDetailsView(Gtk.VBox):
 
     def __init__(self, appsystem):
         Gtk.VBox.__init__(self)
+        self.appsystem = appsystem
 
         header = Gtk.HBox(0)
         self.pack_start(header, False, False, 0)
