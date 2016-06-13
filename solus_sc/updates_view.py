@@ -16,6 +16,7 @@ from pisi.db.packagedb import PackageDB
 from pisi.db.installdb import InstallDB
 from .util import sc_format_size_local
 from operator import attrgetter
+import threading
 
 import pisi.api
 import os
@@ -248,13 +249,25 @@ class ScUpdatesView(Gtk.VBox):
 
     stack = None
     load_page = None
+    basket = None
 
     def perform_refresh(self, btn, wdata=None):
         self.load_page.spinner.start()
         self.stack.set_visible_child_name("loading")
 
-    def __init__(self):
+        t = threading.Thread(target=self.refresh_repos)
+        t.daemon = True
+        t.start()
+
+    def refresh_repos(self):
+        self.basket.update_repo(cb=lambda : self.load_updates())
+
+    def load_updates(self):
+        GObject.idle_add(self.init_view)
+
+    def __init__(self, basket):
         Gtk.VBox.__init__(self, 0)
+        self.basket = basket
 
         self.stack = Gtk.Stack()
         t = Gtk.StackTransitionType.CROSSFADE
@@ -424,6 +437,7 @@ class ScUpdatesView(Gtk.VBox):
 
         # Expand with a plan operation to be up front about new deps
         upgrades = pisi.api.list_upgradable()
+        n_updates = len(upgrades)
 
         for item in sorted(upgrades):
             new_pkg = self.packagedb.get_package(item)
@@ -490,7 +504,10 @@ class ScUpdatesView(Gtk.VBox):
         # Hook up events so we know what's going on (4 non blondes.)
         self.update_from_selection()
         model.connect_after('row-changed', self.on_model_row_changed)
-        self.stack.set_visible_child_name("check")
+        if n_updates < 1:
+            self.stack.set_visible_child_name("check")
+        else:
+            self.stack.set_visible_child_name("updates")
         return False
 
     should_ignore = False

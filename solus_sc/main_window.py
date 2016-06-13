@@ -15,6 +15,7 @@ from .groups import ScGroupsView
 from .package_view import ScPackageView
 from .sidebar import ScSidebar
 from .updates_view import ScUpdatesView
+from .basket import BasketView
 from gi.repository import Gtk, GLib
 import sys
 
@@ -76,6 +77,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def init_first(self):
         self.groups_view = ScGroupsView()
 
+        self.basket = BasketView(None, None)
+
         # Main horizontal layout (Sidebar|VIEW)
         self.main_layout = Gtk.HBox(0)
         self.add(self.main_layout)
@@ -96,7 +99,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         # Supported views
         self.stack.add_titled(self.dummy_widget, "empty", "empty")
         self.stack.add_titled(self.groups_view, "home", "Home")
-        self.updates_view = ScUpdatesView()
+        self.updates_view = ScUpdatesView(self.basket)
         self.stack.add_titled(self.updates_view, "updates", "Updates")
 
         # Package view for installed page
