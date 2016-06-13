@@ -13,7 +13,6 @@
 
 from gi.repository import AppStreamGlib as As
 from gi.repository import Gio
-import os
 
 
 class AppSystem:

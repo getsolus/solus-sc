@@ -120,6 +120,7 @@ class ScPackageView(Gtk.VBox):
             "firefox",
             "libreoffice-writer",
             "gnome-weather",
+            "pitivi",
             "steam"
         ]
 

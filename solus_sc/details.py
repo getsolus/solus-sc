@@ -13,6 +13,7 @@
 
 from gi.repository import Gtk
 from gi.repository import Gio
+from gi.repository import AppStreamGlib as As
 
 
 class PackageDetailsView(Gtk.VBox):
@@ -95,4 +96,10 @@ class PackageDetailsView(Gtk.VBox):
             self.image_icon.set_pixel_size(64)
 
         # Update the description
-        self.label_description.set_label(description)
+        self.label_description.set_label(self.render_plain(description))
+
+    def render_plain(self, input_string):
+        """ Render a plain version of the description, no markdown """
+        plain = As.markup_convert(input_string, -1,
+                                  As.MarkupConvertFormat.SIMPLE)
+        return plain
