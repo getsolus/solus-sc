@@ -11,9 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GLib, GdkPixbuf, GObject, Pango
-from pisi.db.packagedb import PackageDB
-from pisi.db.installdb import InstallDB
+from gi.repository import Gtk, GLib, GObject, Pango
 from .util import sc_format_size_local
 from operator import attrgetter
 import threading
@@ -53,8 +51,7 @@ class ScChangelogEntry(Gtk.EventBox):
         self.add(hbox)
 
         # format name to correlate with git entry.
-        nom = "%s-%s-%s" % (
-                            str(obj.name),
+        nom = "%s-%s-%s" % (str(obj.name),
                             str(history.version),
                             str(history.release))
 
@@ -131,13 +128,11 @@ class ScChangelogViewer(Gtk.Dialog):
 
         iVersion = "<i>Not installed</i>"
         if obj.old_pkg:
-            iVersion = "%s-%s" % (
-                        str(obj.old_pkg.version),
-                        str(obj.old_pkg.release))
+            iVersion = "%s-%s" % (str(obj.old_pkg.version),
+                                  str(obj.old_pkg.release))
         builder.get_object("label_iversion").set_markup(iVersion)
-        aVersion = "%s-%s" % (
-                    str(obj.new_pkg.version),
-                    str(obj.new_pkg.release))
+        aVersion = "%s-%s" % (str(obj.new_pkg.version),
+                              str(obj.new_pkg.release))
         builder.get_object("label_aversion").set_markup(aVersion)
 
         isize = sc_format_size_local(obj.get_update_size(), True)
@@ -458,9 +453,7 @@ class ScUpdatesView(Gtk.VBox):
                                      str(new_pkg.release))
             pkg_name = str(new_pkg.name)
             old_pkg = None
-            old_version = "Not installed"
             systemBase = False
-            oldRelease = 0
 
             icon = PACKAGE_ICON_NORMAL
             if new_pkg.partOf == "system.base":
@@ -471,9 +464,6 @@ class ScUpdatesView(Gtk.VBox):
 
             if self.installdb.has_package(item):
                 old_pkg = self.installdb.get_package(item)
-                old_version = "%s-%s" % (str(old_pkg.version),
-                                         str(old_pkg.release))
-                oldRelease = int(old_pkg.release)
 
             sc_obj = ScUpdateObject(old_pkg, new_pkg)
 
@@ -536,7 +526,6 @@ class ScUpdatesView(Gtk.VBox):
         # Handle child set to parent
         if parent is not None:
             num_children = tmodel.iter_n_children(parent)
-            active_children = []
             inactive_children = []
 
             # Find all inactive checkboxes

@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GLib, GdkPixbuf
+from gi.repository import Gtk, GLib
 
 
 class LoadingPage(Gtk.VBox):

@@ -11,10 +11,7 @@
 #  (at your option) any later version.
 #
 
-import gi.repository
 from gi.repository import Gtk, GObject
-
-import pisi.api
 
 GENERIC = "package-x-generic"
 UPDATE_ICON = "package-upgrade"

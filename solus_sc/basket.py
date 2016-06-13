@@ -11,7 +11,6 @@
 #  (at your option) any later version.
 #
 
-import gi.repository
 from gi.repository import Gtk, GObject
 
 import comar
@@ -191,12 +190,12 @@ class BasketView(Gtk.Revealer):
                 if self.current_operations is not None:
                     # Doing real operations now.
                     package = args[1]
-                    whatisthis = args[2]
+                    # whatisthis = args[2]
                     speed_number = args[3]
                     speed_label = args[4]
                     downloaded = args[5]
                     download_size = args[6]
-                    down = downloaded
+                    # down = downloaded
                     speed = "%d %s" % (speed_number, speed_label)
 
                     diff = downloaded - download_size
@@ -205,8 +204,8 @@ class BasketView(Gtk.Revealer):
 
                     disp = "Downloading {} of {}: {} ({})"
                     self.set_progress(prog, disp.format(
-                            self.current_dl_package,
-                            self.total_packages, package, speed))
+                        self.current_dl_package,
+                        self.total_packages, package, speed))
 
                     if downloaded >= download_size:
                         self.current_dl_package += 1

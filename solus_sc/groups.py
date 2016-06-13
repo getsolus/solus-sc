@@ -13,7 +13,6 @@
 
 from gi.repository import Gtk
 
-import pisi.api
 from pisi.db.groupdb import GroupDB
 
 
