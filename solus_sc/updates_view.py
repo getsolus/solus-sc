@@ -225,8 +225,16 @@ class ScUpdatesView(Gtk.VBox):
 
     selected_object = None
 
+    stack = None
+
     def __init__(self):
         Gtk.VBox.__init__(self, 0)
+
+        self.stack = Gtk.Stack()
+        self.pack_start(self.stack, True, True, 0)
+
+        main_box = Gtk.VBox(0)
+        self.stack.add_named(main_box, "updates")
 
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
@@ -278,8 +286,8 @@ class ScUpdatesView(Gtk.VBox):
         st.add_class("update-toolbar")
 
         # Pack widgets
-        self.pack_start(self.toolbar, False, False, 0)
-        self.pack_start(self.scroll, True, True, 0)
+        main_box.pack_start(self.toolbar, False, False, 0)
+        main_box.pack_start(self.scroll, True, True, 0)
         # Junctions
         st = self.scroll.get_style_context()
         st.set_junction_sides(Gtk.JunctionSides.TOP)
