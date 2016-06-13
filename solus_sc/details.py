@@ -53,9 +53,13 @@ class PackageDetailsView(Gtk.VBox):
 
         # Set up the display label
         self.label_name = Gtk.Label("")
+        self.label_name.set_max_width_chars(80)
+        self.label_name.set_line_wrap(True)
+        self.label_name.set_property("xalign", 0.0)
         header.pack_start(self.label_name, False, False, 0)
         self.label_name.set_halign(Gtk.Align.START)
-        self.label_name.set_valign(Gtk.Align.CENTER)
+        self.label_name.set_valign(Gtk.Align.START)
+        self.label_name.set_margin_top(6)
 
         # Need the description down a bit and a fair bit padded
         self.label_description = Gtk.Label("")
@@ -65,7 +69,7 @@ class PackageDetailsView(Gtk.VBox):
         # Deprecated but still needs using with linewrap
         self.label_description.set_property("xalign", 0.0)
         self.label_description.set_margin_start(8)
-        # self.label_description.set_max_width_chars(1)
+        self.label_description.set_max_width_chars(80)
         self.label_description.set_line_wrap(True)
         self.label_description.set_selectable(True)
         self.label_description.set_can_focus(False)
