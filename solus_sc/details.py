@@ -82,9 +82,12 @@ class PackageDetailsView(Gtk.VBox):
         comment = self.appsystem.get_summary(package)
         description = self.appsystem.get_description(package)
 
+        version = "{}-{}".format(str(package.version), str(package.release))
         # Update display now.
-        title_format = "<span size='x-large'><b>{}</b></span>\n{}"
-        self.label_name.set_markup(title_format.format(name, comment))
+        title_format = "<span size='x-large'><b>{}</b> - {}</span>\n{}"
+        self.label_name.set_markup(title_format.format(name,
+                                                       version,
+                                                       comment))
 
         # Sort out a nice icon
         pbuf = self.appsystem.get_pixbuf(package)
