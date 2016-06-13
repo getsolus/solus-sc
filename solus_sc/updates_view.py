@@ -385,6 +385,12 @@ class ScUpdatesView(Gtk.VBox):
         sep.set_expand(True)
         self.toolbar.add(sep)
 
+        refresh_button = Gtk.ToolButton(None, "Check for updates")
+        refresh_button.set_is_important(True)
+        refresh_button.set_label("Check for updates")
+        refresh_button.connect("clicked", self.perform_refresh)
+        self.toolbar.add(refresh_button)
+
         # View details, i.e. changelog
         self.view_details = Gtk.ToolButton(None, None)
         self.view_details.set_icon_name("dialog-information-symbolic")
@@ -393,7 +399,8 @@ class ScUpdatesView(Gtk.VBox):
         self.view_details.get_style_context().add_class("flat")
         self.view_details.connect('clicked', self.on_details)
         self.toolbar.add(self.view_details)
-        GLib.idle_add(self.init_view)
+
+        self.perform_refresh(self, None)
 
     def on_details(self, b, wdata=None):
         lewin = self.get_toplevel()
