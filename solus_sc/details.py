@@ -12,6 +12,7 @@
 #
 
 from gi.repository import Gtk
+from gi.repository import Gio
 
 
 class PackageDetailsView(Gtk.VBox):
@@ -31,9 +32,14 @@ class PackageDetailsView(Gtk.VBox):
     # The currently selected package for rendering
     package = None
 
+    # Description for this package. Currently stripped of markup..
+    label_description = None
+
     def __init__(self, appsystem):
         Gtk.VBox.__init__(self)
         self.appsystem = appsystem
+
+        self.set_border_width(12)
 
         header = Gtk.HBox(0)
         self.pack_start(header, False, False, 0)
@@ -48,11 +54,45 @@ class PackageDetailsView(Gtk.VBox):
         self.label_name = Gtk.Label("")
         header.pack_start(self.label_name, False, False, 0)
         self.label_name.set_halign(Gtk.Align.START)
+        self.label_name.set_valign(Gtk.Align.CENTER)
+
+        # Need the description down a bit and a fair bit padded
+        self.label_description = Gtk.Label("")
+        self.label_description.set_halign(Gtk.Align.START)
+        self.label_description.set_valign(Gtk.Align.START)
+        self.label_description.set_margin_top(20)
+        # Deprecated but still needs using with linewrap
+        self.label_description.set_property("xalign", 0.0)
+        self.label_description.set_margin_start(8)
+        # self.label_description.set_max_width_chars(1)
+        self.label_description.set_line_wrap(True)
+        self.pack_start(self.label_description, True, True, 0)
 
     def update_from_package(self, package):
         """ Update our view based on a given package """
 
         name = self.appsystem.get_name(package)
+        comment = self.appsystem.get_summary(package)
+        description = self.appsystem.get_description(package)
 
         # Update display now.
-        self.label_name.set_markup(name)
+        title_format = "<span size='x-large'><b>{}</b></span>\n{}"
+        self.label_name.set_markup(title_format.format(name, comment))
+
+        # Sort out a nice icon
+        pbuf = self.appsystem.get_pixbuf(package)
+        if pbuf:
+            # Handle icon theme names
+            if isinstance(pbuf, Gio.ThemedIcon):
+                self.image_icon.set_from_gicon(pbuf, Gtk.IconSize.DIALOG)
+                self.image_icon.set_pixel_size(64)
+            else:
+                # Handle local files
+                self.image_icon.set_from_pixbuf(pbuf)
+        else:
+            icon = self.appsystem.get_icon(package)
+            self.image_icon.set_from_icon_name(icon, Gtk.IconSize.DIALOG)
+            self.image_icon.set_pixel_size(64)
+
+        # Update the description
+        self.label_description.set_label(description)

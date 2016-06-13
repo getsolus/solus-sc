@@ -12,11 +12,17 @@
 #
 
 from gi.repository import AppStreamGlib as As
+from gi.repository import Gio
 import os
 
 
 class AppSystem:
-    """ Mux calls into AppStream where appropriate
+    """ Mux calls into AppStream where appropriate.
+
+        This class enables failsafe queries for descriptions/summaries
+        by hooking into AppSystem, and falling back to the native fields
+        in the .eopkg's
+
         TODO: Locale integration
     """
 
@@ -33,6 +39,16 @@ class AppSystem:
             return package.summary
         return app.get_comment("C")
 
+    def get_description(self, package):
+        """ Return a usable description for a package """
+        app = self.store.get_app_by_pkgname(package.name)
+        if not app:
+            return str(package.description)
+        c = app.get_description("C")
+        if not c:
+            return str(package.description)
+        return c
+
     def get_name(self, package):
         app = self.store.get_app_by_pkgname(package.name)
         if not app:
@@ -40,16 +56,27 @@ class AppSystem:
         return app.get_name("C")
 
     def get_icon(self, package):
+        """ Fallback method """
+        if package.icon:
+            return package.icon
+        return "package-x-generic"
+
+    def get_pixbuf(self, package):
+        """ Get the AppStream GdkPixbuf for an image """
         app = self.store.get_app_by_pkgname(package.name)
         if not app:
-            if package.icon:
-                return package.icon
-            return "package-x-generic"
-        icon = app.get_icon_default()
+            return None
+        # TODO: Incorporate HIDPI!
+        icon = app.get_icon_for_size(64, 64)
         if not icon:
-            return
-        fp = os.path.join(icon.get_prefix(), icon.get_name())
-        return fp
-        print icon.get_filename()
-        print icon.get_prefix()
-        return icon.get_name()
+            return None
+        kind = icon.get_kind()
+        if kind == As.IconKind.UNKNOWN or kind == As.IconKind.REMOTE:
+            return None
+        if kind == As.IconKind.STOCK:
+            # Load up a gthemedicon version
+            im = Gio.ThemedIcon.new(icon.get_name())
+            return im
+        if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
+            return None
+        return icon.get_pixbuf()
