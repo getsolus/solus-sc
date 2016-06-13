@@ -7,13 +7,11 @@ store = AS.Store()
 
 store.load(AS.StoreLoadFlags.APP_INFO_SYSTEM)
 
-for app in store.get_apps():
-    print app.get_comment("C")
-    print app.get_name("C")
-    pass
+def test_markup(desc):
+    m = AS.markup_convert(desc, -1, AS.MarkupConvertFormat.SIMPLE)
+    return m
 
-app = store.get_app_by_pkgname("libreoffice-writer")
-print(app.get_description("C"))
-print(app.get_comment("C"))
-print app.get_icon_path()
-print app.get_name("C")
+app = store.get_app_by_pkgname("pitivi")
+
+desc = app.get_description("C")
+print test_markup(desc)
