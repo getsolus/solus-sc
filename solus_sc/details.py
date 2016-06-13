@@ -82,6 +82,8 @@ class PackageDetailsView(Gtk.VBox):
         action_line.pack_end(self.remove_button, False, False, 0)
         self.remove_button.set_no_show_all(True)
 
+        header.set_property("margin-bottom", 24)
+
         # Need the description down a bit and a fair bit padded
         self.label_description = Gtk.Label("")
         self.label_description.set_halign(Gtk.Align.START)
