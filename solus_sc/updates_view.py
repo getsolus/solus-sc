@@ -35,13 +35,17 @@ class ScChangelogEntry(Gtk.EventBox):
     def markup_le_cves(self, text):
         ret = ""
 
-        for i in text.split(" "):
-            if not CVE_HIT.match(i.upper()):
-                ret += i + " "
-                continue
-            i = i.upper()
-            href = "<a href=\"{}\">{}</a>".format(CVE_URI.format(i), i)
-            ret += href + " "
+        # Stop multiline run-ins
+        for r in text.split("\n"):
+            r = r.strip()
+            for i in r.split(" "):
+                if not CVE_HIT.match(i.upper()):
+                    ret += i + " "
+                    continue
+                i = i.upper()
+                href = "<a href=\"{}\">{}</a>".format(CVE_URI.format(i), i)
+                ret += href + " "
+            ret += "\n"
         return ret.strip()
 
     def __init__(self, obj, history):
