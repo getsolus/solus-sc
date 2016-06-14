@@ -32,6 +32,10 @@ class ScApplication(Gtk.Application):
         print("Child removed!")
         self.app_window = None
 
+        # Temporary hack to ensure we exit now
+        if self.is_service_mode:
+            self.release()
+
     def startup(self, app):
         print("I am now doing the motions of the startupings")
         if self.get_flags() & Gio.ApplicationFlags.IS_SERVICE:
@@ -39,7 +43,7 @@ class ScApplication(Gtk.Application):
             self.is_service_mode = True
 
         self.monitor = ScMonitor(app)
-        # self.hold()
+        self.hold()
 
     def shutdown(self, app):
         print("I am now doing the motions of the shutdownings")
