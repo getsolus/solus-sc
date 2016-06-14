@@ -103,7 +103,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.get_style_context().add_class("solus-sc")
 
         self.set_position(Gtk.WindowPosition.CENTER)
-        self.set_default_size(800, 600)
+        self.set_default_size(950, 650)
 
         self.stack = Gtk.Stack()
         self.stack.get_style_context().add_class("main-view")

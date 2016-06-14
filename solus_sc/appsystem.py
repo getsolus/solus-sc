@@ -12,7 +12,7 @@
 #
 
 from gi.repository import AppStreamGlib as As
-from gi.repository import Gio, GLib
+from gi.repository import Gio, GLib, Gtk
 
 
 class AppSystem:
@@ -26,10 +26,20 @@ class AppSystem:
     """
 
     store = None
+    default_pixbuf = None
 
     def __init__(self):
         self.store = As.Store()
         self.store.load(As.StoreLoadFlags.APP_INFO_SYSTEM)
+
+        itheme = Gtk.IconTheme.get_default()
+        try:
+            self.default_pixbuf = itheme.load_icon(
+                "package-x-generic",
+                64,
+                Gtk.IconLookupFlags.GENERIC_FALLBACK)
+        except Exception as e:
+            print(e)
 
     def get_summary(self, package):
         """ Return a usable summary for a package """
@@ -78,6 +88,34 @@ class AppSystem:
             return im
         if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
             return None
+        return icon.get_pixbuf()
+
+    def get_pixbuf_only(self, package):
+        """ Only get a pixbuf - no fallbacks  """
+        app = self.store.get_app_by_pkgname(package.name)
+        if not app:
+            return self.default_pixbuf
+        # TODO: Incorporate HIDPI!
+        icon = app.get_icon_for_size(64, 64)
+        if not icon:
+            return self.default_pixbuf
+        kind = icon.get_kind()
+        if kind == As.IconKind.UNKNOWN or kind == As.IconKind.REMOTE:
+            return None
+        if kind == As.IconKind.STOCK:
+            # Load up a gthemedicon version
+            try:
+                itheme = Gtk.IconTheme.get_default()
+                pbuf = itheme.load_icon(
+                    "package-x-generic",
+                    64,
+                    Gtk.IconLookupFlags.GENERIC_FALLBACK)
+                return pbuf
+            except Exception as e:
+                print(e)
+            return self.default_pixbuf
+        if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
+            return self.default_pixbuf
         return icon.get_pixbuf()
 
     def get_website(self, package):

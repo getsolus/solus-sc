@@ -12,7 +12,7 @@
 #
 
 from .details import PackageDetailsView
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, GdkPixbuf
 
 
 """ enum for the model fields """
@@ -100,7 +100,7 @@ class ScPackageView(Gtk.VBox):
         ren = Gtk.CellRendererPixbuf()
         ren.set_property("stock-size", Gtk.IconSize.DIALOG)
         ren.set_padding(5, 2)
-        column = Gtk.TreeViewColumn("Icon", ren, icon_name=2)
+        column = Gtk.TreeViewColumn("Icon", ren, pixbuf=2)
         self.tview.append_column(column)
 
         # Set up display columns
@@ -124,7 +124,7 @@ class ScPackageView(Gtk.VBox):
         self.stack.set_visible_child_name("loading")
 
     def init_view(self):
-        model = Gtk.ListStore(str, str, str, str)
+        model = Gtk.ListStore(str, str, GdkPixbuf.Pixbuf, str)
         model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
 
         """ HAX: Allow me to test stuff.
@@ -153,11 +153,10 @@ class ScPackageView(Gtk.VBox):
             name = str(pkg.name)
             p_print = "<b>%s</b> - %s\n%s" % (name, str(pkg.version),
                                               summary)
-            icon = "package-x-generic"
-            if pkg.icon is not None:
-                icon = str(pkg.icon)
 
-            model.append([p_print, pkg_name, icon, "go-next-symbolic"])
+            pbuf = self.appsystem.get_pixbuf_only(pkg)
+
+            model.append([p_print, pkg_name, pbuf, "go-next-symbolic"])
 
         self.tview.set_model(model)
         GLib.idle_add(self.finish_view)
