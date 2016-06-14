@@ -107,7 +107,7 @@ class AppSystem:
             try:
                 itheme = Gtk.IconTheme.get_default()
                 pbuf = itheme.load_icon(
-                    "package-x-generic",
+                    icon.get_name(),
                     64,
                     Gtk.IconLookupFlags.GENERIC_FALLBACK)
                 return pbuf
