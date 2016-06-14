@@ -46,6 +46,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     prev_button = None
 
+    def do_delete_event(self, event, udata=None):
+        """ For now just propagate the event """
+        print("Bye :(")
+        return False
+
     def handle_back(self, btn, udata=None):
         """ Handle back navigation """
         nom = self.stack.get_visible_child_name()
