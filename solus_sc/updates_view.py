@@ -96,6 +96,7 @@ class ScChangelogEntry(Gtk.EventBox):
         sum_lab.set_line_wrap_mode(Pango.WrapMode.WORD)
         sum_lab.set_line_wrap(True)
         sum_lab.set_property("xalign", 0.0)
+        sum_lab.set_max_width_chars(85)
         sum_lab.set_width_chars(80)
         vbox.pack_start(sum_lab, True, True, 0)
 
