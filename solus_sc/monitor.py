@@ -12,12 +12,19 @@
 #
 
 
+from gi.repository import Gio
+
+
 class ScMonitor:
     """ Background service that will always try and check for updates
         at a pre-configured frequency """
 
+    net_monitor = None
+
     def __init__(self, app):
-        pass
+        self.net_monitor = Gio.NetworkMonitor.get_default()
+        print("Network available? {}".format(
+            self.net_monitor.get_network_available()))
 
     def check_for_updates(self):
         pass

@@ -12,6 +12,7 @@
 #
 
 from .main_window import ScMainWindow
+from .monitor import ScMonitor
 from gi.repository import Gio, Gtk, Gdk
 
 import os
@@ -22,9 +23,11 @@ SC_APP_ID = "com.solus_project.SoftwareCenter"
 class ScApplication(Gtk.Application):
 
     app_window = None
+    monitor = None
 
     def startup(self, app):
         print("I am now doing the motions of the startupings")
+        self.monitor = ScMonitor(app)
 
     def shutdown(self, app):
         print("I am now doing the motions of the shutdownings")
