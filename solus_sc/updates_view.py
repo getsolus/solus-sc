@@ -562,6 +562,7 @@ class ScUpdatesView(Gtk.VBox):
 
         total_update = 0
         total_size = 0
+        total_available = 0;
 
         # enumerate root nodes
         for i in xrange(0, model.iter_n_children(None)):
@@ -572,6 +573,8 @@ class ScUpdatesView(Gtk.VBox):
                 child = model.iter_nth_child(root_kid, j)
                 child_path = model.get_path(child)
 
+                total_available += 1
+
                 active = model[child_path][0]
                 if not active:
                     continue
@@ -579,11 +582,11 @@ class ScUpdatesView(Gtk.VBox):
                 total_size += model[child_path][6]
         # Skip it.
         if total_update == 0:
-            self.selection_label.set_text("%s items selected" % total_update)
+            self.selection_label.set_text("%s of %s updates selected" % (total_update, total_available))
             return
         dlSize = sc_format_size_local(total_size, True)
-        newLabel = "%s items selected (%s to download)" % \
-                   (total_update, dlSize)
+        newLabel = "%s of %s updates selected (%s to download)" % \
+                   (total_available, total_update, dlSize)
         self.selection_label.set_text(newLabel)
 
     def on_row_activated(self, tview, path, column, udata=None):
