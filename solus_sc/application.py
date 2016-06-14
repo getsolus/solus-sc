@@ -25,6 +25,8 @@ class ScApplication(Gtk.Application):
     app_window = None
     monitor = None
 
+    is_service_mode = False
+
     def window_closed(self):
         """ Child informed us that they closed """
         print("Child removed!")
@@ -32,6 +34,10 @@ class ScApplication(Gtk.Application):
 
     def startup(self, app):
         print("I am now doing the motions of the startupings")
+        if self.get_flags() & Gio.ApplicationFlags.IS_SERVICE:
+            print("Running in service mode")
+            self.is_service_mode = True
+
         self.monitor = ScMonitor(app)
         # self.hold()
 
