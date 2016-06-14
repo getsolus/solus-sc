@@ -185,8 +185,15 @@ class PackageDetailsView(Gtk.VBox):
             self.remove_button.hide()
             self.install_button.show()
         else:
+            sensitive = package.partOf != "system.base"
             self.install_button.hide()
             self.remove_button.show()
+            if not sensitive:
+                self.remove_button.set_tooltip_text(
+                    "Cannot remove core system software")
+            else:
+                self.remove_button.set_tooltip_text(None)
+            self.remove_button.set_sensitive(sensitive)
 
         # Update the homepage button
         url = self.appsystem.get_website(package)
