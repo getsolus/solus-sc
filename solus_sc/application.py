@@ -25,9 +25,15 @@ class ScApplication(Gtk.Application):
     app_window = None
     monitor = None
 
+    def window_closed(self):
+        """ Child informed us that they closed """
+        print("Child removed!")
+        self.app_window = None
+
     def startup(self, app):
         print("I am now doing the motions of the startupings")
         self.monitor = ScMonitor(app)
+        # self.hold()
 
     def shutdown(self, app):
         print("I am now doing the motions of the shutdownings")

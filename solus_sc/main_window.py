@@ -46,9 +46,12 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     prev_button = None
 
+    app = None
+
     def do_delete_event(self, event, udata=None):
         """ For now just propagate the event """
         print("Bye :(")
+        self.app.window_closed()
         return False
 
     def handle_back(self, btn, udata=None):
@@ -90,6 +93,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def __init__(self, app):
         Gtk.ApplicationWindow.__init__(self, application=app)
 
+        self.app = app
         self.appsystem = AppSystem()
 
         # !!HAX!! - we're missing a .desktop file atm. shush.
