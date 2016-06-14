@@ -12,7 +12,7 @@
 #
 
 
-from gi.repository import Gio
+from gi.repository import Gio, GLib
 
 
 class ScMonitor:
@@ -20,11 +20,19 @@ class ScMonitor:
         at a pre-configured frequency """
 
     net_monitor = None
+    app = None
 
     def __init__(self, app):
         self.net_monitor = Gio.NetworkMonitor.get_default()
+        self.app = app
         print("Network available? {}".format(
             self.net_monitor.get_network_available()))
 
     def check_for_updates(self):
         pass
+
+    def notify_updates(self):
+        note = Gio.Notification.new("New updates are available")
+        note.set_body("Please visit the Software Center")
+        note.add_button("Open Software Center", "app.show-updates")
+        self.app.send_notification("solus.software", note)

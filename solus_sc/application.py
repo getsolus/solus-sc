@@ -33,8 +33,9 @@ class ScApplication(Gtk.Application):
         self.app_window = None
 
         # Temporary hack to ensure we exit now
-        if self.is_service_mode:
-            self.release()
+        # if self.is_service_mode:
+        #    self.release()
+        self.quit()
 
     def startup(self, app):
         print("I am now doing the motions of the startupings")
