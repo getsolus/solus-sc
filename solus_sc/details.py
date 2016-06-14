@@ -14,6 +14,7 @@
 from gi.repository import Gtk
 from gi.repository import Gio
 from gi.repository import AppStreamGlib as As
+from .util import sc_format_size_local
 
 
 class PackageDetailsView(Gtk.VBox):
@@ -35,6 +36,9 @@ class PackageDetailsView(Gtk.VBox):
 
     # Description for this package. Currently stripped of markup..
     label_description = None
+
+    # Installed size/download size
+    label_size = None
 
     install_button = None
     remove_button = None
@@ -121,19 +125,28 @@ class PackageDetailsView(Gtk.VBox):
 
         # Begin the tail grid
         self.tail_grid = Gtk.Grid()
+        self.tail_grid.set_row_spacing(8)
+        self.tail_grid.set_column_spacing(8)
         self.pack_end(self.tail_grid, False, False, 0)
 
         self.website_button = Gtk.Button("Website")
         self.website_button.set_no_show_all(True)
         self.website_button.connect("clicked", self.on_website)
         # self.tail_grid.attach(button_website, t, w, h)
-        self.tail_grid.attach(self.website_button, 0, 0, 1, 1)
+        self.tail_grid.attach(self.website_button, 0, 1, 1, 1)
 
         # Donation button
         self.donate_button = Gtk.Button("Donate")
         self.donate_button.connect("clicked", self.on_donate)
         self.donate_button.set_no_show_all(True)
-        self.tail_grid.attach(self.donate_button, 1, 0, 1, 1)
+        self.tail_grid.attach(self.donate_button, 1, 1, 1, 1)
+
+        self.label_installed = Gtk.Label("Installed size")
+        self.label_installed.get_style_context().add_class("dim-label")
+        self.tail_grid.attach(self.label_installed, 0, 0, 1, 1)
+
+        self.label_size = Gtk.Label("")
+        self.tail_grid.attach(self.label_size, 1, 0, 1, 1)
 
     def update_from_package(self, package):
         """ Update our view based on a given package """
@@ -189,6 +202,9 @@ class PackageDetailsView(Gtk.VBox):
             self.donate_button.show()
         else:
             self.donate_button.hide()
+
+        size = sc_format_size_local(package.installedSize)
+        self.label_size.set_markup(size)
 
     def render_plain(self, input_string):
         """ Render a plain version of the description, no markdown """
