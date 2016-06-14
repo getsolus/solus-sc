@@ -68,7 +68,7 @@ class PackageDetailsView(Gtk.VBox):
         Gtk.VBox.__init__(self)
         self.appsystem = appsystem
 
-        self.set_border_width(12)
+        self.set_border_width(24)
 
         header = Gtk.HBox(0)
         self.pack_start(header, False, False, 0)
