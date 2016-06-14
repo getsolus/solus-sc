@@ -149,8 +149,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         # These guys aren't yet implemented
         self.stack.add_titled(self.package_view, "installed", "Installed")
         self.stack.add_titled(ScPlaceholderBox(), "3rd-party", "Third Party")
-        self.stack.add_titled(ScPlaceholderBox(), "settings", "Settings")
         self.stack.add_titled(ScPlaceholderBox(), "basket", "Basket")
+        self.stack.add_titled(ScPlaceholderBox(), "settings", "Settings")
 
         # set up intro animation
         self.stack.set_visible_child_name("empty")

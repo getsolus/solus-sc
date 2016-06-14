@@ -109,6 +109,8 @@ class PackageDetailsView(Gtk.VBox):
 
         header.set_property("margin-bottom", 24)
 
+        self.scroll = Gtk.ScrolledWindow(None, None)
+        self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         # Need the description down a bit and a fair bit padded
         self.label_description = Gtk.Label("")
         self.label_description.set_halign(Gtk.Align.START)
@@ -121,10 +123,12 @@ class PackageDetailsView(Gtk.VBox):
         self.label_description.set_line_wrap(True)
         self.label_description.set_selectable(True)
         self.label_description.set_can_focus(False)
-        self.pack_start(self.label_description, True, True, 0)
+        self.scroll.add(self.label_description)
+        self.pack_start(self.scroll, True, True, 0)
 
         # Begin the tail grid
         self.tail_grid = Gtk.Grid()
+        self.tail_grid.set_margin_top(8)
         self.tail_grid.set_row_spacing(8)
         self.tail_grid.set_column_spacing(8)
         self.pack_end(self.tail_grid, False, False, 0)
