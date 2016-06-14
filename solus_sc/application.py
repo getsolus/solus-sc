@@ -23,6 +23,12 @@ class ScApplication(Gtk.Application):
 
     app_window = None
 
+    def startup(self, app):
+        print("I am now doing the motions of the startupings")
+
+    def shutdown(self, app):
+        print("I am now doing the motions of the shutdownings")
+
     def init_css(self):
         """ Set up the CSS before we throw any windows up """
         try:
@@ -42,6 +48,8 @@ class ScApplication(Gtk.Application):
                                  application_id=SC_APP_ID,
                                  flags=Gio.ApplicationFlags.FLAGS_NONE)
         self.connect("activate", self.on_activate)
+        self.connect("startup", self.startup)
+        self.connect("shutdown", self.shutdown)
 
     def on_activate(self, app):
         if self.app_window is None:
