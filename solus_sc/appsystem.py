@@ -41,28 +41,36 @@ class AppSystem:
         except Exception as e:
             print(e)
 
+    def sanitize(self, text):
+        return text.replace("&quot;", "\"")
+
     def get_summary(self, package):
         """ Return a usable summary for a package """
         app = self.store.get_app_by_pkgname(package.name)
+        ret = None
         if not app:
-            return GLib.markup_escape_text(str(package.summary))
-        return app.get_comment("C")
+            ret = GLib.markup_escape_text(str(package.summary))
+        else:
+            ret = app.get_comment("C")
+        return self.sanitize(ret)
 
     def get_description(self, package):
         """ Return a usable description for a package """
         app = self.store.get_app_by_pkgname(package.name)
         if not app:
-            return GLib.markup_escape_text(str(package.description))
+            return self.sanitize(
+                GLib.markup_escape_text(str(package.description)))
         c = app.get_description("C")
         if not c:
-            return GLib.markup_escape_text(str(package.description))
+            return self.sanitize(
+                GLib.markup_escape_text(str(package.description)))
         return c
 
     def get_name(self, package):
         app = self.store.get_app_by_pkgname(package.name)
         if not app:
             return package.name
-        return app.get_name("C")
+        return self.sanitize(app.get_name("C"))
 
     def get_icon(self, package):
         """ Fallback method """
