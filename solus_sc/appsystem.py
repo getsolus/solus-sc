@@ -61,7 +61,7 @@ class AppSystem:
         return "package-x-generic"
 
     def get_pixbuf(self, package):
-        """ Get the AppStream GdkPixbuf for an image """
+        """ Get the AppStream GdkPixbuf for a package """
         app = self.store.get_app_by_pkgname(package.name)
         if not app:
             return None
@@ -79,3 +79,21 @@ class AppSystem:
         if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
             return None
         return icon.get_pixbuf()
+
+    def get_website(self, package):
+        """ Get the website for a given package """
+        app = self.store.get_app_by_pkgname(package.name)
+        if not app:
+            if package.source.homepage:
+                return str(package.source.homepage)
+            return None
+        url = app.get_url_item(As.UrlKind.HOMEPAGE)
+        return url
+
+    def get_donation_site(self, package):
+        """ Get a donation link for the given package """
+        app = self.store.get_app_by_pkgname(package.name)
+        if not app:
+            return None
+        url = app.get_url_item(As.UrlKind.DONATION)
+        return url

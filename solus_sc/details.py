@@ -38,8 +38,27 @@ class PackageDetailsView(Gtk.VBox):
 
     install_button = None
     remove_button = None
+    website_button = None
+    donate_button = None
 
+    # Urls..
+    url_website = None
+    url_donate = None
     is_install_page = False
+
+    def on_donate(self, btn, udata=None):
+        """ Launch the donation site """
+        try:
+            Gtk.show_uri(None, self.url_donate, 0)
+        except:
+            pass
+
+    def on_website(self, btn, udata=None):
+        """ Launch the main website """
+        try:
+            Gtk.show_uri(None, self.url_website, 0)
+        except:
+            pass
 
     def __init__(self, appsystem):
         Gtk.VBox.__init__(self)
@@ -94,11 +113,27 @@ class PackageDetailsView(Gtk.VBox):
         # Deprecated but still needs using with linewrap
         self.label_description.set_property("xalign", 0.0)
         self.label_description.set_margin_start(8)
-        self.label_description.set_max_width_chars(80)
+        self.label_description.set_max_width_chars(70)
         self.label_description.set_line_wrap(True)
         self.label_description.set_selectable(True)
         self.label_description.set_can_focus(False)
         self.pack_start(self.label_description, True, True, 0)
+
+        # Begin the tail grid
+        self.tail_grid = Gtk.Grid()
+        self.pack_end(self.tail_grid, False, False, 0)
+
+        self.website_button = Gtk.Button("Website")
+        self.website_button.set_no_show_all(True)
+        self.website_button.connect("clicked", self.on_website)
+        # self.tail_grid.attach(button_website, t, w, h)
+        self.tail_grid.attach(self.website_button, 0, 0, 1, 1)
+
+        # Donation button
+        self.donate_button = Gtk.Button("Donate")
+        self.donate_button.connect("clicked", self.on_donate)
+        self.donate_button.set_no_show_all(True)
+        self.tail_grid.attach(self.donate_button, 1, 0, 1, 1)
 
     def update_from_package(self, package):
         """ Update our view based on a given package """
@@ -139,6 +174,21 @@ class PackageDetailsView(Gtk.VBox):
         else:
             self.install_button.hide()
             self.remove_button.show()
+
+        # Update the homepage button
+        url = self.appsystem.get_website(package)
+        if url:
+            self.url_website = url
+            self.website_button.show()
+        else:
+            self.website_button.hide()
+
+        donate = self.appsystem.get_donation_site(package)
+        if donate:
+            self.url_donate = donate
+            self.donate_button.show()
+        else:
+            self.donate_button.hide()
 
     def render_plain(self, input_string):
         """ Render a plain version of the description, no markdown """
