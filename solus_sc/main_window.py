@@ -47,7 +47,6 @@ class ScMainWindow(Gtk.ApplicationWindow):
     prev_button = None
 
     app = None
-    overlay = None
 
     # Default open mode
     mode_open = None
@@ -103,9 +102,6 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def __init__(self, app):
         Gtk.ApplicationWindow.__init__(self, application=app)
 
-        self.overlay = Gtk.Overlay()
-        self.add(self.overlay)
-
         self.app = app
         self.mode_open = "home"
         self.appsystem = AppSystem()
@@ -145,7 +141,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         # Main horizontal layout (Sidebar|VIEW)
         self.main_layout = Gtk.HBox(0)
-        self.overlay.add(self.main_layout)
+        self.add(self.main_layout)
 
         self.sidebar = ScSidebar(self, self.stack)
         self.sidebar_revealer = Gtk.Revealer()
