@@ -74,6 +74,7 @@ class ScComponentButton(Gtk.Button):
 
         self.get_style_context().add_class("group-button")
 
+
 class ScComponentsView(Gtk.EventBox):
     """ Main group view, i.e. "System", "Development", etc. """
 
@@ -111,4 +112,3 @@ class ScComponentsView(Gtk.EventBox):
             btn = ScComponentButton(compdb, component)
             self.flowbox.add(btn)
             btn.show_all()
-            print(component.name)
