@@ -94,18 +94,23 @@ class ScGroupsView(Gtk.EventBox):
     # Available packagees
     avail_view = None
 
+    breadcrumbs = None
+
     def handle_back(self):
         """ Go back to the group selection view for now """
-        self.stack.set_visible_child_name("groups")
-        self.owner.set_can_back(False)
+        w = self.breadcrumbs.pop()
+        self.stack.set_visible_child_name(w)
+        self.owner.set_can_back(len(self.breadcrumbs) > 0)
 
     def can_back(self):
         """ Whether we can go back """
-        return self.stack.get_visible_child_name() != "groups"
+        return len(self.breadcrumbs) > 0
 
     def __init__(self, owner):
         Gtk.EventBox.__init__(self)
         self.owner = owner
+
+        self.breadcrumbs = []
 
         self.stack = Gtk.Stack()
         t = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
@@ -140,6 +145,7 @@ class ScGroupsView(Gtk.EventBox):
     def on_group_clicked(self, btn, data=None):
         groupdb = self.owner.basket.groupdb
         self.stack.set_visible_child_name("components")
+        self.breadcrumbs.append("groups")
         components = groupdb.get_group_components(btn.group.name)
         self.comp_view.set_components(components)
         self.owner.set_can_back(True)
@@ -166,4 +172,6 @@ class ScGroupsView(Gtk.EventBox):
     def select_component(self, component):
         print("Selected component: {}".format(component.name))
         self.avail_view.set_component(component)
+        self.breadcrumbs.append("components")
         self.stack.set_visible_child_name("available")
+        self.owner.set_can_back(True)
