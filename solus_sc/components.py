@@ -32,6 +32,11 @@ ICON_MAPS = {
     "multimedia.video": "camera-video",
     "multimedia.audio": "library-music",
     "multimedia.graphics": "camera-photo",
+    "games": "applications-games",
+    "games.emulator": "ds-emulator",
+    "games.strategy": "games-endturn",
+    "programming.python": "application-x-python-bytecode",
+    "programming.devel": "text-x-changelog",
 }
 
 
