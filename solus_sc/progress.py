@@ -39,4 +39,6 @@ class ScProgressWidget(Gtk.ActionBar):
 
         self.progressbar.set_hexpand(True)
         self.progressbar.set_margin_end(20)
+        self.progressbar.set_margin_top(6)
+        self.progressbar.set_margin_bottom(4)
         self.pack_start(self.progressbar)
