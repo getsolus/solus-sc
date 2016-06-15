@@ -12,6 +12,7 @@
 #
 
 from gi.repository import Gtk
+from .components import ScComponentsView
 
 from pisi.db.groupdb import GroupDB
 
@@ -130,13 +131,13 @@ class ScGroupsView(Gtk.EventBox):
         st.add_class(Gtk.STYLE_CLASS_VIEW)
         st.add_class("content")
 
-        self.comp_view = Gtk.VBox(0)
+        self.comp_view = ScComponentsView()
         self.stack.add_named(self.comp_view, "components")
         self.init_view()
 
     def on_group_clicked(self, btn, data=None):
-        print btn.group.name
         self.stack.set_visible_child_name("components")
+        self.comp_view.set_group(btn.group.name)
         self.owner.set_can_back(True)
 
     def init_view(self):
