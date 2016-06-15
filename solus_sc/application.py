@@ -13,6 +13,7 @@
 
 from .main_window import ScMainWindow
 from .monitor import ScMonitor
+from .tray import ScTray
 from gi.repository import Gio, Gtk, Gdk
 
 import os
@@ -24,6 +25,7 @@ class ScApplication(Gtk.Application):
 
     app_window = None
     monitor = None
+    tray_icon = None
 
     is_service_mode = False
 
@@ -68,6 +70,7 @@ class ScApplication(Gtk.Application):
 
         self.init_actions()
         self.monitor = ScMonitor(app)
+        self.tray_icon = ScTray()
         self.hold()
 
     def shutdown(self, app):
