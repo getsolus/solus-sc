@@ -14,8 +14,6 @@
 from gi.repository import Gtk
 from .components import ScComponentsView
 
-from pisi.db.groupdb import GroupDB
-
 
 class ScGroupButton(Gtk.Button):
     """ Manage the monotony of a Group """
@@ -124,9 +122,6 @@ class ScGroupsView(Gtk.EventBox):
         self.flowbox.set_valign(Gtk.Align.START)
         self.scroll.add(self.flowbox)
 
-        # Consider making this guy global.
-        self.groupdb = GroupDB()
-
         st = self.get_style_context()
         st.add_class(Gtk.STYLE_CLASS_VIEW)
         st.add_class("content")
@@ -136,8 +131,9 @@ class ScGroupsView(Gtk.EventBox):
         self.init_view()
 
     def on_group_clicked(self, btn, data=None):
+        groupdb = self.owner.basket.groupdb
         self.stack.set_visible_child_name("components")
-        components = self.groupdb.get_group_components(btn.group.name)
+        components = groupdb.get_group_components(btn.group.name)
         self.comp_view.set_components(components)
         self.owner.set_can_back(True)
 
@@ -146,15 +142,16 @@ class ScGroupsView(Gtk.EventBox):
         for widget in self.flowbox.get_children():
             widget.destroy()
 
-        self.group_names = sorted(self.groupdb.list_groups())
+        groupdb = self.owner.basket.groupdb
+        self.group_names = sorted(groupdb.list_groups())
         self.group_map = dict()
 
         # set up the group widgets
         for name in self.group_names:
-            group = self.groupdb.get_group(name)
+            group = groupdb.get_group(name)
             self.group_map[name] = group
 
-            button = ScGroupButton(self.groupdb, group)
+            button = ScGroupButton(groupdb, group)
             button.connect("clicked", self.on_group_clicked)
             button.show_all()
             self.flowbox.add(button)

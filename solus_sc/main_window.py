@@ -136,10 +136,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
             sys.exit(1)
 
     def init_first(self):
-        self.groups_view = ScGroupsView(self)
-
         self.basket = BasketView(None, None)
         self.action_bar = ScProgressWidget()
+        self.groups_view = ScGroupsView(self)
 
         # Main horizontal layout (Sidebar|VIEW)
         self.main_layout = Gtk.HBox(0)
