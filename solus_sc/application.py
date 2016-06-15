@@ -13,7 +13,6 @@
 
 from .main_window import ScMainWindow
 from .monitor import ScMonitor
-from .tray import ScTray
 from gi.repository import Gio, Gtk, Gdk
 
 import os
@@ -28,15 +27,6 @@ class ScApplication(Gtk.Application):
     tray_icon = None
 
     is_service_mode = False
-
-    def request_quit(self):
-        """ TODO: Something more clever. """
-        self.quit()
-
-    def window_closed(self):
-        """ Child informed us that they closed """
-        print("Child removed!")
-        self.app_window = None
 
     def activate_main_view(self):
         self.ensure_window()
@@ -68,17 +58,8 @@ class ScApplication(Gtk.Application):
         """ Main entry """
         print("I am now doing the motions of the startupings")
         self.init_css()
-        if self.get_flags() & Gio.ApplicationFlags.IS_SERVICE:
-            print("Running in service mode")
-            self.is_service_mode = True
-
         self.init_actions()
         self.monitor = ScMonitor(app)
-        self.tray_icon = ScTray(self)
-        self.hold()
-
-    def shutdown(self, app):
-        print("I am now doing the motions of the shutdownings")
 
     def init_css(self):
         """ Set up the CSS before we throw any windows up """
@@ -100,7 +81,6 @@ class ScApplication(Gtk.Application):
                                  flags=Gio.ApplicationFlags.FLAGS_NONE)
         self.connect("activate", self.on_activate)
         self.connect("startup", self.startup)
-        self.connect("shutdown", self.shutdown)
 
     def on_activate(self, app):
         """ Activate the primary view """
