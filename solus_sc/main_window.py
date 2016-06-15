@@ -155,7 +155,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         tmpvbox = Gtk.VBox(0)
         tmpvbox.pack_start(self.stack, True, True, 0)
-        tmpvbox.pack_start(self.action_bar, False, False, 0)
+        # tmpvbox.pack_start(self.action_bar, False, False, 0)
         self.main_layout.pack_start(tmpvbox, True, True, 0)
 
         # Dummy view for first time showing the application
