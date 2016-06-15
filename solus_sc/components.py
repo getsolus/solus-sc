@@ -18,13 +18,28 @@ class ScComponentsView(Gtk.EventBox):
     """ Main group view, i.e. "System", "Development", etc. """
 
     label = None
+    flowbox = None
 
     def __init__(self):
         Gtk.EventBox.__init__(self)
 
-        self.label = Gtk.Label("")
-        self.add(self.label)
-        self.label.set_use_markup(True)
+        self.scroll = Gtk.ScrolledWindow(None, None)
+        self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+        self.add(self.scroll)
 
-    def set_group(self, group):
-        self.label.set_markup("<big>{}</big>".format(group))
+        self.flowbox = Gtk.FlowBox()
+        self.flowbox.set_property("margin-start", 40)
+        self.flowbox.set_property("margin-end", 40)
+        self.flowbox.set_orientation(Gtk.Orientation.HORIZONTAL)
+        self.flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.flowbox.set_valign(Gtk.Align.START)
+        self.scroll.add(self.flowbox)
+
+    def set_components(self, components):
+        for widget in self.flowbox.get_children():
+            widget.destroy()
+        for comp in components:
+            btn = Gtk.Button(comp)
+            self.flowbox.add(btn)
+            btn.show_all()

@@ -137,7 +137,8 @@ class ScGroupsView(Gtk.EventBox):
 
     def on_group_clicked(self, btn, data=None):
         self.stack.set_visible_child_name("components")
-        self.comp_view.set_group(btn.group.name)
+        components = self.groupdb.get_group_components(btn.group.name)
+        self.comp_view.set_components(components)
         self.owner.set_can_back(True)
 
     def init_view(self):
