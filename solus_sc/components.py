@@ -90,10 +90,12 @@ class ScComponentsView(Gtk.EventBox):
     label = None
     flowbox = None
     owner = None
+    groups_view = None
 
-    def __init__(self, owner):
+    def __init__(self, groups_view, owner):
         Gtk.EventBox.__init__(self)
         self.owner = owner
+        self.groups_view = groups_view
 
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
@@ -119,5 +121,10 @@ class ScComponentsView(Gtk.EventBox):
         for comp in components:
             component = compdb.get_component(comp)
             btn = ScComponentButton(compdb, component)
+            btn.connect("clicked", self.on_clicked)
             self.flowbox.add(btn)
             btn.show_all()
+
+    def on_clicked(self, btn, udata=None):
+        component = btn.component
+        self.groups_view.select_component(component)

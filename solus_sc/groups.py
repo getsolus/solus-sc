@@ -13,6 +13,7 @@
 
 from gi.repository import Gtk
 from .components import ScComponentsView
+from .available_view import ScAvailableView
 
 
 class ScGroupButton(Gtk.Button):
@@ -90,6 +91,9 @@ class ScGroupsView(Gtk.EventBox):
     # Main component view
     comp_view = None
 
+    # Available packagees
+    avail_view = None
+
     def handle_back(self):
         """ Go back to the group selection view for now """
         self.stack.set_visible_child_name("groups")
@@ -126,8 +130,11 @@ class ScGroupsView(Gtk.EventBox):
         st.add_class(Gtk.STYLE_CLASS_VIEW)
         st.add_class("content")
 
-        self.comp_view = ScComponentsView(self.owner)
+        self.comp_view = ScComponentsView(self, self.owner)
         self.stack.add_named(self.comp_view, "components")
+
+        self.avail_view = ScAvailableView(self.owner)
+        self.stack.add_named(self.avail_view, "available")
         self.init_view()
 
     def on_group_clicked(self, btn, data=None):
@@ -155,3 +162,8 @@ class ScGroupsView(Gtk.EventBox):
             button.connect("clicked", self.on_group_clicked)
             button.show_all()
             self.flowbox.add(button)
+
+    def select_component(self, component):
+        print("Selected component: {}".format(component.name))
+        self.avail_view.set_component(component)
+        self.stack.set_visible_child_name("available")
