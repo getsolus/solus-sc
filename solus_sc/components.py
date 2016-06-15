@@ -23,11 +23,15 @@ ICON_MAPS = {
     "desktop.gnome.doc": "folder-documents",
     "desktop.gtk": "gtk-dialog-info",
     "desktop.library": "emblem-shared-symbolic",
-    "desktop.multimedia": "multimedia-volume-control",
     "desktop.qt": "qtconfig-qt4",
     "desktop.theme": "preferences-desktop-wallpaper",
     "editor": "x-office-calendar",
     "office": "x-office-spreadsheet",
+    "desktop.multimedia": "multimedia-volume-control",
+    "multimedia.graphics": "multimedia-volume-control",
+    "multimedia.video": "camera-video",
+    "multimedia.audio": "library-music",
+    "multimedia.graphics": "camera-photo",
 }
 
 
