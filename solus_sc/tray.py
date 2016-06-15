@@ -24,7 +24,7 @@ class ScTray(Gtk.StatusIcon):
     def __init__(self, app):
         Gtk.StatusIcon.__init__(self)
         self.app = app
-        self.set_from_icon_name("start-here-solus")
+        self.set_from_icon_name("software-store")
         self.set_visible(True)
         self.set_tooltip_text("Software Center")
 
