@@ -32,12 +32,7 @@ class BasketView(Gtk.Revealer):
     def __init__(self, packagedb, installdb):
         Gtk.Revealer.__init__(self)
 
-        self.packagedb = packagedb
-        self.installdb = installdb
-        if not self.packagedb:
-            self.packagedb = pisi.db.packagedb.PackageDB()
-        if not self.installdb:
-            self.installdb = pisi.db.installdb.InstallDB()
+        self.invalidate_all()
 
         self.title = Gtk.Label("Software basket")
         self.title.set_use_markup(True)
@@ -235,12 +230,12 @@ class BasketView(Gtk.Revealer):
         # Handle operations that finished.
         print("HAPPEND!")
         self.operations = dict()
-        self.emit('basket-changed', None)
         pisi.db.invalidate_caches()
         self.installdb = pisi.db.installdb.InstallDB()
         self.packagedb = pisi.db.packagedb.PackageDB()
         self.componentdb = pisi.db.componentdb.ComponentDB()
         self.groupdb = pisi.db.groupdb.GroupDB()
+        self.emit('basket-changed', None)
 
     def show_dialog(self, pkgs, remove=False, update=False, install=True):
         markup = "<big>{}</big>".format(
