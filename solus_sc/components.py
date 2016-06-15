@@ -25,6 +25,7 @@ ICON_MAPS = {
     "desktop.library": "emblem-shared-symbolic",
     "desktop.multimedia": "multimedia-volume-control",
     "desktop.qt": "qtconfig-qt4",
+    "desktop.theme": "preferences-desktop-wallpaper",
     "editor": "x-office-calendar",
     "office": "x-office-spreadsheet",
 }
