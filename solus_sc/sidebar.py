@@ -65,7 +65,6 @@ class ScSidebar(Gtk.ListBox):
             ("updates", "Updates", "software-update-available-symbolic"),
             ("installed", "Installed", "computer-symbolic"),
             ("3rd-party", "Third Party", "folder-download-symbolic"),
-            ("basket", "Basket", "emblem-synchronizing-symbolic"),
             ("settings", "Settings", "system-run-symbolic"),
         ]
 
@@ -91,10 +90,6 @@ class ScSidebar(Gtk.ListBox):
                 sel = row
 
             self.add(row)
-
-            if item == "basket":
-                row.get_parent().get_style_context().add_class("basket-case")
-            row.get_parent().get_style_context().add_class("sidebar-item")
 
         self.select_row(sel.get_parent())
         self.connect("row-selected", self.on_row_selected)
