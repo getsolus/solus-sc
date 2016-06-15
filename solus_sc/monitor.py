@@ -27,13 +27,13 @@ class ScMonitor:
         self.app = app
         print("Network available? {}".format(
             self.net_monitor.get_network_available()))
-        # self.notify_updates()
+        self.notify_updates()
 
     def check_for_updates(self):
         pass
 
     def notify_updates(self):
-        note = Gio.Notification.new("New updates are available")
+        note = Gio.Notification.new("New updates are(n't) available")
         note.set_body("Please visit the Software Center")
         note.add_button("Open Software Center", "app.show-updates")
         self.app.send_notification("solus.software", note)
