@@ -593,7 +593,7 @@ class ScUpdatesView(Gtk.VBox):
             return
         dlSize = sc_format_size_local(total_size, True)
         newLabel = "{} of {} updates selected ({} to download)".format(
-                   total_available, total_update, dlSize)
+                   total_update, total_available, dlSize)
         self.selection_label.set_text(newLabel)
 
     def on_row_activated(self, tview, path, column, udata=None):
