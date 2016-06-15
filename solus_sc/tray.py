@@ -19,15 +19,18 @@ class ScTray(Gtk.StatusIcon):
 
     # Actual popup menu
     menu = None
+    app = None
 
-    def __init__(self):
+    def __init__(self, app):
         Gtk.StatusIcon.__init__(self)
+        self.app = app
         self.set_from_icon_name("start-here-solus")
         self.set_visible(True)
         self.set_tooltip_text("Software Center")
 
         self.menu = Gtk.Menu()
         quit_item = Gtk.MenuItem("Quit")
+        quit_item.connect("activate", self.on_quit)
         self.menu.append(quit_item)
         quit_item.show()
 
@@ -35,8 +38,13 @@ class ScTray(Gtk.StatusIcon):
         self.connect("activate", self.on_activate)
 
     def on_activate(self, tr):
-        print("Activating..")
+        """ Left click opens the SC """
+        self.app.activate_main_view()
 
     def on_popup(self, tray, button, whence):
         self.menu.popup(None, None, None, None, button, whence)
         return True
+
+    def on_quit(self, btn, data=None):
+        """ Handle popup menu quit """
+        self.app.request_quit()

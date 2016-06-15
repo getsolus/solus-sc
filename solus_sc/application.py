@@ -29,15 +29,19 @@ class ScApplication(Gtk.Application):
 
     is_service_mode = False
 
+    def request_quit(self):
+        """ TODO: Something more clever. """
+        self.quit()
+
     def window_closed(self):
         """ Child informed us that they closed """
         print("Child removed!")
         self.app_window = None
 
-        # Temporary hack to ensure we exit now
-        # if self.is_service_mode:
-        #    self.release()
-        self.quit()
+    def activate_main_view(self):
+        self.ensure_window()
+        self.app_window.mode_open = "home"
+        self.app_window.present()
 
     def ensure_window(self):
         """ Ensure we have a window """
@@ -70,7 +74,7 @@ class ScApplication(Gtk.Application):
 
         self.init_actions()
         self.monitor = ScMonitor(app)
-        self.tray_icon = ScTray()
+        self.tray_icon = ScTray(self)
         self.hold()
 
     def shutdown(self, app):
@@ -99,6 +103,5 @@ class ScApplication(Gtk.Application):
         self.connect("shutdown", self.shutdown)
 
     def on_activate(self, app):
-        self.ensure_window()
-        self.app_window.mode_open = "home"
-        self.app_window.present()
+        """ Activate the primary view """
+        self.activate_main_view()
