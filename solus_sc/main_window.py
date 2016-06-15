@@ -11,6 +11,7 @@
 #  (at your option) any later version.
 #
 
+from .appsystem import AppSystem
 from .groups import ScGroupsView
 from .package_view import ScPackageView
 from .sidebar import ScSidebar
@@ -100,12 +101,12 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def on_mapped(self, w, udata=None):
         GLib.timeout_add(200, self.init_view)
 
-    def __init__(self, app, appsystem):
+    def __init__(self, app):
         Gtk.ApplicationWindow.__init__(self, application=app)
 
         self.app = app
-        self.appsystem = appsystem
         self.mode_open = "home"
+        self.appsystem = AppSystem()
 
         # !!HAX!! - we're missing a .desktop file atm. shush.
         self.set_icon_name("system-software-install")

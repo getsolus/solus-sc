@@ -11,7 +11,6 @@
 #  (at your option) any later version.
 #
 
-from .appsystem import AppSystem
 from .main_window import ScMainWindow
 from .monitor import ScMonitor
 from .tray import ScTray
@@ -27,7 +26,6 @@ class ScApplication(Gtk.Application):
     app_window = None
     monitor = None
     tray_icon = None
-    appsystem = None
 
     is_service_mode = False
 
@@ -38,10 +36,7 @@ class ScApplication(Gtk.Application):
     def window_closed(self):
         """ Child informed us that they closed """
         print("Child removed!")
-        del self.app_window
         self.app_window = None
-        del self.appsystem
-        self.appsystem = None
 
     def activate_main_view(self):
         self.ensure_window()
@@ -51,8 +46,7 @@ class ScApplication(Gtk.Application):
     def ensure_window(self):
         """ Ensure we have a window """
         if self.app_window is None:
-            self.appsystem = AppSystem()
-            self.app_window = ScMainWindow(self, self.appsystem)
+            self.app_window = ScMainWindow(self)
 
     def action_show_updates(self, action, param):
         """ Open the updates view """
