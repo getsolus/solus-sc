@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib, GdkPixbuf
 
 
 """ enum for the model fields """
@@ -86,4 +86,27 @@ class ScAvailableView(Gtk.VBox):
         print("User selected {}".format(pkg_name))
 
     def set_component(self, component):
-        print("child set of {}".format(component.name))
+        model = Gtk.ListStore(str, str, GdkPixbuf.Pixbuf, str)
+        model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
+        self.tview.set_model(model)
+
+        packages = self.basket.componentdb.get_packages(component.name)
+        for pkg_name in packages:
+            pkg = self.basket.packagedb.get_package(pkg_name)
+
+            summary = self.appsystem.get_summary(pkg)
+            summary = str(summary)
+            if len(summary) > 76:
+                summary = "%s…" % summary[0:76]
+
+            summary = GLib.markup_escape_text(summary)
+
+            name = str(pkg.name)
+            p_print = "<b>%s</b> - %s\n%s" % (name, str(pkg.version),
+                                              summary)
+
+            pbuf = self.appsystem.get_pixbuf_only(pkg)
+
+            model.append([p_print, pkg_name, pbuf, "go-next-symbolic"])
+            while (Gtk.events_pending()):
+                Gtk.main_iteration()
