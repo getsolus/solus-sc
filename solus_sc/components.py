@@ -19,9 +19,11 @@ class ScComponentsView(Gtk.EventBox):
 
     label = None
     flowbox = None
+    owner = None
 
-    def __init__(self):
+    def __init__(self, owner):
         Gtk.EventBox.__init__(self)
+        self.owner = owner
 
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
@@ -37,9 +39,12 @@ class ScComponentsView(Gtk.EventBox):
         self.scroll.add(self.flowbox)
 
     def set_components(self, components):
+        """ Update our view based on a given set of components """
         for widget in self.flowbox.get_children():
             widget.destroy()
+        compdb = self.owner.basket.componentdb
         for comp in components:
-            btn = Gtk.Button(comp)
+            component = compdb.get_component(comp)
+            btn = Gtk.Button(component.localName)
             self.flowbox.add(btn)
             btn.show_all()

@@ -126,7 +126,7 @@ class ScGroupsView(Gtk.EventBox):
         st.add_class(Gtk.STYLE_CLASS_VIEW)
         st.add_class("content")
 
-        self.comp_view = ScComponentsView()
+        self.comp_view = ScComponentsView(self.owner)
         self.stack.add_named(self.comp_view, "components")
         self.init_view()
 
