@@ -48,6 +48,13 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     app = None
 
+    # Default open mode
+    mode_open = None
+
+    def show_updates(self):
+        """ Switch to updates view """
+        self.sidebar.preselect_row("updates")
+
     def do_delete_event(self, event, udata=None):
         """ For now just propagate the event """
         print("Bye :(")
@@ -81,8 +88,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.updates_view.init_view()
 
     def init_view(self):
-        self.stack.set_visible_child_name("home")
+        """ Our first ever show """
         self.sidebar_revealer.set_reveal_child(True)
+        self.sidebar.preselect_row(self.mode_open)
+        self.stack.set_visible_child_name(self.mode_open)
         t = threading.Thread(target=self.init_children)
         t.start()
         return False
@@ -94,6 +103,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         Gtk.ApplicationWindow.__init__(self, application=app)
 
         self.app = app
+        self.mode_open = "home"
         self.appsystem = AppSystem()
 
         # !!HAX!! - we're missing a .desktop file atm. shush.

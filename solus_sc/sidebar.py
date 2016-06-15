@@ -37,6 +37,15 @@ class ScSidebar(Gtk.ListBox):
         self.parent_stack.set_visible_child_name(child.row_entry)
         self.owner.update_back(child.row_entry)
 
+    def preselect_row(self, nom):
+        """ Select the named row consistently """
+        for row in self.get_children():
+            child = row.get_child()
+            if child.row_entry == nom:
+                self.select_row(row)
+                self.queue_draw()
+                break
+
     def __init__(self, owner, parent_stack):
         Gtk.ListBox.__init__(self)
 

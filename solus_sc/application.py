@@ -37,12 +37,36 @@ class ScApplication(Gtk.Application):
         #    self.release()
         self.quit()
 
+    def ensure_window(self):
+        """ Ensure we have a window """
+        if self.app_window is None:
+            self.app_window = ScMainWindow(self)
+
+    def action_show_updates(self, action, param):
+        """ Open the updates view """
+        self.ensure_window()
+        self.app_window.mode_open = "updates"
+        was_visible = self.app_window.get_visible()
+        self.app_window.present()
+        if was_visible:
+            self.app_window.show_updates()
+
+    def init_actions(self):
+        """ Initialise our action maps """
+        action = Gio.SimpleAction.new("show-updates", None)
+        action.connect("activate", self.action_show_updates)
+
+        self.add_action(action)
+
     def startup(self, app):
+        """ Main entry """
         print("I am now doing the motions of the startupings")
+        self.init_css()
         if self.get_flags() & Gio.ApplicationFlags.IS_SERVICE:
             print("Running in service mode")
             self.is_service_mode = True
 
+        self.init_actions()
         self.monitor = ScMonitor(app)
         self.hold()
 
@@ -72,7 +96,6 @@ class ScApplication(Gtk.Application):
         self.connect("shutdown", self.shutdown)
 
     def on_activate(self, app):
-        if self.app_window is None:
-            self.init_css()
-            self.app_window = ScMainWindow(self)
+        self.ensure_window()
+        self.app_window.mode_open = "home"
         self.app_window.present()

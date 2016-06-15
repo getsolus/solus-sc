@@ -12,7 +12,7 @@
 #
 
 
-from gi.repository import Gio, GLib
+from gi.repository import Gio
 
 
 class ScMonitor:
@@ -27,6 +27,7 @@ class ScMonitor:
         self.app = app
         print("Network available? {}".format(
             self.net_monitor.get_network_available()))
+        # self.notify_updates()
 
     def check_for_updates(self):
         pass
