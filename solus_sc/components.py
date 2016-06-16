@@ -15,7 +15,6 @@ from gi.repository import Gtk
 
 
 ICON_MAPS = {
-    "database": "office-database",
     "desktop": "user-desktop",
     "desktop.budgie": "start-here-solus",
     "desktop.core": "system-run",
