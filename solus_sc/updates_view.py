@@ -258,6 +258,7 @@ class ScUpdatesView(Gtk.VBox):
         self.perform_refresh_internal()
 
     def perform_refresh_internal(self):
+        self.view_details.set_sensitive(False)
         self.load_page.spinner.start()
         self.stack.set_visible_child_name("loading")
 
