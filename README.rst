@@ -47,6 +47,6 @@ License
 
 Copyright © 2014-2016 Ikey Doherty
 
-This software is available under the terms of the GPL-3.0 license.
+This software is available under the terms of the GPL-2.0 license.
 Please see `LICENSE <LICENSE>`_ for details.
 GPL-3.0
