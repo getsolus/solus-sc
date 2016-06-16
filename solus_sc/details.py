@@ -67,11 +67,13 @@ class PackageDetailsView(Gtk.VBox):
 
     def on_install(self, btn, udata=None):
         """ Install a package """
-        print("This WOULD install {}".format(self.package.name))
+        self.basket.install_package(self.package)
+        self.basket.apply_operations()
 
     def on_remove(self, btn, udata=None):
         """ Install a package """
-        print("This WOULD remove {}".format(self.package.name))
+        self.basket.remove_package(self.package)
+        self.basket.apply_operations()
 
     def __init__(self, appsystem, basket):
         Gtk.VBox.__init__(self)

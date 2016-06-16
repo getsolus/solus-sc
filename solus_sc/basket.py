@@ -204,6 +204,13 @@ class BasketView(Gtk.Revealer):
             self.set_progress(None, None)
             self.update_ui()
             return
+        elif str(signal).startswith("tr.org.pardus.comar.Comar.PolicyKit"):
+            if self.cb is not None:
+                self.cb()
+            self.cb = None
+            self.set_progress(None, None)
+            self.update_ui()
+            return
 
     def update_repo(self, cb=None):
         self.cb = cb
@@ -288,7 +295,7 @@ class BasketView(Gtk.Revealer):
             return True
         return False
 
-    def apply_operations(self, btn):
+    def apply_operations(self):
         updates = [
             i for i in self.operations if self.operations[i] == 'UPDATE'
         ]
