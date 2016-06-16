@@ -252,11 +252,11 @@ class BasketView(Gtk.Revealer):
         dlg = Gtk.Dialog(use_header_bar=1)
         dlg.set_title("Installation confirmation")
         if remove:
-            markup = "<big>The following packages need to be removed to " \
+            markup = "<big>The following dependencies need to be removed to " \
                      "continue</big>"
             dlg.set_title("Removal confirmation")
         elif update:
-            markup = "<big>The following packages need to be updated to " \
+            markup = "<big>The following dependencies need to be updated to " \
                      "continue</big>"
             dlg.set_title("Update confirmation")
 
