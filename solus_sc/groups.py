@@ -179,14 +179,12 @@ class ScGroupsView(Gtk.EventBox):
             self.flowbox.add(button)
 
     def select_component(self, component):
-        print("Selected component: {}".format(component.name))
         self.avail_view.set_component(component)
         self.breadcrumbs.append("components")
         self.stack.set_visible_child_name("available")
         self.owner.set_can_back(True)
 
     def select_details(self, package):
-        print("Selected package: {}".format(package.name))
         self.details_view.update_from_package(package)
         self.breadcrumbs.append("available")
         self.stack.set_visible_child_name("details")

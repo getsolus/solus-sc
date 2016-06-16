@@ -84,7 +84,6 @@ class ScAvailableView(Gtk.VBox):
         row = model[path]
 
         pkg_name = row[INDEX_FIELD_NAME]
-        print("User selected {}".format(pkg_name))
 
         pkg = self.basket.packagedb.get_package(pkg_name)
         self.groups_view.select_details(pkg)
