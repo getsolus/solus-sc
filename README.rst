@@ -24,6 +24,24 @@ optimized runtimes of our own, as such the performance of Solus  would be
 Lastly, the Solus stack pre-dates GNOME Software, and Solus mandates tight integration
 between components. Nuff said.
 
+
+Testing
+^^^^^^^
+
+Clone the repo, and then install appstream-glib::
+
+    sudo eopkg it appstream-glib
+
+Now you'll need the appdata (this is going to be packaged soon)::
+
+    git clone https://git.solus-project.com/projects/appstream
+    cd appstream
+    ./install.sh
+
+Now just run the main launcher (don't ctrl+c, it'll explode)::
+
+    ./main.py
+
 License
 ^^^^^^^
 
