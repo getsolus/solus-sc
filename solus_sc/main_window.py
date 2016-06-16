@@ -17,6 +17,7 @@ from .package_view import ScPackageView
 from .sidebar import ScSidebar
 from .updates_view import ScUpdatesView
 from .basket import BasketView
+from .search import ScSearchView
 from gi.repository import Gtk, GLib
 import sys
 import threading
@@ -43,6 +44,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     # Pages
     package_view = None
     updates_view = None
+    search_view = None
 
     prev_button = None
 
@@ -169,7 +171,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
         # These guys aren't yet implemented
         self.stack.add_titled(self.package_view, "installed", "Installed")
         self.stack.add_titled(ScPlaceholderBox(), "3rd-party", "Third Party")
-        self.stack.add_titled(ScPlaceholderBox(), "search", "Search")
+
+        # Search view
+        self.search_view = ScSearchView(self)
+        self.stack.add_titled(self.search_view, "search", "Search")
+
         # self.stack.add_titled(ScPlaceholderBox(), "settings", "Settings")
 
         # set up intro animation
