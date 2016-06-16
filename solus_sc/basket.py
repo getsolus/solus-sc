@@ -241,7 +241,7 @@ class BasketView(Gtk.Revealer):
 
     def show_dialog(self, pkgs, remove=False, update=False, install=True):
         markup = "<big>{}</big>".format(
-            "The following packages need to be installed to continue")
+            "The following dependencies need to be installed to continue")
 
         flags = Gtk.DialogFlags.MODAL | Gtk.DialogFlags.USE_HEADER_BAR
         dlg = Gtk.MessageDialog(self.get_toplevel(),
