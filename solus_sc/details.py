@@ -75,10 +75,40 @@ class PackageDetailsView(Gtk.VBox):
         self.basket.remove_package(self.package)
         self.basket.apply_operations()
 
+    def on_basket_changed(self, basket, udata=None):
+        """ Update view based on the currently selected package """
+        sensitive = not self.basket.is_busy()
+
+        self.install_button.set_sensitive(sensitive)
+        self.remove_button.set_sensitive(sensitive)
+
+        if self.basket.is_busy():
+            return
+        if not self.package:
+            return
+
+        if self.is_install_page:
+            # Find out if this thing was actually installed ..
+            if self.basket.installdb.has_package(self.package.name):
+                pkg = self.basket.installdb.get_package(self.package.name)
+                self.is_install_page = False
+                self.update_from_package(pkg)
+        else:
+            # We're a remove package, see if we removed our thing
+            if not self.basket.installdb.has_package(self.package.name):
+                # Offer installing
+                if not self.basket.packagedb.has_package(self.package.name):
+                    print("Unknown local package .... ")
+                    return
+                pkg = self.basket.packagedb.get_package(self.package.name)
+                self.is_install_page = True
+                self.update_from_package(pkg)
+
     def __init__(self, appsystem, basket):
         Gtk.VBox.__init__(self)
         self.appsystem = appsystem
         self.basket = basket
+        self.basket.connect("basket-changed", self.on_basket_changed)
 
         self.set_border_width(24)
 

@@ -30,6 +30,10 @@ class BasketView(Gtk.Revealer):
     }
 
     action_bar = None
+    doing_things = False
+
+    def is_busy(self):
+        return self.doing_things
 
     def __init__(self, packagedb, installdb):
         Gtk.Revealer.__init__(self)
@@ -232,6 +236,7 @@ class BasketView(Gtk.Revealer):
         self.packagedb = pisi.db.packagedb.PackageDB()
         self.componentdb = pisi.db.componentdb.ComponentDB()
         self.groupdb = pisi.db.groupdb.GroupDB()
+        self.doing_things = False
         self.emit('basket-changed', None)
 
     def show_dialog(self, pkgs, remove=False, update=False, install=True):
@@ -296,6 +301,7 @@ class BasketView(Gtk.Revealer):
         return False
 
     def apply_operations(self):
+        self.doing_things = True
         updates = [
             i for i in self.operations if self.operations[i] == 'UPDATE'
         ]
@@ -312,7 +318,7 @@ class BasketView(Gtk.Revealer):
         self.installdb = pisi.db.installdb.InstallDB()
         self.packagedb = pisi.db.packagedb.PackageDB()
 
-        self.emit('apply', None)
+        self.emit('basket-changed', None)
         # print "%d packages updated" % len(updates)
         # print "%d packages installed" % len(installs)
         # print "%d packages removed" % len(removals)
