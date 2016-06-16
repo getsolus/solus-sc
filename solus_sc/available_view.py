@@ -54,6 +54,7 @@ class ScAvailableView(Gtk.VBox):
     owner = None
     groups_view = None
     stack = None
+    component = None
 
     def __init__(self, groups_view, owner):
         Gtk.VBox.__init__(self, 0)
@@ -120,6 +121,9 @@ class ScAvailableView(Gtk.VBox):
         self.groups_view.select_details(pkg)
 
     def set_component(self, component):
+        if self.component and self.component == component:
+            return
+        self.component = component
         model = Gtk.ListStore(str, str, GdkPixbuf.Pixbuf, str)
         model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
 
