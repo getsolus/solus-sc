@@ -65,6 +65,7 @@ class ScSidebar(Gtk.ListBox):
             ("updates", "Updates", "software-update-available-symbolic"),
             ("installed", "Installed", "computer-symbolic"),
             ("3rd-party", "Third Party", "folder-download-symbolic"),
+            ("search", "Search", "edit-find-symbolic"),
         ]
 
         # ("settings", "Settings", "system-run-symbolic"),
