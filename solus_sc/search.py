@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk
 
 
 class ScSearchView(Gtk.VBox):
@@ -20,28 +20,17 @@ class ScSearchView(Gtk.VBox):
     flowbox = None
     owner = None
     search_box = None
-    timeout_id = -1
 
     def __init__(self, owner):
         Gtk.EventBox.__init__(self)
         self.owner = owner
 
+        hbox = Gtk.HBox(0)
+        hbox.set_property("margin", 40)
+        hbox.get_style_context().add_class("linked")
+        self.pack_start(hbox, False, False, 0)
         self.search_box = Gtk.SearchEntry()
-        self.search_box.set_property("margin", 20)
-        self.search_box.connect("search-changed", self.on_search_changed)
-        self.pack_start(self.search_box, False, False, 0)
 
-    def on_search_changed(self, entry, udata=None):
-        if self.timeout_id >= 0:
-            GLib.source_remove(self.timeout_id)
-            self.timeout_id = -1
-
-        self.timeout_id = GLib.timeout_add(1000, self.begin_search)
-
-    def begin_search(self):
-        """ Search, but for realsies """
-        txt = self.search_box.get_text()
-        pkgs = self.owner.basket.packagedb.search_package([txt])
-        print("{} results".format(len(pkgs)))
-        self.timeout_id = -1
-        return False
+        search_button = Gtk.Button("Search")
+        hbox.pack_start(self.search_box, True, True, 0)
+        hbox.pack_end(search_button, False, False, 0)
