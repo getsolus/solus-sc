@@ -119,6 +119,8 @@ class ScPackageView(Gtk.VBox):
 
         # Set up the details view
         self.details_view = PackageDetailsView(self.appsystem)
+        # Remove only
+        self.details_view.is_install_page = False
         self.stack.add_named(self.details_view, "details")
 
         self.stack.set_visible_child_name("loading")

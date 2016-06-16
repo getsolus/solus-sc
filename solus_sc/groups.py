@@ -185,6 +185,10 @@ class ScGroupsView(Gtk.EventBox):
         self.owner.set_can_back(True)
 
     def select_details(self, package):
+        if self.owner.basket.installdb.has_package(package.name):
+            self.details_view.is_install_page = False
+        else:
+            self.details_view.is_install_page = True
         self.details_view.update_from_package(package)
         self.breadcrumbs.append("available")
         self.stack.set_visible_child_name("details")
