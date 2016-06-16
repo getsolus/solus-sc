@@ -38,7 +38,7 @@ Now you'll need the appdata (this is going to be packaged soon)::
     cd appstream
     ./install.sh
 
-Now just run the main launcher (don't ctrl+c, it'll explode)::
+Now just run the main launcher in this repo (don't ctrl+c, it'll explode)::
 
     ./main.py
 
