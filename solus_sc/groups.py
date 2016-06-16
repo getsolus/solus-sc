@@ -180,6 +180,7 @@ class ScGroupsView(Gtk.EventBox):
 
     def select_component(self, component):
         self.breadcrumbs.append("components")
+        self.avail_view.reset()
         self.stack.set_visible_child_name("available")
         self.avail_view.set_component(component)
         self.owner.set_can_back(True)
