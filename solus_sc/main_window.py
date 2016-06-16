@@ -164,7 +164,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         # Supported views
         self.stack.add_titled(self.dummy_widget, "empty", "empty")
         self.stack.add_titled(self.groups_view, "home", "Home")
-        self.updates_view = ScUpdatesView(self.basket)
+        self.updates_view = ScUpdatesView(self.basket, self.appsystem)
         self.stack.add_titled(self.updates_view, "updates", "Updates")
 
         # Package view for installed page

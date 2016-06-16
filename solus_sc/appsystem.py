@@ -27,6 +27,9 @@ class AppSystem:
 
     store = None
     default_pixbuf = None
+    security_pixbuf = None
+    mandatory_pixbuf = None
+    other_pixbuf = None
 
     def __init__(self):
         self.store = As.Store()
@@ -36,6 +39,18 @@ class AppSystem:
         try:
             self.default_pixbuf = itheme.load_icon(
                 "package-x-generic",
+                64,
+                Gtk.IconLookupFlags.GENERIC_FALLBACK)
+            self.security_pixbuf = itheme.load_icon(
+                "network-vpn",
+                64,
+                Gtk.IconLookupFlags.GENERIC_FALLBACK)
+            self.mandatory_pixbuf = itheme.load_icon(
+                "computer",
+                64,
+                Gtk.IconLookupFlags.GENERIC_FALLBACK)
+            self.other_pixbuf = itheme.load_icon(
+                "folder-download",
                 64,
                 Gtk.IconLookupFlags.GENERIC_FALLBACK)
         except Exception as e:

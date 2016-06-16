@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GLib, GObject, Pango
+from gi.repository import Gtk, GLib, GObject, Pango, GdkPixbuf
 from .util import sc_format_size_local
 from operator import attrgetter
 import threading
@@ -252,6 +252,7 @@ class ScUpdatesView(Gtk.VBox):
     stack = None
     load_page = None
     basket = None
+    appsystem = None
 
     def perform_refresh(self, btn, wdata=None):
         self.perform_refresh_internal()
@@ -274,9 +275,10 @@ class ScUpdatesView(Gtk.VBox):
         self.basket.invalidate_all()
         GObject.idle_add(self.init_view)
 
-    def __init__(self, basket):
+    def __init__(self, basket, appsystem):
         Gtk.VBox.__init__(self, 0)
         self.basket = basket
+        self.appsystem = appsystem
 
         self.stack = Gtk.Stack()
         t = Gtk.StackTransitionType.CROSSFADE
@@ -347,7 +349,7 @@ class ScUpdatesView(Gtk.VBox):
 
         ren = Gtk.CellRendererPixbuf()
         ren.set_padding(5, 5)
-        column = Gtk.TreeViewColumn("Type", ren, icon_name=4, sensitive=5)
+        column = Gtk.TreeViewColumn("Type", ren, pixbuf=4, sensitive=5)
         self.tview.append_column(column)
         ren.set_property("stock-size", Gtk.IconSize.DIALOG)
 
@@ -420,28 +422,31 @@ class ScUpdatesView(Gtk.VBox):
     def init_view(self):
         # Install? Modifiable? Display label | Size | Image | Sensitive | iSize
         # | UpdateObject
-        model = Gtk.TreeStore(bool, bool, str, str, str, bool, int,
-                              ScUpdateObject)
+        model = Gtk.TreeStore(bool, bool, str, str, GdkPixbuf.Pixbuf,
+                              bool, int, ScUpdateObject)
         self.selected_object = None
 
         # Mandatory updates
-        m_label = "<b>Required Updates</b>\n" \
+        m_label = "<big><b>Required Updates</b></big>\n" \
                   "These updates are mandatory and will be selected " \
                   "automatically."
         row_m = model.append(None, [True, False, m_label, None,
-                                    PACKAGE_ICON_MANDATORY, True, 0, None])
+                                    self.appsystem.mandatory_pixbuf,
+                                    True, 0, None])
         # Security row
-        s_label = "<b>Security Updates</b>\n" \
+        s_label = "<big><b>Security Updates</b></big>\n" \
                   "These updates are strongly recommended to support safe " \
                   "usage of your device."
         row_s = model.append(None, [False, True, s_label, None,
-                                    PACKAGE_ICON_SECURITY, True, 0, None])
+                                    self.appsystem.security_pixbuf,
+                                    True, 0, None])
         # All other updates
-        u_label = "<b>Other Updates</b>\n" \
+        u_label = "<big><b>Other Updates</b></big>\n" \
                   "These updates may introduce new software versions and " \
                   "bug-fixes."
         row_u = model.append(None, [False, True, u_label, None,
-                                    PACKAGE_ICON_NORMAL, True, 0, None])
+                                    self.appsystem.other_pixbuf,
+                                    True, 0, None])
 
         self.tview.set_model(model)
 
@@ -485,9 +490,7 @@ class ScUpdatesView(Gtk.VBox):
             pkgSize = sc_obj.get_update_size()
             dlSize = sc_format_size_local(pkgSize)
 
-            icon = "package-x-generic"
-            if new_pkg.icon is not None:
-                icon = str(new_pkg.icon)
+            icon = self.appsystem.get_pixbuf_only(new_pkg)
 
             pkg_name = GLib.markup_escape_text(pkg_name)
             summary = GLib.markup_escape_text(summary)
