@@ -118,7 +118,7 @@ class ScPackageView(Gtk.VBox):
         ren.set_property("xalign", 1.0)
 
         # Set up the details view
-        self.details_view = PackageDetailsView(self.appsystem)
+        self.details_view = PackageDetailsView(self.appsystem, self.basket)
         # Remove only
         self.details_view.is_install_page = False
         self.stack.add_named(self.details_view, "details")

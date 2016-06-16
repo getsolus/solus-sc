@@ -49,6 +49,7 @@ class PackageDetailsView(Gtk.VBox):
     url_website = None
     url_donate = None
     is_install_page = False
+    basket = None
 
     def on_donate(self, btn, udata=None):
         """ Launch the donation site """
@@ -64,9 +65,18 @@ class PackageDetailsView(Gtk.VBox):
         except:
             pass
 
-    def __init__(self, appsystem):
+    def on_install(self, btn, udata=None):
+        """ Install a package """
+        print("This WOULD install {}".format(self.package.name))
+
+    def on_remove(self, btn, udata=None):
+        """ Install a package """
+        print("This WOULD remove {}".format(self.package.name))
+
+    def __init__(self, appsystem, basket):
         Gtk.VBox.__init__(self)
         self.appsystem = appsystem
+        self.basket = basket
 
         self.set_border_width(24)
 
@@ -95,6 +105,7 @@ class PackageDetailsView(Gtk.VBox):
         action_line.set_halign(Gtk.Align.END)
         header.pack_end(action_line, False, False, 0)
         self.install_button = Gtk.Button("Install")
+        self.install_button.connect("clicked", self.on_install)
         self.install_button.set_can_focus(False)
         self.install_button.get_style_context().add_class("suggested-action")
         action_line.pack_end(self.install_button, False, False, 0)
@@ -102,6 +113,7 @@ class PackageDetailsView(Gtk.VBox):
 
         # Remove button
         self.remove_button = Gtk.Button("Remove")
+        self.remove_button.connect("clicked", self.on_remove)
         self.remove_button.set_can_focus(False)
         self.remove_button.get_style_context().add_class("destructive-action")
         action_line.pack_end(self.remove_button, False, False, 0)
@@ -158,6 +170,7 @@ class PackageDetailsView(Gtk.VBox):
         name = self.appsystem.get_name(package)
         comment = self.appsystem.get_summary(package)
         description = self.appsystem.get_description(package)
+        self.package = package
 
         version = "{}-{}".format(str(package.version), str(package.release))
         # Update display now.

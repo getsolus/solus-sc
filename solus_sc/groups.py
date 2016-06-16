@@ -147,7 +147,8 @@ class ScGroupsView(Gtk.EventBox):
         self.stack.add_named(self.avail_view, "available")
 
         # Details view
-        self.details_view = PackageDetailsView(self.owner.appsystem)
+        self.details_view = PackageDetailsView(self.owner.appsystem,
+                                               self.owner.basket)
         self.stack.add_named(self.details_view, "details")
         self.init_view()
 
