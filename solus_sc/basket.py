@@ -239,6 +239,8 @@ class BasketView(Gtk.Revealer):
         self.componentdb = pisi.db.componentdb.ComponentDB()
         self.groupdb = pisi.db.groupdb.GroupDB()
         self.doing_things = False
+        self.current_dl_package = 0
+        self.total_packages = 0
         self.emit('basket-changed', None)
 
     def show_dialog(self, pkgs, remove=False, update=False, install=True):
