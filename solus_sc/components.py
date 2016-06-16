@@ -13,6 +13,7 @@
 
 from gi.repository import Gtk
 
+
 ICON_MAPS = {
     "database": "office-database",
     "desktop": "user-desktop",
@@ -118,8 +119,11 @@ class ScComponentsView(Gtk.EventBox):
         for widget in self.flowbox.get_children():
             widget.destroy()
         compdb = self.owner.basket.componentdb
+        appends = []
         for comp in components:
             component = compdb.get_component(comp)
+            appends.append(component)
+        for component in sorted(appends, key=lambda x: x.localName):
             btn = ScComponentButton(compdb, component)
             btn.connect("clicked", self.on_clicked)
             self.flowbox.add(btn)
