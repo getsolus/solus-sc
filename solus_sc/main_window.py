@@ -133,7 +133,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
             sys.exit(1)
 
     def init_first(self):
-        self.basket = BasketView(None, None)
+        self.basket = BasketView(self)
         self.groups_view = ScGroupsView(self)
 
         # Main horizontal layout (Sidebar|VIEW)

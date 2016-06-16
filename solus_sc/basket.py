@@ -31,12 +31,14 @@ class BasketView(Gtk.Revealer):
 
     action_bar = None
     doing_things = False
+    owner = None
 
     def is_busy(self):
         return self.doing_things
 
-    def __init__(self, packagedb, installdb):
+    def __init__(self, owner):
         Gtk.Revealer.__init__(self)
+        self.owner = owner
 
         self.action_bar = Gtk.ActionBar()
         self.add(self.action_bar)
@@ -244,12 +246,13 @@ class BasketView(Gtk.Revealer):
             "The following dependencies need to be installed to continue")
 
         flags = Gtk.DialogFlags.MODAL | Gtk.DialogFlags.USE_HEADER_BAR
-        dlg = Gtk.MessageDialog(self.get_toplevel(),
+        dlg = Gtk.MessageDialog(self.owner,
                                 flags,
                                 Gtk.MessageType.QUESTION,
                                 Gtk.ButtonsType.OK_CANCEL)
 
         dlg = Gtk.Dialog(use_header_bar=1)
+        dlg.set_transient_for(self.owner)
         dlg.set_title("Installation confirmation")
         if remove:
             markup = "<big>The following dependencies need to be removed to " \
