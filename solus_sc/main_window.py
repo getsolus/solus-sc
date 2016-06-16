@@ -93,8 +93,6 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.sidebar_revealer.set_reveal_child(True)
         self.sidebar.preselect_row(self.mode_open)
         self.stack.set_visible_child_name(self.mode_open)
-        t = threading.Thread(target=self.init_children)
-        t.start()
         return False
 
     def on_mapped(self, w, udata=None):
@@ -183,5 +181,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.sidebar_revealer.set_transition_type(revel)
 
         self.connect("map-event", self.on_mapped)
+
+        t = threading.Thread(target=self.init_children)
+        t.start()
 
         self.show_all()
