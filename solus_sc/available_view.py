@@ -21,6 +21,28 @@ INDEX_FIELD_ICON = 2
 INDEX_FIELD_ARROW = 3
 
 
+class LoadingPage(Gtk.VBox):
+    """ Simple loading page, nothing fancy. """
+
+    spinner = None
+
+    def __init__(self):
+        Gtk.VBox.__init__(self)
+
+        self.set_valign(Gtk.Align.CENTER)
+        self.set_halign(Gtk.Align.CENTER)
+        self.spinner = Gtk.Spinner()
+        self.spinner.set_size_request(-1, 64)
+        self.spinner.start()
+        self.label = Gtk.Label("<big>Insert Witty Load Message Here" + u"…"
+                               "</big>")
+        self.label.set_use_markup(True)
+
+        self.pack_start(self.spinner, True, True, 0)
+        self.pack_start(self.label, False, False, 0)
+        self.label.set_property("margin", 20)
+
+
 class ScAvailableView(Gtk.VBox):
 
     scroll = None
@@ -31,6 +53,7 @@ class ScAvailableView(Gtk.VBox):
     load_page = None
     owner = None
     groups_view = None
+    stack = None
 
     def __init__(self, groups_view, owner):
         Gtk.VBox.__init__(self, 0)
@@ -39,12 +62,20 @@ class ScAvailableView(Gtk.VBox):
         self.owner = owner
         self.groups_view = groups_view
 
+        self.stack = Gtk.Stack()
+        t = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
+        self.stack.set_transition_type(t)
+        self.pack_start(self.stack, True, True, 0)
+
+        self.load_page = LoadingPage()
+        self.stack.add_named(self.load_page, "loading")
+
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
         self.scroll.set_overlay_scrolling(False)
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scroll.set_property("kinetic-scrolling", True)
-        self.pack_start(self.scroll, True, True, 0)
+        self.stack.add_named(self.scroll, "available")
 
         # Main treeview where it's all happening. Single click activate
         self.tview = Gtk.TreeView()
@@ -91,9 +122,13 @@ class ScAvailableView(Gtk.VBox):
     def set_component(self, component):
         model = Gtk.ListStore(str, str, GdkPixbuf.Pixbuf, str)
         model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
-        self.tview.set_model(model)
 
         packages = self.basket.componentdb.get_packages(component.name)
+
+        # Take consideration
+        if len(packages) >= 40:
+            self.reset()
+
         for pkg_name in packages:
             pkg = self.basket.packagedb.get_package(pkg_name)
 
@@ -111,5 +146,16 @@ class ScAvailableView(Gtk.VBox):
             pbuf = self.appsystem.get_pixbuf_only(pkg)
 
             model.append([p_print, pkg_name, pbuf, "go-next-symbolic"])
+
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
+
+        self.tview.set_model(model)
+        self.stack.set_visible_child_name("available")
+        self.load_page.spinner.stop()
+
+    def reset(self):
+        self.tview.set_model(None)
+        self.stack.set_visible_child_name("loading")
+        self.load_page.spinner.start()
+        self.queue_draw()
