@@ -129,6 +129,10 @@ class ScAvailableView(Gtk.VBox):
 
         packages = self.basket.componentdb.get_packages(component.name)
 
+        # Take consideration
+        if len(packages) >= 40:
+            self.reset()
+
         for pkg_name in packages:
             pkg = self.basket.packagedb.get_package(pkg_name)
 
