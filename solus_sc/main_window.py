@@ -17,7 +17,6 @@ from .package_view import ScPackageView
 from .sidebar import ScSidebar
 from .updates_view import ScUpdatesView
 from .basket import BasketView
-from .progress import ScProgressWidget
 from gi.repository import Gtk, GLib
 import sys
 import threading
@@ -135,7 +134,6 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def init_first(self):
         self.basket = BasketView(None, None)
-        self.action_bar = ScProgressWidget()
         self.groups_view = ScGroupsView(self)
 
         # Main horizontal layout (Sidebar|VIEW)
@@ -153,7 +151,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         tmpvbox = Gtk.VBox(0)
         tmpvbox.pack_start(self.stack, True, True, 0)
-        # tmpvbox.pack_start(self.action_bar, False, False, 0)
+        tmpvbox.pack_start(self.basket, False, False, 0)
         self.main_layout.pack_start(tmpvbox, True, True, 0)
 
         # Dummy view for first time showing the application

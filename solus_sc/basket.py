@@ -29,43 +29,35 @@ class BasketView(Gtk.Revealer):
                           (object,))
     }
 
+    action_bar = None
+
     def __init__(self, packagedb, installdb):
         Gtk.Revealer.__init__(self)
 
+        self.action_bar = Gtk.ActionBar()
+        self.add(self.action_bar)
+        self.progresslabel = Gtk.Label("Installing Google Chrome")
+        self.progresslabel.set_valign(Gtk.Align.CENTER)
+        self.progresslabel.set_halign(Gtk.Align.START)
+        self.progresslabel.set_property("yalign", 0.5)
+        self.progresslabel.set_property("xalign", 0.0)
+        self.progresslabel.set_margin_start(6)
+        self.progresslabel.set_margin_end(8)
+        self.progresslabel.set_margin_top(4)
+        self.progresslabel.set_margin_bottom(4)
+        self.action_bar.pack_start(self.progresslabel)
+        self.progressbar = Gtk.ProgressBar()
+        self.progressbar.set_fraction(0.6)
+        self.progressbar.set_valign(Gtk.Align.CENTER)
+
+        self.progressbar.set_hexpand(True)
+        self.progressbar.set_margin_end(20)
+        self.progressbar.set_margin_top(6)
+        self.progressbar.set_margin_bottom(4)
+        self.action_bar.pack_start(self.progressbar)
+
         self.invalidate_all()
 
-        self.title = Gtk.Label("Software basket")
-        self.title.set_use_markup(True)
-
-        self.layout = Gtk.VBox()
-
-        self.progress = Gtk.ProgressBar()
-        self.revealer = Gtk.Revealer()
-        self.revealer.add(self.progress)
-        self.layout.pack_start(self.revealer, False, False, 0)
-        self.revealer.set_reveal_child(False)
-
-        self.toolbar = Gtk.Toolbar()
-        self.toolbar.get_style_context().add_class(
-            Gtk.STYLE_CLASS_PRIMARY_TOOLBAR)
-        label_item = Gtk.ToolItem()
-        label_item.add(self.title)
-        self.toolbar.add(label_item)
-
-        self.layout.pack_start(self.toolbar, False, False, 0)
-
-        self.add(self.layout)
-        sep = Gtk.SeparatorToolItem()
-        sep.set_expand(True)
-        sep.set_draw(False)
-        self.toolbar.add(sep)
-
-        self.apply = Gtk.ToolButton("Apply")
-        self.apply.set_label("Apply")
-        self.apply.set_is_important(True)
-        self.apply.set_icon_name("emblem-ok-symbolic")
-        self.apply.connect("clicked", self.apply_operations)
-        self.toolbar.add(self.apply)
         self.operations = dict()
 
         self.update_ui()
@@ -83,26 +75,24 @@ class BasketView(Gtk.Revealer):
     def set_progress(self, fraction, label):
         if fraction is None:
             # Hide
-            self.revealer.set_reveal_child(False)
+            self.set_reveal_child(False)
             self.update_ui()
             return
         # print "%s %f" % (label, fraction)
-        self.title.set_markup(label)
-        self.revealer.set_reveal_child(True)
-        self.progress.set_fraction(fraction)
+        self.progresslabel.set_markup(label)
+        self.set_reveal_child(True)
+        self.progressbar.set_fraction(fraction)
 
     def update_ui(self):
         count = self.operation_count()
         if count == 0:
-            self.apply.set_sensitive(False)
             self.set_reveal_child(False)
             return
-        self.apply.set_sensitive(True)
         if count > 1:
-            self.title.set_markup("{} operations pending".format(
+            self.progresslabel.set_markup("{} operations pending".format(
                 self.operation_count()))
         else:
-            self.title.set_markup("One operation pending")
+            self.progresslabel.set_markup("One operation pending")
         self.set_reveal_child(True)
 
     def operation_for_package(self, package):
