@@ -14,6 +14,7 @@
 from gi.repository import Gtk
 from .components import ScComponentsView
 from .available_view import ScAvailableView
+from .details import PackageDetailsView
 
 
 class ScGroupButton(Gtk.Button):
@@ -94,6 +95,9 @@ class ScGroupsView(Gtk.EventBox):
     # Available packagees
     avail_view = None
 
+    # Details of selection
+    details_view = None
+
     breadcrumbs = None
 
     def handle_back(self):
@@ -138,8 +142,13 @@ class ScGroupsView(Gtk.EventBox):
         self.comp_view = ScComponentsView(self, self.owner)
         self.stack.add_named(self.comp_view, "components")
 
-        self.avail_view = ScAvailableView(self.owner)
+        # Available view
+        self.avail_view = ScAvailableView(self, self.owner)
         self.stack.add_named(self.avail_view, "available")
+
+        # Details view
+        self.details_view = PackageDetailsView(self.owner.appsystem)
+        self.stack.add_named(self.details_view, "details")
         self.init_view()
 
     def on_group_clicked(self, btn, data=None):
@@ -174,4 +183,11 @@ class ScGroupsView(Gtk.EventBox):
         self.avail_view.set_component(component)
         self.breadcrumbs.append("components")
         self.stack.set_visible_child_name("available")
+        self.owner.set_can_back(True)
+
+    def select_details(self, package):
+        print("Selected package: {}".format(package.name))
+        self.details_view.update_from_package(package)
+        self.breadcrumbs.append("available")
+        self.stack.set_visible_child_name("details")
         self.owner.set_can_back(True)

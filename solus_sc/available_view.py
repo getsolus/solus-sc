@@ -29,14 +29,15 @@ class ScAvailableView(Gtk.VBox):
     basket = None
     stack = None
     load_page = None
-    details_view = None
     owner = None
+    groups_view = None
 
-    def __init__(self, owner):
+    def __init__(self, groups_view, owner):
         Gtk.VBox.__init__(self, 0)
         self.basket = owner.basket
         self.appsystem = owner.appsystem
         self.owner = owner
+        self.groups_view = groups_view
 
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
@@ -84,6 +85,9 @@ class ScAvailableView(Gtk.VBox):
 
         pkg_name = row[INDEX_FIELD_NAME]
         print("User selected {}".format(pkg_name))
+
+        pkg = self.basket.packagedb.get_package(pkg_name)
+        self.groups_view.select_details(pkg)
 
     def set_component(self, component):
         model = Gtk.ListStore(str, str, GdkPixbuf.Pixbuf, str)
