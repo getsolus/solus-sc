@@ -65,9 +65,9 @@ class ScSidebar(Gtk.ListBox):
             ("updates", "Updates", "software-update-available-symbolic"),
             ("installed", "Installed", "computer-symbolic"),
             ("3rd-party", "Third Party", "folder-download-symbolic"),
-            ("settings", "Settings", "system-run-symbolic"),
         ]
 
+        # ("settings", "Settings", "system-run-symbolic"),
         sel = None
         for item, label_sz, icon_sz in items:
             row = Gtk.HBox(0)
