@@ -2,4 +2,4 @@
 
 source /usr/share/defaults/etc/profile
 
-nohup python2.7 -m eopkg_assist.main
+python2.7 -m eopkg_assist.main
