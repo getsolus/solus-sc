@@ -35,11 +35,25 @@ class ThirdPartyView(Gtk.VBox):
         Gtk.VBox.__init__(self)
         self.basket = owner.basket
 
+        label = Gtk.Label(
+            "<small>"
+            "Software provided via the third party tooling will be fetched "
+            "directly from the vendor and installed locally."
+            "\nSolus Project accepts no responsibility for the content"
+            " provided by these vendors.</small>")
+        label.set_use_markup(True)
+        self.pack_end(label, False, False, 0)
+        label.set_property("margin-start", 20)
+        label.set_property("margin-top", 10)
+        label.set_property("margin-bottom", 10)
+        label.set_halign(Gtk.Align.START)
+
         self.listbox = Gtk.ListBox()
         self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
         scroll = Gtk.ScrolledWindow(None, None)
         self.pack_start(scroll, True, True, 0)
         scroll.add(self.listbox)
+        scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
 
         self.build_ui()
 
