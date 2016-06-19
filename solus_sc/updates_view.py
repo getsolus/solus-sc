@@ -474,6 +474,7 @@ class ScUpdatesView(Gtk.VBox):
         self.stack.set_visible_child_name("updating")
         self.updating_page.spinner.start()
         self.is_updating = True
+        self.queue_draw()
         self.basket.apply_operations()
 
     def on_details(self, b, wdata=None):
