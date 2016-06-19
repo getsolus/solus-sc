@@ -12,6 +12,7 @@
 #
 
 from gi.repository import Gtk, GLib, GdkPixbuf
+import difflib
 
 
 """ enum for the model fields """
@@ -176,13 +177,12 @@ class ScSearchResults(Gtk.VBox):
         if term.strip() == "":
             return
         model = Gtk.ListStore(str, str, GdkPixbuf.Pixbuf, str)
-        model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
 
         self.reset()
 
         try:
-            packages = set(self.basket.packagedb.search_package([term]))
-            packages.update(self.basket.installdb.search_package([term]))
+            s_packages = set(self.basket.packagedb.search_package([term]))
+            s_packages.update(self.basket.installdb.search_package([term]))
         except Exception as e:
             # Invalid regex, basically, from someone smashing FIREFOX????
             print(e)
@@ -190,6 +190,9 @@ class ScSearchResults(Gtk.VBox):
             self.load_page.spinner.stop()
             return
 
+        leaders = difflib.get_close_matches(term, s_packages, cutoff=0.5)
+        packages = leaders
+        packages.extend(sorted([x for x in s_packages if x not in leaders]))
         for pkg_name in packages:
             if self.basket.packagedb.has_package(pkg_name):
                 pkg = self.basket.packagedb.get_package(pkg_name)
@@ -218,6 +221,7 @@ class ScSearchResults(Gtk.VBox):
             self.stack.set_visible_child_name("not-found")
         else:
             self.stack.set_visible_child_name("available")
+
         self.tview.set_model(model)
         self.load_page.spinner.stop()
 
