@@ -177,7 +177,14 @@ class ScSearchResults(Gtk.VBox):
 
         self.reset()
 
-        packages = self.basket.packagedb.search_package([term])
+        try:
+            packages = self.basket.packagedb.search_package([term])
+        except Exception as e:
+            # Invalid regex, basically, from someone smashing FIREFOX????
+            print(e)
+            self.stack.set_visible_child_name("not-found")
+            self.load_page.spinner.stop()
+            return
 
         for pkg_name in packages:
             pkg = self.basket.packagedb.get_package(pkg_name)
