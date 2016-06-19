@@ -409,7 +409,7 @@ class ScUpdatesView(Gtk.VBox):
         self.view_details.set_sensitive(False)
         self.view_details.set_tooltip_text("Details" + u"…")
         self.view_details.get_style_context().add_class("flat")
-        self.view_details.connect('clicked', self.on_details)
+        self.view_details.connect("clicked", self.on_details)
         self.toolbar.add(self.view_details)
 
         # Apply the updates
