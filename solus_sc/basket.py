@@ -56,11 +56,12 @@ class BasketView(Gtk.Revealer):
         self.progressbar.set_fraction(0.6)
         self.progressbar.set_valign(Gtk.Align.CENTER)
 
-        self.progressbar.set_hexpand(True)
         self.progressbar.set_margin_end(20)
         self.progressbar.set_margin_top(6)
         self.progressbar.set_margin_bottom(4)
-        self.action_bar.pack_start(self.progressbar)
+        self.action_bar.pack_end(self.progressbar)
+
+        self.progressbar.set_size_request(350, -1)
 
         self.invalidate_all()
 
