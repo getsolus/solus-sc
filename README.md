@@ -5,6 +5,9 @@ Software Center component of the Solus Operating System. Currently undergoing
 an overhaul to drop all the stupidity and slowness that it managed to gather
 over the years.
 
+Solus Software Center is a [Solus project](https://solus-project.com/)
+
+![logo](https://build.solus-project.com/logo.png)
 
 **Why not use GNOME Software?**
 
