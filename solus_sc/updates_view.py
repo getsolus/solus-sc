@@ -246,6 +246,7 @@ class ScUpdatesView(Gtk.VBox):
     toolbar = None
     selection_label = None
     view_details = None
+    update_btn = None
 
     selected_object = None
 
@@ -395,8 +396,9 @@ class ScUpdatesView(Gtk.VBox):
         sep.set_expand(True)
         self.toolbar.add(sep)
 
-        refresh_button = Gtk.ToolButton(None, "Check for updates")
-        refresh_button.set_is_important(True)
+        refresh_button = Gtk.ToolButton(None, None)
+        refresh_button.set_icon_name("view-refresh-symbolic")
+        refresh_button.set_tooltip_text("Check for new updates")
         refresh_button.set_label("Check for updates")
         refresh_button.connect("clicked", self.perform_refresh)
         self.toolbar.add(refresh_button)
@@ -409,6 +411,13 @@ class ScUpdatesView(Gtk.VBox):
         self.view_details.get_style_context().add_class("flat")
         self.view_details.connect('clicked', self.on_details)
         self.toolbar.add(self.view_details)
+
+        # Apply the updates
+        self.update_btn = Gtk.ToolButton(None, "Update Selected")
+        self.update_btn.set_label("Update Selected")
+        self.update_btn.set_is_important(True)
+        self.toolbar.add(self.update_btn)
+        self.update_btn.set_sensitive(0)
 
     def on_details(self, b, wdata=None):
         lewin = self.get_toplevel()
@@ -594,10 +603,12 @@ class ScUpdatesView(Gtk.VBox):
         if total_update == 0:
             self.selection_label.set_text("{} of {} updates selected".format(
                 total_update, total_available))
+            self.update_btn.set_sensitive(False)
             return
         dlSize = sc_format_size_local(total_size, True)
         newLabel = "{} of {} updates selected ({} to download)".format(
                    total_update, total_available, dlSize)
+        self.update_btn.set_sensitive(True)
         self.selection_label.set_text(newLabel)
 
     def on_row_activated(self, tview, path, column, udata=None):
