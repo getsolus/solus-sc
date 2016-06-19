@@ -24,9 +24,18 @@ import pisi.ui
 import threading
 import os
 import os.path
-
+import subprocess
+import tempfile
+import shutil
 
 BASE_URI = "https://raw.githubusercontent.com/solus-project/3rd-party/master"
+
+APPS = {
+    "google-chrome-stable":
+        "network/web/browser/google-chrome-stable/pspec.xml",
+    "spotify":
+        "multimedia/music/spotify/pspec.xml",
+}
 
 
 class EopkgUiMonitor(pisi.ui.UI):
@@ -160,9 +169,7 @@ class EopkgAssistService(dbus.service.Object):
         pisi.context.ui = ui
         pisi.context.config.values.general.ignore_safety = True
         options = pisi.config.Options()
-        options.output_dir = "/tmp/evoassist"
-        if not os.path.exists(options.output_dir):
-            os.mkdir(options.output_dir)
+        options.output_dir = tempfile.mkdtemp(suffix='sc')
         pisi.api.set_options(options)
 
         def dummy():
@@ -179,19 +186,18 @@ class EopkgAssistService(dbus.service.Object):
         pisi.context.keyboard_interrupt_pending = dummy3
         pkg = None
 
-        # Also hacky, idc.
-        if pkgname == "google-chrome-stable":
-            ipkg = "{}/network/web/browser/google-chrome-stable/pspec.xml"
-            pkg = ipkg.format(BASE_URI)
-        else:
-            ok("ERROR: Unknown package description")
+        if pkgname not in APPS:
+            ok("ERROR: Unknown package")
             ok("DONE")
+            self._do_purge(options.output_dir)
             return
+
+        pkg = BASE_URI + "/" + APPS[pkgname]
 
         # Ruthless I know.
         kids = os.listdir(options.output_dir)
         if len(kids) > 0:
-            os.system("rm %s/*.eopkg" % options.output_dir)
+            os.system("rm -f {}/*.eopkg".format(options.output_dir))
 
         try:
             pisi.api.build(pkg)
@@ -199,18 +205,28 @@ class EopkgAssistService(dbus.service.Object):
             print e
             ok("ERROR: %s" % e)
             ok("DONE")
+            self._do_purge(options.output_dir)
             return
         try:
-            kids = os.listdir(options.output_dir)
-            pisi.api.install(["%s/%s" %
-                              (options.output_dir, kids[0])], reinstall=True,)
-            os.system("rm %s/*.eopkg" % options.output_dir)
+            cmd = "eopkg install --ignore-safety -y {}/*.eopkg".format(
+                options.output_dir)
+            subprocess.check_call(cmd, shell=True)
+            cmd = "rm -f {}/*.eopkg".format(options.output_dir)
+            subprocess.check_call(cmd, shell=True)
         except Exception:
             print e
             ok("ERROR: %s" % e)
             ok("DONE")
+            self._do_purge(options.output_dir)
             return
         ok("DONE")
+
+    def _do_purge(self, d):
+        """ Final bit of cleanup.. """
+        try:
+            shutil.rmtree(d)
+        except:
+            pass
 
     ''' Request we build a package... '''
     @dbus.service.method('com.solus_project.eopkgassist',
