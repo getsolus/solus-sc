@@ -1,4 +1,4 @@
-from setuptools import setup
+from distutils.core import setup
 
 setup(
     name            = "solus-sc",
@@ -12,4 +12,5 @@ setup(
     scripts         = ['solus-sc'],
     classifiers     = [ "License :: OSI Approved :: GPL-2.0 License"],
     package_data    = {'solus_sc': ['update_dialog.ui', 'styling.css']},
+    data_files      = [("/usr/share/applications", ["data/solus-sc.desktop"])]
 )
