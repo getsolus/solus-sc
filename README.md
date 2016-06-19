@@ -26,7 +26,7 @@ between components. Nuff said.
 
 
 Testing
-^^^^^^^
+-------
 
 Clone the repo, and then install appstream-glib::
 
@@ -43,10 +43,9 @@ Now just run the main launcher in this repo (don't ctrl+c, it'll explode)::
     ./main.py
 
 License
-^^^^^^^
+-------
 
 Copyright © 2014-2016 Ikey Doherty
 
 This software is available under the terms of the GPL-2.0 license.
-Please see `LICENSE <LICENSE>`_ for details.
-GPL-3.0
+Please see `LICENSE` for details.
