@@ -416,8 +416,23 @@ class ScUpdatesView(Gtk.VBox):
         self.update_btn = Gtk.ToolButton(None, "Update Selected")
         self.update_btn.set_label("Update Selected")
         self.update_btn.set_is_important(True)
+        self.update_btn.connect("clicked", self.on_update)
         self.toolbar.add(self.update_btn)
         self.update_btn.set_sensitive(0)
+
+    def on_update(self, b, wdata=None):
+        """ Actually go ahead and do the update """
+        model = self.tview.get_model()
+        # root row can be skipped in each instance
+        for row in model:
+            for sprog in row.iterchildren():
+                checked = sprog[0]
+                obj = sprog[-1]
+                if not checked:
+                    continue
+                self.basket.update_package(obj.old_pkg, obj.new_pkg)
+        # TODO! Make ourselves, like, completely unusable :p
+        self.basket.apply_operations()
 
     def on_details(self, b, wdata=None):
         lewin = self.get_toplevel()
