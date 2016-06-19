@@ -359,7 +359,7 @@ class BasketView(Gtk.Revealer):
                     else:
                         # print "Not removing"
                         continue
-            elif packageset == removals:
+            elif packageset == updates:
                 (pk, pkgs) = plan_upgrade(packageset)
                 if len(pkgs) > len(packageset):
                     if self.show_dialog(pkgs, update=True):
