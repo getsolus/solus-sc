@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=com.solus_project.eopkgassist
+Exec=/usr/libexec/eopkgassist-wrapper
+User=root
