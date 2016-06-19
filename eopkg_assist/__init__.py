@@ -11,5 +11,8 @@
 #  (at your option) any later version.
 #
 
+import os
 import gi.repository
 gi.require_version('Gio', '2.0')
+
+os.environ['PATH'] = '/sbin:/usr/sbin:/bin:/usr/bin'
