@@ -12,7 +12,6 @@
 #
 
 from .main_window import ScMainWindow
-from .monitor import ScMonitor
 from gi.repository import Gio, Gtk, Gdk
 
 import os
@@ -23,8 +22,6 @@ SC_APP_ID = "com.solus_project.SoftwareCenter"
 class ScApplication(Gtk.Application):
 
     app_window = None
-    monitor = None
-    tray_icon = None
 
     is_service_mode = False
 
@@ -59,7 +56,6 @@ class ScApplication(Gtk.Application):
         print("I am now doing the motions of the startupings")
         self.init_css()
         self.init_actions()
-        self.monitor = ScMonitor(app)
 
     def init_css(self):
         """ Set up the CSS before we throw any windows up """
