@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GObject, GLib
 
 import comar
 import pisi.db
@@ -33,6 +33,7 @@ class BasketView(Gtk.Revealer):
     action_bar = None
     doing_things = False
     owner = None
+    pulser = -1
 
     def is_busy(self):
         return self.doing_things
@@ -89,10 +90,17 @@ class BasketView(Gtk.Revealer):
         iface = dbus.Interface(obj, "com.solus_project.eopkgassist")
         iface.connect_to_signal("Progress", self.do_prog)
         self.doing_things = True
+        self.operations['::third-party::'] = 'Install {}'.format(nom)
+        self.update_ui()
         self.emit('basket-changed', None)
+        self.pulser = GLib.timeout_add(1000.0 / 5.0, self.step_up)
         iface.BuildPackage(nom,
                            reply_handler=self.on_eopkg_repl,
                            error_handler=self.on_eopkg_err)
+
+    def step_up(self):
+        self.progressbar.pulse()
+        return True
 
     def on_eopkg_repl(self, o):
         pass
@@ -113,10 +121,13 @@ class BasketView(Gtk.Revealer):
             d.destroy()
             self.doing_things = False
             self.invalidate_all()
+            self.update_ui()
 
         if pct == 0 and message == "DONE":
             self.doing_things = False
+            print("Done??")
             self.invalidate_all()
+            self.update_ui()
 
     def set_progress(self, fraction, label):
         if fraction is None:
@@ -138,7 +149,12 @@ class BasketView(Gtk.Revealer):
             self.progresslabel.set_markup("{} operations pending".format(
                 self.operation_count()))
         else:
-            self.progresslabel.set_markup("One operation pending")
+            if '::third-party::' in self.operations:
+                lab = " - This may take <b>some time!</b>"
+                self.progresslabel.set_markup(
+                    self.operations['::third-party::'] + lab)
+            else:
+                self.progresslabel.set_markup("One operation pending")
         self.set_reveal_child(True)
 
     def operation_for_package(self, package):
@@ -276,6 +292,9 @@ class BasketView(Gtk.Revealer):
 
     def invalidate_all(self):
         # Handle operations that finished.
+        if self.pulser >= 0:
+            GLib.source_remove(self.pulser)
+            self.pulser = -1
         self.operations = dict()
         pisi.db.invalidate_caches()
         self.installdb = pisi.db.installdb.InstallDB()

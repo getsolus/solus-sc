@@ -33,6 +33,8 @@ class ThirdPartyView(Gtk.VBox):
 
     def on_basket_changed(self, basket, udata=None):
         sensitive = not basket.is_busy()
+        if sensitive and not self.listbox.get_sensitive():
+            self.build_ui()
         self.listbox.set_sensitive(sensitive)
 
     def __init__(self, owner):
@@ -85,7 +87,11 @@ class ThirdPartyView(Gtk.VBox):
             nom_box.set_property("margin", 6)
             hbox.pack_start(nom_box, True, True, 0)
 
-            ibtn = Gtk.Button("Install")
+            ibtn = None
+            if self.basket.installdb.has_package(key):
+                ibtn = Gtk.Button("Check for updates")
+            else:
+                ibtn = Gtk.Button("Install")
             ibtn.get_style_context().add_class("suggested-action")
             ibtn.set_halign(Gtk.Align.END)
             ibtn.set_valign(Gtk.Align.CENTER)
@@ -96,6 +102,7 @@ class ThirdPartyView(Gtk.VBox):
             ibtn.package_name = key
             ibtn.connect("clicked", self.on_install_clicked)
 
+            hbox.show_all()
             self.listbox.add(hbox)
 
     def on_install_clicked(self, btn, udata=None):
