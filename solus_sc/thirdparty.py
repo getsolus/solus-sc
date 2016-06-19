@@ -31,9 +31,14 @@ class ThirdPartyView(Gtk.VBox):
     listbox = None
     basket = None
 
+    def on_basket_changed(self, basket, udata=None):
+        sensitive = not basket.is_busy()
+        self.listbox.set_sensitive(sensitive)
+
     def __init__(self, owner):
         Gtk.VBox.__init__(self)
         self.basket = owner.basket
+        self.basket.connect("basket-changed", self.on_basket_changed)
 
         label = Gtk.Label(
             "<small>"
