@@ -220,6 +220,7 @@ class EopkgAssistService(dbus.service.Object):
             self._do_purge(options.output_dir)
             return
         ok("DONE")
+        self._do_purge(options.output_dir)
 
     def _do_purge(self, d):
         """ Final bit of cleanup.. """
