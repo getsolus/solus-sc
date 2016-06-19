@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GLib, GObject, Pango, GdkPixbuf
+from gi.repository import Gtk, GLib, GObject, Pango, GdkPixbuf, Gdk
 from .util import sc_format_size_local
 from operator import attrgetter
 import threading
@@ -515,8 +515,6 @@ class ScUpdatesView(Gtk.VBox):
                                     self.appsystem.other_pixbuf,
                                     True, 0, None])
 
-        self.tview.set_model(model)
-
         # Need a shared context for these guys
         self.installdb = self.basket.installdb
         self.packagedb = self.basket.packagedb
@@ -577,6 +575,8 @@ class ScUpdatesView(Gtk.VBox):
                 model.set(item, 1, False)
                 model.set(item, 5, False)
 
+        Gdk.threads_enter()
+        self.tview.set_model(model)
         # Hook up events so we know what's going on (4 non blondes.)
         self.update_from_selection()
         model.connect_after('row-changed', self.on_model_row_changed)
@@ -586,6 +586,7 @@ class ScUpdatesView(Gtk.VBox):
         else:
             print("Ermagahd {} updates".format(n_updates))
             self.stack.set_visible_child_name("updates")
+        Gdk.threads_leave()
         return False
 
     should_ignore = False

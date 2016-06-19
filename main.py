@@ -14,11 +14,12 @@
 import sys
 from solus_sc.application import ScApplication
 from dbus.mainloop.glib import DBusGMainLoop
-from gi.repository import GObject
+from gi.repository import GObject, Gdk
 
 
 if __name__ == "__main__":
     DBusGMainLoop(set_as_default=True)
     GObject.threads_init()
+    Gdk.threads_init()
     app = ScApplication()
     app.run(sys.argv)
