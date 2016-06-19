@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Software Center
+GenericName=Software Center
+Comment=Install, Remove and Update System Software
+Exec=/usr/bin/solus-sc
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=system-software-install
+Categories=GNOME;GTK;System;PackageManager;
+Keywords=Updates;Upgrade;Sources;Repositories;Preferences;Install;Uninstall;Program;Software;App;Store;
