@@ -237,7 +237,6 @@ class BasketView(Gtk.Revealer):
 
     def invalidate_all(self):
         # Handle operations that finished.
-        print("HAPPEND!")
         self.operations = dict()
         pisi.db.invalidate_caches()
         self.installdb = pisi.db.installdb.InstallDB()

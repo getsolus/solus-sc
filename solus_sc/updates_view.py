@@ -582,10 +582,8 @@ class ScUpdatesView(Gtk.VBox):
         self.update_from_selection()
         model.connect_after('row-changed', self.on_model_row_changed)
         if n_updates < 1:
-            print("Nuh uh, only {} updates".format(n_updates))
             self.stack.set_visible_child_name("check")
         else:
-            print("Ermagahd {} updates".format(n_updates))
             self.stack.set_visible_child_name("updates")
         Gdk.threads_leave()
         return False

@@ -53,7 +53,6 @@ class ScApplication(Gtk.Application):
 
     def startup(self, app):
         """ Main entry """
-        print("I am now doing the motions of the startupings")
         self.init_css()
         self.init_actions()
 
