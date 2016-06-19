@@ -195,7 +195,7 @@ class BasketView(Gtk.Revealer):
 
                     cd = self.current_dl_package
                     if cd == 0 and self.total_packages == 0:
-                        self.set_progress("Downloading {} ({})".format(
+                        self.set_progress(prog, "Downloading {} ({})".format(
                             package, speed))
                     else:
                         disp = "Downloading {} of {}: {} ({})"

@@ -237,6 +237,29 @@ class LoadingPage(Gtk.VBox):
         self.label.set_property("margin", 20)
 
 
+class UpdatingPage(Gtk.VBox):
+    """ Simple loading page, nothing fancy. """
+
+    spinner = None
+
+    def __init__(self):
+        Gtk.VBox.__init__(self)
+
+        self.set_valign(Gtk.Align.CENTER)
+        self.set_halign(Gtk.Align.CENTER)
+        self.spinner = Gtk.Spinner()
+        self.spinner.set_size_request(-1, 64)
+        self.spinner.start()
+        self.label = Gtk.Label("<big>Please check back later, "
+                               "updates are now applying" + u"…"
+                               "</big>")
+        self.label.set_use_markup(True)
+
+        self.pack_start(self.spinner, True, True, 0)
+        self.pack_start(self.label, False, False, 0)
+        self.label.set_property("margin", 20)
+
+
 class ScUpdatesView(Gtk.VBox):
 
     installdb = None
@@ -254,6 +277,8 @@ class ScUpdatesView(Gtk.VBox):
     load_page = None
     basket = None
     appsystem = None
+    updating_page = None
+    is_updating = False
 
     def perform_refresh(self, btn, wdata=None):
         self.perform_refresh_internal()
@@ -281,6 +306,7 @@ class ScUpdatesView(Gtk.VBox):
         Gtk.VBox.__init__(self, 0)
         self.basket = basket
         self.appsystem = appsystem
+        self.basket.connect("basket-changed", self.on_basket_changed)
 
         self.stack = Gtk.Stack()
         t = Gtk.StackTransitionType.CROSSFADE
@@ -420,6 +446,19 @@ class ScUpdatesView(Gtk.VBox):
         self.toolbar.add(self.update_btn)
         self.update_btn.set_sensitive(0)
 
+        self.updating_page = UpdatingPage()
+        self.stack.add_named(self.updating_page, "updating")
+
+    def on_basket_changed(self, basket, udata=None):
+        """ Just applied updates, so lets refresh repos and update list """
+        if not self.is_updating:
+            return
+        if basket.is_busy():
+            return
+        self.is_updating = False
+        self.updating_page.spinner.stop()
+        GLib.idle_add(self.refresh_repos)
+
     def on_update(self, b, wdata=None):
         """ Actually go ahead and do the update """
         model = self.tview.get_model()
@@ -431,7 +470,10 @@ class ScUpdatesView(Gtk.VBox):
                 if not checked:
                     continue
                 self.basket.update_package(obj.old_pkg, obj.new_pkg)
-        # TODO! Make ourselves, like, completely unusable :p
+        # Move to the updating page
+        self.stack.set_visible_child_name("updating")
+        self.updating_page.spinner.start()
+        self.is_updating = True
         self.basket.apply_operations()
 
     def on_details(self, b, wdata=None):
