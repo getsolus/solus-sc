@@ -15,6 +15,7 @@ from gi.repository import Gtk, GObject
 
 import comar
 import pisi.db
+import dbus
 from pisi.operations.install import plan_install_pkg_names
 from pisi.operations.remove import plan_remove
 from pisi.operations.upgrade import plan_upgrade
@@ -78,6 +79,44 @@ class BasketView(Gtk.Revealer):
 
         self.downloaded = 0
         self.current_package = None
+
+    def build_package(self, nom):
+        """ Ugly ass shit needed to get third party packages working for now.
+            Note to self: Find more elegant solution.. """
+        bus = dbus.SystemBus()
+        obj = bus.get_object("com.solus_project.eopkgassist",
+                             "/com/solus_project/EopkgAssist")
+        iface = dbus.Interface(obj, "com.solus_project.EopkgAssist")
+        iface.connect_to_signal("Progress", self.do_prog)
+        self.doing_things = True
+        self.emit('basket-changed', None)
+        iface.BuildPackage(nom,
+                           reply_handler=self.on_eopkg_repl,
+                           error_handler=self.on_eopkg_err)
+
+    def on_eopkg_repl(self, o):
+        pass
+
+    def on_eopkg_err(self, o):
+        print("ehhhhhh whassup doc: {}".format(str(o)))
+        self.invalidate_all()
+
+    def do_prog(self, pct, message):
+        if str(message).startswith("ERROR: "):
+            content = message.split("ERROR: ")[1]
+            d = Gtk.MessageDialog(self.owner,
+                                  Gtk.DialogFlags.DESTROY_WITH_PARENT |
+                                  Gtk.DialogFlags.MODAL,
+                                  Gtk.MessageType.ERROR, Gtk.ButtonsType.CLOSE,
+                                  content)
+            d.run()
+            d.destroy()
+            self.doing_things = False
+            self.invalidate_all()
+
+        if pct == 0 and message == "DONE":
+            self.doing_things = False
+            self.invalidate_all()
 
     def set_progress(self, fraction, label):
         if fraction is None:

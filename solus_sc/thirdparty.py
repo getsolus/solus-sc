@@ -101,3 +101,4 @@ class ThirdPartyView(Gtk.VBox):
     def on_install_clicked(self, btn, udata=None):
         """ Proxy the call """
         print("supposedly installing {}".format(btn.package_name))
+        self.basket.build_package(btn.package_name)
