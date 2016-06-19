@@ -106,7 +106,7 @@ class BasketView(Gtk.Revealer):
         pass
 
     def on_eopkg_err(self, o):
-        print("ehhhhhh whassup doc: {}".format(str(o)))
+        print("dbus error, shouldnt happen: {}".format(str(o)))
         self.invalidate_all()
 
     def do_prog(self, pct, message):
@@ -125,7 +125,6 @@ class BasketView(Gtk.Revealer):
 
         if pct == 0 and message == "DONE":
             self.doing_things = False
-            print("Done??")
             self.invalidate_all()
             self.update_ui()
 
