@@ -92,12 +92,14 @@ class ScSearchResults(Gtk.VBox):
     component = None
     empty_page = None
     notfound_page = None
+    search_page = None
 
-    def __init__(self, owner):
+    def __init__(self, search_page, owner):
         Gtk.VBox.__init__(self, 0)
         self.basket = owner.basket
         self.appsystem = owner.appsystem
         self.owner = owner
+        self.search_page = search_page
 
         self.stack = Gtk.Stack()
         t = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
@@ -165,9 +167,7 @@ class ScSearchResults(Gtk.VBox):
         pkg_name = row[INDEX_FIELD_NAME]
 
         pkg = self.basket.packagedb.get_package(pkg_name)
-        print("User selected {}".format(pkg_name))
-
-        # self.groups_view.select_details(pkg)
+        self.search_page.select_details(pkg)
 
     def set_search_term(self, term):
         if term.strip() == "":

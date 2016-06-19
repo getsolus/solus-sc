@@ -70,6 +70,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
             self.package_view.handle_back()
         elif nom == "home":
             self.groups_view.handle_back()
+        elif nom == "search":
+            self.search_view.handle_back()
         else:
             print("Shouldn't be happening boss")
 
@@ -83,6 +85,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
             sensitive = self.package_view.can_back()
         elif nom == "home":
             sensitive = self.groups_view.can_back()
+        elif nom == "search":
+            sensitive = self.search_view.can_back()
         self.set_can_back(sensitive)
 
     def init_children(self):
