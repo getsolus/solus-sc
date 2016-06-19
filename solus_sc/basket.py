@@ -86,7 +86,7 @@ class BasketView(Gtk.Revealer):
         bus = dbus.SystemBus()
         obj = bus.get_object("com.solus_project.eopkgassist",
                              "/com/solus_project/EopkgAssist")
-        iface = dbus.Interface(obj, "com.solus_project.EopkgAssist")
+        iface = dbus.Interface(obj, "com.solus_project.eopkgassist")
         iface.connect_to_signal("Progress", self.do_prog)
         self.doing_things = True
         self.emit('basket-changed', None)
