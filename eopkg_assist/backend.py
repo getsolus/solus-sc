@@ -162,9 +162,11 @@ class EopkgAssistService(dbus.service.Object):
         else:
             return True  # Already authorized by PolKit in this session
 
-    def __build_package(self, pkgname):
+    def __build_package(self, pkgname2):
         def ok(msg):
             self.Progress(0, msg)
+
+        pkgname = str(pkgname2)
         ui = EopkgUiMonitor(ok, ok)
         pisi.context.ui = ui
         pisi.context.config.values.general.ignore_safety = True
@@ -192,12 +194,15 @@ class EopkgAssistService(dbus.service.Object):
             self._do_purge(options.output_dir)
             return
 
-        pkg = BASE_URI + "/" + APPS[pkgname]
+        pkg = str(BASE_URI) + "/" + str(APPS[pkgname])
 
         # Ruthless I know.
         kids = os.listdir(options.output_dir)
         if len(kids) > 0:
-            os.system("rm -f {}/*.eopkg".format(options.output_dir))
+            try:
+                os.system("rm -f {}/*.eopkg".format(options.output_dir))
+            except Exception as e:
+                print(e)
 
         try:
             pisi.api.build(pkg)
@@ -241,7 +246,11 @@ class EopkgAssistService(dbus.service.Object):
             error_handler("Not authorized")
             self.Progress(0, "DONE")
             return
-        t = threading.Thread(target=self.__build_package, args=(pkgname,))
+        try:
+            sane_name = str(str(pkgname).decode("latin1"))
+        except:
+            sane_name = str(pkgname)
+        t = threading.Thread(target=self.__build_package, args=(sane_name,))
         t.start()
 
     ''' Shut down this service '''

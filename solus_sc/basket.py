@@ -111,7 +111,7 @@ class BasketView(Gtk.Revealer):
 
     def do_prog(self, pct, message):
         if str(message).startswith("ERROR: "):
-            content = message.split("ERROR: ")[1]
+            content = message.split("ERROR: ")[1:]
             d = Gtk.MessageDialog(self.owner,
                                   Gtk.DialogFlags.DESTROY_WITH_PARENT |
                                   Gtk.DialogFlags.MODAL,
