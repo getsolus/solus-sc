@@ -190,7 +190,8 @@ class ScSearchResults(Gtk.VBox):
             self.load_page.spinner.stop()
             return
 
-        leaders = difflib.get_close_matches(term, s_packages, cutoff=0.5)
+        leaders = difflib.get_close_matches(term.lower(),
+                                            s_packages, cutoff=0.5)
         packages = leaders
         packages.extend(sorted([x for x in s_packages if x not in leaders]))
         for pkg_name in packages:
