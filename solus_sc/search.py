@@ -12,6 +12,7 @@
 #
 
 from gi.repository import Gtk
+from .search_results import ScSearchResults
 
 
 class ScSearchView(Gtk.VBox):
@@ -20,6 +21,8 @@ class ScSearchView(Gtk.VBox):
     flowbox = None
     owner = None
     search_box = None
+    search_results = None
+    search_button = None
 
     def __init__(self, owner):
         Gtk.EventBox.__init__(self)
@@ -30,7 +33,27 @@ class ScSearchView(Gtk.VBox):
         hbox.get_style_context().add_class("linked")
         self.pack_start(hbox, False, False, 0)
         self.search_box = Gtk.SearchEntry()
+        self.search_box.connect("changed", self.on_changed)
+        self.search_box.connect("activate", self.on_clicked)
 
-        search_button = Gtk.Button("Search")
+        self.search_button = Gtk.Button("Search")
+        self.search_button.connect("clicked", self.on_clicked)
         hbox.pack_start(self.search_box, True, True, 0)
-        hbox.pack_end(search_button, False, False, 0)
+        hbox.pack_end(self.search_button, False, False, 0)
+        self.search_button.set_sensitive(False)
+
+        self.search_results = ScSearchResults(self.owner)
+        self.pack_start(self.search_results, True, True, 0)
+
+    def on_clicked(self, btn, udata=None):
+        txt = self.search_box.get_text().strip()
+        self.search_results.set_search_term(txt)
+
+    def on_changed(self, entry, udata=None):
+        txt = self.search_box.get_text().strip()
+
+        if txt == "":
+            self.search_button.set_sensitive(False)
+            self.search_results.clear_view()
+        else:
+            self.search_button.set_sensitive(True)
