@@ -29,9 +29,11 @@ class ThirdPartyView(Gtk.VBox):
     """ Work around insane distribution policy to help the user. """
 
     listbox = None
+    basket = None
 
     def __init__(self, owner):
         Gtk.VBox.__init__(self)
+        self.basket = owner.basket
 
         self.listbox = Gtk.ListBox()
         self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
@@ -60,4 +62,19 @@ class ThirdPartyView(Gtk.VBox):
             nom_box.set_property("margin", 6)
             hbox.pack_start(nom_box, True, True, 0)
 
+            ibtn = Gtk.Button("Install")
+            ibtn.get_style_context().add_class("suggested-action")
+            ibtn.set_halign(Gtk.Align.END)
+            ibtn.set_valign(Gtk.Align.CENTER)
+            hbox.pack_end(ibtn, False, False, 0)
+            ibtn.set_property("margin", 6)
+
+            # Runtime-mark it
+            ibtn.package_name = key
+            ibtn.connect("clicked", self.on_install_clicked)
+
             self.listbox.add(hbox)
+
+    def on_install_clicked(self, btn, udata=None):
+        """ Proxy the call """
+        print("supposedly installing {}".format(btn.package_name))
