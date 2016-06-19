@@ -35,6 +35,8 @@ class ScSidebar(Gtk.ListBox):
 
         child = row.get_child()
         self.parent_stack.set_visible_child_name(child.row_entry)
+        if child.row_entry == "search":
+            self.parent_stack.get_child_by_name("search").handle_focus()
         self.owner.update_back(child.row_entry)
 
     def preselect_row(self, nom):
@@ -49,6 +51,7 @@ class ScSidebar(Gtk.ListBox):
     def __init__(self, owner, parent_stack):
         Gtk.ListBox.__init__(self)
 
+        self.set_can_focus(False)
         self.owner = owner
 
         self.get_style_context().add_class(Gtk.STYLE_CLASS_SIDEBAR)
@@ -90,6 +93,7 @@ class ScSidebar(Gtk.ListBox):
             if sel is None:
                 sel = row
 
+            label.set_can_focus(False)
             self.add(row)
 
         self.select_row(sel.get_parent())

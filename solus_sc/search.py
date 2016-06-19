@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib
 from .search_results import ScSearchResults
 from .details import PackageDetailsView
 
@@ -36,6 +36,15 @@ class ScSearchView(Gtk.VBox):
         """ Whether we can go back """
         return self.stack.get_visible_child_name() != "search"
 
+    def handle_focus(self):
+        if self.stack.get_visible_child_name() != "search":
+            return
+        GLib.idle_add(self.handle_focus_real)
+
+    def handle_focus_real(self):
+        self.search_box.grab_focus()
+        return False
+
     def __init__(self, owner):
         Gtk.EventBox.__init__(self)
         self.owner = owner
@@ -52,10 +61,12 @@ class ScSearchView(Gtk.VBox):
         hbox.get_style_context().add_class("linked")
         vbox.pack_start(hbox, False, False, 0)
         self.search_box = Gtk.SearchEntry()
+        self.search_box.grab_focus()
         self.search_box.connect("changed", self.on_changed)
         self.search_box.connect("activate", self.on_clicked)
 
         self.search_button = Gtk.Button("Search")
+        self.search_button.set_can_focus(False)
         self.search_button.connect("clicked", self.on_clicked)
         hbox.pack_start(self.search_box, True, True, 0)
         hbox.pack_end(self.search_button, False, False, 0)
