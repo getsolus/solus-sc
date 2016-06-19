@@ -298,7 +298,6 @@ class ScUpdatesView(Gtk.VBox):
         return False
 
     def load_updates(self):
-        print("I AM LOADING TEH UPDATES")
         self.basket.invalidate_all()
         GObject.idle_add(self.init_view)
 
@@ -524,7 +523,18 @@ class ScUpdatesView(Gtk.VBox):
         upgrades = pisi.api.list_upgradable()
         n_updates = len(upgrades)
 
+        obsol = pisi.api.list_obsoleted()
+        replc = pisi.api.list_replaces()
         for item in sorted(upgrades):
+
+            old_item = item
+            if item in obsol:
+                if item not in replc:
+                    # No valid replacement, skip it
+                    continue
+                # Chose the replacement
+                item = replc[item][0]
+
             new_pkg = self.packagedb.get_package(item)
             new_version = "%s-%s" % (str(new_pkg.version),
                                      str(new_pkg.release))
@@ -561,7 +571,12 @@ class ScUpdatesView(Gtk.VBox):
             pkg_name = GLib.markup_escape_text(pkg_name)
             summary = GLib.markup_escape_text(summary)
 
-            p_print = "%s - <small>%s</small>\n%s" % (pkg_name,
+            if old_item != item:
+                pref = "%s (replaces %s)" % (pkg_name, old_item)
+            else:
+                pref = "%s" % (pkg_name)
+
+            p_print = "%s - <small>%s</small>\n%s" % (pref,
                                                       new_version,
                                                       summary)
 

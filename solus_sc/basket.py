@@ -181,7 +181,7 @@ class BasketView(Gtk.Revealer):
         self.update_ui()
 
     def update_package(self, old_package, new_package):
-        self.operations[old_package.name] = 'UPDATE'
+        self.operations[new_package.name] = 'UPDATE'
         self.update_ui()
 
     def _get_prog(self, step):
@@ -402,7 +402,8 @@ class BasketView(Gtk.Revealer):
             if packageset == installs:
                 (pg, pkgs) = plan_install_pkg_names(packageset)
                 if len(pkgs) > len(packageset):
-                    if self.show_dialog(pkgs):
+                    p = [x for x in pkgs if x not in packageset]
+                    if self.show_dialog(p):
                         installs = packageset = pkgs
                     else:
                         # print "Not installing"
@@ -410,7 +411,8 @@ class BasketView(Gtk.Revealer):
             elif packageset == removals:
                 (pk, pkgs) = plan_remove(packageset)
                 if len(pkgs) > len(packageset):
-                    if self.show_dialog(pkgs, remove=True):
+                    p = [x for x in pkgs if x not in packageset]
+                    if self.show_dialog(p, remove=True):
                         removals = packageset = pkgs
                     else:
                         # print "Not removing"
@@ -418,7 +420,8 @@ class BasketView(Gtk.Revealer):
             elif packageset == updates:
                 (pk, pkgs) = plan_upgrade(packageset)
                 if len(pkgs) > len(packageset):
-                    if self.show_dialog(pkgs, update=True):
+                    p = [x for x in pkgs if x not in packageset]
+                    if self.show_dialog(p, update=True):
                         updates = packageset = pkgs
                     else:
                         # print Not continuing
