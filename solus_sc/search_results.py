@@ -166,7 +166,10 @@ class ScSearchResults(Gtk.VBox):
 
         pkg_name = row[INDEX_FIELD_NAME]
 
-        pkg = self.basket.packagedb.get_package(pkg_name)
+        if self.basket.packagedb.has_package(pkg_name):
+            pkg = self.basket.packagedb.get_package(pkg_name)
+        else:
+            pkg = self.basket.installdb.get_package(pkg_name)
         self.search_page.select_details(pkg)
 
     def set_search_term(self, term):
@@ -178,7 +181,8 @@ class ScSearchResults(Gtk.VBox):
         self.reset()
 
         try:
-            packages = self.basket.packagedb.search_package([term])
+            packages = set(self.basket.packagedb.search_package([term]))
+            packages.update(self.basket.installdb.search_package([term]))
         except Exception as e:
             # Invalid regex, basically, from someone smashing FIREFOX????
             print(e)
@@ -187,7 +191,10 @@ class ScSearchResults(Gtk.VBox):
             return
 
         for pkg_name in packages:
-            pkg = self.basket.packagedb.get_package(pkg_name)
+            if self.basket.packagedb.has_package(pkg_name):
+                pkg = self.basket.packagedb.get_package(pkg_name)
+            else:
+                pkg = self.basket.installdb.get_package(pkg_name)
 
             summary = self.appsystem.get_summary(pkg)
             summary = str(summary)
