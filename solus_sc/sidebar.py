@@ -94,6 +94,7 @@ class ScSidebar(Gtk.ListBox):
 
             label.set_can_focus(False)
             self.add(row)
+            label.get_parent().set_can_focus(False)
 
         self.select_row(sel.get_parent())
         self.connect("row-selected", self.on_row_selected)
