@@ -63,7 +63,6 @@ class ScGroupButton(Gtk.Button):
         label.set_valign(Gtk.Align.START)
         label_box.pack_start(label, True, True, 0)
         box.pack_start(label_box, True, True, 0)
-        self.set_relief(Gtk.ReliefStyle.NONE)
         self.add(box)
 
         # count the components

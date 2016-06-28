@@ -41,3 +41,11 @@
 .solus-sc .view.content {
     background-color: @theme_bg_color;
 }
+
+.group-button:not(:active):not(:checked) {
+    background-color: @theme_base_color;
+}
+
+.group-button:not(:active):not(:checked):hover {
+    background-color: mix(@theme_base_color, @theme_fg_color, 0.05);
+}
