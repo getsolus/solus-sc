@@ -58,10 +58,7 @@ class ScSidebar(Gtk.ListBox):
         self.get_style_context().add_class(Gtk.STYLE_CLASS_VIEW)
         self.size_group = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
         self.parent_stack = parent_stack
-
-        gtkTheme = self.get_settings().get_property("gtk-theme-name").lower()
-        if gtkTheme.startswith("arc ") or gtkTheme.startswith("arc-"):
-            self.get_style_context().add_class("arc-sidebar")
+        self.get_style_context().add_class("main-sidebar")
 
         items = [
             ("home", "Home", "user-home-symbolic"),
