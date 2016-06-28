@@ -124,6 +124,7 @@ class ScSearchResults(Gtk.VBox):
         self.scroll.set_overlay_scrolling(False)
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scroll.set_property("kinetic-scrolling", True)
+        self.scroll.get_style_context().add_class("search-results")
         self.stack.add_named(self.scroll, "available")
 
         # Main treeview where it's all happening. Single click activate

@@ -65,6 +65,7 @@ class ThirdPartyView(Gtk.VBox):
         self.pack_start(scroll, True, True, 0)
         scroll.add(self.listbox)
         scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+        scroll.get_style_context().add_class("third-party-view")
 
         self.build_ui()
 

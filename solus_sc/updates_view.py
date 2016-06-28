@@ -355,6 +355,7 @@ class ScUpdatesView(Gtk.VBox):
         self.scroll.set_overlay_scrolling(False)
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.scroll.set_property("kinetic-scrolling", True)
+        self.scroll.get_style_context().add_class("updates-view")
 
         self.tview = Gtk.TreeView()
         self.tview.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
