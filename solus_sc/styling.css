@@ -1,44 +1,38 @@
-/**
- * This is where we'll eventually put our overrides in for the sidebar, etc,
- * to make this less ugly.
- */
-
 .solus-sc .group-button .title {
     font-size: 110%;
-    padding: 5px;
+    padding: 4px;
 }
 
 .solus-sc .group-button .info-label {
-    padding: 5px;
+    padding: 4px;
 }
 
-.solus-sc .main-view {
-    margin: 10px;
-}
-
-.solus-sc .arc-sidebar {
-    background-image: none;
-    background-color: rgba(53, 57, 69, 0.95);
-}
-
-.solus-sc .arc-sidebar .list-row {
-    padding: 12px;
-    color: alpha(@selected_fg_color, 0.7);
-    font-size: 105%;
-}
-
-.solus-sc .arc-sidebar .list-row:selected {
-    color: alpha(@selected_fg_color, 0.9);
-    background: alpha(@selected_bg_color, 0.76);
+.solus-sc .main-sidebar .list-row {
+    padding: 8px 0;
 }
 
 .sc-changelog {
-    background-image: none;
-    background-color: transparent;
+    background: none;
 }
 
 .sc-changelog .list-row {
     padding: 5px;
-    border: 1px solid alpha(@theme_fg_color, 0.25);
-    border-radius: 2px;
+    border: 1px solid @borders;
+}
+
+.solus-sc GtkScrolledWindow {
+    border: none;
+}
+
+.updates-view.frame,
+.search-results.frame {
+    border-top: 1px solid @borders;
+}
+
+.third-party-view.frame {
+    border-bottom: 1px solid @borders;
+}
+
+.group-button:hover {
+    -gtk-image-effect: none;
 }

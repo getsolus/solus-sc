@@ -58,10 +58,8 @@ class ScSidebar(Gtk.ListBox):
         self.get_style_context().add_class(Gtk.STYLE_CLASS_VIEW)
         self.size_group = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
         self.parent_stack = parent_stack
-
-        gtkTheme = self.get_settings().get_property("gtk-theme-name").lower()
-        if gtkTheme.startswith("arc ") or gtkTheme.startswith("arc-"):
-            self.get_style_context().add_class("arc-sidebar")
+        self.get_style_context().add_class("main-sidebar")
+        self.set_property("width-request", 160)
 
         items = [
             ("home", "Home", "user-home-symbolic"),
@@ -78,10 +76,11 @@ class ScSidebar(Gtk.ListBox):
             label = Gtk.Label(label_sz)
 
             image = Gtk.Image.new_from_icon_name(icon_sz,
-                                                 Gtk.IconSize.LARGE_TOOLBAR)
+                                                 Gtk.IconSize.SMALL_TOOLBAR)
             row.pack_start(image, False, False, 0)
+            image.set_property("margin-start", 10)
             image.set_property("margin-end", 10)
-            label.set_property("margin-end", 5)
+            label.set_property("margin-end", 15)
             row.pack_start(label, True, True, 0)
             row.row_entry = item
             label.set_halign(Gtk.Align.START)

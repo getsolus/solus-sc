@@ -53,6 +53,7 @@ class ScGroupButton(Gtk.Button):
         image.set_pixel_size(64)
 
         label_box = Gtk.VBox(0)
+        label_box.set_valign(Gtk.Align.CENTER)
 
         box = Gtk.HBox(0)
         box.pack_start(image, False, False, 0)
@@ -63,7 +64,6 @@ class ScGroupButton(Gtk.Button):
         label.set_valign(Gtk.Align.START)
         label_box.pack_start(label, True, True, 0)
         box.pack_start(label_box, True, True, 0)
-        self.set_relief(Gtk.ReliefStyle.NONE)
         self.add(box)
 
         # count the components
@@ -128,8 +128,9 @@ class ScGroupsView(Gtk.EventBox):
         self.stack.add_named(self.scroll, "groups")
 
         self.flowbox = Gtk.FlowBox()
-        self.flowbox.set_property("margin-start", 40)
-        self.flowbox.set_property("margin-end", 40)
+        self.flowbox.set_property("margin", 20)
+        self.flowbox.set_column_spacing(15)
+        self.flowbox.set_row_spacing(15)
         self.flowbox.set_orientation(Gtk.Orientation.HORIZONTAL)
         self.flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
         self.flowbox.set_valign(Gtk.Align.START)
