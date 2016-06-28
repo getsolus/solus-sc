@@ -59,6 +59,7 @@ class ScSidebar(Gtk.ListBox):
         self.size_group = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
         self.parent_stack = parent_stack
         self.get_style_context().add_class("main-sidebar")
+        self.set_property("width-request", 160)
 
         items = [
             ("home", "Home", "user-home-symbolic"),
@@ -77,8 +78,9 @@ class ScSidebar(Gtk.ListBox):
             image = Gtk.Image.new_from_icon_name(icon_sz,
                                                  Gtk.IconSize.SMALL_TOOLBAR)
             row.pack_start(image, False, False, 0)
+            image.set_property("margin-start", 10)
             image.set_property("margin-end", 10)
-            label.set_property("margin-end", 5)
+            label.set_property("margin-end", 15)
             row.pack_start(label, True, True, 0)
             row.row_entry = item
             label.set_halign(Gtk.Align.START)

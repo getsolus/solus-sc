@@ -1,14 +1,14 @@
 .solus-sc .group-button .title {
     font-size: 110%;
-    padding: 5px;
+    padding: 4px;
 }
 
 .solus-sc .group-button .info-label {
-    padding: 5px;
+    padding: 4px;
 }
 
 .solus-sc .main-sidebar .list-row {
-    padding: 8px;
+    padding: 8px 0;
 }
 
 .sc-changelog {
