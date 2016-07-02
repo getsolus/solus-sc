@@ -22,6 +22,10 @@ APPS = {
         ('Google Chrome', 'google-chrome',
          'The web browser from Google',
          'network/web/browser/google-chrome-stable/pspec.xml'),
+    'opera-stable':
+        ('Opera', 'opera-browser',
+         'Opera Web Browser',
+         'network/web/browser/opera-stable/pspec.xml'),
 }
 
 

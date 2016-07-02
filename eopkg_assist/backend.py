@@ -35,6 +35,8 @@ APPS = {
         "network/web/browser/google-chrome-stable/pspec.xml",
     "spotify":
         "multimedia/music/spotify/pspec.xml",
+    "opera-stable":
+        "network/web/browser/opera-stable/pspec.xml",
 }
 
 
