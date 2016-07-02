@@ -170,6 +170,8 @@ class EopkgAssistService(dbus.service.Object):
         ui = EopkgUiMonitor(ok, ok)
         pisi.context.ui = ui
         pisi.context.config.values.general.ignore_safety = True
+        pisi.context.config.values.build.compressionlevel = 1
+        pisi.context.config.values.build.generateDebug = False
         options = pisi.config.Options()
         options.output_dir = tempfile.mkdtemp(suffix='sc')
         pisi.api.set_options(options)
