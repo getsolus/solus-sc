@@ -37,6 +37,8 @@ APPS = {
         "multimedia/music/spotify/pspec.xml",
     "opera-stable":
         "network/web/browser/opera-stable/pspec.xml",
+    "google-talkplugin":
+        "network/im/google-talkplugin/pspec.xml",
 }
 
 

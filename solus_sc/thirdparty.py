@@ -26,6 +26,10 @@ APPS = {
         ('Opera', 'opera-browser',
          'Opera Web Browser',
          'network/web/browser/opera-stable/pspec.xml'),
+    'google-talkplugin':
+        ('Google Talk Plugin', 'im-google-talk',
+         'The Google Talk plugin for hangouts video and audio',
+         'network/im/google-talkplugin/pspec.xml'),
 }
 
 
