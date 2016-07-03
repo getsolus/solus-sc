@@ -30,6 +30,11 @@ APPS = {
         ('Google Talk Plugin', 'im-google-talk',
          'The Google Talk plugin for hangouts video and audio',
          'network/im/google-talkplugin/pspec.xml'),
+    'sublime-text-3':
+        ('Sublime Text', 'sublime-text',
+         'Sublime Text is a sophisticated text editor for code, markup and '
+         'prose.',
+         'programming/sublime-text-3/pspec.xml'),
 }
 
 

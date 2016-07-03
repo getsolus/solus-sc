@@ -39,6 +39,8 @@ APPS = {
         "network/web/browser/opera-stable/pspec.xml",
     "google-talkplugin":
         "network/im/google-talkplugin/pspec.xml",
+    "sublime-text-3":
+        "programming/sublime-text-3/pspec.xml",
 }
 
 
