@@ -68,6 +68,7 @@ class ScUpdateApp(Gio.Application):
     pmanager = None
     link = None
     had_init = False
+    net_mon = None
 
     def __init__(self):
         Gio.Application.__init__(self,
@@ -80,6 +81,7 @@ class ScUpdateApp(Gio.Application):
         if self.had_init:
             return
         self.had_init = True
+        self.net_mon = Gio.NetworkMonitor.get_default()
         self.init_actions()
         self.load_comar()
         self.begin_background_checks()
@@ -116,8 +118,17 @@ class ScUpdateApp(Gio.Application):
         """ Actually refresh the repos.. """
         self.pmanager.updateAllRepositories()
 
+    def can_update(self):
+        """ Determine if policy/connection allows checking for updates """
+        if not self.net_mon.get_network_available():
+            return False
+        return True
+
     def check_updates(self):
         """ Check the actual update availability - post refresh """
+        if not self.can_update():
+            # TODO: Update GSettings with last timestamp
+            return
         upds = None
         try:
             upds = pisi.api.list_upgradable()
