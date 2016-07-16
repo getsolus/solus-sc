@@ -80,8 +80,19 @@ class ScUpdateApp(Gio.Application):
         if self.had_init:
             return
         self.had_init = True
+        self.init_actions()
         self.load_comar()
         self.begin_background_checks()
+
+    def action_show_updates(self, action, param):
+        """ Open the updates view """
+        print("TOTES OPENING IT I SWEAR.")
+
+    def init_actions(self):
+        """ Initialise our action maps """
+        action = Gio.SimpleAction.new("open-sc", None)
+        action.connect("activate", self.action_show_updates)
+        self.add_action(action)
 
     def begin_background_checks(self):
         """ Initialise the actual background checks and initial update """
@@ -132,9 +143,19 @@ class ScUpdateApp(Gio.Application):
                 security_ups.append(sc)
 
         if len(security_ups) > 0:
-            print("I haz security updates")
+            title = "Security updates available"
+            body = "Update at your earliest convenience to ensure continued " \
+                   "security of your device"
         else:
-            print("I haz package updates")
+            title = "Software updates available"
+            body = "New software updates are available for your device"
+
+        note = Gio.Notification.new(title)
+        note.set_title(title)
+        note.set_body(body)
+        note.add_button("Open Software Center", "app.open-sc")
+
+        self.send_notification(None, note)
 
     def eval_connection(self):
         """ Check if networking actually works """
