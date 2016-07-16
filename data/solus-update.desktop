@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Solus Update Service
+Comment=Background service for update checking
+Icon=software-update-available
+Exec=solus-update-checker
+TryExec=solus-update-checker
+NoDisplay=true
+X-GNOME-Autostart-Phase=Application
+X-GNOME-Autostart-Notify=true
