@@ -11,8 +11,6 @@
 #  (at your option) any later version.
 #
 
-import gi
-gi.require_version('Notify', '0.7')
 from gi.repository import Gio, GObject, Notify
 
 import comar
@@ -163,7 +161,8 @@ class ScUpdateApp(Gio.Application):
 
         self.notification = Notify.Notification.new(title, body, icon_name)
         self.notification.set_timeout(12000)
-        self.notification.add_action("open-sc", "Open Software Center", self.action_show_updates)
+        self.notification.add_action("open-sc", "Open Software Center",
+                                     self.action_show_updates)
         self.notification.show()
 
     def eval_connection(self):

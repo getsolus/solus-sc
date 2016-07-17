@@ -13,3 +13,4 @@
 
 import gi.repository
 gi.require_version('Gio', '2.0')
+gi.require_version('Notify', '0.7')
