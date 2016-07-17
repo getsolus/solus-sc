@@ -11,7 +11,9 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gio, GObject
+import gi
+gi.require_version('Notify', '0.7')
+from gi.repository import Gio, GObject, Notify
 
 import comar
 import pisi.db
@@ -69,6 +71,7 @@ class ScUpdateApp(Gio.Application):
     link = None
     had_init = False
     net_mon = None
+    notification = None
 
     def __init__(self):
         Gio.Application.__init__(self,
@@ -81,20 +84,15 @@ class ScUpdateApp(Gio.Application):
         if self.had_init:
             return
         self.had_init = True
+        Notify.init("Solus Update Service")
         self.net_mon = Gio.NetworkMonitor.get_default()
-        self.init_actions()
         self.load_comar()
         self.begin_background_checks()
 
-    def action_show_updates(self, action, param):
+    def action_show_updates(self, notification, action, user_data):
         """ Open the updates view """
         print("TOTES OPENING IT I SWEAR.")
-
-    def init_actions(self):
-        """ Initialise our action maps """
-        action = Gio.SimpleAction.new("open-sc", None)
-        action.connect("activate", self.action_show_updates)
-        self.add_action(action)
+        notification.close()
 
     def begin_background_checks(self):
         """ Initialise the actual background checks and initial update """
@@ -157,16 +155,16 @@ class ScUpdateApp(Gio.Application):
             title = "Security updates available"
             body = "Update at your earliest convenience to ensure continued " \
                    "security of your device"
+            icon_name = "software-update-urgent"
         else:
             title = "Software updates available"
             body = "New software updates are available for your device"
+            icon_name = "software-update-available"
 
-        note = Gio.Notification.new(title)
-        note.set_title(title)
-        note.set_body(body)
-        note.add_button("Open Software Center", "app.open-sc")
-
-        self.send_notification(None, note)
+        self.notification = Notify.Notification.new(title, body, icon_name)
+        self.notification.set_timeout(12000)
+        self.notification.add_action("open-sc", "Open Software Center", self.action_show_updates)
+        self.notification.show()
 
     def eval_connection(self):
         """ Check if networking actually works """
