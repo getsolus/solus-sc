@@ -41,6 +41,8 @@ APPS = {
         "network/im/google-talkplugin/pspec.xml",
     "sublime-text-3":
         "programming/sublime-text-3/pspec.xml",
+    "skype":
+        "network/im/skype/pspec.xml",
 }
 
 
