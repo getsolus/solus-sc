@@ -91,7 +91,7 @@ class ThirdPartyView(Gtk.VBox):
         for child in self.listbox.get_children():
             child.destroy()
 
-        for key in APPS:
+        for key in sorted(APPS):
             row = APPS[key]
 
             hbox = Gtk.HBox(0)
