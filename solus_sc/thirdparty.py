@@ -37,7 +37,7 @@ APPS = {
          'programming/sublime-text-3/pspec.xml'),
     'skype':
         ('Skype', 'skype',
-         'Skype Alpha for Linux - <i>Skype keeps the world talking, for free.'
+         'Skype for Linux Alpha - <i>Skype keeps the world talking, for free.'
          '</i>',
          'network/im/skype/pspec.xml'),
 }
