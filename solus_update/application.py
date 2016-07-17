@@ -155,11 +155,11 @@ class ScUpdateApp(Gio.Application):
             title = "Security updates available"
             body = "Update at your earliest convenience to ensure continued " \
                    "security of your device"
-            icon_name = "software-update-urgent"
+            icon_name = "software-update-urgent-symbolic"
         else:
             title = "Software updates available"
             body = "New software updates are available for your device"
-            icon_name = "software-update-available"
+            icon_name = "software-update-available-symbolic"
 
         self.notification = Notify.Notification.new(title, body, icon_name)
         self.notification.set_timeout(12000)
