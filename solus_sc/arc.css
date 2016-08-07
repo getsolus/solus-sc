@@ -17,6 +17,10 @@
     color: shade(@sidebar_bg, 0.7);
 }
 
+.solus-sc .sidebar-wrap {
+    background-color: @theme_base_color;
+}
+
 .solus-sc .main-sidebar {
     background-color: @sidebar_bg;
 }
