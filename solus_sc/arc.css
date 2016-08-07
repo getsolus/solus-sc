@@ -21,19 +21,19 @@
     background-color: @sidebar_bg;
 }
 
-.solus-sc .main-sidebar .list-row:not(:selected) {
+.solus-sc list.main-sidebar row:not(:selected) {
     color: @sidebar_fg;
 }
 
-.solus-sc .main-sidebar .list-row:not(:selected) GtkImage {
+.solus-sc list.main-sidebar row:not(:selected) GtkImage {
     color: alpha(@sidebar_fg, 0.7);
 }
 
-.solus-sc .main-sidebar .list-row:hover:not(:selected) {
+.solus-sc list.main-sidebar row:hover:not(:selected) {
     background-color: alpha(@sidebar_fg, 0.15);
 }
 
-.sc-changelog .list-row {
+list.sc-changelog  row {
     background-color: @theme_base_color;
     border-radius: 2px;
 }

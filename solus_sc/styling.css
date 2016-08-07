@@ -7,7 +7,7 @@
     padding: 4px;
 }
 
-.solus-sc .main-sidebar .list-row {
+.solus-sc list.main-sidebar row {
     padding: 8px 0;
 }
 
@@ -15,7 +15,7 @@
     background: none;
 }
 
-.sc-changelog .list-row {
+list.sc-changelog row {
     padding: 5px;
     border: 1px solid @borders;
 }
@@ -34,5 +34,5 @@
 }
 
 .group-button:hover {
-    -gtk-image-effect: none;
+    -gtk-icon-effect: none;
 }
