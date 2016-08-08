@@ -7,6 +7,10 @@
     padding: 4px;
 }
 
+.solus-sc .main-sidebar {
+    border: none;
+}
+
 .solus-sc list.main-sidebar row {
     padding: 8px 0;
 }
@@ -20,7 +24,7 @@ list.sc-changelog row {
     border: 1px solid @borders;
 }
 
-.solus-sc GtkScrolledWindow {
+.solus-sc scrolledwindow {
     border: none;
 }
 

@@ -14,7 +14,7 @@
 }
 
 .solus-sc .sidebar-separator {
-    color: shade(@sidebar_bg, 0.7);
+    background-color: shade(@sidebar_bg, 0.7);
 }
 
 .solus-sc .main-sidebar {
