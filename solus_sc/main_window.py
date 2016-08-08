@@ -153,14 +153,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.sidebar_revealer.add(self.sidebar)
         self.sidebar_revealer.set_reveal_child(False)
         self.main_layout.pack_start(self.sidebar_revealer, False, False, 0)
-
-        ebox = Gtk.EventBox()
-        ebox.get_style_context().add_class("sidebar-wrap")
         sep = Gtk.Separator()
-        ebox.add(sep)
         sep.set_orientation(Gtk.Orientation.VERTICAL)
         sep.get_style_context().add_class("sidebar-separator")
-        self.main_layout.pack_start(ebox, False, False, 0)
+        self.main_layout.pack_start(sep, False, False, 0)
 
         tmpvbox = Gtk.VBox(0)
         tmpvbox.pack_start(self.stack, True, True, 0)
