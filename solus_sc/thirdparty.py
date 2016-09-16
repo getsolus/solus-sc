@@ -14,32 +14,81 @@
 from gi.repository import Gtk
 
 APPS = {
-    'spotify':
-        ('Spotify', 'spotify',
-         'Spotify Music, Video and Podcast Streaming Client.',
-         'multimedia/music/spotify/pspec.xml'),
+    'android-studio':
+        ('Android Studio', 'android-studio',
+         'Android development environment based on IntelliJ IDEA.',
+         'programming/android-studio/pspec.xml'),
     'google-chrome-stable':
         ('Google Chrome', 'google-chrome',
          'The web browser from Google',
          'network/web/browser/google-chrome-stable/pspec.xml'),
-    'opera-stable':
-        ('Opera', 'opera-browser',
-         'Opera Web Browser',
-         'network/web/browser/opera-stable/pspec.xml'),
+    'google-chrome-beta':
+        ('Google Chrome (Beta)', 'google-chrome-beta',
+         'Beta channel for the web browser from Google',
+         'network/web/browser/google-chrome-beta/pspec.xml'),
+    'google-chrome-unstable':
+        ('Google Chrome (Dev)', 'google-chrome-unstable',
+         'Developer channel for the web browser from Google',
+         'network/web/browser/google-chrome-unstable/pspec.xml'),
     'google-talkplugin':
         ('Google Talk Plugin', 'im-google-talk',
          'The Google Talk plugin for hangouts video and audio',
          'network/im/google-talkplugin/pspec.xml'),
-    'sublime-text-3':
-        ('Sublime Text', 'sublime-text',
-         'Sublime Text is a sophisticated text editor for code, markup and '
-         'prose.',
-         'programming/sublime-text-3/pspec.xml'),
+    'gitkraken':
+        ('GitKraken', 'web-github',
+         'The downright luxurious Git client, for Windows, Mac and Linux',
+         'programming/gitkraken/pspec.xml'),
+    'idea':
+        ('Idea', 'idea',
+         'Idea - an IDE for the JVM Languages',
+         'programming/idea/pspec.xml'),
+    'opera-stable':
+        ('Opera', 'opera-browser',
+         'Opera Web Browser',
+         'network/web/browser/opera-stable/pspec.xml'),
+    'plexmediaserver':
+        ('Plex Media Server', 'plex',
+         'Plex Media Server',
+         'multimedia/video/plexmediaserver/pspec.xml'),
+    'pycharm':
+        ('Pycharm', 'pycharm',
+         'PyCharm - an IDE for the Python Language',
+         'programming/pycharm/pspec.xml'),
+    'rubymine':
+        ('Rubymine', 'rubymine',
+         'RubyMine - an IDE for the Ruby Language',
+         'programming/rubymine/pspec.xml'),
     'skype':
         ('Skype', 'skype',
          'Skype for Linux Alpha - <i>Skype keeps the world talking, for free.'
          '</i>',
          'network/im/skype/pspec.xml'),
+    'slack-desktop':
+        ('Slack', 'web-slack',
+         'Team communication for the 21st century.',
+         'network/im/slack-desktop/pspec.xml'),
+    'spotify':
+        ('Spotify', 'spotify',
+         'Spotify Music, Video and Podcast Streaming Client.',
+         'multimedia/music/spotify/pspec.xml'),
+    'sublime-text-3':
+        ('Sublime Text', 'sublime-text',
+         'Sublime Text is a sophisticated text editor for code, markup and '
+         'prose.',
+         'programming/sublime-text-3/pspec.xml'),
+    'teamspeak3':
+        ('Teamspeak 3', 'teamspeak',
+         'Crystal Clear Cross-Platform Voice Communication.',
+         'network/im/teamspeak/pspec.xml'),
+    'viber':
+        ('Viber', 'viber',
+         'An instant messaging and VoIP app for various mobile operating '
+         'systems.',
+         'network/im/viber/pspec.xml'),
+    'wps-office':
+        ('WPS Office Suite', 'wps-office-wpsmain',
+         'WPS Office Suite',
+         'office/wps-office/pspec.xml'),
 }
 
 
