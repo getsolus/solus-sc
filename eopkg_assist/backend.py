@@ -31,18 +31,42 @@ import shutil
 BASE_URI = "https://raw.githubusercontent.com/solus-project/3rd-party/master"
 
 APPS = {
+    "android-studio":
+        "programming/android-studio/pspec.xml",
+    "gitkraken":
+        "programming/gitkraken/pspec.xml",
     "google-chrome-stable":
         "network/web/browser/google-chrome-stable/pspec.xml",
-    "spotify":
-        "multimedia/music/spotify/pspec.xml",
+    "google-chrome-beta":
+        "network/web/browser/google-chrome-beta/pspec.xml",
+    "google-chrome-unstable":
+        "network/web/browser/google-chrome-unstable/pspec.xml",
+    "idea":
+        "programming/idea/pspec.xml",
     "opera-stable":
         "network/web/browser/opera-stable/pspec.xml",
     "google-talkplugin":
         "network/im/google-talkplugin/pspec.xml",
-    "sublime-text-3":
-        "programming/sublime-text-3/pspec.xml",
+    "plexmediaserver":
+        "multimedia/video/plexmediaserver/pspec.xml",
+    "pycharm":
+        "programming/pycharm/pspec.xml",
+    "rubymine":
+        "programming/rubymine/pspec.xml",
     "skype":
         "network/im/skype/pspec.xml",
+    "slack-desktop":
+        "network/im/slack-desktop/pspec.xml",
+    "spotify":
+        "multimedia/music/spotify/pspec.xml",
+    "sublime-text-3":
+        "programming/sublime-text-3/pspec.xml",
+    "teamspeak3":
+        "network/im/teamspeak/pspec.xml",
+    "viber":
+        "network/im/viber/pspec.xml",
+    "wps-office":
+        "office/wps-office/pspec.xml",
 }
 
 
