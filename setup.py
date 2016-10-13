@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name            = "solus-sc",
-    version         = "12.1",
+    version         = "12.9",
     author          = "Ikey Doherty",
     author_email    = "ikey@solus-project.com",
     description     = ("Solus Software Center"),
