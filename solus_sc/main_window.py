@@ -93,7 +93,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def init_children(self):
         self.package_view.init_view()
-        self.updates_view.init_view()
+        GLib.idle_add(self.updates_view.external_refresh)
 
     def init_view(self):
         """ Our first ever show """

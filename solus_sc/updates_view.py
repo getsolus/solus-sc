@@ -283,6 +283,10 @@ class ScUpdatesView(Gtk.VBox):
     def perform_refresh(self, btn, wdata=None):
         self.perform_refresh_internal()
 
+    def external_refresh(self):
+        self.perform_refresh_internal()
+        return False
+
     def perform_refresh_internal(self):
         self.view_details.set_sensitive(False)
         self.load_page.spinner.start()
