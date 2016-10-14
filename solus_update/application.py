@@ -70,6 +70,7 @@ class ScUpdateApp(Gio.Application):
     had_init = False
     net_mon = None
     notification = None
+    first_update = False
 
     def __init__(self):
         Gio.Application.__init__(self,
@@ -84,8 +85,21 @@ class ScUpdateApp(Gio.Application):
         self.had_init = True
         Notify.init("Solus Update Service")
         self.net_mon = Gio.NetworkMonitor.get_default()
+        self.net_mon.connect("network-changed", self.on_net_changed)
         self.load_comar()
-        self.begin_background_checks()
+
+        # if we have networking, begin first check
+        if self.can_update():
+            self.begin_background_checks()
+            self.first_update = True
+
+    def on_net_changed(self, mon, udata=None):
+        """ Network connection status changed """
+        if self.can_update():
+            # Try to do our first refresh now
+            if not self.first_update:
+                self.first_update = True
+                self.begin_background_checks()
 
     def action_show_updates(self, notification, action, user_data):
         """ Open the updates view """
@@ -94,6 +108,7 @@ class ScUpdateApp(Gio.Application):
 
     def begin_background_checks(self):
         """ Initialise the actual background checks and initial update """
+        print("Doing checks")
         self.reload_repos()
         pass
 
