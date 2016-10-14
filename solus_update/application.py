@@ -121,7 +121,7 @@ class ScUpdateApp(Gio.Application):
     def pisi_callback(self, package, signal, args):
         """ Just let us know that things are done """
         if signal in ["finished", None]:
-            self.check_updates()
+            self.build_available_updates()
         elif signal.startswith("tr.org.pardus.comar.Comar.PolicyKit"):
             self.eval_connection()
 
@@ -135,11 +135,8 @@ class ScUpdateApp(Gio.Application):
             return False
         return True
 
-    def check_updates(self):
+    def build_available_updates(self):
         """ Check the actual update availability - post refresh """
-        if not self.can_update():
-            # TODO: Update GSettings with last timestamp
-            return
         upds = None
         try:
             upds = pisi.api.list_upgradable()
