@@ -90,8 +90,8 @@ class ScUpdateApp(Gio.Application):
 
         # if we have networking, begin first check
         if self.can_update():
-            self.begin_background_checks()
             self.first_update = True
+            self.begin_background_checks()
 
     def on_net_changed(self, mon, udata=None):
         """ Network connection status changed """
