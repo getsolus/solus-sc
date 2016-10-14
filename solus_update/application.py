@@ -72,6 +72,9 @@ class ScUpdateApp(Gio.Application):
     notification = None
     first_update = False
 
+    # Whether we can check for updates on a metered connection
+    update_on_metered = True
+
     def __init__(self):
         Gio.Application.__init__(self,
                                  application_id=SC_UPDATE_APP_ID,
@@ -131,8 +134,13 @@ class ScUpdateApp(Gio.Application):
 
     def can_update(self):
         """ Determine if policy/connection allows checking for updates """
+        # No network so we can't do anything anyway
         if not self.net_mon.get_network_available():
             return False
+        # Not allowed to update on metered connection ?
+        if not self.update_on_metered:
+            if self.net_mon.get_network_metered():
+                return False
         return True
 
     def build_available_updates(self):
