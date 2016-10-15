@@ -112,7 +112,6 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.mode_open = "home"
         self.appsystem = AppSystem()
 
-        # !!HAX!! - we're missing a .desktop file atm. shush.
         self.set_icon_name("system-software-install")
         # Set up the headerbar. Because GNOME n stuff.
         headerbar = Gtk.HeaderBar()
