@@ -7,5 +7,5 @@ Terminal=false
 Type=Application
 StartupNotify=false
 Icon=system-software-install
-Categories=GNOME;GTK;System;PackageManager;
+Categories=PackageManager;System;Settings;
 Keywords=Updates;Upgrade;Sources;Repositories;Preferences;Install;Uninstall;Program;Software;App;Store;
