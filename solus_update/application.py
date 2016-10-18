@@ -145,7 +145,7 @@ class ScUpdateApp(Gio.Application):
         elif key == "update-on-metered":
             self.update_on_metered = self.settings.get_boolean(key)
         elif key == "last-checked":
-            self.last_checked = self.settings.get_int64(key)
+            self.last_checked = self.settings.get_value(key).get_int64()
 
     def on_net_changed(self, mon, udata=None):
         """ Network connection status changed """
