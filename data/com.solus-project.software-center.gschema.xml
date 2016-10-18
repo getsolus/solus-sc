@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="software-center">
+
+  <schema path="/com/solus-project/software-center/" id="com.solus-project.software-center">
+    <key type="b" name="check-updates">
+      <default>true</default>
+      <summary>Enable checking for updates</summary>
+      <description>Enable checking for updates in the background.</description>
+    </key>
+  </schema>
+</schemalist>
