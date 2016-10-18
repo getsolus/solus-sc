@@ -6,6 +6,7 @@ Icon=software-update-available
 Exec=solus-update-checker
 TryExec=solus-update-checker
 NoDisplay=true
+OnlyShowIn=Budgie;GNOME;MATE;
 X-GNOME-Autostart-Phase=Application
 X-GNOME-Autostart-Notify=true
 AutostartCondition=GSettings com.solus-project.software-center check-updates
