@@ -77,6 +77,11 @@ UPDATE_FREQ_WEEKLY = 4
 # absolute maximum permitted by Budgie
 UPDATE_NOTIF_TIMEOUT = 20000
 
+# Precomputed "next check" times
+UPDATE_DELTA_HOUR = 60 * 60
+UPDATE_DELTA_DAILY = UPDATE_DELTA_HOUR * 24
+UPDATE_DELTA_WEEKLY = UPDATE_DELTA_DAILY * 7
+
 
 class ScUpdateApp(Gio.Application):
 
