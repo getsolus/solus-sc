@@ -5,6 +5,11 @@
       <value nick="security-only" value="2" />
       <value nick="security-and-mandatory" value="4" />
   </enum>
+  <enum id="com.solus-project.software-center.UpdateFrequency">
+      <value nick="hourly" value="1" />
+      <value nick="daily" value="2" />
+      <value nick="weekly" value="4" />
+  </enum>
   <schema path="/com/solus-project/software-center/" id="com.solus-project.software-center">
     <key type="b" name="check-updates">
       <default>true</default>
@@ -15,6 +20,11 @@
       <default>'all'</default>
       <summary>Type of updates to notify on</summary>
       <description>Type of updates to notify on</description>
+    </key>
+    <key enum="com.solus-project.software-center.UpdateFrequency" name="update-frequency">
+      <default>'hourly'</default>
+      <summary>How often to check for updates</summary>
+      <description>How often the updater should check for new updates</description>
     </key>
   </schema>
 </schemalist>

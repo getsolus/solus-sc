@@ -68,6 +68,11 @@ UPDATE_TYPE_ALL = 1
 UPDATE_TYPE_SECURITY = 2
 UPDATE_TYPE_MANDATORY = 4
 
+# Correspond with gschema update types
+UPDATE_FREQ_HOURLY = 1
+UPDATE_FREQ_DAILY = 2
+UPDATE_FREQ_WEEKLY = 4
+
 
 class ScUpdateApp(Gio.Application):
 
@@ -88,6 +93,7 @@ class ScUpdateApp(Gio.Application):
     check_updates = True
 
     update_type = UPDATE_TYPE_ALL
+    update_freq = UPDATE_FREQ_HOURLY
 
     def __init__(self):
         Gio.Application.__init__(self,
@@ -105,6 +111,7 @@ class ScUpdateApp(Gio.Application):
 
         self.settings.connect("changed", self.on_settings_changed)
         self.on_settings_changed("update-type")
+        self.on_settings_changed("update-frequency")
 
         self.net_mon = Gio.NetworkMonitor.get_default()
         self.net_mon.connect("network-changed", self.on_net_changed)
@@ -125,6 +132,8 @@ class ScUpdateApp(Gio.Application):
             self.on_net_changed(self.net_mon)
         elif key == "update-type":
             self.update_type = self.settings.get_enum(key)
+        elif key == "update-frequency":
+            self.update_freq = self.settings.get_enum(key)
 
     def on_net_changed(self, mon, udata=None):
         """ Network connection status changed """
