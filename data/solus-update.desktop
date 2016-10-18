@@ -8,3 +8,4 @@ TryExec=solus-update-checker
 NoDisplay=true
 X-GNOME-Autostart-Phase=Application
 X-GNOME-Autostart-Notify=true
+AutostartCondition=GSettings com.solus-project.software-center check-updates
