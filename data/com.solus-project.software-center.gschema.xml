@@ -3,7 +3,7 @@
   <enum id="com.solus-project.software-center.UpdateType">
       <value nick="all" value="1" />
       <value nick="security-only" value="2" />
-      <value nick="mandatory-only" value="4" />
+      <value nick="security-and-mandatory" value="4" />
   </enum>
   <schema path="/com/solus-project/software-center/" id="com.solus-project.software-center">
     <key type="b" name="check-updates">

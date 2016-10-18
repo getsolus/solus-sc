@@ -189,6 +189,8 @@ class ScUpdateApp(Gio.Application):
         pdb = pisi.db.packagedb.PackageDB()
 
         security_ups = []
+        mandatory_ups = []
+
         for up in upds:
             # Might be obsolete, skip it
             if not pdb.has_package(up):
@@ -200,6 +202,18 @@ class ScUpdateApp(Gio.Application):
             sc = ScUpdateObject(old_pkg, candidate)
             if sc.is_security_update():
                 security_ups.append(sc)
+            if candidate.partOf == "system.base":
+                mandatory_ups.append(sc)
+
+        # If its security only...
+        if self.update_type == UPDATE_TYPE_SECURITY:
+            if len(security_ups) < 1:
+                return
+        elif self.update_type == UPDATE_TYPE_MANDATORY:
+            if len(security_ups) < 1 and len(mandatory_ups) < 1:
+                return
+
+        # All update types
 
         if len(security_ups) > 0:
             title = "Security updates available"
