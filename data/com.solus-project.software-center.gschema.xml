@@ -16,6 +16,11 @@
       <summary>Enable checking for updates</summary>
       <description>Enable checking for updates in the background.</description>
     </key>
+    <key type="b" name="update-on-metered">
+      <default>true</default>
+      <summary>Enable checking for updates on metered connections</summary>
+      <description>Enable checking for updates on metered connections, i.e. cellular.</description>
+    </key>
     <key enum="com.solus-project.software-center.UpdateType" name="update-type">
       <default>'all'</default>
       <summary>Type of updates to notify on</summary>

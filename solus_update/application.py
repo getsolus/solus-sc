@@ -115,6 +115,7 @@ class ScUpdateApp(Gio.Application):
         self.settings.connect("changed", self.on_settings_changed)
         self.on_settings_changed("update-type")
         self.on_settings_changed("update-frequency")
+        self.on_settings_changed("update-on-metered")
 
         self.net_mon = Gio.NetworkMonitor.get_default()
         self.net_mon.connect("network-changed", self.on_net_changed)
@@ -137,6 +138,8 @@ class ScUpdateApp(Gio.Application):
             self.update_type = self.settings.get_enum(key)
         elif key == "update-frequency":
             self.update_freq = self.settings.get_enum(key)
+        elif key == "update-on-metered":
+            self.update_on_metered = self.settings.get_boolean(key)
 
     def on_net_changed(self, mon, udata=None):
         """ Network connection status changed """
