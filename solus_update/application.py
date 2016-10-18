@@ -73,6 +73,9 @@ UPDATE_FREQ_HOURLY = 1
 UPDATE_FREQ_DAILY = 2
 UPDATE_FREQ_WEEKLY = 4
 
+# absolute maximum permitted by Budgie
+UPDATE_NOTIF_TIMEOUT = 20000
+
 
 class ScUpdateApp(Gio.Application):
 
@@ -235,7 +238,7 @@ class ScUpdateApp(Gio.Application):
             icon_name = "software-update-available-symbolic"
 
         self.notification = Notify.Notification.new(title, body, icon_name)
-        self.notification.set_timeout(12000)
+        self.notification.set_timeout(UPDATE_NOTIF_TIMEOUT)
         self.notification.add_action("open-sc", "Open Software Center",
                                      self.action_show_updates)
         self.notification.show()
