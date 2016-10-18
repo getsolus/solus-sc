@@ -16,5 +16,6 @@ setup(
                        ("/usr/share/dbus-1/system-services", ["data/dbus-1/system-services/com.solus_project.eopkgassist.service"]),
                        ("/etc/dbus-1/system.d", ["data/system.d/com.solus_project.eopkgassist.conf"]),
                        ("/usr/share/polkit-1/actions", ["data/polkit-1/actions/com.solus_project.eopkgassist.policy"]),
+                       ("/usr/share/glib-2.0/schemas", ["data/com.solus-project.software-center.gschema.xml"]),
                        ("/usr/libexec", ["eopkg-assist-wrapper"])]
 )
