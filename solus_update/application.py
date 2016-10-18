@@ -72,8 +72,14 @@ class ScUpdateApp(Gio.Application):
     notification = None
     first_update = False
 
+    # our gsettings
+    settings = None
+
     # Whether we can check for updates on a metered connection
     update_on_metered = True
+
+    # Corresponds to gsettings key
+    check_updates = True
 
     def __init__(self):
         Gio.Application.__init__(self,
@@ -85,8 +91,12 @@ class ScUpdateApp(Gio.Application):
         """ Initial app activation """
         if self.had_init:
             return
+        self.settings = Gio.Settings.new("com.solus-project.software-center")
         self.had_init = True
         Notify.init("Solus Update Service")
+
+        self.settings.connect("changed", self.on_settings_changed)
+
         self.net_mon = Gio.NetworkMonitor.get_default()
         self.net_mon.connect("network-changed", self.on_net_changed)
         self.load_comar()
@@ -98,6 +108,12 @@ class ScUpdateApp(Gio.Application):
         else:
             # No network, show cached results
             self.build_available_updates()
+
+    def on_settings_changed(self, key, udata=None):
+        """ Settings changed, we may have to "turn ourselves off"""
+        if key == "check-updates":
+            self.check_updates = self.settings.get_boolean(key)
+            self.on_net_changed(self.net_mon)
 
     def on_net_changed(self, mon, udata=None):
         """ Network connection status changed """
@@ -138,6 +154,8 @@ class ScUpdateApp(Gio.Application):
     def can_update(self):
         """ Determine if policy/connection allows checking for updates """
         # No network so we can't do anything anyway
+        if not self.check_updates:
+            return False
         if not self.net_mon.get_network_available():
             return False
         # Not allowed to update on metered connection ?
