@@ -132,7 +132,7 @@ class ScUpdateApp(Gio.Application):
         self.load_comar()
 
         # if we have networking, begin first check
-        if self.can_update():
+        if self.is_update_check_required():
             self.first_update = True
             self.begin_background_checks()
         else:
@@ -155,7 +155,7 @@ class ScUpdateApp(Gio.Application):
 
     def on_net_changed(self, mon, udata=None):
         """ Network connection status changed """
-        if self.can_update():
+        if self.is_update_check_required():
             # Try to do our first refresh now
             if not self.first_update:
                 self.first_update = True
@@ -270,3 +270,21 @@ class ScUpdateApp(Gio.Application):
         timestamp = time.time()
         variant = GLib.Variant.new_int64(timestamp)
         self.settings.set_value("last-checked", variant)
+
+    def is_update_check_required(self):
+        """ Determine if an update is required at all"""
+        delta = None
+        if not self.can_update():
+            return False
+        if self.update_freq == UPDATE_FREQ_HOURLY:
+            delta = UPDATE_DELTA_HOUR
+        elif self.update_freq == UPDATE_FREQ_DAILY:
+            delta = UPDATE_DELTA_DAILY
+        else:
+            delta = UPDATE_DELTA_WEEKLY
+        next_time = self.last_checked + delta
+        cur_time = time.time()
+        if next_time < cur_time:
+            print("Update required!")
+            return True
+        print("Next update in {} seconds".format(next_time - cur_time))
