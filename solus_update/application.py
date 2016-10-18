@@ -82,6 +82,9 @@ UPDATE_DELTA_HOUR = 60 * 60
 UPDATE_DELTA_DAILY = UPDATE_DELTA_HOUR * 24
 UPDATE_DELTA_WEEKLY = UPDATE_DELTA_DAILY * 7
 
+# How many secs must elapse before checking if an update is due
+PONG_FREQUENCY = 10
+
 
 class ScUpdateApp(Gio.Application):
 
@@ -106,6 +109,8 @@ class ScUpdateApp(Gio.Application):
 
     # Last unix timestamp
     last_checked = 0
+
+    is_updating = False
 
     def __init__(self):
         Gio.Application.__init__(self,
@@ -138,6 +143,17 @@ class ScUpdateApp(Gio.Application):
         else:
             # No network, show cached results
             self.build_available_updates()
+
+        # Now run a background timer to see if we need to do updates
+        GLib.timeout_add_seconds(PONG_FREQUENCY, self.check_update_status)
+
+    def check_update_status(self):
+        # Run us again later
+        if self.is_updating:
+            return True
+        # Check again at a later date
+        if not self.is_update_check_required():
+            return True
 
     def on_settings_changed(self, key, udata=None):
         """ Settings changed, we may have to "turn ourselves off"""
@@ -182,11 +198,14 @@ class ScUpdateApp(Gio.Application):
         """ Just let us know that things are done """
         if signal in ["finished", None]:
             self.build_available_updates()
+            self.is_updating = False
         elif signal.startswith("tr.org.pardus.comar.Comar.PolicyKit"):
             self.eval_connection()
+            self.is_updating = False
 
     def reload_repos(self):
         """ Actually refresh the repos.. """
+        self.is_updating = True
         self.pmanager.updateAllRepositories()
 
     def can_update(self):
