@@ -21,6 +21,11 @@
       <summary>Enable checking for updates on metered connections</summary>
       <description>Enable checking for updates on metered connections, i.e. cellular.</description>
     </key>
+    <key type="x" name="last-checked">
+      <default>0</default>
+      <summary>UNIX timestamp for the last update time</summary>
+      <description>Stores the UNIX timestamp for the last time we attempted an update check.</description>
+    </key>
     <key enum="com.solus-project.software-center.UpdateType" name="update-type">
       <default>'all'</default>
       <summary>Type of updates to notify on</summary>
