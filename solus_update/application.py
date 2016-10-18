@@ -204,6 +204,9 @@ class ScUpdateApp(Gio.Application):
             upds = pisi.api.list_upgradable()
         except:
             return
+
+        self.store_update_time()
+
         if not upds or len(upds) < 1:
             return
 
@@ -226,8 +229,6 @@ class ScUpdateApp(Gio.Application):
                 security_ups.append(sc)
             if candidate.partOf == "system.base":
                 mandatory_ups.append(sc)
-
-        self.store_update_time()
 
         # If its security only...
         if self.update_type == UPDATE_TYPE_SECURITY:
