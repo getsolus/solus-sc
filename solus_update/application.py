@@ -63,6 +63,12 @@ class ScUpdateObject(GObject.Object):
         return sorted(ret, key=attrgetter('release'), reverse=True)
 
 
+# Correspond with gschema update types
+UPDATE_TYPE_ALL = 1
+UPDATE_TYPE_SECURITY = 2
+UPDATE_TYPE_MANDATORY = 4
+
+
 class ScUpdateApp(Gio.Application):
 
     pmanager = None
@@ -81,6 +87,8 @@ class ScUpdateApp(Gio.Application):
     # Corresponds to gsettings key
     check_updates = True
 
+    update_type = UPDATE_TYPE_ALL
+
     def __init__(self):
         Gio.Application.__init__(self,
                                  application_id=SC_UPDATE_APP_ID,
@@ -96,6 +104,7 @@ class ScUpdateApp(Gio.Application):
         Notify.init("Solus Update Service")
 
         self.settings.connect("changed", self.on_settings_changed)
+        self.on_settings_changed("update-type")
 
         self.net_mon = Gio.NetworkMonitor.get_default()
         self.net_mon.connect("network-changed", self.on_net_changed)
@@ -114,6 +123,8 @@ class ScUpdateApp(Gio.Application):
         if key == "check-updates":
             self.check_updates = self.settings.get_boolean(key)
             self.on_net_changed(self.net_mon)
+        elif key == "update-type":
+            self.update_type = self.settings.get_enum(key)
 
     def on_net_changed(self, mon, udata=None):
         """ Network connection status changed """
