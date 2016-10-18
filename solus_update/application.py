@@ -11,12 +11,13 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gio, GObject, Notify
+from gi.repository import Gio, GObject, Notify, GLib
 
 import comar
 import pisi.db
 import pisi.api
 from operator import attrgetter
+import time
 
 SC_UPDATE_APP_ID = "com.solus_project.UpdateChecker"
 
@@ -226,6 +227,8 @@ class ScUpdateApp(Gio.Application):
             if candidate.partOf == "system.base":
                 mandatory_ups.append(sc)
 
+        self.store_update_time()
+
         # If its security only...
         if self.update_type == UPDATE_TYPE_SECURITY:
             if len(security_ups) < 1:
@@ -255,3 +258,9 @@ class ScUpdateApp(Gio.Application):
     def eval_connection(self):
         """ Check if networking actually works """
         pass
+
+    def store_update_time(self):
+        # Store the actual update time
+        timestamp = time.time()
+        variant = GLib.Variant.new_int64(timestamp)
+        self.settings.set_value("last-checked", variant)
