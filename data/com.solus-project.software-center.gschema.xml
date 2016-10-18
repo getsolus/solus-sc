@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="software-center">
-
+  <enum id="com.solus-project.software-center.UpdateType">
+      <value nick="all" value="1" />
+      <value nick="security-only" value="2" />
+      <value nick="mandatory-only" value="4" />
+  </enum>
   <schema path="/com/solus-project/software-center/" id="com.solus-project.software-center">
     <key type="b" name="check-updates">
       <default>true</default>
       <summary>Enable checking for updates</summary>
       <description>Enable checking for updates in the background.</description>
+    </key>
+    <key enum="com.solus-project.software-center.UpdateType" name="update-type">
+      <default>'all'</default>
+      <summary>Type of updates to notify on</summary>
+      <description>Type of updates to notify on</description>
     </key>
   </schema>
 </schemalist>
