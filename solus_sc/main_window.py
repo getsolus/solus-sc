@@ -19,6 +19,7 @@ from .updates_view import ScUpdatesView
 from .basket import BasketView
 from .search import ScSearchView
 from .thirdparty import ThirdPartyView
+from .settings_view import ScSettingsView
 from gi.repository import Gtk, GLib
 import sys
 import threading
@@ -47,6 +48,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     updates_view = None
     search_view = None
     third_party = None
+    settings_view = None
 
     prev_button = None
 
@@ -183,7 +185,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.search_view = ScSearchView(self)
         self.stack.add_titled(self.search_view, "search", "Search")
 
-        # self.stack.add_titled(ScPlaceholderBox(), "settings", "Settings")
+        self.settings_view = ScSettingsView(self)
+        self.stack.add_titled(self.settings_view, "settings", "Settings")
 
         # set up intro animation
         self.stack.set_visible_child_name("empty")

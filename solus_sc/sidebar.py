@@ -67,9 +67,9 @@ class ScSidebar(Gtk.ListBox):
             ("installed", "Installed", "computer-symbolic"),
             ("3rd-party", "Third Party", "folder-download-symbolic"),
             ("search", "Search", "edit-find-symbolic"),
+            ("settings", "Settings", "system-run-symbolic"),
         ]
 
-        # ("settings", "Settings", "system-run-symbolic"),
         sel = None
         for item, label_sz, icon_sz in items:
             row = Gtk.HBox(0)
