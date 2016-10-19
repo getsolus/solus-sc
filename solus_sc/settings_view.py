@@ -56,6 +56,12 @@ class ScSettingsView(Gtk.EventBox):
                            self.check_button, "active",
                            Gio.SettingsBindFlags.DEFAULT)
 
+        # Can do it on metered?
+        mbutton = builder.get_object("switch_enable_metered")
+        self.settings.bind("update-on-metered",
+                           mbutton, "active",
+                           Gio.SettingsBindFlags.DEFAULT)
+
         # Update frequency
         combo = builder.get_object("combo_frequency")
         model = Gtk.ListStore(str, str)
