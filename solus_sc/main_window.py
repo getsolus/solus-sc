@@ -20,7 +20,7 @@ from .basket import BasketView
 from .search import ScSearchView
 from .thirdparty import ThirdPartyView
 from .settings_view import ScSettingsView
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, Gio
 import sys
 import threading
 
@@ -94,6 +94,17 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def init_children(self):
         self.package_view.init_view()
+
+        # If we're not allowed to refresh on metered connections, only
+        # show the cached results on startup
+        settings = Gio.Settings.new("com.solus-project.software-center")
+        mon = Gio.NetworkMonitor.get_default()
+        if mon is not None:
+            can_net = settings.get_boolean("update-on-metered")
+            if not can_net and mon.get_network_metered():
+                self.updates_view.init_view()
+                return
+
         GLib.idle_add(self.updates_view.external_refresh)
 
     def init_view(self):
