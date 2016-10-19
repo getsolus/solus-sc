@@ -35,7 +35,7 @@ class ScSettingsView(Gtk.EventBox):
 
         # Main view itself
         main_grid = builder.get_object("main_grid")
-        self.add(main_grid)
+        main_grid.reparent(self)
 
         # Check for updates
         self.check_button = builder.get_object("switch_check_updates")
