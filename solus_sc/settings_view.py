@@ -15,6 +15,22 @@ from gi.repository import Gtk, Gio
 from . import join_resource_path
 
 
+UPDATE_TYPE_ALL = 1
+UPDATE_TYPE_SECURITY = 2
+UPDATE_TYPE_MANDATORY = 4
+
+# Correspond with gschema update types
+UPDATE_FREQ_HOURLY = 1
+UPDATE_FREQ_DAILY = 2
+UPDATE_FREQ_WEEKLY = 4
+
+
+# Precomputed "next check" times
+UPDATE_DELTA_HOUR = 60 * 60
+UPDATE_DELTA_DAILY = UPDATE_DELTA_HOUR * 24
+UPDATE_DELTA_WEEKLY = UPDATE_DELTA_DAILY * 7
+
+
 class ScSettingsView(Gtk.EventBox):
     """ Settings for updates, etc """
 
