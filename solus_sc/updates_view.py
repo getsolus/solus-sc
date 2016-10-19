@@ -13,11 +13,11 @@
 
 from gi.repository import Gtk, GLib, GObject, Pango, GdkPixbuf, Gdk
 from .util import sc_format_size_local
+from . import join_resource_path
 from operator import attrgetter
 import threading
 
 import pisi.api
-import os
 import re
 
 
@@ -120,8 +120,7 @@ class ScChangelogViewer(Gtk.Dialog):
         self.set_title("Update Details")
 
         builder = Gtk.Builder()
-        our_dir = os.path.dirname(os.path.abspath(__file__))
-        our_file = os.path.join(our_dir, "update_dialog.ui")
+        our_file = join_resource_path("update_dialog.ui")
         builder.add_from_file(our_file)
 
         main_ui = builder.get_object("grid1")

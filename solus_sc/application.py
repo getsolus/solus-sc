@@ -13,8 +13,7 @@
 
 from .main_window import ScMainWindow
 from gi.repository import Gio, Gtk, Gdk, GLib
-
-import os
+from . import join_resource_path
 
 SC_APP_ID = "com.solus_project.SoftwareCenter"
 
@@ -46,8 +45,7 @@ class ScApplication(Gtk.Application):
     def init_css(self):
         """ Set up the CSS before we throw any windows up """
         try:
-            our_dir = os.path.dirname(os.path.abspath(__file__))
-            f = Gio.File.new_for_path(os.path.join(our_dir, "styling.css"))
+            f = Gio.File.new_for_path(join_resource_path("styling.css"))
             css = Gtk.CssProvider()
             css.load_from_file(f)
             screen = Gdk.Screen.get_default()
@@ -58,7 +56,7 @@ class ScApplication(Gtk.Application):
             settings = Gtk.Settings.get_for_screen(screen)
             gtkTheme = settings.get_property("gtk-theme-name").lower()
             if gtkTheme == "arc" or gtkTheme.startswith("arc-"):
-                f2 = Gio.File.new_for_path(os.path.join(our_dir, "arc.css"))
+                f2 = Gio.File.new_for_path(join_resource_path("arc.css"))
                 css2 = Gtk.CssProvider()
                 css2.load_from_file(f2)
                 Gtk.StyleContext.add_provider_for_screen(screen,
