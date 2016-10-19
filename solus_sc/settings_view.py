@@ -12,6 +12,7 @@
 #
 
 from gi.repository import Gtk
+from . import join_resource_path
 
 
 class ScSettingsView(Gtk.EventBox):
@@ -23,3 +24,12 @@ class ScSettingsView(Gtk.EventBox):
 
     def __init__(self, owner):
         Gtk.EventBox.__init__(self)
+
+        builder = Gtk.Builder()
+        rp = join_resource_path("settings.ui")
+
+        builder.add_from_file(rp)
+
+        main_grid = builder.get_object("main_grid")
+
+        self.add(main_grid)
