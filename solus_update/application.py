@@ -161,6 +161,10 @@ class ScUpdateApp(Gio.Application):
         if not self.is_update_check_required():
             return True
 
+        # Go and check for updates
+        self.begin_background_checks()
+        return True
+
     def on_settings_changed(self, key, udata=None):
         """ Settings changed, we may have to "turn ourselves off"""
         if key == "check-updates":
