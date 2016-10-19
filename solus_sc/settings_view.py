@@ -19,12 +19,6 @@ UPDATE_TYPE_ALL = 1
 UPDATE_TYPE_SECURITY = 2
 UPDATE_TYPE_MANDATORY = 4
 
-# Correspond with gschema update types
-UPDATE_FREQ_HOURLY = 1
-UPDATE_FREQ_DAILY = 2
-UPDATE_FREQ_WEEKLY = 4
-
-
 # Precomputed "next check" times
 UPDATE_DELTA_HOUR = 60 * 60
 UPDATE_DELTA_DAILY = UPDATE_DELTA_HOUR * 24
@@ -61,6 +55,22 @@ class ScSettingsView(Gtk.EventBox):
         self.settings.bind("check-updates",
                            self.check_button, "active",
                            Gio.SettingsBindFlags.DEFAULT)
+
+        # Update frequency
+        combo = builder.get_object("combo_frequency")
+        model = Gtk.ListStore(str, str)
+        model.append(["Every hour", "hourly"])
+        model.append(["Daily", "daily"])
+        model.append(["Weekly", "weekly"])
+        combo.set_id_column(1)
+        combo.set_model(model)
+        renderer_text = Gtk.CellRendererText()
+        combo.pack_start(renderer_text, True)
+        combo.add_attribute(renderer_text, "text", 0)
+
+        # Connect to enum settings
+        self.settings.bind("update-frequency",
+                           combo, "active-id", Gio.SettingsBindFlags.DEFAULT)
 
         self.settings.connect("changed", self.on_settings_changed)
 
