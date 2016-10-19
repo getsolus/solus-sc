@@ -19,6 +19,7 @@ import pisi.api
 from operator import attrgetter
 import time
 import hashlib
+import subprocess
 
 SC_UPDATE_APP_ID = "com.solus_project.UpdateChecker"
 
@@ -189,7 +190,11 @@ class ScUpdateApp(Gio.Application):
 
     def action_show_updates(self, notification, action, user_data):
         """ Open the updates view """
-        print("TOTES OPENING IT I SWEAR.")
+        command = ["solus-sc", "--update-view"]
+        try:
+            subprocess.Popen(command)
+        except Exception:
+            pass
         notification.close()
 
     def begin_background_checks(self):
