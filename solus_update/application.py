@@ -18,6 +18,7 @@ import pisi.db
 import pisi.api
 from operator import attrgetter
 import time
+import hashlib
 
 SC_UPDATE_APP_ID = "com.solus_project.UpdateChecker"
 
@@ -112,6 +113,9 @@ class ScUpdateApp(Gio.Application):
 
     is_updating = False
 
+    # Track the packages we notified about
+    last_state_hash = None
+
     def __init__(self):
         Gio.Application.__init__(self,
                                  application_id=SC_UPDATE_APP_ID,
@@ -146,6 +150,8 @@ class ScUpdateApp(Gio.Application):
 
         # Now run a background timer to see if we need to do updates
         GLib.timeout_add_seconds(PONG_FREQUENCY, self.check_update_status)
+        # Keep running forever
+        # self.hold()
 
     def check_update_status(self):
         # Run us again later
@@ -240,12 +246,15 @@ class ScUpdateApp(Gio.Application):
         security_ups = []
         mandatory_ups = []
 
+        pkg_hash = hashlib.sha1()
+
         for up in upds:
             # Might be obsolete, skip it
             if not pdb.has_package(up):
                 continue
             candidate = pdb.get_package(up)
             old_pkg = None
+            pkg_hash.update(candidate.packageHash)
             if idb.has_package(up):
                 old_pkg = idb.get_package(up)
             sc = ScUpdateObject(old_pkg, candidate)
@@ -253,6 +262,15 @@ class ScUpdateApp(Gio.Application):
                 security_ups.append(sc)
             if candidate.partOf == "system.base":
                 mandatory_ups.append(sc)
+
+        hx = pkg_hash.hexdigest()
+
+        # If this packageset is identical to the last package set that we
+        # notified the user about, don't keep spamming them every single time!
+        if hx is not None and hx == self.last_state_hash:
+            return
+
+        self.last_state_hash = hx
 
         # If its security only...
         if self.update_type == UPDATE_TYPE_SECURITY:
