@@ -12,7 +12,7 @@
 #
 
 from .main_window import ScMainWindow
-from gi.repository import Gio, Gtk, Gdk
+from gi.repository import Gio, Gtk, Gdk, GLib
 
 import os
 
@@ -24,10 +24,14 @@ class ScApplication(Gtk.Application):
     app_window = None
 
     is_service_mode = False
+    updates_view = False
 
     def activate_main_view(self):
         self.ensure_window()
-        self.app_window.mode_open = "home"
+        if self.updates_view:
+            self.app_window.mode_open = "updates"
+        else:
+            self.app_window.mode_open = "home"
         self.app_window.present()
 
     def ensure_window(self):
@@ -35,26 +39,9 @@ class ScApplication(Gtk.Application):
         if self.app_window is None:
             self.app_window = ScMainWindow(self)
 
-    def action_show_updates(self, action, param):
-        """ Open the updates view """
-        self.ensure_window()
-        self.app_window.mode_open = "updates"
-        was_visible = self.app_window.get_visible()
-        self.app_window.present()
-        if was_visible:
-            self.app_window.show_updates()
-
-    def init_actions(self):
-        """ Initialise our action maps """
-        action = Gio.SimpleAction.new("show-updates", None)
-        action.connect("activate", self.action_show_updates)
-
-        self.add_action(action)
-
     def startup(self, app):
         """ Main entry """
         self.init_css()
-        self.init_actions()
 
     def init_css(self):
         """ Set up the CSS before we throw any windows up """
@@ -81,12 +68,34 @@ class ScApplication(Gtk.Application):
             print("Error loading CSS: {}".format(e))
 
     def __init__(self):
-        Gtk.Application.__init__(self,
-                                 application_id=SC_APP_ID,
-                                 flags=Gio.ApplicationFlags.FLAGS_NONE)
+        Gtk.Application.__init__(
+            self,
+            application_id=SC_APP_ID,
+            flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE)
         self.connect("activate", self.on_activate)
         self.connect("startup", self.startup)
+        self.connect("command-line", self.handle_command_line)
+        self.connect("handle-local-options", self.handle_local_options)
+
+        option = GLib.OptionEntry()
+        option.long_name = "update-view"
+        option.short_name = 0
+        option.flags = 0
+        option.arg = GLib.OptionArg.NONE
+        option.arg_data = None
+        description = "Open up the updates view of the application"
+        option.description = description
+        self.add_main_option_entries([option])
 
     def on_activate(self, app):
         """ Activate the primary view """
         self.activate_main_view()
+
+    def handle_command_line(self, app, cmdline):
+        self.activate()
+        return 0
+
+    def handle_local_options(self, app, cmdline):
+        if cmdline.contains("update-view"):
+            self.updates_view = True
+        return -1
