@@ -84,7 +84,7 @@ UPDATE_DELTA_DAILY = UPDATE_DELTA_HOUR * 24
 UPDATE_DELTA_WEEKLY = UPDATE_DELTA_DAILY * 7
 
 # How many secs must elapse before checking if an update is due
-PONG_FREQUENCY = 10
+PONG_FREQUENCY = 120
 
 
 class ScUpdateApp(Gio.Application):
