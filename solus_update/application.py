@@ -151,7 +151,7 @@ class ScUpdateApp(Gio.Application):
         # Now run a background timer to see if we need to do updates
         GLib.timeout_add_seconds(PONG_FREQUENCY, self.check_update_status)
         # Keep running forever
-        # self.hold()
+        self.hold()
 
     def check_update_status(self):
         # Run us again later
