@@ -199,7 +199,6 @@ class ScUpdateApp(Gio.Application):
 
     def begin_background_checks(self):
         """ Initialise the actual background checks and initial update """
-        print("Doing checks")
         self.reload_repos()
         pass
 
@@ -331,6 +330,5 @@ class ScUpdateApp(Gio.Application):
         next_time = self.last_checked + delta
         cur_time = time.time()
         if next_time < cur_time:
-            print("Update required!")
             return True
-        print("Next update in {} seconds".format(next_time - cur_time))
+        return False
