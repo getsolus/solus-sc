@@ -72,6 +72,22 @@ class ScSettingsView(Gtk.EventBox):
         self.settings.bind("update-frequency",
                            combo, "active-id", Gio.SettingsBindFlags.DEFAULT)
 
+        # Update type
+        combo = builder.get_object("combo_type")
+        model = Gtk.ListStore(str, str)
+        model.append(["All updates", "all"])
+        model.append(["Security updates only", "security-only"])
+        model.append(["Security & core updates", "security-and-mandatory"])
+        combo.set_id_column(1)
+        combo.set_model(model)
+        renderer_text = Gtk.CellRendererText()
+        combo.pack_start(renderer_text, True)
+        combo.add_attribute(renderer_text, "text", 0)
+
+        # Connect to enum settings
+        self.settings.bind("update-type",
+                           combo, "active-id", Gio.SettingsBindFlags.DEFAULT)
+
         self.settings.connect("changed", self.on_settings_changed)
 
     def on_settings_changed(self, key, udata=None):
