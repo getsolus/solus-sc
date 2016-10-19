@@ -64,7 +64,6 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def do_delete_event(self, event, udata=None):
         """ For now just propagate the event """
-        print("Bye :(")
         return False
 
     def handle_back(self, btn, udata=None):
