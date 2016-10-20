@@ -36,8 +36,8 @@ class LoadingPage(Gtk.VBox):
         self.spinner.set_size_request(-1, 64)
         self.spinner.start()
         # Loading available packages (witty loading screen)
-        self.label = Gtk.Label("<big>{}" + u"…" + "</big>".format(
-            _("Solving the Paradox Of Choice"))
+        self.label = Gtk.Label(u"<big>{}…</big>".format(
+            _("Solving the Paradox Of Choice")))
         self.label.set_use_markup(True)
 
         self.pack_start(self.spinner, True, True, 0)

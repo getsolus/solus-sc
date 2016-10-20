@@ -132,7 +132,7 @@ class ScChangelogViewer(Gtk.Dialog):
         pkgName = str(obj.new_pkg.name)
         builder.get_object("label_name").set_text(pkgName)
 
-        iVersion = "<i>{}</i>".format(_("Not installed")
+        iVersion = "<i>{}</i>".format(_("Not installed"))
         if obj.old_pkg:
             iVersion = "%s-%s" % (str(obj.old_pkg.version),
                                   str(obj.old_pkg.release))
