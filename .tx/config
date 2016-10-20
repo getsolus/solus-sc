@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[solus-sc.solus-scpot]
+file_filter = po/<lang>.po
+source_lang = en
+type = PO
+
