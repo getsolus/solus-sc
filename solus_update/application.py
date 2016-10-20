@@ -291,18 +291,18 @@ class ScUpdateApp(Gio.Application):
         # All update types
 
         if len(security_ups) > 0:
-            title = "Security updates available"
-            body = "Update at your earliest convenience to ensure continued " \
-                   "security of your device"
+            title = _("Security updates available")
+            body = _("Update at your earliest convenience to ensure continued"
+                     "security of your device")
             icon_name = "software-update-urgent-symbolic"
         else:
-            title = "Software updates available"
-            body = "New software updates are available for your device"
+            title = _("Software updates available")
+            body = _("New software updates are available for your device")
             icon_name = "software-update-available-symbolic"
 
         self.notification = Notify.Notification.new(title, body, icon_name)
         self.notification.set_timeout(UPDATE_NOTIF_TIMEOUT)
-        self.notification.add_action("open-sc", "Open Software Center",
+        self.notification.add_action("open-sc", _("Open Software Center"),
                                      self.action_show_updates)
         self.notification.show()
 
