@@ -1,0 +1,14 @@
+solus_sc/application.py
+solus_sc/application.py
+solus_sc/available_view.py
+solus_sc/basket.py
+solus_sc/details.py
+solus_sc/groups.py
+solus_sc/main_window.py
+solus_sc/package_view.py
+solus_sc/search_results.py
+solus_sc/settings_view.py
+solus_sc/sidebar.py
+solus_sc/thirdparty.py
+solus_sc/updates_view.py
+solus_update/application.py
