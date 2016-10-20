@@ -1,0 +1,291 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Ikey Doherty <ikey@evolve-os.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: solus-sc\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-20 07:39+0100\n"
+"PO-Revision-Date: 2016-10-20 06:49+0000\n"
+"Last-Translator: Ikey Doherty <ikey@evolve-os.com>\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/solus-project/solus-sc/language/en_GB/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../solus_sc/application.py:84
+msgid "Open up the updates view of the application"
+msgstr "Open up the updates view of the application"
+
+#. Quirky loading message
+#: ../solus_sc/available_view.py:38
+msgid "Switching to the B-side of the cassette…"
+msgstr "Switching to the B-side of the cassette…"
+
+#. The number (more than one) of package operations to be performed
+#: ../solus_sc/basket.py:149
+msgid "{} operations pending"
+msgstr "{} operations pending"
+
+#. Only one package operation to be performed
+#: ../solus_sc/basket.py:158
+msgid "One operation pending"
+msgstr "One operation pending"
+
+#. "Updating Solus repository" (named repo)
+#: ../solus_sc/basket.py:203
+#, python-format
+msgid "Updating %s repository"
+msgstr "Updating %s repository"
+
+#. "Extracting 1 of 10: bash"
+#: ../solus_sc/basket.py:207
+msgid "Extracting {} of {}: {}"
+msgstr "Extracting {} of {}: {}"
+
+#. "Configuring 1 of 10: bash"
+#: ../solus_sc/basket.py:213
+msgid "Configuring {} of {}: {}"
+msgstr "Configuring {} of {}: {}"
+
+#. "Installing 1 of 10: bash"
+#: ../solus_sc/basket.py:219
+msgid "Installing {} of {}: {}"
+msgstr "Installing {} of {}: {}"
+
+#. "Removing (1 of 10): bash"
+#: ../solus_sc/basket.py:222
+msgid "Removing {} of {}: {}"
+msgstr "Removing {} of {}: {}"
+
+#. "Upgraded 1 of 10: bash"
+#: ../solus_sc/basket.py:231
+msgid "Upgraded {} of {}: {}"
+msgstr "Upgraded {} of {}: {}"
+
+#. "Removed 1 of 10: bash"
+#. "Installed 1 of 10: bash"
+#: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
+msgid "Removed {} of {}: {}"
+msgstr "Removed {} of {}: {}"
+
+#: ../solus_sc/basket.py:320
+msgid "The following dependencies need to be installed to continue"
+msgstr "The following dependencies need to be installed to continue"
+
+#: ../solus_sc/basket.py:330
+msgid "Installation confirmation"
+msgstr "Installation confirmation"
+
+#: ../solus_sc/basket.py:333
+msgid "The following dependencies need to be removed to continue"
+msgstr "The following dependencies need to be removed to continue"
+
+#: ../solus_sc/basket.py:334
+msgid "Removal confirmation"
+msgstr "Removal confirmation"
+
+#: ../solus_sc/basket.py:337
+msgid "The following dependencies need to be updated to continue"
+msgstr "The following dependencies need to be updated to continue"
+
+#: ../solus_sc/basket.py:338
+msgid "Update confirmation"
+msgstr "Update confirmation"
+
+#: ../solus_sc/basket.py:365
+msgid "Cancel"
+msgstr "Cancel"
+
+#: ../solus_sc/basket.py:367 ../solus_sc/details.py:139
+#: ../solus_sc/thirdparty.py:162
+msgid "Install"
+msgstr "Install"
+
+#: ../solus_sc/basket.py:369
+msgid "Update"
+msgstr "Update"
+
+#. Remove button
+#: ../solus_sc/basket.py:374 ../solus_sc/details.py:147
+msgid "Remove"
+msgstr "Remove"
+
+#. Visit the website of the package
+#: ../solus_sc/details.py:181
+msgid "Website"
+msgstr "Website"
+
+#. Donation button launches website to donate to authors
+#: ../solus_sc/details.py:188
+msgid "Donate"
+msgstr "Donate"
+
+#. Size of the package when installed locally
+#: ../solus_sc/details.py:194
+msgid "Installed size"
+msgstr "Installed size"
+
+#: ../solus_sc/details.py:244
+msgid "Cannot remove core system software"
+msgstr "Cannot remove core system software"
+
+#. "5 categories" - the number of categories within each group
+#: ../solus_sc/groups.py:72
+msgid "{} categories"
+msgstr "{} categories"
+
+#. Window title
+#: ../solus_sc/main_window.py:139
+msgid "Software Center"
+msgstr "Software Center"
+
+#. Main view, primary view, when opening the software center
+#: ../solus_sc/main_window.py:184 ../solus_sc/sidebar.py:65
+msgid "Home"
+msgstr "Home"
+
+#. The page where updates are display
+#: ../solus_sc/main_window.py:187 ../solus_sc/sidebar.py:66
+msgid "Updates"
+msgstr "Updates"
+
+#. This page shows the locally instaleld items
+#: ../solus_sc/main_window.py:193 ../solus_sc/sidebar.py:67
+msgid "Installed"
+msgstr "Installed"
+
+#. Software made available from outside the Solus software repos
+#: ../solus_sc/main_window.py:197 ../solus_sc/sidebar.py:68
+msgid "Third Party"
+msgstr "Third Party"
+
+#. The search page
+#: ../solus_sc/main_window.py:202 ../solus_sc/sidebar.py:69
+msgid "Search"
+msgstr "Search"
+
+#. The settings page
+#: ../solus_sc/main_window.py:206 ../solus_sc/sidebar.py:70
+msgid "Settings"
+msgstr "Settings"
+
+#: ../solus_sc/package_view.py:40
+msgid "Solving the Paradox Of Choice"
+msgstr "Solving the Paradox Of Choice"
+
+#. self.spinner.start()
+#. "Witty" loading page, loading search results
+#: ../solus_sc/search_results.py:39
+msgid "Concentrating really hard"
+msgstr "Concentrating really hard"
+
+#: ../solus_sc/search_results.py:60
+msgid "Type a query to get started"
+msgstr "Type a query to get started"
+
+#: ../solus_sc/search_results.py:79
+msgid "No results found"
+msgstr "No results found"
+
+#. Check for updates every hour
+#: ../solus_sc/settings_view.py:69
+msgid "Every hour"
+msgstr "Every hour"
+
+#. Check for updates once per day
+#: ../solus_sc/settings_view.py:71
+msgid "Daily"
+msgstr "Daily"
+
+#. Check for updates once a week
+#: ../solus_sc/settings_view.py:73
+msgid "Weekly"
+msgstr "Weekly"
+
+#. Notify of all updates
+#: ../solus_sc/settings_view.py:88
+msgid "All updates"
+msgstr "All updates"
+
+#. Notify only of security updates
+#: ../solus_sc/settings_view.py:90
+msgid "Security updates only"
+msgstr "Security updates only"
+
+#. Notify of security and core system updates ("mandatory")
+#: ../solus_sc/settings_view.py:92
+msgid "Security & core updates"
+msgstr "Security & core updates"
+
+#: ../solus_sc/thirdparty.py:160 ../solus_sc/updates_view.py:338
+#: ../solus_sc/updates_view.py:340 ../solus_sc/updates_view.py:434
+msgid "Check for updates"
+msgstr "Check for updates"
+
+#. Title of dialog displaying the details of a given update
+#: ../solus_sc/updates_view.py:121
+msgid "Update Details"
+msgstr "Update Details"
+
+#: ../solus_sc/updates_view.py:135
+msgid "Not installed"
+msgstr "Not installed"
+
+#: ../solus_sc/updates_view.py:233
+msgid "Discombobulating update matrix"
+msgstr "Discombobulating update matrix"
+
+#: ../solus_sc/updates_view.py:256
+msgid "Please check back later, updates are now applying"
+msgstr "Please check back later, updates are now applying"
+
+#: ../solus_sc/updates_view.py:353
+msgid "Software is up to date"
+msgstr "Software is up to date"
+
+#. Selection label
+#. No updates currently selected for installation
+#: ../solus_sc/updates_view.py:419
+msgid "0 items selected"
+msgstr "0 items selected"
+
+#: ../solus_sc/updates_view.py:433
+msgid "Check new updates"
+msgstr "Check new updates"
+
+#: ../solus_sc/updates_view.py:442
+msgid "Details"
+msgstr "Details"
+
+#. Apply the updates
+#: ../solus_sc/updates_view.py:448 ../solus_sc/updates_view.py:449
+msgid "Update Selected"
+msgstr "Update Selected"
+
+#: ../solus_update/application.py:294
+msgid "Security updates available"
+msgstr "Security updates available"
+
+#: ../solus_update/application.py:295
+msgid ""
+"Update at your earliest convenience to ensure continuedsecurity of your "
+"device"
+msgstr "Update at your earliest convenience to ensure continuedsecurity of your device"
+
+#: ../solus_update/application.py:299
+msgid "Software updates available"
+msgstr "Software updates available"
+
+#: ../solus_update/application.py:300
+msgid "New software updates are available for your device"
+msgstr "New software updates are available for your device"
+
+#: ../solus_update/application.py:305
+msgid "Open Software Center"
+msgstr "Open Software Center"
