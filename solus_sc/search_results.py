@@ -35,7 +35,8 @@ class LoadingPage(Gtk.VBox):
         self.spinner = Gtk.Spinner()
         self.spinner.set_size_request(-1, 64)
         # self.spinner.start()
-        lab = "Concentrating really hard" + u"…"
+        # "Witty" loading page, loading search results
+        lab = _("Concentrating really hard") + u"…"
         self.label = Gtk.Label("<big>{}</big>".format(lab))
         self.label.set_use_markup(True)
 
@@ -54,8 +55,9 @@ class BlankPage(Gtk.VBox):
 
         self.set_valign(Gtk.Align.CENTER)
         self.set_halign(Gtk.Align.CENTER)
+        # Search page, prompt to begin searching
         self.label = Gtk.Label("<big>{}</big>".format(
-                               "Type a query to get started"))
+                               _("Type a query to get started")))
         self.label.set_use_markup(True)
 
         self.pack_start(self.label, False, False, 0)
@@ -72,8 +74,9 @@ class NotFoundPage(Gtk.VBox):
 
         self.set_valign(Gtk.Align.CENTER)
         self.set_halign(Gtk.Align.CENTER)
+        # Unable to find any matching search results
         self.label = Gtk.Label("<big>{}</big>".format(
-                               "No results found"))
+                               _("No results found")))
         self.label.set_use_markup(True)
 
         self.pack_start(self.label, False, False, 0)

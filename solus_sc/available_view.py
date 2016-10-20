@@ -34,7 +34,8 @@ class LoadingPage(Gtk.VBox):
         self.spinner = Gtk.Spinner()
         self.spinner.set_size_request(-1, 64)
         self.spinner.start()
-        lab = "Switching to the B-side of the cassette" + u"…"
+        # Quirky loading message
+        lab = _("Switching to the B-side of the cassette" + u"…")
         self.label = Gtk.Label("<big>{}</big>".format(lab))
         self.label.set_use_markup(True)
 

@@ -136,7 +136,7 @@ class PackageDetailsView(Gtk.VBox):
         action_line.set_valign(Gtk.Align.CENTER)
         action_line.set_halign(Gtk.Align.END)
         header.pack_end(action_line, False, False, 0)
-        self.install_button = Gtk.Button("Install")
+        self.install_button = Gtk.Button(_("Install"))
         self.install_button.connect("clicked", self.on_install)
         self.install_button.set_can_focus(False)
         self.install_button.get_style_context().add_class("suggested-action")
@@ -144,7 +144,7 @@ class PackageDetailsView(Gtk.VBox):
         self.install_button.set_no_show_all(True)
 
         # Remove button
-        self.remove_button = Gtk.Button("Remove")
+        self.remove_button = Gtk.Button(_("Remove"))
         self.remove_button.connect("clicked", self.on_remove)
         self.remove_button.set_can_focus(False)
         self.remove_button.get_style_context().add_class("destructive-action")
@@ -177,19 +177,21 @@ class PackageDetailsView(Gtk.VBox):
         self.tail_grid.set_column_spacing(8)
         self.pack_end(self.tail_grid, False, False, 0)
 
-        self.website_button = Gtk.Button("Website")
+        # Visit the website of the package
+        self.website_button = Gtk.Button(_("Website"))
         self.website_button.set_no_show_all(True)
         self.website_button.connect("clicked", self.on_website)
         # self.tail_grid.attach(button_website, t, w, h)
         self.tail_grid.attach(self.website_button, 0, 1, 1, 1)
 
-        # Donation button
-        self.donate_button = Gtk.Button("Donate")
+        # Donation button launches website to donate to authors
+        self.donate_button = Gtk.Button(_("Donate"))
         self.donate_button.connect("clicked", self.on_donate)
         self.donate_button.set_no_show_all(True)
         self.tail_grid.attach(self.donate_button, 1, 1, 1, 1)
 
-        self.label_installed = Gtk.Label("Installed size")
+        # Size of the package when installed locally
+        self.label_installed = Gtk.Label(_("Installed size"))
         self.label_installed.get_style_context().add_class("dim-label")
         self.tail_grid.attach(self.label_installed, 0, 0, 1, 1)
 
@@ -239,7 +241,7 @@ class PackageDetailsView(Gtk.VBox):
             self.remove_button.show()
             if not sensitive:
                 self.remove_button.set_tooltip_text(
-                    "Cannot remove core system software")
+                    _("Cannot remove core system software"))
             else:
                 self.remove_button.set_tooltip_text(None)
             self.remove_button.set_sensitive(sensitive)

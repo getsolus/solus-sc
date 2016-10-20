@@ -135,7 +135,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         headerbar.pack_start(self.prev_button)
         self.prev_button.connect("clicked", self.handle_back)
 
-        self.set_title("Software Center")
+        # Window title
+        self.set_title(_("Software Center"))
         self.get_style_context().add_class("solus-sc")
 
         self.set_position(Gtk.WindowPosition.CENTER)
@@ -179,24 +180,30 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         # Supported views
         self.stack.add_titled(self.dummy_widget, "empty", "empty")
-        self.stack.add_titled(self.groups_view, "home", "Home")
+        # Main view, primary view, when opening the software center
+        self.stack.add_titled(self.groups_view, "home", _("Home"))
         self.updates_view = ScUpdatesView(self.basket, self.appsystem)
-        self.stack.add_titled(self.updates_view, "updates", "Updates")
+        # The page where updates are display
+        self.stack.add_titled(self.updates_view, "updates", _("Updates"))
 
         # Package view for installed page
         self.package_view = ScPackageView(self, self.basket, self.appsystem)
 
-        # These guys aren't yet implemented
-        self.stack.add_titled(self.package_view, "installed", "Installed")
+        # This page shows the locally instaleld items
+        self.stack.add_titled(self.package_view, "installed", _("Installed"))
+
         self.third_party = ThirdPartyView(self)
-        self.stack.add_titled(self.third_party, "3rd-party", "Third Party")
+        # Software made available from outside the Solus software repos
+        self.stack.add_titled(self.third_party, "3rd-party", _("Third Party"))
 
         # Search view
         self.search_view = ScSearchView(self)
-        self.stack.add_titled(self.search_view, "search", "Search")
+        # The search page
+        self.stack.add_titled(self.search_view, "search", _("Search"))
 
         self.settings_view = ScSettingsView(self)
-        self.stack.add_titled(self.settings_view, "settings", "Settings")
+        # The settings page
+        self.stack.add_titled(self.settings_view, "settings", _("Settings"))
 
         # set up intro animation
         self.stack.set_visible_child_name("empty")

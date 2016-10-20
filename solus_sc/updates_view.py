@@ -117,7 +117,8 @@ class ScChangelogViewer(Gtk.Dialog):
         Gtk.Dialog.__init__(self, use_header_bar=1)
         self.set_default_size(550, 450)
         self.set_transient_for(parent)
-        self.set_title("Update Details")
+        # Title of dialog displaying the details of a given update
+        self.set_title(_("Update Details"))
 
         builder = Gtk.Builder()
         our_file = join_resource_path("update_dialog.ui")
@@ -131,7 +132,7 @@ class ScChangelogViewer(Gtk.Dialog):
         pkgName = str(obj.new_pkg.name)
         builder.get_object("label_name").set_text(pkgName)
 
-        iVersion = "<i>Not installed</i>"
+        iVersion = "<i>{}</i>".format(_("Not installed")
         if obj.old_pkg:
             iVersion = "%s-%s" % (str(obj.old_pkg.version),
                                   str(obj.old_pkg.release))
@@ -227,8 +228,9 @@ class LoadingPage(Gtk.VBox):
         self.spinner = Gtk.Spinner()
         self.spinner.set_size_request(-1, 64)
         self.spinner.start()
-        self.label = Gtk.Label("<big>Discombobulating update matrix" + u"…"
-                               "</big>")
+        # "Witty" loading message. Refreshing update list
+        self.label = Gtk.Label(u"<big>{}…</big>".format(
+            _("Discombobulating update matrix")))
         self.label.set_use_markup(True)
 
         self.pack_start(self.spinner, True, True, 0)
@@ -249,9 +251,9 @@ class UpdatingPage(Gtk.VBox):
         self.spinner = Gtk.Spinner()
         self.spinner.set_size_request(-1, 64)
         self.spinner.start()
-        self.label = Gtk.Label("<big>Please check back later, "
-                               "updates are now applying" + u"…"
-                               "</big>")
+        # Currently applying updates
+        self.label = Gtk.Label("<big>{}…</big>".format(
+            _("Please check back later, updates are now applying")))
         self.label.set_use_markup(True)
 
         self.pack_start(self.spinner, True, True, 0)
@@ -333,9 +335,9 @@ class ScUpdatesView(Gtk.VBox):
         toolbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR)
         update_box.pack_start(toolbar, False, False, 0)
 
-        refresh_button = Gtk.ToolButton(None, "Check for updates")
+        refresh_button = Gtk.ToolButton(None, _("Check for updates"))
         refresh_button.set_is_important(True)
-        refresh_button.set_label("Check for updates")
+        refresh_button.set_label(_("Check for updates"))
         refresh_button.connect("clicked", self.perform_refresh)
         toolbar.add(refresh_button)
 
@@ -348,7 +350,7 @@ class ScUpdatesView(Gtk.VBox):
                                            Gtk.IconSize.DIALOG)
         img.set_pixel_size(96)
         updatec.pack_start(img, False, False, 0)
-        lab = Gtk.Label("<big>{}</big>".format("Software is up to date"))
+        lab = Gtk.Label("<big>{}</big>".format(_("Software is up to date")))
         lab.set_use_markup(True)
         updatec.pack_start(lab, False, False, 0)
         lab.set_property("margin", 20)
@@ -413,7 +415,8 @@ class ScUpdatesView(Gtk.VBox):
         st.set_junction_sides(Gtk.JunctionSides.BOTTOM)
 
         # Selection label
-        self.selection_label = Gtk.Label("0 items selected")
+        # No updates currently selected for installation
+        self.selection_label = Gtk.Label(_("0 items selected"))
         titem = Gtk.ToolItem()
         titem.set_property("margin-start", 6)
         titem.add(self.selection_label)
@@ -427,8 +430,8 @@ class ScUpdatesView(Gtk.VBox):
 
         refresh_button = Gtk.ToolButton(None, None)
         refresh_button.set_icon_name("view-refresh-symbolic")
-        refresh_button.set_tooltip_text("Check for new updates")
-        refresh_button.set_label("Check for updates")
+        refresh_button.set_tooltip_text(_("Check new updates"))
+        refresh_button.set_label(_("Check for updates"))
         refresh_button.connect("clicked", self.perform_refresh)
         self.toolbar.add(refresh_button)
 
@@ -436,14 +439,14 @@ class ScUpdatesView(Gtk.VBox):
         self.view_details = Gtk.ToolButton(None, None)
         self.view_details.set_icon_name("dialog-information-symbolic")
         self.view_details.set_sensitive(False)
-        self.view_details.set_tooltip_text("Details" + u"…")
+        self.view_details.set_tooltip_text(u"{}…".format(_("Details")))
         self.view_details.get_style_context().add_class("flat")
         self.view_details.connect("clicked", self.on_details)
         self.toolbar.add(self.view_details)
 
         # Apply the updates
-        self.update_btn = Gtk.ToolButton(None, "Update Selected")
-        self.update_btn.set_label("Update Selected")
+        self.update_btn = Gtk.ToolButton(None, _("Update Selected"))
+        self.update_btn.set_label(_("Update Selected"))
         self.update_btn.set_is_important(True)
         self.update_btn.connect("clicked", self.on_update)
         self.toolbar.add(self.update_btn)

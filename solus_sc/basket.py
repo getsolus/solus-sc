@@ -44,7 +44,7 @@ class BasketView(Gtk.Revealer):
 
         self.action_bar = Gtk.ActionBar()
         self.add(self.action_bar)
-        self.progresslabel = Gtk.Label("Installing Google Chrome")
+        self.progresslabel = Gtk.Label("")
         self.progresslabel.set_valign(Gtk.Align.CENTER)
         self.progresslabel.set_halign(Gtk.Align.START)
         self.progresslabel.set_property("yalign", 0.5)
@@ -145,7 +145,8 @@ class BasketView(Gtk.Revealer):
             self.set_reveal_child(False)
             return
         if count > 1:
-            self.progresslabel.set_markup("{} operations pending".format(
+            # The number (more than one) of package operations to be performed
+            self.progresslabel.set_markup(_("{} operations pending").format(
                 self.operation_count()))
         else:
             if '::third-party::' in self.operations:
@@ -153,7 +154,8 @@ class BasketView(Gtk.Revealer):
                 self.progresslabel.set_markup(
                     self.operations['::third-party::'] + lab)
             else:
-                self.progresslabel.set_markup("One operation pending")
+                # Only one package operation to be performed
+                self.progresslabel.set_markup(_("One operation pending"))
         self.set_reveal_child(True)
 
     def operation_for_package(self, package):
@@ -197,37 +199,45 @@ class BasketView(Gtk.Revealer):
             cmd = args[0]
             what = args[1]
             if cmd == 'updatingrepo':
-                self.set_progress(1.0, "Updating %s repository" % what)
+                # "Updating Solus repository" (named repo)
+                self.set_progress(1.0, _("Updating %s repository") % what)
             elif cmd == 'extracting':
                 prog = self._get_prog(self.progress_current + self.step_offset)
-                msg = "Extracting {} of {}: {}".format(
+                # "Extracting 1 of 10: bash"
+                msg = _("Extracting {} of {}: {}").format(
                     self.current_package, self.total_packages, what)
                 self.set_progress(prog, msg)
             elif cmd == 'configuring':
                 prog = self._get_prog(self.progress_current + self.step_offset)
-                msg = "Configuring {} of {}: {}".format(
+                # "Configuring 1 of 10: bash"
+                msg = _("Configuring {} of {}: {}").format(
                     self.current_package, self.total_packages, what)
                 self.set_progress(prog, msg)
             elif cmd in ['removing', 'installing']:
                 prog = self._get_prog(self.progress_current + self.step_offset)
-                lab = "Installing %s: %s"
+                # "Installing 1 of 10: bash"
+                lab = _("Installing {} of {}: {}")
                 if cmd == 'removing':
-                    lab = "Removing %s: %s"
-                count = "{} of {}".format(
-                    self.current_package, self.total_packages)
-                self.set_progress(prog, lab % (count, what))
+                    # "Removing (1 of 10): bash"
+                    lab = _("Removing {} of {}: {}")
+                # "1 of 10"
+                ffmt = lab.format(self.current_package, self.total_packages,
+                                  what)
+                self.set_progress(prog, ffmt)
             elif cmd in ['upgraded', 'installed', 'removed']:
                 prog = self._get_prog(self.progress_current + self.step_offset)
                 if cmd == 'upgraded':
-                    lab = "Upgraded %s: %s"
+                    # "Upgraded 1 of 10: bash"
+                    lab = _("Upgraded {} of {}: {}")
                 elif cmd == 'removed':
-                    lab = "Removed %s: %s"
+                    # "Removed 1 of 10: bash"
+                    lab = _("Removed {} of {}: {}")
                 elif cmd == 'installed':
-                    lab = "Installed %s: %s"
-                count = "{} of {}".format(
-                    self.current_package,
-                    self.total_packages)
-                self.set_progress(prog, lab % (count, what))
+                    # "Installed 1 of 10: bash"
+                    lab = _("Removed {} of {}: {}")
+                ffmt = lab.format(self.current_package, self.total_packages,
+                                  what)
+                self.set_progress(prog, ffmt)
                 self.current_package += 1
 
         if signal == 'progress':
@@ -307,7 +317,7 @@ class BasketView(Gtk.Revealer):
 
     def show_dialog(self, pkgs, remove=False, update=False, install=True):
         markup = "<big>{}</big>".format(
-            "The following dependencies need to be installed to continue")
+            _("The following dependencies need to be installed to continue"))
 
         flags = Gtk.DialogFlags.MODAL | Gtk.DialogFlags.USE_HEADER_BAR
         dlg = Gtk.MessageDialog(self.owner,
@@ -317,15 +327,15 @@ class BasketView(Gtk.Revealer):
 
         dlg = Gtk.Dialog(use_header_bar=1)
         dlg.set_transient_for(self.owner)
-        dlg.set_title("Installation confirmation")
+        dlg.set_title(_("Installation confirmation"))
         if remove:
-            markup = "<big>The following dependencies need to be removed to " \
-                     "continue</big>"
-            dlg.set_title("Removal confirmation")
+            markup = "<big>{}</big>".format(
+                _("The following dependencies need to be removed to continue"))
+            dlg.set_title(_("Removal confirmation"))
         elif update:
-            markup = "<big>The following dependencies need to be updated to " \
-                     "continue</big>"
-            dlg.set_title("Update confirmation")
+            markup = "<big>{}</big>".format(
+                _("The following dependencies need to be updated to continue"))
+            dlg.set_title(_("Update confirmation"))
 
         lab = Gtk.Label(markup)
         lab.set_use_markup(True)
@@ -352,13 +362,16 @@ class BasketView(Gtk.Revealer):
         dlg.get_content_area().pack_start(scroll, True, True, 0)
         dlg.get_content_area().show_all()
 
-        btn = dlg.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        btn = dlg.add_button(_("Cancel"), Gtk.ResponseType.CANCEL)
         if not remove:
-            btn = dlg.add_button("Install" if install else "Update",
-                                 Gtk.ResponseType.OK)
+            action = _("Install")
+            if not install:
+                action = _("Update")
+
+            btn = dlg.add_button(action, Gtk.ResponseType.OK)
             btn.get_style_context().add_class("suggested-action")
         else:
-            btn = dlg.add_button("Remove", Gtk.ResponseType.OK)
+            btn = dlg.add_button(_("Remove"), Gtk.ResponseType.OK)
             btn.get_style_context().add_class("destructive-action")
         dlg.set_default_size(250, 400)
         res = dlg.run()

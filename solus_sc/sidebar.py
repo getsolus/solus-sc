@@ -62,12 +62,12 @@ class ScSidebar(Gtk.ListBox):
         self.set_property("width-request", 160)
 
         items = [
-            ("home", "Home", "user-home-symbolic"),
-            ("updates", "Updates", "software-update-available-symbolic"),
-            ("installed", "Installed", "computer-symbolic"),
-            ("3rd-party", "Third Party", "folder-download-symbolic"),
-            ("search", "Search", "edit-find-symbolic"),
-            ("settings", "Settings", "system-run-symbolic"),
+            ("home", _("Home"), "user-home-symbolic"),
+            ("updates", _("Updates"), "software-update-available-symbolic"),
+            ("installed", _("Installed"), "computer-symbolic"),
+            ("3rd-party", _("Third Party"), "folder-download-symbolic"),
+            ("search", _("Search"), "edit-find-symbolic"),
+            ("settings", _("Settings"), "system-run-symbolic"),
         ]
 
         sel = None

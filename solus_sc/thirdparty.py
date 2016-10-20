@@ -157,9 +157,9 @@ class ThirdPartyView(Gtk.VBox):
 
             ibtn = None
             if self.basket.installdb.has_package(key):
-                ibtn = Gtk.Button("Check for updates")
+                ibtn = Gtk.Button(_("Check for updates"))
             else:
-                ibtn = Gtk.Button("Install")
+                ibtn = Gtk.Button(_("Install"))
             ibtn.get_style_context().add_class("suggested-action")
             ibtn.set_halign(Gtk.Align.END)
             ibtn.set_valign(Gtk.Align.CENTER)

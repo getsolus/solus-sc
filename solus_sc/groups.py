@@ -68,7 +68,8 @@ class ScGroupButton(Gtk.Button):
 
         # count the components
         kids = db.get_group_components(group.name)
-        info_label = Gtk.Label("%s categories" % len(kids))
+        # "5 categories" - the number of categories within each group
+        info_label = Gtk.Label(_("{} categories").format(len(kids)))
         info_label.set_halign(Gtk.Align.START)
         info_label.get_style_context().add_class("info-label")
         info_label.get_style_context().add_class("dim-label")

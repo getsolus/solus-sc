@@ -65,9 +65,12 @@ class ScSettingsView(Gtk.EventBox):
         # Update frequency
         combo = builder.get_object("combo_frequency")
         model = Gtk.ListStore(str, str)
-        model.append(["Every hour", "hourly"])
-        model.append(["Daily", "daily"])
-        model.append(["Weekly", "weekly"])
+        # Check for updates every hour
+        model.append([_("Every hour"), "hourly"])
+        # Check for updates once per day
+        model.append([_("Daily"), "daily"])
+        # Check for updates once a week
+        model.append([_("Weekly"), "weekly"])
         combo.set_id_column(1)
         combo.set_model(model)
         renderer_text = Gtk.CellRendererText()
@@ -81,9 +84,12 @@ class ScSettingsView(Gtk.EventBox):
         # Update type
         combo = builder.get_object("combo_type")
         model = Gtk.ListStore(str, str)
-        model.append(["All updates", "all"])
-        model.append(["Security updates only", "security-only"])
-        model.append(["Security & core updates", "security-and-mandatory"])
+        # Notify of all updates
+        model.append([_("All updates"), "all"])
+        # Notify only of security updates
+        model.append([_("Security updates only"), "security-only"])
+        # Notify of security and core system updates ("mandatory")
+        model.append([_("Security & core updates"), "security-and-mandatory"])
         combo.set_id_column(1)
         combo.set_model(model)
         renderer_text = Gtk.CellRendererText()

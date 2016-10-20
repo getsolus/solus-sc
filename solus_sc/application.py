@@ -81,7 +81,7 @@ class ScApplication(Gtk.Application):
         option.flags = 0
         option.arg = GLib.OptionArg.NONE
         option.arg_data = None
-        description = "Open up the updates view of the application"
+        description = _("Open up the updates view of the application")
         option.description = description
         self.add_main_option_entries([option])
 
