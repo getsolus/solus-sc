@@ -15,9 +15,11 @@ import sys
 from solus_update.application import ScUpdateApp
 from dbus.mainloop.glib import DBusGMainLoop
 from gi.repository import GObject
+import gettext
 
 
 if __name__ == "__main__":
+    gettext.install("solus-sc", "/usr/share/locale")
     DBusGMainLoop(set_as_default=True)
     GObject.threads_init()
     app = ScUpdateApp()
