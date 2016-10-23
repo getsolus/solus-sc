@@ -208,14 +208,18 @@ class ScUpdateApp(Gio.Application):
         self.pmanager = self.link.System.Manager['pisi']
         self.link.listenSignals("System.Manager", self.pisi_callback)
 
+    def invalidate_all(self):
+        # Forcibly reload the repos if we got this far
+        pisi.db.invalidate_caches()
+        self.is_updating = False
+
     def pisi_callback(self, package, signal, args):
         """ Just let us know that things are done """
-        if signal in ["finished", None]:
+        if signal == 'finished' or signal is None:
+            self.invalidate_all()
             self.build_available_updates()
-            self.is_updating = False
-        elif signal.startswith("tr.org.pardus.comar.Comar.PolicyKit"):
-            self.eval_connection()
-            self.is_updating = False
+        elif str(signal).startswith("tr.org.pardus.comar.Comar.PolicyKit"):
+            self.invalidate_all()
 
     def reload_repos(self):
         """ Actually refresh the repos.. """
@@ -237,6 +241,7 @@ class ScUpdateApp(Gio.Application):
 
     def build_available_updates(self):
         """ Check the actual update availability - post refresh """
+        self.is_updating = False
         upds = None
         try:
             upds = pisi.api.list_upgradable()
@@ -254,7 +259,8 @@ class ScUpdateApp(Gio.Application):
         security_ups = []
         mandatory_ups = []
 
-        pkg_hash = hashlib.sha1()
+        pkg_hash = hashlib.sha256()
+        ssz = ""
 
         for up in upds:
             # Might be obsolete, skip it
@@ -262,7 +268,7 @@ class ScUpdateApp(Gio.Application):
                 continue
             candidate = pdb.get_package(up)
             old_pkg = None
-            pkg_hash.update(candidate.packageHash)
+            ssz += str(candidate.packageHash)
             if idb.has_package(up):
                 old_pkg = idb.get_package(up)
             sc = ScUpdateObject(old_pkg, candidate)
@@ -271,6 +277,7 @@ class ScUpdateApp(Gio.Application):
             if candidate.partOf == "system.base":
                 mandatory_ups.append(sc)
 
+        pkg_hash.update(ssz)
         hx = pkg_hash.hexdigest()
 
         # If this packageset is identical to the last package set that we
@@ -305,10 +312,6 @@ class ScUpdateApp(Gio.Application):
         self.notification.add_action("open-sc", _("Open Software Center"),
                                      self.action_show_updates)
         self.notification.show()
-
-    def eval_connection(self):
-        """ Check if networking actually works """
-        pass
 
     def store_update_time(self):
         # Store the actual update time
