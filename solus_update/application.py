@@ -318,6 +318,7 @@ class ScUpdateApp(Gio.Application):
         timestamp = time.time()
         variant = GLib.Variant.new_int64(timestamp)
         self.settings.set_value("last-checked", variant)
+        self.last_checked = timestamp
 
     def is_update_check_required(self):
         """ Determine if an update is required at all"""
