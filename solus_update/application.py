@@ -299,7 +299,7 @@ class ScUpdateApp(Gio.Application):
 
         if len(security_ups) > 0:
             title = _("Security updates available")
-            body = _("Update at your earliest convenience to ensure continued"
+            body = _("Update at your earliest convenience to ensure continued "
                      "security of your device")
             icon_name = "software-update-urgent-symbolic"
         else:
