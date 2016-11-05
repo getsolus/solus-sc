@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-20 07:39+0100\n"
-"PO-Revision-Date: 2016-11-05 17:23+0000\n"
+"PO-Revision-Date: 2016-11-05 17:25+0000\n"
 "Last-Translator: theSoenke\n"
 "Language-Team: German (http://www.transifex.com/solus-project/solus-sc/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -155,7 +155,7 @@ msgstr "Home"
 #. The page where updates are display
 #: ../solus_sc/main_window.py:187 ../solus_sc/sidebar.py:66
 msgid "Updates"
-msgstr "Updates"
+msgstr "Aktualisierungen"
 
 #. This page shows the locally instaleld items
 #: ../solus_sc/main_window.py:193 ../solus_sc/sidebar.py:67
@@ -179,7 +179,7 @@ msgstr "Einstellungen"
 
 #: ../solus_sc/package_view.py:40
 msgid "Solving the Paradox Of Choice"
-msgstr "Löse das Pradox der Auswahl"
+msgstr "Löse das Paradox der Auswahl"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
@@ -282,7 +282,7 @@ msgstr "Aktualisieren Sie baldmöglichst um die stetige Sicherheit ihres Geräts
 
 #: ../solus_update/application.py:299
 msgid "Software updates available"
-msgstr "Software Updates verfügbar"
+msgstr "Softwareaktualisierungen sind verfügbar"
 
 #: ../solus_update/application.py:300
 msgid "New software updates are available for your device"
