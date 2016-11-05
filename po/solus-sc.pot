@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-20 07:39+0100\n"
+"POT-Creation-Date: 2016-11-05 17:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -267,24 +267,24 @@ msgstr ""
 msgid "Update Selected"
 msgstr ""
 
-#: ../solus_update/application.py:294
+#: ../solus_update/application.py:301
 msgid "Security updates available"
 msgstr ""
 
-#: ../solus_update/application.py:295
+#: ../solus_update/application.py:302
 msgid ""
-"Update at your earliest convenience to ensure continuedsecurity of your "
+"Update at your earliest convenience to ensure continued security of your "
 "device"
 msgstr ""
 
-#: ../solus_update/application.py:299
+#: ../solus_update/application.py:306
 msgid "Software updates available"
 msgstr ""
 
-#: ../solus_update/application.py:300
+#: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
 msgstr ""
 
-#: ../solus_update/application.py:305
+#: ../solus_update/application.py:312
 msgid "Open Software Center"
 msgstr ""
