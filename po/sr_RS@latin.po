@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-05 17:32+0000\n"
-"PO-Revision-Date: 2016-11-05 17:54+0000\n"
+"PO-Revision-Date: 2016-11-05 18:10+0000\n"
 "Last-Translator: Stefan Ric (cybre) <stfric369@gmail.com>\n"
 "Language-Team: Serbian (Latin) (Serbia) (http://www.transifex.com/solus-project/solus-sc/language/sr_RS@latin/)\n"
 "MIME-Version: 1.0\n"
@@ -266,7 +266,7 @@ msgstr "Detalji"
 #. Apply the updates
 #: ../solus_sc/updates_view.py:448 ../solus_sc/updates_view.py:449
 msgid "Update Selected"
-msgstr "Ažuriraj odabrano"
+msgstr "Ažuriraj odabrane stavke"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"

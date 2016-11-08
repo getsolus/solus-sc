@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Benoit Bouyé <benoit.bouye@gmail.com>, 2016
 # Justin Berthault <justin.berthault@gmail.com>, 2016
 # Laurent Tréguier <laurent@treguier.org>, 2016
 # yoann <yoann.p@laposte.net>, 2016
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-20 07:39+0100\n"
-"PO-Revision-Date: 2016-11-05 17:13+0000\n"
-"Last-Translator: Justin Berthault <justin.berthault@gmail.com>\n"
+"POT-Creation-Date: 2016-11-05 17:32+0000\n"
+"PO-Revision-Date: 2016-11-05 19:22+0000\n"
+"Last-Translator: Benoit Bouyé <benoit.bouye@gmail.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/solus-project/solus-sc/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -270,24 +271,24 @@ msgstr "Détails"
 msgid "Update Selected"
 msgstr "Mise à jour sélectionnés"
 
-#: ../solus_update/application.py:294
+#: ../solus_update/application.py:301
 msgid "Security updates available"
 msgstr "Mise à jour de sécurité disponibles"
 
-#: ../solus_update/application.py:295
+#: ../solus_update/application.py:302
 msgid ""
-"Update at your earliest convenience to ensure continuedsecurity of your "
+"Update at your earliest convenience to ensure continued security of your "
 "device"
-msgstr "Mettez à jour dès que possible pour assurer la sécurité de votre appareil"
+msgstr "Mettez à jour dès que possible afin d'assurer la sécurité continue de votre système"
 
-#: ../solus_update/application.py:299
+#: ../solus_update/application.py:306
 msgid "Software updates available"
 msgstr "Mise à jour logiciels disponibles"
 
-#: ../solus_update/application.py:300
+#: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
 msgstr "De nouvelles mises à jour logicielles sont disponibles pour votre appareil"
 
-#: ../solus_update/application.py:305
+#: ../solus_update/application.py:312
 msgid "Open Software Center"
 msgstr "Ouvrir le catalogue de logiciels"

@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Federico Damián Schonborn <federico.d.schonborn@gmail.com>, 2016
+# SergioBG BG <sergiobgar@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-20 07:39+0100\n"
-"PO-Revision-Date: 2016-11-05 16:56+0000\n"
-"Last-Translator: Federico Damián Schonborn <federico.d.schonborn@gmail.com>\n"
+"POT-Creation-Date: 2016-11-05 17:32+0000\n"
+"PO-Revision-Date: 2016-11-07 15:07+0000\n"
+"Last-Translator: SergioBG BG <sergiobgar@gmail.com>\n"
 "Language-Team: Spanish (Argentina) (http://www.transifex.com/solus-project/solus-sc/language/es_AR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +26,7 @@ msgstr "Abrir la vista de actualizaciones de la aplicación"
 #. Quirky loading message
 #: ../solus_sc/available_view.py:38
 msgid "Switching to the B-side of the cassette…"
-msgstr "Cambiando al lado B del cassette..."
+msgstr "Cambiando al lado B del cassette…"
 
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
@@ -61,7 +62,7 @@ msgstr "Instalando {} de {}: {}"
 #. "Removing (1 of 10): bash"
 #: ../solus_sc/basket.py:222
 msgid "Removing {} of {}: {}"
-msgstr "Desinstalando {} de {}: {}"
+msgstr "Eliminando {} de {}: {}"
 
 #. "Upgraded 1 of 10: bash"
 #: ../solus_sc/basket.py:231
@@ -72,7 +73,7 @@ msgstr "Actualizado {} de {}: {}"
 #. "Installed 1 of 10: bash"
 #: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
 msgid "Removed {} of {}: {}"
-msgstr "Desinstalado {} de {}: {}"
+msgstr "Eliminado {} de {}: {}"
 
 #: ../solus_sc/basket.py:320
 msgid "The following dependencies need to be installed to continue"
@@ -84,11 +85,11 @@ msgstr "Confirmación de instalación"
 
 #: ../solus_sc/basket.py:333
 msgid "The following dependencies need to be removed to continue"
-msgstr "Las siguientes dependencias necesitan ser desinstaladas para continuar"
+msgstr "Las siguientes dependencias necesitan ser eliminadas para continuar"
 
 #: ../solus_sc/basket.py:334
 msgid "Removal confirmation"
-msgstr "Confirmación de desinstalación"
+msgstr "Confirmación de eliminación "
 
 #: ../solus_sc/basket.py:337
 msgid "The following dependencies need to be updated to continue"
@@ -114,7 +115,7 @@ msgstr "Actualizar"
 #. Remove button
 #: ../solus_sc/basket.py:374 ../solus_sc/details.py:147
 msgid "Remove"
-msgstr "Desinstalar"
+msgstr "Eliminar"
 
 #. Visit the website of the package
 #: ../solus_sc/details.py:181
@@ -163,7 +164,7 @@ msgstr "Instalado"
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:197 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Third Party"
+msgstr "Terceros"
 
 #. The search page
 #: ../solus_sc/main_window.py:202 ../solus_sc/sidebar.py:69
@@ -173,7 +174,7 @@ msgstr "Buscar"
 #. The settings page
 #: ../solus_sc/main_window.py:206 ../solus_sc/sidebar.py:70
 msgid "Settings"
-msgstr "Preferencias"
+msgstr "Ajustes"
 
 #: ../solus_sc/package_view.py:40
 msgid "Solving the Paradox Of Choice"
@@ -187,7 +188,7 @@ msgstr "Concentrándose realmente fuerte"
 
 #: ../solus_sc/search_results.py:60
 msgid "Type a query to get started"
-msgstr "Escribe una consulta para empezar"
+msgstr "Escriba una consulta para empezar"
 
 #: ../solus_sc/search_results.py:79
 msgid "No results found"
@@ -243,7 +244,7 @@ msgstr "Descompilando la matriz de actualizaciones"
 
 #: ../solus_sc/updates_view.py:256
 msgid "Please check back later, updates are now applying"
-msgstr "Por favor controle luego, las actualizaciones se están aplicando ahora"
+msgstr "Por favor vuelva a comprobar  luego, las actualizaciones se están aplicando ahora"
 
 #: ../solus_sc/updates_view.py:353
 msgid "Software is up to date"
@@ -253,7 +254,7 @@ msgstr "El software está al día"
 #. No updates currently selected for installation
 #: ../solus_sc/updates_view.py:419
 msgid "0 items selected"
-msgstr "0 items seleccionados"
+msgstr "0 ítems seleccionados"
 
 #: ../solus_sc/updates_view.py:433
 msgid "Check new updates"
@@ -268,24 +269,24 @@ msgstr "Detalles"
 msgid "Update Selected"
 msgstr "Actualización seleccionada"
 
-#: ../solus_update/application.py:294
+#: ../solus_update/application.py:301
 msgid "Security updates available"
 msgstr "Actualizaciones de seguridad disponibles"
 
-#: ../solus_update/application.py:295
+#: ../solus_update/application.py:302
 msgid ""
-"Update at your earliest convenience to ensure continuedsecurity of your "
+"Update at your earliest convenience to ensure continued security of your "
 "device"
-msgstr "Actualice cuando antes sea conveniente para asegurarse la seguridad continua de su dispositivo"
+msgstr "Actualice lo más pronto posible para asegurar la seguridad continua de su dispositivo"
 
-#: ../solus_update/application.py:299
+#: ../solus_update/application.py:306
 msgid "Software updates available"
 msgstr "Actualizaciones de software disponibles"
 
-#: ../solus_update/application.py:300
+#: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
 msgstr "Nuevas actualizaciones de software están disponibles para su dispositivo"
 
-#: ../solus_update/application.py:305
+#: ../solus_update/application.py:312
 msgid "Open Software Center"
 msgstr "Abrir Centro de Software"

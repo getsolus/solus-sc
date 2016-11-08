@@ -3,290 +3,290 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Nazar Mokrynskyi <nazar@mokrynskyi.com>, 2016
-# zubr139, 2016
+# Ademar Nowasky Junior <nowasky.jr@gmail.com>, 2016
+# Marcelo Ferreira <marceloffdeoliveira@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-05 17:32+0000\n"
-"PO-Revision-Date: 2016-11-06 07:31+0000\n"
-"Last-Translator: zubr139\n"
-"Language-Team: Ukrainian (http://www.transifex.com/solus-project/solus-sc/language/uk/)\n"
+"PO-Revision-Date: 2016-11-05 18:59+0000\n"
+"Last-Translator: Marcelo Ferreira <marceloffdeoliveira@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/solus-project/solus-sc/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../solus_sc/application.py:84
 msgid "Open up the updates view of the application"
-msgstr "Відкрийте вікно оновлень додатку"
+msgstr "Abrir a visualização de atualizações do aplicativo"
 
 #. Quirky loading message
 #: ../solus_sc/available_view.py:38
 msgid "Switching to the B-side of the cassette…"
-msgstr "Перевертаю касету на сторону Б..."
+msgstr "Trocando para do lado B da K7"
 
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
 msgid "{} operations pending"
-msgstr "Залишилось {} операцій"
+msgstr "{} operações pendentes"
 
 #. Only one package operation to be performed
 #: ../solus_sc/basket.py:158
 msgid "One operation pending"
-msgstr "Залишилась одна операція"
+msgstr "Uma operação pendente"
 
 #. "Updating Solus repository" (named repo)
 #: ../solus_sc/basket.py:203
 #, python-format
 msgid "Updating %s repository"
-msgstr "Updating %s repository"
+msgstr "Atualizando repositório %s"
 
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
 msgid "Extracting {} of {}: {}"
-msgstr "Розпаковування {} з {}: {}"
+msgstr "Extraindo {} de {}: {}"
 
 #. "Configuring 1 of 10: bash"
 #: ../solus_sc/basket.py:213
 msgid "Configuring {} of {}: {}"
-msgstr "Конфігурування {} з {}: {}"
+msgstr "Configurando {} de {}: {}"
 
 #. "Installing 1 of 10: bash"
 #: ../solus_sc/basket.py:219
 msgid "Installing {} of {}: {}"
-msgstr "Встановлення {} з {}: {}"
+msgstr "Instalando {} de {}: {}"
 
 #. "Removing (1 of 10): bash"
 #: ../solus_sc/basket.py:222
 msgid "Removing {} of {}: {}"
-msgstr "Видалення {} з {}: {}"
+msgstr "Removendo {} de {}: {}"
 
 #. "Upgraded 1 of 10: bash"
 #: ../solus_sc/basket.py:231
 msgid "Upgraded {} of {}: {}"
-msgstr "Оновлено {} з {}: {}"
+msgstr "Atualizado {} de {}: {}"
 
 #. "Removed 1 of 10: bash"
 #. "Installed 1 of 10: bash"
 #: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
 msgid "Removed {} of {}: {}"
-msgstr "Видалено {} з {}: {}"
+msgstr "Removido {} de {}: {}"
 
 #: ../solus_sc/basket.py:320
 msgid "The following dependencies need to be installed to continue"
-msgstr "Наступні залежності мають бути встановлені для продовження"
+msgstr "As seguintes dependências precisam ser instaladas para continuar"
 
 #: ../solus_sc/basket.py:330
 msgid "Installation confirmation"
-msgstr "Підтвердження встановлення"
+msgstr "Confirmação de instalação"
 
 #: ../solus_sc/basket.py:333
 msgid "The following dependencies need to be removed to continue"
-msgstr "Наступні залежності мають бути видалені для продовження"
+msgstr "As seguintes dependências precisam ser removidas para continuar"
 
 #: ../solus_sc/basket.py:334
 msgid "Removal confirmation"
-msgstr "Підтвердження видалення"
+msgstr "Confirmação de remoção"
 
 #: ../solus_sc/basket.py:337
 msgid "The following dependencies need to be updated to continue"
-msgstr "Наступні залежності мають бути оновлені для продовження"
+msgstr "As seguintes dependências precisam ser atualizadas para continuar"
 
 #: ../solus_sc/basket.py:338
 msgid "Update confirmation"
-msgstr "Підтвердження оновлення"
+msgstr "Confirmação de atualização"
 
 #: ../solus_sc/basket.py:365
 msgid "Cancel"
-msgstr "Скасувати"
+msgstr "Cancelar"
 
 #: ../solus_sc/basket.py:367 ../solus_sc/details.py:139
 #: ../solus_sc/thirdparty.py:162
 msgid "Install"
-msgstr "Встановити"
+msgstr "Instalar"
 
 #: ../solus_sc/basket.py:369
 msgid "Update"
-msgstr "Оновити"
+msgstr "Atualizar"
 
 #. Remove button
 #: ../solus_sc/basket.py:374 ../solus_sc/details.py:147
 msgid "Remove"
-msgstr "Видалити"
+msgstr "Remover"
 
 #. Visit the website of the package
 #: ../solus_sc/details.py:181
 msgid "Website"
-msgstr "Веб-сайт"
+msgstr "Website"
 
 #. Donation button launches website to donate to authors
 #: ../solus_sc/details.py:188
 msgid "Donate"
-msgstr "Пожертвувати"
+msgstr "Doar"
 
 #. Size of the package when installed locally
 #: ../solus_sc/details.py:194
 msgid "Installed size"
-msgstr "Розмір після встановлення"
+msgstr "Tamanho instalado"
 
 #: ../solus_sc/details.py:244
 msgid "Cannot remove core system software"
-msgstr "Не можу видалити ПЗ ядра системи"
+msgstr "Não é possível remover o software do sistema principal"
 
 #. "5 categories" - the number of categories within each group
 #: ../solus_sc/groups.py:72
 msgid "{} categories"
-msgstr "{} категорій"
+msgstr "{} categorias"
 
 #. Window title
 #: ../solus_sc/main_window.py:139
 msgid "Software Center"
-msgstr "Центр програмного забезпечення"
+msgstr "Software Center"
 
 #. Main view, primary view, when opening the software center
 #: ../solus_sc/main_window.py:184 ../solus_sc/sidebar.py:65
 msgid "Home"
-msgstr "Головна"
+msgstr "Pag. Principal"
 
 #. The page where updates are display
 #: ../solus_sc/main_window.py:187 ../solus_sc/sidebar.py:66
 msgid "Updates"
-msgstr "Оновлення"
+msgstr "Atualizações"
 
 #. This page shows the locally instaleld items
 #: ../solus_sc/main_window.py:193 ../solus_sc/sidebar.py:67
 msgid "Installed"
-msgstr "Встановлені"
+msgstr "Instalado"
 
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:197 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Сторонні"
+msgstr "Terceiros"
 
 #. The search page
 #: ../solus_sc/main_window.py:202 ../solus_sc/sidebar.py:69
 msgid "Search"
-msgstr "Пошук"
+msgstr "Busca"
 
 #. The settings page
 #: ../solus_sc/main_window.py:206 ../solus_sc/sidebar.py:70
 msgid "Settings"
-msgstr "Налаштування"
+msgstr "Configurações"
 
 #: ../solus_sc/package_view.py:40
 msgid "Solving the Paradox Of Choice"
-msgstr "Розв'язую парадокс вибору"
+msgstr "Resolvendo o Paradoxo Da Escolha"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
 #: ../solus_sc/search_results.py:39
 msgid "Concentrating really hard"
-msgstr "Зосереджуюся з усіх сил"
+msgstr "Se concentrando muito"
 
 #: ../solus_sc/search_results.py:60
 msgid "Type a query to get started"
-msgstr "Введіть запит щоб розпочати"
+msgstr "Digite uma palavra para começar"
 
 #: ../solus_sc/search_results.py:79
 msgid "No results found"
-msgstr "Результатів не знайдено"
+msgstr "Nada encontrado"
 
 #. Check for updates every hour
 #: ../solus_sc/settings_view.py:69
 msgid "Every hour"
-msgstr "Щогодини"
+msgstr "A cada hora"
 
 #. Check for updates once per day
 #: ../solus_sc/settings_view.py:71
 msgid "Daily"
-msgstr "Щодня"
+msgstr "Diariamente"
 
 #. Check for updates once a week
 #: ../solus_sc/settings_view.py:73
 msgid "Weekly"
-msgstr "Щотижня"
+msgstr "Semanalmente"
 
 #. Notify of all updates
 #: ../solus_sc/settings_view.py:88
 msgid "All updates"
-msgstr "Всі оновлення"
+msgstr "Todas as atualizações"
 
 #. Notify only of security updates
 #: ../solus_sc/settings_view.py:90
 msgid "Security updates only"
-msgstr "Лише оновлення безпеки"
+msgstr "Somente atualizações de segurança"
 
 #. Notify of security and core system updates ("mandatory")
 #: ../solus_sc/settings_view.py:92
 msgid "Security & core updates"
-msgstr "Оновлення безпеки та ядра"
+msgstr "Atualizações principais e de segurança"
 
 #: ../solus_sc/thirdparty.py:160 ../solus_sc/updates_view.py:338
 #: ../solus_sc/updates_view.py:340 ../solus_sc/updates_view.py:434
 msgid "Check for updates"
-msgstr "Перевірити оновлення"
+msgstr "Verificar atualizações"
 
 #. Title of dialog displaying the details of a given update
 #: ../solus_sc/updates_view.py:121
 msgid "Update Details"
-msgstr "Деталі оновлення"
+msgstr "Detalhes da atualização"
 
 #: ../solus_sc/updates_view.py:135
 msgid "Not installed"
-msgstr "Не встановлено"
+msgstr "Não instalado"
 
 #: ../solus_sc/updates_view.py:233
 msgid "Discombobulating update matrix"
-msgstr "Порпаюся в матриці оновлень"
+msgstr "Desenrolando a matrix de atualização"
 
 #: ../solus_sc/updates_view.py:256
 msgid "Please check back later, updates are now applying"
-msgstr "Завітайте пізніше, застосовуються оновлення"
+msgstr "Verifique mais tarde, as atualização estão sendo aplicadas"
 
 #: ../solus_sc/updates_view.py:353
 msgid "Software is up to date"
-msgstr "Програмне забезпечення в актуальному стані"
+msgstr "O software está atualizado"
 
 #. Selection label
 #. No updates currently selected for installation
 #: ../solus_sc/updates_view.py:419
 msgid "0 items selected"
-msgstr "Обрано 0 елементів"
+msgstr "0 itens selecionados"
 
 #: ../solus_sc/updates_view.py:433
 msgid "Check new updates"
-msgstr "Перевірити нові оновлення"
+msgstr "Verificar novas atualizações"
 
 #: ../solus_sc/updates_view.py:442
 msgid "Details"
-msgstr "Деталі"
+msgstr "Detalhes"
 
 #. Apply the updates
 #: ../solus_sc/updates_view.py:448 ../solus_sc/updates_view.py:449
 msgid "Update Selected"
-msgstr "Оновити вибране"
+msgstr "Atualizar selecionados"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
-msgstr "Доступні оновлення безпеки"
+msgstr "Atualizações de segurança disponível"
 
 #: ../solus_update/application.py:302
 msgid ""
 "Update at your earliest convenience to ensure continued security of your "
 "device"
-msgstr "Оновіться при першій нагоді для підтримки вашого пристрою у безпеці"
+msgstr "Atualize o mais rapidamente possível para garantir a segurança contínua do seu dispositivo"
 
 #: ../solus_update/application.py:306
 msgid "Software updates available"
-msgstr "Доступні оновлення програмного забезпечення"
+msgstr "Atualizações de software disponível"
 
 #: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
-msgstr "Для вашого пристрою є нові оновлення програмного забезпечення"
+msgstr "Novas atualizações de software estão disponíveis para o seu dispositivo"
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
-msgstr "Відкрити центр програмного забезпечення"
+msgstr "Abrir Software Center"
