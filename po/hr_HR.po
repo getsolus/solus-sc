@@ -3,292 +3,290 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Geert Verheyde <geert.verheyde@gmail.com>, 2016
-# Jan Steen <jsteenj@gmail.com>, 2016
-# Jan Steen <jsteenj@gmail.com>, 2016
-# Jeffrey Röling <info.jeffrey@gmail.com>, 2016
+# Ivica  Kolić <ikoli@yahoo.com>, 2016
+# Marko Vrbanec <marko.vrbanec@protonmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-05 17:32+0000\n"
-"PO-Revision-Date: 2016-11-09 16:25+0000\n"
-"Last-Translator: Jeffrey Röling <info.jeffrey@gmail.com>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/solus-project/solus-sc/language/nl_NL/)\n"
+"PO-Revision-Date: 2016-11-09 22:14+0000\n"
+"Last-Translator: Ivica  Kolić <ikoli@yahoo.com>\n"
+"Language-Team: Croatian (Croatia) (http://www.transifex.com/solus-project/solus-sc/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl_NL\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: ../solus_sc/application.py:84
 msgid "Open up the updates view of the application"
-msgstr "De wijzigingen aan de applicatie bekijken"
+msgstr "Otvori pregled nadogradnji za aplikaciju"
 
 #. Quirky loading message
 #: ../solus_sc/available_view.py:38
 msgid "Switching to the B-side of the cassette…"
-msgstr "Aan het overschakelen naar de B-kant van de casette........"
+msgstr "Prelazak na B stranu kazete"
 
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
 msgid "{} operations pending"
-msgstr "{} opdrachten in afwachting"
+msgstr "{} operacija u tijeku"
 
 #. Only one package operation to be performed
 #: ../solus_sc/basket.py:158
 msgid "One operation pending"
-msgstr "Eén opdracht is bezig"
+msgstr "Jedna operacija u tijeku"
 
 #. "Updating Solus repository" (named repo)
 #: ../solus_sc/basket.py:203
 #, python-format
 msgid "Updating %s repository"
-msgstr "%s pakketbron bijwerken"
+msgstr "Ažuriram %s repozitorij"
 
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
 msgid "Extracting {} of {}: {}"
-msgstr "Uitpakken {} van {}: {} "
+msgstr "Raspakiravam {} od {}: {}"
 
 #. "Configuring 1 of 10: bash"
 #: ../solus_sc/basket.py:213
 msgid "Configuring {} of {}: {}"
-msgstr "Instellen {} van {}: {}"
+msgstr "Konfiguriram {} od {}: {}"
 
 #. "Installing 1 of 10: bash"
 #: ../solus_sc/basket.py:219
 msgid "Installing {} of {}: {}"
-msgstr "Installatie {} van {}: {}"
+msgstr "Instaliram {} od {}: {}"
 
 #. "Removing (1 of 10): bash"
 #: ../solus_sc/basket.py:222
 msgid "Removing {} of {}: {}"
-msgstr "Verwijderen {} van {}: {}"
+msgstr "Uklanjam {} of {}: {}"
 
 #. "Upgraded 1 of 10: bash"
 #: ../solus_sc/basket.py:231
 msgid "Upgraded {} of {}: {}"
-msgstr "Upgraden {} van {}: {}"
+msgstr "Nadograđeno {} od {}: {}"
 
 #. "Removed 1 of 10: bash"
 #. "Installed 1 of 10: bash"
 #: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
 msgid "Removed {} of {}: {}"
-msgstr "Verwijderd {} van {}: {}"
+msgstr "Uklonjeno {} od {}: {}"
 
 #: ../solus_sc/basket.py:320
 msgid "The following dependencies need to be installed to continue"
-msgstr "Om verder te kunnen gaan dienen de volgende afhankelijkheden geïnstalleerd te worden"
+msgstr "Slijedeće zavisnosti treba instalirati za nastavak"
 
 #: ../solus_sc/basket.py:330
 msgid "Installation confirmation"
-msgstr "Installatie bevestigen"
+msgstr "Potvrda instalacije"
 
 #: ../solus_sc/basket.py:333
 msgid "The following dependencies need to be removed to continue"
-msgstr "Om verder te kunnen gaan dienen de volgende afhankelijkheden verwijderd te worden"
+msgstr "Slijedeće zavisnosti treba ukloniti za nastavak"
 
 #: ../solus_sc/basket.py:334
 msgid "Removal confirmation"
-msgstr "Verwijdering bevestigen"
+msgstr "Potvrda uklanjanja"
 
 #: ../solus_sc/basket.py:337
 msgid "The following dependencies need to be updated to continue"
-msgstr "Om verder te kunnen gaan dienen de volgende afhankelijkheden opgewaardeerd te worden"
+msgstr "Slijedeće zavisnosti treba ažurirati za nastavak"
 
 #: ../solus_sc/basket.py:338
 msgid "Update confirmation"
-msgstr "Update bevestigen"
+msgstr "Potvrda ažuriranja"
 
 #: ../solus_sc/basket.py:365
 msgid "Cancel"
-msgstr "Annuleren"
+msgstr "Otkaži"
 
 #: ../solus_sc/basket.py:367 ../solus_sc/details.py:139
 #: ../solus_sc/thirdparty.py:162
 msgid "Install"
-msgstr "Installeer"
+msgstr "Instaliraj"
 
 #: ../solus_sc/basket.py:369
 msgid "Update"
-msgstr "Update"
+msgstr "Ažuriraj"
 
 #. Remove button
 #: ../solus_sc/basket.py:374 ../solus_sc/details.py:147
 msgid "Remove"
-msgstr "Verwijder"
+msgstr "Ukloni"
 
 #. Visit the website of the package
 #: ../solus_sc/details.py:181
 msgid "Website"
-msgstr "Website"
+msgstr "Web stranica"
 
 #. Donation button launches website to donate to authors
 #: ../solus_sc/details.py:188
 msgid "Donate"
-msgstr "Doneer"
+msgstr "Donirajte"
 
 #. Size of the package when installed locally
 #: ../solus_sc/details.py:194
 msgid "Installed size"
-msgstr "Geïnstalleerde grootte"
+msgstr "Instalirana veličina"
 
 #: ../solus_sc/details.py:244
 msgid "Cannot remove core system software"
-msgstr "Systeemprogramma's kunnen niet verwijderd worden"
+msgstr "Ne mogu ukloniti software jezgre sustava"
 
 #. "5 categories" - the number of categories within each group
 #: ../solus_sc/groups.py:72
 msgid "{} categories"
-msgstr "{} Categorieën  "
+msgstr "{} kategorije"
 
 #. Window title
 #: ../solus_sc/main_window.py:139
 msgid "Software Center"
-msgstr "Software Center"
+msgstr "Centar softwarea"
 
 #. Main view, primary view, when opening the software center
 #: ../solus_sc/main_window.py:184 ../solus_sc/sidebar.py:65
 msgid "Home"
-msgstr "Start"
+msgstr "Osobna mapa"
 
 #. The page where updates are display
 #: ../solus_sc/main_window.py:187 ../solus_sc/sidebar.py:66
 msgid "Updates"
-msgstr "Updates"
+msgstr "Ažuriranja"
 
 #. This page shows the locally instaleld items
 #: ../solus_sc/main_window.py:193 ../solus_sc/sidebar.py:67
 msgid "Installed"
-msgstr "Geïnstalleerd "
+msgstr "Instalirano"
 
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:197 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Derde partij"
+msgstr "Treća strana"
 
 #. The search page
 #: ../solus_sc/main_window.py:202 ../solus_sc/sidebar.py:69
 msgid "Search"
-msgstr "Zoeken"
+msgstr "Traži"
 
 #. The settings page
 #: ../solus_sc/main_window.py:206 ../solus_sc/sidebar.py:70
 msgid "Settings"
-msgstr "Instellingen"
+msgstr "Postavke"
 
 #: ../solus_sc/package_view.py:40
 msgid "Solving the Paradox Of Choice"
-msgstr "Doet ie het of doet ie het niet?"
+msgstr "Rješavanje paradoksa izbora"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
 #: ../solus_sc/search_results.py:39
 msgid "Concentrating really hard"
-msgstr "Heel hard aan het concentreren"
+msgstr "Intenzivno se koncentriram"
 
 #: ../solus_sc/search_results.py:60
 msgid "Type a query to get started"
-msgstr "Stel een vraag om te beginnen"
+msgstr "Ukucajte upit da biste započeli"
 
 #: ../solus_sc/search_results.py:79
 msgid "No results found"
-msgstr "Geen resultaten gevonden"
+msgstr "NIsu pronađeni rezultati"
 
 #. Check for updates every hour
 #: ../solus_sc/settings_view.py:69
 msgid "Every hour"
-msgstr "Elk uur"
+msgstr "Svaki sat"
 
 #. Check for updates once per day
 #: ../solus_sc/settings_view.py:71
 msgid "Daily"
-msgstr "Dagelijks"
+msgstr "Dnevno"
 
 #. Check for updates once a week
 #: ../solus_sc/settings_view.py:73
 msgid "Weekly"
-msgstr "Wekelijks"
+msgstr "Tjedno"
 
 #. Notify of all updates
 #: ../solus_sc/settings_view.py:88
 msgid "All updates"
-msgstr "Alle updates"
+msgstr "Sva ažuriranja"
 
 #. Notify only of security updates
 #: ../solus_sc/settings_view.py:90
 msgid "Security updates only"
-msgstr "Alleen beveiligingssoftware  "
+msgstr "Samo sigurnosna ažuriranja"
 
 #. Notify of security and core system updates ("mandatory")
 #: ../solus_sc/settings_view.py:92
 msgid "Security & core updates"
-msgstr "Beveiliging-en-systeemupdates"
+msgstr "Ažuriranja sigurnosti i jezgre"
 
 #: ../solus_sc/thirdparty.py:160 ../solus_sc/updates_view.py:338
 #: ../solus_sc/updates_view.py:340 ../solus_sc/updates_view.py:434
 msgid "Check for updates"
-msgstr "Controleren op updates"
+msgstr "Provjeri za ažuriranja"
 
 #. Title of dialog displaying the details of a given update
 #: ../solus_sc/updates_view.py:121
 msgid "Update Details"
-msgstr "Update details"
+msgstr "Pojedinosti ažuriranja"
 
 #: ../solus_sc/updates_view.py:135
 msgid "Not installed"
-msgstr "Niet geïnstalleerd "
+msgstr "Nisu instaliana"
 
 #: ../solus_sc/updates_view.py:233
 msgid "Discombobulating update matrix"
-msgstr "In de software-ketel aan het roeren ........ en dan zien wat nieuws er boven komt drijven ...... "
+msgstr "Dekoncentriranje matrice ažuriranja"
 
 #: ../solus_sc/updates_view.py:256
 msgid "Please check back later, updates are now applying"
-msgstr "Kom later eens terug, het bijwerken is nu aan de gang"
+msgstr "Molim provjerite kasnije, ažuriranja se primjenjuju"
 
 #: ../solus_sc/updates_view.py:353
 msgid "Software is up to date"
-msgstr "De programma's zijn bijgewerkt"
+msgstr "Software je ažuriran"
 
 #. Selection label
 #. No updates currently selected for installation
 #: ../solus_sc/updates_view.py:419
 msgid "0 items selected"
-msgstr "0 items geselecteerd"
+msgstr "0 stavki je odabrano"
 
 #: ../solus_sc/updates_view.py:433
 msgid "Check new updates"
-msgstr "Zoeken naar nieuwe updates"
+msgstr "Provjeri za nova ažuriranja"
 
 #: ../solus_sc/updates_view.py:442
 msgid "Details"
-msgstr "Details "
+msgstr "Pojedinosti"
 
 #. Apply the updates
 #: ../solus_sc/updates_view.py:448 ../solus_sc/updates_view.py:449
 msgid "Update Selected"
-msgstr "Geselecteerde bijwerken "
+msgstr "Ažuriranja odabrana"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
-msgstr "Beveiligingsupdate beschikbaar"
+msgstr "Dostupna su sigurnosna ažuriranja"
 
 #: ../solus_update/application.py:302
 msgid ""
 "Update at your earliest convenience to ensure continued security of your "
 "device"
-msgstr "Gelieve voor de veiligheid zo snel mogelijk je systeem bij te werken"
+msgstr "Ažurirajte prvom prilikom kako biste osigurali kontinuiranu sigurnost vašeg uređaja"
 
 #: ../solus_update/application.py:306
 msgid "Software updates available"
-msgstr "Software updates beschikbaar"
+msgstr "Dostupna su ažuriranja softwarea"
 
 #: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
-msgstr "Er zijn nieuwe updates voor je beschikbaar"
+msgstr "Nova ažuriranja softwarea su dostupna za vaš uređaj"
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
-msgstr "Open Software Center"
+msgstr "Otvori centar softwarea"
