@@ -40,6 +40,9 @@ class PackageDetailsView(Gtk.VBox):
     # Installed size/download size
     label_size = None
 
+    # Package license(s)
+    label_license = None
+
     install_button = None
     remove_button = None
     website_button = None
@@ -198,6 +201,14 @@ class PackageDetailsView(Gtk.VBox):
         self.label_size = Gtk.Label("")
         self.tail_grid.attach(self.label_size, 1, 0, 1, 1)
 
+        # License field
+        label_license_field = Gtk.Label(_("License"))
+        label_license_field.get_style_context().add_class("dim-label")
+        self.tail_grid.attach(label_license_field, 2, 0, 1, 1)
+
+        self.label_license = Gtk.Label("")
+        self.tail_grid.attach(self.label_license, 3, 0, 1, 1)
+
     def update_from_package(self, package):
         """ Update our view based on a given package """
 
@@ -212,6 +223,8 @@ class PackageDetailsView(Gtk.VBox):
         self.label_name.set_markup(title_format.format(name,
                                                        version,
                                                        comment))
+        licenses = u" | ".join([str(x) for x in package.license])
+        self.label_license.set_text(licenses)
 
         # Sort out a nice icon
         pbuf = self.appsystem.get_pixbuf(package)
