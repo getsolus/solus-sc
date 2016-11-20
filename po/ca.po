@@ -4,29 +4,28 @@
 # 
 # Translators:
 # Davidmp <medipas@gmail.com>, 2016
-# NeoMahler <roc.humet@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-05 17:32+0000\n"
-"PO-Revision-Date: 2016-11-14 16:40+0000\n"
+"PO-Revision-Date: 2016-11-14 16:37+0000\n"
 "Last-Translator: Davidmp <medipas@gmail.com>\n"
-"Language-Team: Catalan (Spain) (http://www.transifex.com/solus-project/solus-sc/language/ca_ES/)\n"
+"Language-Team: Catalan (http://www.transifex.com/solus-project/solus-sc/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ca_ES\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../solus_sc/application.py:84
 msgid "Open up the updates view of the application"
-msgstr "Obrir l'apartat d'actualitzacions de l'aplicació"
+msgstr "Obre la vista d'actualitzacions de l'aplicació"
 
 #. Quirky loading message
 #: ../solus_sc/available_view.py:38
 msgid "Switching to the B-side of the cassette…"
-msgstr "Girant a la cara B del casset..."
+msgstr "Es canvia a la cara B del casset..."
 
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
@@ -42,7 +41,7 @@ msgstr "Una operació pendent"
 #: ../solus_sc/basket.py:203
 #, python-format
 msgid "Updating %s repository"
-msgstr "Actualitzant el repositori %s"
+msgstr "Actualitzant %s repositori"
 
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
@@ -62,22 +61,22 @@ msgstr "Instal·lant {} de {}: {}"
 #. "Removing (1 of 10): bash"
 #: ../solus_sc/basket.py:222
 msgid "Removing {} of {}: {}"
-msgstr "Esborrant {} de {}: {}"
+msgstr "Eliminant {} de {}: {}"
 
 #. "Upgraded 1 of 10: bash"
 #: ../solus_sc/basket.py:231
 msgid "Upgraded {} of {}: {}"
-msgstr "Actualitzat {} de {}: {}"
+msgstr "Actualitzats {} de {}: {}"
 
 #. "Removed 1 of 10: bash"
 #. "Installed 1 of 10: bash"
 #: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
 msgid "Removed {} of {}: {}"
-msgstr "Esborrat {} de {}: {}"
+msgstr "Eliminats {} de {}: {}"
 
 #: ../solus_sc/basket.py:320
 msgid "The following dependencies need to be installed to continue"
-msgstr "Les següents dependències s'han d'instal·lar per poder continuar"
+msgstr "Cal instal·lar les dependències següents per continuar:"
 
 #: ../solus_sc/basket.py:330
 msgid "Installation confirmation"
@@ -85,37 +84,37 @@ msgstr "Confirmació de la instal·lació"
 
 #: ../solus_sc/basket.py:333
 msgid "The following dependencies need to be removed to continue"
-msgstr "Les següents dependències s'han d'esborrar per continuar"
+msgstr "Cal eliminar les dependències següents per continuar:"
 
 #: ../solus_sc/basket.py:334
 msgid "Removal confirmation"
-msgstr "Confirmació d'esborrament"
+msgstr "Confirmació de l'eliminació"
 
 #: ../solus_sc/basket.py:337
 msgid "The following dependencies need to be updated to continue"
-msgstr "Les següents dependències s'han d'actualitzar per continuar"
+msgstr "Cal actualitzar les dependències següents per continuar:"
 
 #: ../solus_sc/basket.py:338
 msgid "Update confirmation"
-msgstr "Confirmació d'actualització"
+msgstr "Confirmació de l'actualització"
 
 #: ../solus_sc/basket.py:365
 msgid "Cancel"
-msgstr "Cancel·lar"
+msgstr "Cancel·la"
 
 #: ../solus_sc/basket.py:367 ../solus_sc/details.py:139
 #: ../solus_sc/thirdparty.py:162
 msgid "Install"
-msgstr "Instal·lar"
+msgstr "Instal·la"
 
 #: ../solus_sc/basket.py:369
 msgid "Update"
-msgstr "Actualitzar"
+msgstr "Actualitza"
 
 #. Remove button
 #: ../solus_sc/basket.py:374 ../solus_sc/details.py:147
 msgid "Remove"
-msgstr "Esborrar"
+msgstr "Elimina"
 
 #. Visit the website of the package
 #: ../solus_sc/details.py:181
@@ -130,11 +129,11 @@ msgstr "Feu un donatiu"
 #. Size of the package when installed locally
 #: ../solus_sc/details.py:194
 msgid "Installed size"
-msgstr "Mida de la instal·lació"
+msgstr "Mida instal·lada"
 
 #: ../solus_sc/details.py:244
 msgid "Cannot remove core system software"
-msgstr "No es pot esborrar un programari essencial per al sistema"
+msgstr "No es pot eliminar programari del sistema bàsic"
 
 #. "5 categories" - the number of categories within each group
 #: ../solus_sc/groups.py:72
@@ -149,7 +148,7 @@ msgstr "Centre de programari"
 #. Main view, primary view, when opening the software center
 #: ../solus_sc/main_window.py:184 ../solus_sc/sidebar.py:65
 msgid "Home"
-msgstr "Principal"
+msgstr "Inici"
 
 #. The page where updates are display
 #: ../solus_sc/main_window.py:187 ../solus_sc/sidebar.py:66
@@ -159,12 +158,12 @@ msgstr "Actualitzacions"
 #. This page shows the locally instaleld items
 #: ../solus_sc/main_window.py:193 ../solus_sc/sidebar.py:67
 msgid "Installed"
-msgstr "Instal·lat"
+msgstr "Instal·lats"
 
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:197 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Tercers"
+msgstr "De tercers"
 
 #. The search page
 #: ../solus_sc/main_window.py:202 ../solus_sc/sidebar.py:69
@@ -174,25 +173,25 @@ msgstr "Cerca"
 #. The settings page
 #: ../solus_sc/main_window.py:206 ../solus_sc/sidebar.py:70
 msgid "Settings"
-msgstr "Configuració"
+msgstr "Paràmetres"
 
 #: ../solus_sc/package_view.py:40
 msgid "Solving the Paradox Of Choice"
-msgstr "Resolent la Paradoxa de la Tria"
+msgstr "Solució de la paradoxa de la tria"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
 #: ../solus_sc/search_results.py:39
 msgid "Concentrating really hard"
-msgstr "Concentrant-se molt fort"
+msgstr "M'hi estic trencant les banyes"
 
 #: ../solus_sc/search_results.py:60
 msgid "Type a query to get started"
-msgstr "Tecleja una consulta per començar"
+msgstr "Per començar, teclegeu una consulta"
 
 #: ../solus_sc/search_results.py:79
 msgid "No results found"
-msgstr "No s'han trobat resultats"
+msgstr "No s'ha trobat cap resultat"
 
 #. Check for updates every hour
 #: ../solus_sc/settings_view.py:69
@@ -202,12 +201,12 @@ msgstr "Cada hora"
 #. Check for updates once per day
 #: ../solus_sc/settings_view.py:71
 msgid "Daily"
-msgstr "Diàriament"
+msgstr "Cada dia"
 
 #. Check for updates once a week
 #: ../solus_sc/settings_view.py:73
 msgid "Weekly"
-msgstr "Setmanalment"
+msgstr "Cada setmana"
 
 #. Notify of all updates
 #: ../solus_sc/settings_view.py:88
@@ -217,12 +216,12 @@ msgstr "Totes les actualitzacions"
 #. Notify only of security updates
 #: ../solus_sc/settings_view.py:90
 msgid "Security updates only"
-msgstr "Només actualitzacions de seguretat"
+msgstr "Només les actualitzacions de seguretat"
 
 #. Notify of security and core system updates ("mandatory")
 #: ../solus_sc/settings_view.py:92
 msgid "Security & core updates"
-msgstr "Actualitzacions essencials i de seguretat"
+msgstr "Actualitzacions de seguretat i del sistema bàsic"
 
 #: ../solus_sc/thirdparty.py:160 ../solus_sc/updates_view.py:338
 #: ../solus_sc/updates_view.py:340 ../solus_sc/updates_view.py:434
@@ -236,15 +235,15 @@ msgstr "Detalls de l'actualització"
 
 #: ../solus_sc/updates_view.py:135
 msgid "Not installed"
-msgstr "No està instal·lat"
+msgstr "No instal·lat"
 
 #: ../solus_sc/updates_view.py:233
 msgid "Discombobulating update matrix"
-msgstr "Desconcertant la matriu d'actualitzacions"
+msgstr "Matriu d'actualització desconcertant"
 
 #: ../solus_sc/updates_view.py:256
 msgid "Please check back later, updates are now applying"
-msgstr "Torneu més tard, les actualitzacions s'estan aplicant"
+msgstr "Si us plau, torneu-ho a comprovar més tard, ara s'apliquen actualitzacions"
 
 #: ../solus_sc/updates_view.py:353
 msgid "Software is up to date"
@@ -254,11 +253,11 @@ msgstr "El programari està actualitzat"
 #. No updates currently selected for installation
 #: ../solus_sc/updates_view.py:419
 msgid "0 items selected"
-msgstr "0 ítems seleccionats"
+msgstr "0 elements seleccionats"
 
 #: ../solus_sc/updates_view.py:433
 msgid "Check new updates"
-msgstr "Comprova si hi ha noves actualitzacions"
+msgstr "Comprova si hi ha actualitzacions noves"
 
 #: ../solus_sc/updates_view.py:442
 msgid "Details"
@@ -267,26 +266,26 @@ msgstr "Detalls"
 #. Apply the updates
 #: ../solus_sc/updates_view.py:448 ../solus_sc/updates_view.py:449
 msgid "Update Selected"
-msgstr "Actualitza els seleccionats"
+msgstr "Actualització seleccionada"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
-msgstr "Actualitzacions de seguretat disponibles"
+msgstr "Hi ha actualitzacions de seguretat disponibles"
 
 #: ../solus_update/application.py:302
 msgid ""
 "Update at your earliest convenience to ensure continued security of your "
 "device"
-msgstr "Actualitza quan et vagi bé per assegurar que el teu dispositiu estigui sempre segur"
+msgstr "Actualitzeu el sistema al més aviat possible per garantir la continuïtat de la seguretat del dispositiu"
 
 #: ../solus_update/application.py:306
 msgid "Software updates available"
-msgstr "Actualitzacions de programari disponibles"
+msgstr "Hi ha actualitzacions de programari disponibles"
 
 #: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
-msgstr "Hi ha noves actualitzacions de programari disponibles per al teu dispositiu"
+msgstr "Hi ha noves actualitzacions de programari disponibles per al dispositiu"
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
-msgstr "Obre el Centre de programari"
+msgstr "Obre el centre de programari"

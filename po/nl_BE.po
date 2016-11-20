@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-05 17:32+0000\n"
-"PO-Revision-Date: 2016-11-06 20:28+0000\n"
+"PO-Revision-Date: 2016-11-18 12:35+0000\n"
 "Last-Translator: Geert Verheyde <geert.verheyde@gmail.com>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/solus-project/solus-sc/language/nl_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -31,12 +31,12 @@ msgstr "Aan het overschakelen naar de B-kant van de casette........ "
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
 msgid "{} operations pending"
-msgstr "{} opdrachten hangende"
+msgstr "{} hangende opdrachten"
 
 #. Only one package operation to be performed
 #: ../solus_sc/basket.py:158
 msgid "One operation pending"
-msgstr "Eén opdracht hangende"
+msgstr "Eén hangende opdracht"
 
 #. "Updating Solus repository" (named repo)
 #: ../solus_sc/basket.py:203
@@ -184,7 +184,7 @@ msgstr "Doet ie het of doet ie het niet?"
 #. "Witty" loading page, loading search results
 #: ../solus_sc/search_results.py:39
 msgid "Concentrating really hard"
-msgstr "Heel hard aan het concentreren"
+msgstr "Zich heel hard aan het concentreren"
 
 #: ../solus_sc/search_results.py:60
 msgid "Type a query to get started"
