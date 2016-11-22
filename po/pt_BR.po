@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-05 17:32+0000\n"
-"PO-Revision-Date: 2016-11-05 18:59+0000\n"
+"PO-Revision-Date: 2016-11-21 00:09+0000\n"
 "Last-Translator: Marcelo Ferreira <marceloffdeoliveira@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/solus-project/solus-sc/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -134,7 +134,7 @@ msgstr "Tamanho instalado"
 
 #: ../solus_sc/details.py:244
 msgid "Cannot remove core system software"
-msgstr "Não é possível remover o software do sistema principal"
+msgstr "Não é possível remover o software principal do sistema "
 
 #. "5 categories" - the number of categories within each group
 #: ../solus_sc/groups.py:72
