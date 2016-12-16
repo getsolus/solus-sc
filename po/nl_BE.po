@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-05 17:32+0000\n"
-"PO-Revision-Date: 2016-11-18 12:35+0000\n"
+"PO-Revision-Date: 2016-11-22 21:30+0000\n"
 "Last-Translator: Geert Verheyde <geert.verheyde@gmail.com>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/solus-project/solus-sc/language/nl_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "De wijzigingen aan de applicatie bekijken"
 #. Quirky loading message
 #: ../solus_sc/available_view.py:38
 msgid "Switching to the B-side of the cassette…"
-msgstr "Aan het overschakelen naar de B-kant van de casette........ "
+msgstr "Aan het overschakelen naar de B-kant van de cassette........ "
 
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
@@ -89,7 +89,7 @@ msgstr "Om verder te kunnen gaan dienen de volgende afhankelijkheden verwijderd 
 
 #: ../solus_sc/basket.py:334
 msgid "Removal confirmation"
-msgstr "Verrwijdering bevestigen"
+msgstr "Verwijdering bevestigen"
 
 #: ../solus_sc/basket.py:337
 msgid "The following dependencies need to be updated to continue"
@@ -240,7 +240,7 @@ msgstr "Niet geïnstalleerd"
 
 #: ../solus_sc/updates_view.py:233
 msgid "Discombobulating update matrix"
-msgstr "In de software-ketel aan het roeren ........ en dan zien wat nieuws er boven komt drijven ......"
+msgstr "Paniek aan het veroorzaken in de update matrix"
 
 #: ../solus_sc/updates_view.py:256
 msgid "Please check back later, updates are now applying"
