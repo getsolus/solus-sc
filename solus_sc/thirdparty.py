@@ -18,6 +18,22 @@ APPS = {
         ('Android Studio', 'android-studio',
          'Android development environment based on IntelliJ IDEA.',
          'programming/android-studio/pspec.xml'),
+    'bitwig-studio':
+        ('Bitwig Studio', 'bitwig-studio',
+         'Music production system for production, remixing and performance.',
+         'multimedia/music/bitwig-studio/pspec.xml'),
+    'enpass':
+        ('Enpass', 'enpass',
+         'A multiplatform password manager.',
+         'security/enpass/pspec.xml'),
+    'flash-player-npapi':
+        ('Flash Player (NPAPI)', 'flash',
+         'Flash Player (NPAPI) for browsers such as Firefox.',
+         'multimedia/video/flash-player-npapi/pspec.xml'),
+    'flash-player-ppapi':
+        ('Flash Player (PPAPI)', 'flash',
+         'Flash Player (PPAPI) for browsers such as Vivaldi.',
+         'multimedia/video/flash-player-ppapi/pspec.xml'),
     'google-chrome-stable':
         ('Google Chrome', 'google-chrome',
          'The web browser from Google',
@@ -30,6 +46,10 @@ APPS = {
         ('Google Chrome (Dev)', 'google-chrome-unstable',
          'Developer channel for the web browser from Google',
          'network/web/browser/google-chrome-unstable/pspec.xml'),
+    'google-earth':
+        ('Google Earth', 'earth',
+         '3D interface for satellite imagery from Google',
+         'network/web/google-earth/pspec.xml'),
     'google-talkplugin':
         ('Google Talk Plugin', 'im-google-talk',
          'The Google Talk plugin for hangouts video and audio',
@@ -42,6 +62,18 @@ APPS = {
         ('Idea', 'idea',
          'Idea - an IDE for the JVM Languages',
          'programming/idea/pspec.xml'),
+    'insync':
+        ('Insync', 'insync',
+         'Insync extends Drive\'s web functionality to your desktop',
+         'network/download/insync/pspec.xml'),
+    'mendeleydesktop':
+        ('Mendeley Desktop', 'mendeleydesktop',
+         'Free reference manager and an academic social network.',
+         'office/mendeleydesktop/pspec.xml'),
+    'moneydance':
+        ('Moneydance', 'moneydance',
+         'A personal finance manager.',
+         'office/moneydance/pspec.xml'),
     'opera-stable':
         ('Opera', 'opera-browser',
          'Opera Web Browser',
