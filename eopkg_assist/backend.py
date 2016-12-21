@@ -33,6 +33,14 @@ BASE_URI = "https://raw.githubusercontent.com/solus-project/3rd-party/master"
 APPS = {
     "android-studio":
         "programming/android-studio/pspec.xml",
+    "bitwig-studio":
+        "multimedia/music/bitwig-studio/pspec.xml",
+    "enpass":
+        "security/enpass/pspec.xml",
+    "flash-player-npapi":
+        "multimedia/video/flash-player-npapi/pspec.xml",
+    "flash-player-ppapi":
+        "multimedia/video/flash-player-ppapi/pspec.xml",
     "gitkraken":
         "programming/gitkraken/pspec.xml",
     "google-chrome-stable":
@@ -41,8 +49,16 @@ APPS = {
         "network/web/browser/google-chrome-beta/pspec.xml",
     "google-chrome-unstable":
         "network/web/browser/google-chrome-unstable/pspec.xml",
+    "google-earth":
+        "network/web/google-earth/pspec.xml",
     "idea":
         "programming/idea/pspec.xml",
+    "insync":
+        "network/download/insync/pspec.xml",
+    "mendeleydesktop":
+        "office/mendeleydesktop/pspec.xml",
+    "moneydance":
+        "office/moneydance/pspec.xml",
     "opera-stable":
         "network/web/browser/opera-stable/pspec.xml",
     "google-talkplugin":
