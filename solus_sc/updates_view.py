@@ -680,12 +680,14 @@ class ScUpdatesView(Gtk.VBox):
                 total_size += model[child_path][6]
         # Skip it.
         if total_update == 0:
-            self.selection_label.set_text("{} of {} updates selected".format(
+            # "2 of 10 updates selected"
+            self.selection_label.set_text(_("{} of {} updates selected").format(
                 total_update, total_available))
             self.update_btn.set_sensitive(False)
             return
         dlSize = sc_format_size_local(total_size, True)
-        newLabel = "{} of {} updates selected ({} to download)".format(
+        # "2 of 10 updates selected (20.05MB to download)"
+        newLabel = _("{} of {} updates selected ({} to download)").format(
                    total_update, total_available, dlSize)
         self.update_btn.set_sensitive(True)
         self.selection_label.set_text(newLabel)
