@@ -260,9 +260,9 @@ class BasketView(Gtk.Revealer):
 
                     cd = self.current_dl_package
                     if cd == 0 and self.total_packages == 0:
-                            # "Downloading eopkg-index.xml.xz (10kb/s)
-                        self.set_progress(prog, _("Downloading {} ({})").format(
-                            package, speed))
+                        # "Downloading eopkg-index.xml.xz (10kb/s)
+                        st = _("Downloading {} ({})")
+                        self.set_progress(prog, st.format(package, speed))
                     else:
                         # "Downloading 1 of 10: bash (10kb/s)
                         disp = _("Downloading {} of {}: {} ({})")

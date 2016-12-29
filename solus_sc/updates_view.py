@@ -681,7 +681,8 @@ class ScUpdatesView(Gtk.VBox):
         # Skip it.
         if total_update == 0:
             # "2 of 10 updates selected"
-            self.selection_label.set_text(_("{} of {} updates selected").format(
+            st = _("{} of {} updates selected")
+            self.selection_label.set_text(st.format(
                 total_update, total_available))
             self.update_btn.set_sensitive(False)
             return
