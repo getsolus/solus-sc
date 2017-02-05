@@ -13,6 +13,7 @@
 
 from .details import PackageDetailsView
 from gi.repository import Gtk, GLib, GdkPixbuf
+from gi.repository import AppStreamGlib as As
 
 
 """ enum for the model fields """
@@ -147,11 +148,10 @@ class ScPackageView(Gtk.VBox):
             pkg = self.basket.installdb.get_package(pkg_name)
 
             summary = self.appsystem.get_summary(pkg)
-            summary = str(summary)
+            summary = self.render_plain(str(summary))
+
             if len(summary) > 76:
                 summary = "%s…" % summary[0:76]
-
-            summary = GLib.markup_escape_text(summary)
 
             name = str(pkg.name)
             p_print = "<b>%s</b> - %s\n%s" % (name, str(pkg.version),
@@ -180,3 +180,10 @@ class ScPackageView(Gtk.VBox):
         self.details_view.update_from_package(pkg)
         self.stack.set_visible_child_name("details")
         self.owner.set_can_back(True)
+
+    def render_plain(self, input_string):
+        """ Render a plain version of the description, no markdown """
+        plain = As.markup_convert(input_string, -1,
+                                  As.MarkupConvertFormat.SIMPLE)
+        plain = plain.replace("&quot;", "\"").replace("&apos;", "'")
+        return plain

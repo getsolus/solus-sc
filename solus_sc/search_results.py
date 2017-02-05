@@ -12,6 +12,7 @@
 #
 
 from gi.repository import Gtk, GLib, GdkPixbuf
+from gi.repository import AppStreamGlib as As
 import difflib
 
 
@@ -205,7 +206,8 @@ class ScSearchResults(Gtk.VBox):
                 pkg = self.basket.installdb.get_package(pkg_name)
 
             summary = self.appsystem.get_summary(pkg)
-            summary = str(summary)
+            summary = self.render_plain(str(summary))
+
             if len(summary) > 76:
                 summary = "%s…" % summary[0:76]
 
@@ -240,3 +242,10 @@ class ScSearchResults(Gtk.VBox):
         self.tview.set_model(None)
         self.stack.set_visible_child_name("empty")
         self.queue_draw()
+
+    def render_plain(self, input_string):
+        """ Render a plain version of the description, no markdown """
+        plain = As.markup_convert(input_string, -1,
+                                  As.MarkupConvertFormat.SIMPLE)
+        plain = plain.replace("&quot;", "\"").replace("&apos;", "'")
+        return plain
