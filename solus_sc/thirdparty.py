@@ -146,7 +146,7 @@ class ThirdPartyView(Gtk.VBox):
             "Software provided via the third party tooling will be fetched "
             "directly from the vendor and installed locally."
             "\nSolus Project accepts no responsibility for the content"
-            " provided by these vendors.\n")
+            " provided by these vendors.</small>\n")
         label.set_use_markup(True)
         self.pack_end(label, False, False, 0)
         label.set_property("margin-start", 20)
