@@ -74,10 +74,6 @@ APPS = {
         ('Moneydance', 'moneydance',
          'A personal finance manager.',
          'office/moneydance/pspec.xml'),
-    'opera-stable':
-        ('Opera', 'opera-browser',
-         'Opera Web Browser',
-         'network/web/browser/opera-stable/pspec.xml'),
     'plexmediaserver':
         ('Plex Media Server', 'plex',
          'Plex Media Server',
