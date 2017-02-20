@@ -8,7 +8,7 @@ store = AS.Store()
 store.load(AS.StoreLoadFlags.APP_INFO_SYSTEM)
 
 def test_markup(desc):
-    m = AS.markup_convert(desc, -1, AS.MarkupConvertFormat.SIMPLE)
+    m = AS.markup_convert_simple(desc, -1)
     return m
 
 app = store.get_app_by_pkgname("pitivi")
