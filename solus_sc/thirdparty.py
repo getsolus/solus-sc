@@ -104,10 +104,6 @@ APPS = {
          'Sublime Text is a sophisticated text editor for code, markup and '
          'prose.',
          'programming/sublime-text-3/pspec.xml'),
-    'teamspeak3':
-        ('Teamspeak 3', 'teamspeak',
-         'Crystal Clear Cross-Platform Voice Communication.',
-         'network/im/teamspeak/pspec.xml'),
     'viber':
         ('Viber', 'viber',
          'An instant messaging and VoIP app for various mobile operating '

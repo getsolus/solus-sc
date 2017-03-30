@@ -75,8 +75,6 @@ APPS = {
         "multimedia/music/spotify/pspec.xml",
     "sublime-text-3":
         "programming/sublime-text-3/pspec.xml",
-    "teamspeak3":
-        "network/im/teamspeak/pspec.xml",
     "viber":
         "network/im/viber/pspec.xml",
     "wps-office":
