@@ -310,7 +310,7 @@ class ScUpdateApp(Gio.Application):
         self.notification = Notify.Notification.new(title, body, icon_name)
         self.notification.set_timeout(UPDATE_NOTIF_TIMEOUT)
         self.notification.add_action("open-sc", _("Open Software Center"),
-                                     self.action_show_updates)
+                                     self.action_show_updates, None)
         self.notification.show()
 
     def store_update_time(self):
