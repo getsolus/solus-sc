@@ -109,6 +109,10 @@ APPS = {
          'An instant messaging and VoIP app for various mobile operating '
          'systems.',
          'network/im/viber/pspec.xml'),
+    'webstorm':
+        ('Webstorm', 'webstorm',
+         'WebStorm - an IDE for the Web',
+         'programming/webstorm/pspec.xml'),
     'wps-office':
         ('WPS Office Suite', 'wps-office-wpsmain',
          'WPS Office Suite',
