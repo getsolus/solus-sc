@@ -20,7 +20,7 @@ from .basket import BasketView
 from .search import ScSearchView
 from .thirdparty import ThirdPartyView
 from .settings_view import ScSettingsView
-from gi.repository import Gtk, GLib, Gio
+from gi.repository import Gtk, Gdk, GLib, Gio
 import sys
 import threading
 
@@ -61,6 +61,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def show_updates(self):
         """ Switch to updates view """
         self.sidebar.preselect_row("updates")
+
+    def show_search(self):
+        """ Switch to search view """
+        self.sidebar.preselect_row("search")
 
     def do_delete_event(self, event, udata=None):
         """ For now just propagate the event """
@@ -116,6 +120,14 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def on_mapped(self, w, udata=None):
         GLib.timeout_add(200, self.init_view)
+
+    def on_key_press_event(self, widget, event):
+        # check event modifiers
+        ctrl = (event.state & Gdk.ModifierType.CONTROL_MASK)
+
+        # check if search view hotkey was pressed
+        if ctrl and event.keyval == Gdk.keyval_from_name('f'):
+            self.show_search()
 
     def __init__(self, app):
         Gtk.ApplicationWindow.__init__(self, application=app)
@@ -212,6 +224,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.sidebar_revealer.set_transition_type(revel)
 
         self.connect("map-event", self.on_mapped)
+
+        self.connect("key-press-event", self.on_key_press_event)
 
         t = threading.Thread(target=self.init_children)
         t.start()
