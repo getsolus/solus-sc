@@ -88,7 +88,7 @@ APPS = {
          'programming/rubymine/pspec.xml'),
     'skype':
         ('Skype', 'skype',
-         'Skype for Linux Alpha - <i>Skype keeps the world talking, for free.'
+         'Skype for Linux Beta - <i>Skype keeps the world talking, for free.'
          '</i>',
          'network/im/skype/pspec.xml'),
     'slack-desktop':
