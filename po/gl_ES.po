@@ -1,0 +1,326 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Alfonso Rodríguez <eu.castelos@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: solus-sc\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-29 17:23+0000\n"
+"PO-Revision-Date: 2017-02-13 12:55+0000\n"
+"Last-Translator: Alfonso Rodríguez <eu.castelos@gmail.com>\n"
+"Language-Team: Galician (Spain) (http://www.transifex.com/solus-project/solus-sc/language/gl_ES/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: gl_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../solus_sc/application.py:84
+msgid "Open up the updates view of the application"
+msgstr "Abrir a vista de actualizacións da aplicación"
+
+#. Quirky loading message
+#: ../solus_sc/available_view.py:38
+msgid "Switching to the B-side of the cassette…"
+msgstr "Cambiando á cara B do casete..."
+
+#. The number (more than one) of package operations to be performed
+#: ../solus_sc/basket.py:149
+msgid "{} operations pending"
+msgstr "{} operacións pendentes"
+
+#: ../solus_sc/basket.py:153
+msgid " - This may take <b>some time!</b>"
+msgstr "- Isto pode levar <b>algún tempo!</b>"
+
+#. Only one package operation to be performed
+#: ../solus_sc/basket.py:158
+msgid "One operation pending"
+msgstr "Unha operación pendente"
+
+#. "Updating Solus repository" (named repo)
+#: ../solus_sc/basket.py:203
+#, python-format
+msgid "Updating %s repository"
+msgstr "Actualizando %s repositorio"
+
+#. "Extracting 1 of 10: bash"
+#: ../solus_sc/basket.py:207
+msgid "Extracting {} of {}: {}"
+msgstr "Extraendo {} of {}: {}"
+
+#. "Configuring 1 of 10: bash"
+#: ../solus_sc/basket.py:213
+msgid "Configuring {} of {}: {}"
+msgstr "Configurando {} de {}: {}"
+
+#. "Installing 1 of 10: bash"
+#: ../solus_sc/basket.py:219
+msgid "Installing {} of {}: {}"
+msgstr "Instalando {} de {}: {}"
+
+#. "Removing (1 of 10): bash"
+#: ../solus_sc/basket.py:222
+msgid "Removing {} of {}: {}"
+msgstr "Eliminando {} de {}: {}"
+
+#. "Upgraded 1 of 10: bash"
+#: ../solus_sc/basket.py:231
+msgid "Upgraded {} of {}: {}"
+msgstr "Actualizado {} de {}: {}"
+
+#. "Removed 1 of 10: bash"
+#. "Installed 1 of 10: bash"
+#: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
+msgid "Removed {} of {}: {}"
+msgstr "Eliminado {} de {}: {}"
+
+#. "Downloading eopkg-index.xml.xz (10kb/s)
+#: ../solus_sc/basket.py:264
+msgid "Downloading {} ({})"
+msgstr "Descargando {} ({})"
+
+#. "Downloading 1 of 10: bash (10kb/s)
+#: ../solus_sc/basket.py:268
+msgid "Downloading {} of {}: {} ({})"
+msgstr "Descargando {} de {}: {} ({})"
+
+#. print args
+#. Downloading eopkg-index.xml.sha1sum
+#: ../solus_sc/basket.py:278
+msgid "Downloading {}"
+msgstr "Descargando {}"
+
+#: ../solus_sc/basket.py:323
+msgid "The following dependencies need to be installed to continue"
+msgstr "As seguintes dependencias deben ser instaladas para continuar"
+
+#: ../solus_sc/basket.py:333
+msgid "Installation confirmation"
+msgstr "Confirmación da instalación"
+
+#: ../solus_sc/basket.py:336
+msgid "The following dependencies need to be removed to continue"
+msgstr "As seguintes dependencias deben ser eliminadas para continuar"
+
+#: ../solus_sc/basket.py:337
+msgid "Removal confirmation"
+msgstr "Confirmación da eliminación"
+
+#: ../solus_sc/basket.py:340
+msgid "The following dependencies need to be updated to continue"
+msgstr "As seguintes dependencias deben ser actualizadas para continuar"
+
+#: ../solus_sc/basket.py:341
+msgid "Update confirmation"
+msgstr "Confirmación da actualización"
+
+#: ../solus_sc/basket.py:368
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: ../solus_sc/basket.py:370 ../solus_sc/details.py:142
+#: ../solus_sc/thirdparty.py:194
+msgid "Install"
+msgstr "Instalar"
+
+#: ../solus_sc/basket.py:372
+msgid "Update"
+msgstr "Actualizar"
+
+#. Remove button
+#: ../solus_sc/basket.py:377 ../solus_sc/details.py:150
+msgid "Remove"
+msgstr "Eliminar"
+
+#. Visit the website of the package
+#: ../solus_sc/details.py:184
+msgid "Website"
+msgstr "Páxina web"
+
+#. Donation button launches website to donate to authors
+#: ../solus_sc/details.py:191
+msgid "Donate"
+msgstr "Doar"
+
+#. Size of the package when installed locally
+#: ../solus_sc/details.py:197
+msgid "Installed size"
+msgstr "Tamaño instalado"
+
+#. License field
+#: ../solus_sc/details.py:205
+msgid "License"
+msgstr "Licenza"
+
+#: ../solus_sc/details.py:257
+msgid "Cannot remove core system software"
+msgstr "Non se pode eliminar software do sistema base"
+
+#. "5 categories" - the number of categories within each group
+#: ../solus_sc/groups.py:72
+msgid "{} categories"
+msgstr "{} categorías"
+
+#. Window title
+#: ../solus_sc/main_window.py:139
+msgid "Software Center"
+msgstr "Centro de Software"
+
+#. Main view, primary view, when opening the software center
+#: ../solus_sc/main_window.py:184 ../solus_sc/sidebar.py:65
+msgid "Home"
+msgstr "Inicio"
+
+#. The page where updates are display
+#: ../solus_sc/main_window.py:187 ../solus_sc/sidebar.py:66
+msgid "Updates"
+msgstr "Actualizacións"
+
+#. This page shows the locally instaleld items
+#: ../solus_sc/main_window.py:193 ../solus_sc/sidebar.py:67
+msgid "Installed"
+msgstr "Instalado"
+
+#. Software made available from outside the Solus software repos
+#: ../solus_sc/main_window.py:197 ../solus_sc/sidebar.py:68
+msgid "Third Party"
+msgstr "Aplicacións de terceiros"
+
+#. The search page
+#: ../solus_sc/main_window.py:202 ../solus_sc/sidebar.py:69
+msgid "Search"
+msgstr "Búsqueda"
+
+#. The settings page
+#: ../solus_sc/main_window.py:206 ../solus_sc/sidebar.py:70
+msgid "Settings"
+msgstr "Axustes"
+
+#: ../solus_sc/package_view.py:40
+msgid "Solving the Paradox Of Choice"
+msgstr "Resolvendo o Paradoxo da Elección"
+
+#. self.spinner.start()
+#. "Witty" loading page, loading search results
+#: ../solus_sc/search_results.py:39
+msgid "Concentrating really hard"
+msgstr "Concetrándose con moita intensidade"
+
+#: ../solus_sc/search_results.py:60
+msgid "Type a query to get started"
+msgstr "Teclea unha consulta para comezar"
+
+#: ../solus_sc/search_results.py:79
+msgid "No results found"
+msgstr "Non se atoparon resultados"
+
+#. Check for updates every hour
+#: ../solus_sc/settings_view.py:69
+msgid "Every hour"
+msgstr "Cada hora"
+
+#. Check for updates once per day
+#: ../solus_sc/settings_view.py:71
+msgid "Daily"
+msgstr "Diariamente"
+
+#. Check for updates once a week
+#: ../solus_sc/settings_view.py:73
+msgid "Weekly"
+msgstr "Semanalmente"
+
+#. Notify of all updates
+#: ../solus_sc/settings_view.py:88
+msgid "All updates"
+msgstr "Todas as actulizacións"
+
+#. Notify only of security updates
+#: ../solus_sc/settings_view.py:90
+msgid "Security updates only"
+msgstr "Só actualizacións de seguridade"
+
+#. Notify of security and core system updates ("mandatory")
+#: ../solus_sc/settings_view.py:92
+msgid "Security & core updates"
+msgstr "Actualizacións de seguridade e sistema base"
+
+#: ../solus_sc/thirdparty.py:192 ../solus_sc/updates_view.py:338
+#: ../solus_sc/updates_view.py:340 ../solus_sc/updates_view.py:434
+msgid "Check for updates"
+msgstr "Procurar actualizacións"
+
+#. Title of dialog displaying the details of a given update
+#: ../solus_sc/updates_view.py:121
+msgid "Update Details"
+msgstr "Detalles de actualización"
+
+#: ../solus_sc/updates_view.py:135
+msgid "Not installed"
+msgstr "Non instalado"
+
+#: ../solus_sc/updates_view.py:233
+msgid "Discombobulating update matrix"
+msgstr "Desconcertando a matriz de actualización"
+
+#: ../solus_sc/updates_view.py:256
+msgid "Please check back later, updates are now applying"
+msgstr "Por favor, comprobe mais tarde, as actualizacións están sendo aplicadas"
+
+#: ../solus_sc/updates_view.py:353
+msgid "Software is up to date"
+msgstr "O software está actualizado"
+
+#. Selection label
+#. No updates currently selected for installation
+#: ../solus_sc/updates_view.py:419
+msgid "0 items selected"
+msgstr "0 items seleccionados"
+
+#: ../solus_sc/updates_view.py:433
+msgid "Check new updates"
+msgstr "Procurar novas actualizacións"
+
+#: ../solus_sc/updates_view.py:442
+msgid "Details"
+msgstr "Detalles"
+
+#. Apply the updates
+#: ../solus_sc/updates_view.py:448 ../solus_sc/updates_view.py:449
+msgid "Update Selected"
+msgstr "Actualización seleccionada"
+
+#. "2 of 10 updates selected"
+#: ../solus_sc/updates_view.py:684
+msgid "{} of {} updates selected"
+msgstr "{} de {} actualizacións seleccionada"
+
+#. "2 of 10 updates selected (20.05MB to download)"
+#: ../solus_sc/updates_view.py:691
+msgid "{} of {} updates selected ({} to download)"
+msgstr "{} de {} actualizacións seleccionadas ({} para descargar)"
+
+#: ../solus_update/application.py:301
+msgid "Security updates available"
+msgstr "Actualizacións de seguridade dispoñibles"
+
+#: ../solus_update/application.py:302
+msgid ""
+"Update at your earliest convenience to ensure continued security of your "
+"device"
+msgstr "Actualice o antes posible para garantir a seguridade do seu dispositivo"
+
+#: ../solus_update/application.py:306
+msgid "Software updates available"
+msgstr "Dispoñibles actualizacións de software"
+
+#: ../solus_update/application.py:307
+msgid "New software updates are available for your device"
+msgstr "Dispoñibles novas actualizacións de software para o seu dispositivo"
+
+#: ../solus_update/application.py:312
+msgid "Open Software Center"
+msgstr "Abrir o Centro de Software"

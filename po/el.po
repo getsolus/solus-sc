@@ -1,0 +1,328 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Aldo Iljazi <mail@aldoiljazi.xyz>, 2017
+# Efstathios Iosifidis <iefstathios@gmail.com>, 2016
+# Harry Papatheocharous <harry.papatheocharous@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: solus-sc\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-29 17:23+0000\n"
+"PO-Revision-Date: 2017-01-09 11:49+0000\n"
+"Last-Translator: Harry Papatheocharous <harry.papatheocharous@gmail.com>\n"
+"Language-Team: Greek (http://www.transifex.com/solus-project/solus-sc/language/el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../solus_sc/application.py:84
+msgid "Open up the updates view of the application"
+msgstr "Άνοιξε την προβολή ενημερώσεων της εφαρμογής"
+
+#. Quirky loading message
+#: ../solus_sc/available_view.py:38
+msgid "Switching to the B-side of the cassette…"
+msgstr "Αλλαγή στην πλεύρα Β της κασέτας..."
+
+#. The number (more than one) of package operations to be performed
+#: ../solus_sc/basket.py:149
+msgid "{} operations pending"
+msgstr "{} εργασίες σε εκκρεμότητα"
+
+#: ../solus_sc/basket.py:153
+msgid " - This may take <b>some time!</b>"
+msgstr "- Αυτό μπορεί να πάρει <b>μερικό χρόνο!</b>"
+
+#. Only one package operation to be performed
+#: ../solus_sc/basket.py:158
+msgid "One operation pending"
+msgstr "Μια εργασία σε εκκρεμότητα"
+
+#. "Updating Solus repository" (named repo)
+#: ../solus_sc/basket.py:203
+#, python-format
+msgid "Updating %s repository"
+msgstr "Ενημέρωση του αποθετηρίου λογισμικού %s"
+
+#. "Extracting 1 of 10: bash"
+#: ../solus_sc/basket.py:207
+msgid "Extracting {} of {}: {}"
+msgstr "Εξαγωγή {} από {}: {}"
+
+#. "Configuring 1 of 10: bash"
+#: ../solus_sc/basket.py:213
+msgid "Configuring {} of {}: {}"
+msgstr "Ρύθμιση {} από {}: {}"
+
+#. "Installing 1 of 10: bash"
+#: ../solus_sc/basket.py:219
+msgid "Installing {} of {}: {}"
+msgstr "Εγκατάσταση {} από {}: {}"
+
+#. "Removing (1 of 10): bash"
+#: ../solus_sc/basket.py:222
+msgid "Removing {} of {}: {}"
+msgstr "Αφαίρεση {} από {}: {}"
+
+#. "Upgraded 1 of 10: bash"
+#: ../solus_sc/basket.py:231
+msgid "Upgraded {} of {}: {}"
+msgstr "Αναβαθμίστηκαν {} από {}: {}"
+
+#. "Removed 1 of 10: bash"
+#. "Installed 1 of 10: bash"
+#: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
+msgid "Removed {} of {}: {}"
+msgstr "Αφαιρέθηκαν {} από {}: {}"
+
+#. "Downloading eopkg-index.xml.xz (10kb/s)
+#: ../solus_sc/basket.py:264
+msgid "Downloading {} ({})"
+msgstr "Κατεβαίνει {} ({})"
+
+#. "Downloading 1 of 10: bash (10kb/s)
+#: ../solus_sc/basket.py:268
+msgid "Downloading {} of {}: {} ({})"
+msgstr "Κατεβαίνει {} απο {}: {} ({})"
+
+#. print args
+#. Downloading eopkg-index.xml.sha1sum
+#: ../solus_sc/basket.py:278
+msgid "Downloading {}"
+msgstr "Κατεβαίνει {}"
+
+#: ../solus_sc/basket.py:323
+msgid "The following dependencies need to be installed to continue"
+msgstr "Θα πρέπει να εγκαταστηθούν οι παρακάτω εξαρτήσεις ώστε να συνεχίσει η διαδικασία"
+
+#: ../solus_sc/basket.py:333
+msgid "Installation confirmation"
+msgstr "Επιβεβαίωση εγκατάστασης"
+
+#: ../solus_sc/basket.py:336
+msgid "The following dependencies need to be removed to continue"
+msgstr "Θα πρέπει να αφαιρεθούν οι παρακάτω εξαρτήσεις ώστε να συνεχίσει η διαδικασία"
+
+#: ../solus_sc/basket.py:337
+msgid "Removal confirmation"
+msgstr "Επιβεβαίωση αφαίρεσης"
+
+#: ../solus_sc/basket.py:340
+msgid "The following dependencies need to be updated to continue"
+msgstr "Θα πρέπει να ενημερωθούν οι παρακάτω εξαρτήσεις ώστε να συνεχίσει η διαδικασία"
+
+#: ../solus_sc/basket.py:341
+msgid "Update confirmation"
+msgstr "Επιβεβαίωση ενημέρωσης"
+
+#: ../solus_sc/basket.py:368
+msgid "Cancel"
+msgstr "Άκυρο"
+
+#: ../solus_sc/basket.py:370 ../solus_sc/details.py:142
+#: ../solus_sc/thirdparty.py:194
+msgid "Install"
+msgstr "Εγκατάσταση"
+
+#: ../solus_sc/basket.py:372
+msgid "Update"
+msgstr "Ενημέρωση"
+
+#. Remove button
+#: ../solus_sc/basket.py:377 ../solus_sc/details.py:150
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+#. Visit the website of the package
+#: ../solus_sc/details.py:184
+msgid "Website"
+msgstr "Ιστοσελίδα"
+
+#. Donation button launches website to donate to authors
+#: ../solus_sc/details.py:191
+msgid "Donate"
+msgstr "Δωρεά"
+
+#. Size of the package when installed locally
+#: ../solus_sc/details.py:197
+msgid "Installed size"
+msgstr "Μέγεθος εγκατάστασης"
+
+#. License field
+#: ../solus_sc/details.py:205
+msgid "License"
+msgstr "Άδεια"
+
+#: ../solus_sc/details.py:257
+msgid "Cannot remove core system software"
+msgstr "Το λογισμικό πυρήνα του συστήματος δεν μπορεί να αφαιρεθεί"
+
+#. "5 categories" - the number of categories within each group
+#: ../solus_sc/groups.py:72
+msgid "{} categories"
+msgstr "{} κατηγορίες"
+
+#. Window title
+#: ../solus_sc/main_window.py:139
+msgid "Software Center"
+msgstr "Κέντρο λογισμικού"
+
+#. Main view, primary view, when opening the software center
+#: ../solus_sc/main_window.py:184 ../solus_sc/sidebar.py:65
+msgid "Home"
+msgstr "Αρχική"
+
+#. The page where updates are display
+#: ../solus_sc/main_window.py:187 ../solus_sc/sidebar.py:66
+msgid "Updates"
+msgstr "Ενημερώσεις"
+
+#. This page shows the locally instaleld items
+#: ../solus_sc/main_window.py:193 ../solus_sc/sidebar.py:67
+msgid "Installed"
+msgstr "Εγκατεστημένα"
+
+#. Software made available from outside the Solus software repos
+#: ../solus_sc/main_window.py:197 ../solus_sc/sidebar.py:68
+msgid "Third Party"
+msgstr "Απο Τρίτους"
+
+#. The search page
+#: ../solus_sc/main_window.py:202 ../solus_sc/sidebar.py:69
+msgid "Search"
+msgstr "Αναζήτηση"
+
+#. The settings page
+#: ../solus_sc/main_window.py:206 ../solus_sc/sidebar.py:70
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: ../solus_sc/package_view.py:40
+msgid "Solving the Paradox Of Choice"
+msgstr "Λύνοντας το Παράδοξο Των Επιλογών"
+
+#. self.spinner.start()
+#. "Witty" loading page, loading search results
+#: ../solus_sc/search_results.py:39
+msgid "Concentrating really hard"
+msgstr "Συγκεντρώνομαι πολύ σκληρά"
+
+#: ../solus_sc/search_results.py:60
+msgid "Type a query to get started"
+msgstr "Πληκτρολογήστε ένα ερώτημα για να ξεκινήσετε"
+
+#: ../solus_sc/search_results.py:79
+msgid "No results found"
+msgstr "Δεν βρέθηκαν αποτελέσματα"
+
+#. Check for updates every hour
+#: ../solus_sc/settings_view.py:69
+msgid "Every hour"
+msgstr "Κάθε ώρα"
+
+#. Check for updates once per day
+#: ../solus_sc/settings_view.py:71
+msgid "Daily"
+msgstr "Ημερισίως"
+
+#. Check for updates once a week
+#: ../solus_sc/settings_view.py:73
+msgid "Weekly"
+msgstr "Εβδομαδιαίως"
+
+#. Notify of all updates
+#: ../solus_sc/settings_view.py:88
+msgid "All updates"
+msgstr "Όλες οι ενημερώσεις"
+
+#. Notify only of security updates
+#: ../solus_sc/settings_view.py:90
+msgid "Security updates only"
+msgstr "Μόνο οι ενημερώσεις ασφαλείας"
+
+#. Notify of security and core system updates ("mandatory")
+#: ../solus_sc/settings_view.py:92
+msgid "Security & core updates"
+msgstr "Ενημερώσεις ασφάλειας & λογισμικό πυρήνα"
+
+#: ../solus_sc/thirdparty.py:192 ../solus_sc/updates_view.py:338
+#: ../solus_sc/updates_view.py:340 ../solus_sc/updates_view.py:434
+msgid "Check for updates"
+msgstr "Έλεγχος για ενημερώσεις"
+
+#. Title of dialog displaying the details of a given update
+#: ../solus_sc/updates_view.py:121
+msgid "Update Details"
+msgstr "Λεπτομέρειες ενημέρωσης"
+
+#: ../solus_sc/updates_view.py:135
+msgid "Not installed"
+msgstr "Μη εγκατεστημένα"
+
+#: ../solus_sc/updates_view.py:233
+msgid "Discombobulating update matrix"
+msgstr "Αναταράζοντας το μάτριξ ενημερώσεων"
+
+#: ../solus_sc/updates_view.py:256
+msgid "Please check back later, updates are now applying"
+msgstr "Παρακαλώ περιμένετε, αυτή την στιγμή εφαρμόζονται ενημερώσεις"
+
+#: ../solus_sc/updates_view.py:353
+msgid "Software is up to date"
+msgstr "Το λογισμικό είναι ενημερωμένο"
+
+#. Selection label
+#. No updates currently selected for installation
+#: ../solus_sc/updates_view.py:419
+msgid "0 items selected"
+msgstr "0 επιλεγμένα αντικείμενα"
+
+#: ../solus_sc/updates_view.py:433
+msgid "Check new updates"
+msgstr "Έλεγχος νέων ενημερώσεων"
+
+#: ../solus_sc/updates_view.py:442
+msgid "Details"
+msgstr "Λεπτομέρειες"
+
+#. Apply the updates
+#: ../solus_sc/updates_view.py:448 ../solus_sc/updates_view.py:449
+msgid "Update Selected"
+msgstr "Η ενημέρωση έχει επιλεγεί"
+
+#. "2 of 10 updates selected"
+#: ../solus_sc/updates_view.py:684
+msgid "{} of {} updates selected"
+msgstr "{} απο {} ενημερώσεις επιλέχθηκαν"
+
+#. "2 of 10 updates selected (20.05MB to download)"
+#: ../solus_sc/updates_view.py:691
+msgid "{} of {} updates selected ({} to download)"
+msgstr "{} απο {} ενημερώσεις επιλέχθηκαν ({} για κατέβασμα)"
+
+#: ../solus_update/application.py:301
+msgid "Security updates available"
+msgstr "Υπάρχουν διαθέσιμες ενημερώσεις ασφαλείας"
+
+#: ../solus_update/application.py:302
+msgid ""
+"Update at your earliest convenience to ensure continued security of your "
+"device"
+msgstr "Ενημερώστε όσο το δυνατόν νωρίτερα, έτσι ώστε να εξασφαλίσετε την ασφάλεια του υπολογιστή σας"
+
+#: ../solus_update/application.py:306
+msgid "Software updates available"
+msgstr "Υπάρχουν διαθέσιμες ενημερώσεις λογισμικού"
+
+#: ../solus_update/application.py:307
+msgid "New software updates are available for your device"
+msgstr "Είναι διαθέσιμες νέες ενημερώσεις λογισμικού για τη συσκευή σας"
+
+#: ../solus_update/application.py:312
+msgid "Open Software Center"
+msgstr "Άνοιγμα κέντρου λογισμικού"
