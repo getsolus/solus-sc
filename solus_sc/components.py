@@ -28,7 +28,7 @@ ICON_MAPS = {
     "editor": "x-office-document",
     "office": "x-office-spreadsheet",
     "desktop.multimedia": "multimedia-volume-control",
-    "multimedia.graphics": "multimedia-volume-control",
+    "multimedia.sound": "multimedia-volume-control",
     "multimedia.video": "camera-video",
     "multimedia.audio": "library-music",
     "multimedia.graphics": "camera-photo",
