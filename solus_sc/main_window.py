@@ -70,7 +70,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         """ For now just propagate the event """
         return False
 
-    def handle_back(self, btn, udata=None):
+    def do_back(self):
         """ Handle back navigation """
         nom = self.stack.get_visible_child_name()
         if nom == "installed":
@@ -81,6 +81,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
             self.search_view.handle_back()
         else:
             print("Shouldn't be happening boss")
+
+    def handle_back(self, btn, udata=None):
+        self.do_back()
 
     def set_can_back(self, can_back):
         self.prev_button.set_sensitive(can_back)
@@ -120,6 +123,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def on_mapped(self, w, udata=None):
         GLib.timeout_add(200, self.init_view)
+
+    def on_button_press_event(self, widget, event):
+        if event.button == 8: # Back button
+            self.do_back()
 
     def on_key_press_event(self, widget, event):
         # check event modifiers
@@ -224,7 +231,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.sidebar_revealer.set_transition_type(revel)
 
         self.connect("map-event", self.on_mapped)
-
+        self.connect("button-press-event", self.on_button_press_event)
         self.connect("key-press-event", self.on_key_press_event)
 
         t = threading.Thread(target=self.init_children)
