@@ -12,7 +12,7 @@
 #
 
 from gi.repository import AppStreamGlib as As
-from gi.repository import Gio, GLib, Gtk
+from gi.repository import Gio, GLib, GdkPixbuf, Gtk
 
 
 class AppSystem:
@@ -37,7 +37,7 @@ class AppSystem:
 
         itheme = Gtk.IconTheme.get_default()
         try:
-            self.default_pixbuf = itheme.load_icon(
+            defpbuf = itheme.load_icon(
                 "package-x-generic",
                 64,
                 Gtk.IconLookupFlags.GENERIC_FALLBACK)
@@ -53,6 +53,7 @@ class AppSystem:
                 "folder-download",
                 64,
                 Gtk.IconLookupFlags.GENERIC_FALLBACK)
+            self.default_pixbuf = defpbuf.scale_simple(64,64,GdkPixbuf.InterpType.BILINEAR)
         except Exception as e:
             print(e)
 
@@ -133,13 +134,18 @@ class AppSystem:
                     icon.get_name(),
                     64,
                     Gtk.IconLookupFlags.GENERIC_FALLBACK)
+                if pbuf.get_height() != 64:
+                    pbuf = pbuf.scale_simple(64,64,GdkPixbuf.InterpType.BILINEAR)
                 return pbuf
             except Exception as e:
                 print(e)
             return self.default_pixbuf
         if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
             return self.default_pixbuf
-        return icon.get_pixbuf()
+        pbuf = icon.get_pixbuf()
+        if pbuf.get_height() != 64:
+            pbuf = pbuf.scale_simple(64,64,GdkPixbuf.InterpType.BILINEAR)
+        return pbuf
 
     def get_website(self, package):
         """ Get the website for a given package """
