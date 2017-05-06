@@ -1,481 +1,477 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Yurizal Susanto <rizal.sagi@gmail.com>, 2016
+# Sucipto <show.cheap@gmail.com>, 2017
+# Yurizal Susanto <rizal.sagi@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-04-20 03:42+0100\n"
-"PO-Revision-Date: 2016-11-07 13:55+0000\n"
-"Last-Translator: Yurizal Susanto <rizal.sagi@gmail.com>\n"
-"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/solus-"
-"project/solus-sc/language/id_ID/)\n"
-"Language: id_ID\n"
+"PO-Revision-Date: 2017-04-23 04:42+0000\n"
+"Last-Translator: Sucipto <show.cheap@gmail.com>\n"
+"Language-Team: Indonesian (Indonesia) (http://www.transifex.com/solus-project/solus-sc/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: id_ID\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../repo_data/components.xml.in.h:1
 msgid "System Base"
-msgstr ""
+msgstr "Dasar Sistem"
 
 #: ../repo_data/components.xml.in.h:2
 msgid "Base Components"
-msgstr ""
+msgstr "Komponen Dasar"
 
 #: ../repo_data/components.xml.in.h:3
 msgid "Base components of Solus"
-msgstr ""
+msgstr "Komponen dasar Solus"
 
 #: ../repo_data/components.xml.in.h:4
 msgid "Boot utilities"
-msgstr ""
+msgstr "Utilitas boot"
 
 #: ../repo_data/components.xml.in.h:5
 msgid "Tools and daemons required early in the boot process"
-msgstr ""
+msgstr "Perkakas dan daemon dibutuhkan di awal pada proses boot"
 
 #: ../repo_data/components.xml.in.h:6
 msgid "System utilities"
-msgstr ""
+msgstr "Utilitas sitem"
 
 #: ../repo_data/components.xml.in.h:7
 msgid ""
 "Commonly used components for a full installation, not used in minimal "
 "environments"
-msgstr ""
+msgstr "Umum digunakan untuk pemasangan penuh, tidak digunakan untuk lingkungan minimal"
 
 #: ../repo_data/components.xml.in.h:8
 msgid "Base development tools"
-msgstr ""
+msgstr "Perkakas basis pengembangan"
 
 #: ../repo_data/components.xml.in.h:9
 msgid "Development utilities - base system"
-msgstr ""
+msgstr "Utilitas pengembangan - basis sistem"
 
 #: ../repo_data/components.xml.in.h:10
 msgid "X.Org Base Components"
-msgstr ""
+msgstr "Komponen dasar X.Org"
 
 #: ../repo_data/components.xml.in.h:11
 msgid "Base components required for the X.Org System"
-msgstr ""
+msgstr "Komponen dasar yang dibutuhkan sistem X.Org"
 
 #: ../repo_data/components.xml.in.h:12
 msgid "X.Org Protocol Headers"
-msgstr ""
+msgstr "Header Protokol X.Org"
 
 #: ../repo_data/components.xml.in.h:13
 msgid "Protocol headers required for building X.Org Libraries"
-msgstr ""
+msgstr "Protokol header yang dibutuhkan untuk membangun pustaka X.Org"
 
 #: ../repo_data/components.xml.in.h:14
 msgid "X.Org Core Libraries"
-msgstr ""
+msgstr "Pustaka Inti X.Org"
 
 #: ../repo_data/components.xml.in.h:15
 msgid "Core libraries required by X.Org"
-msgstr ""
+msgstr "Pustaka inti yang dibutuhkan X.Org"
 
 #: ../repo_data/components.xml.in.h:16
 msgid "X.Org Core Fonts"
-msgstr ""
+msgstr "Fonta inti X.Org"
 
 #: ../repo_data/components.xml.in.h:17
 msgid "Core fonts required by X.Org"
-msgstr ""
+msgstr "Fonta inti yang dibutuhkan X.Org"
 
 #: ../repo_data/components.xml.in.h:18
 msgid "X.Org Core Aplications"
-msgstr ""
+msgstr "Aplikasi Inti X.Org"
 
 #: ../repo_data/components.xml.in.h:19
 msgid "X.Org Core Applications"
-msgstr ""
+msgstr "Aplikasi Inti X.Org"
 
 #: ../repo_data/components.xml.in.h:20
 msgid "Collection of simple applications for X.Org"
-msgstr ""
+msgstr "Koleksi aplikasi sederhana untuk X.Org"
 
 #: ../repo_data/components.xml.in.h:21
 msgid "X.Org Display"
-msgstr ""
+msgstr "Tampilan X.Org"
 
 #: ../repo_data/components.xml.in.h:22
 msgid "Software required to run an X.Org Display"
-msgstr ""
+msgstr "Piranti lunak yang dibutuhkan untuk menjalankan tampilan X.Org"
 
 #: ../repo_data/components.xml.in.h:23
 msgid "X.Org Server"
-msgstr ""
+msgstr "Peladen X.Org"
 
 #: ../repo_data/components.xml.in.h:24
 msgid "Core server of the X Window System"
-msgstr ""
+msgstr "Peladen inti untux Sistem X Window"
 
 #: ../repo_data/components.xml.in.h:25
 msgid "X.Org Drivers"
-msgstr ""
+msgstr "Driver X.Org"
 
 #: ../repo_data/components.xml.in.h:26
 msgid "Drivers required to use the X Window System"
-msgstr ""
+msgstr "Driver yang dibutuhkan untuk menggunakan Sistem X Window"
 
 #: ../repo_data/components.xml.in.h:27
 msgid "Networking Base"
-msgstr ""
+msgstr "Basis Jaringan"
 
 #: ../repo_data/components.xml.in.h:28
 msgid "Email clients"
-msgstr ""
+msgstr "Klien Surel"
 
 #: ../repo_data/components.xml.in.h:29
 msgid "IRC clients"
-msgstr ""
+msgstr "Klien IRC"
 
 #: ../repo_data/components.xml.in.h:30
 msgid "Instant messaging"
-msgstr ""
+msgstr "Pesan singkat"
 
 #: ../repo_data/components.xml.in.h:31
 msgid "News and RSS readers"
-msgstr ""
+msgstr "Berita dan pembaca RSS"
 
 #: ../repo_data/components.xml.in.h:32
 msgid "Remote management software"
-msgstr ""
+msgstr "Perangkat lunak manajemen jarak jauh"
 
 #: ../repo_data/components.xml.in.h:33
 msgid "Web applications"
-msgstr ""
+msgstr "Aplikasi web"
 
 #: ../repo_data/components.xml.in.h:34
 msgid "Web browsers"
-msgstr ""
+msgstr "Peramban"
 
 #: ../repo_data/components.xml.in.h:35
 msgid "Networking utilities"
-msgstr ""
+msgstr "Utilitas jaringan"
 
 #: ../repo_data/components.xml.in.h:36
 msgid "Download managers"
-msgstr ""
+msgstr "Manajer unduhan"
 
 #: ../repo_data/components.xml.in.h:37
 msgid "Networking CLI Clients"
-msgstr ""
+msgstr "Klien jaringan CLI"
 
 #: ../repo_data/components.xml.in.h:38
 msgid "Kernel Images"
-msgstr ""
+msgstr "Kernel Images"
 
 #: ../repo_data/components.xml.in.h:39
 msgid "Kernel Development"
-msgstr ""
+msgstr "Pengembangan Kernel"
 
 #: ../repo_data/components.xml.in.h:40
 msgid "Text Editors"
-msgstr ""
+msgstr "Penyunting Teks"
 
 #: ../repo_data/components.xml.in.h:41
 msgid "Simple and advanced text editors"
-msgstr ""
+msgstr "Teks editor sederhana dan lanjutan"
 
 #: ../repo_data/components.xml.in.h:42 ../repo_data/groups.xml.in.h:5
-#, fuzzy
 msgid "Office Software"
-msgstr "Buka Pusat Perangkat Lunak"
+msgstr "Piranti lunak perkantoran"
 
 #: ../repo_data/components.xml.in.h:43
 msgid "Office software"
-msgstr ""
+msgstr "Piranti lunak perkantoran"
 
 #: ../repo_data/components.xml.in.h:44
 msgid "Financial Software"
-msgstr ""
+msgstr "Piranti lunak finansial"
 
 #: ../repo_data/components.xml.in.h:45
 msgid "Mathematics-Oriented Software"
-msgstr ""
+msgstr "Piranti lunak matematika"
 
 #: ../repo_data/components.xml.in.h:46
 msgid "Note-Taking Software"
-msgstr ""
+msgstr "Piranti lunak Catatan"
 
 #: ../repo_data/components.xml.in.h:47
 msgid "Scientific Software"
-msgstr ""
+msgstr "Piranti lunak sains"
 
 #: ../repo_data/components.xml.in.h:48
 msgid "Software aimed at various scientific fields."
-msgstr ""
+msgstr "Software ditujukan untuk berbagai bidang keilmuan"
 
 #: ../repo_data/components.xml.in.h:49
 msgid "E-book and PDF Viewing Software"
-msgstr ""
+msgstr "Piranti lunak Buku elektronik dan PDF"
 
 #: ../repo_data/components.xml.in.h:50
 msgid "Programming"
-msgstr ""
+msgstr "Pemrograman"
 
 #: ../repo_data/components.xml.in.h:51
 msgid "Software related to programming"
-msgstr ""
+msgstr "Piranti lunak terkait pemrograman"
 
 #: ../repo_data/components.xml.in.h:52
 msgid "Development files"
-msgstr ""
+msgstr "Berkas pengembangan"
 
 #: ../repo_data/components.xml.in.h:53
 msgid "Integrated Developer Environments"
-msgstr ""
+msgstr "Integrated Developer Environments"
 
 #: ../repo_data/components.xml.in.h:54
 msgid "Development tools"
-msgstr ""
+msgstr "Perkakas pengembangan"
 
 #: ../repo_data/components.xml.in.h:55
 msgid "Haskell libraries"
-msgstr ""
+msgstr "Pustaka Haskell"
 
 #: ../repo_data/components.xml.in.h:56
 msgid "Python modules"
-msgstr ""
+msgstr "Modul Python"
 
 #: ../repo_data/components.xml.in.h:57
 msgid "Perl modules"
-msgstr ""
+msgstr "Modul Perl"
 
 #: ../repo_data/components.xml.in.h:58
 msgid "Java modules and libraries"
-msgstr ""
+msgstr "Modul dan pustaka Java"
 
 #: ../repo_data/components.xml.in.h:59
 msgid "Programming libraries"
-msgstr ""
+msgstr "Pustaka pemrograman"
 
 #: ../repo_data/components.xml.in.h:60
 msgid "Database clients and servers"
-msgstr ""
+msgstr "Klien dan server pangkalan data"
 
 #: ../repo_data/components.xml.in.h:61
 msgid "Desktop Software"
-msgstr ""
+msgstr "Piranti lunak desktop"
 
 #: ../repo_data/components.xml.in.h:62
 msgid "Desktop specific software"
-msgstr ""
+msgstr "Piranti lunak spesifik desktop"
 
 #: ../repo_data/components.xml.in.h:63
 msgid "General Multimedia Software"
-msgstr ""
+msgstr "Piranti lunak multimedia umum"
 
 #: ../repo_data/components.xml.in.h:64
 msgid "Graphics"
-msgstr ""
+msgstr "Grafis"
 
 #: ../repo_data/components.xml.in.h:65
 msgid "Graphics Manipulation Software"
-msgstr ""
+msgstr "Piranti lunak manipulasi grafis"
 
 #: ../repo_data/components.xml.in.h:66
 msgid "Multimedia Codecs"
-msgstr ""
+msgstr "Codec multimedia"
 
 #: ../repo_data/components.xml.in.h:67
 msgid "Multimedia Codecs and Format Support"
-msgstr ""
+msgstr "Codec multimedia dan dukungan format"
 
 #: ../repo_data/components.xml.in.h:68
 msgid "Video Software"
-msgstr ""
+msgstr "Piranti lunak video"
 
 #: ../repo_data/components.xml.in.h:69
 msgid "Audio Software"
-msgstr ""
+msgstr "Piranti lunak suara"
 
 #: ../repo_data/components.xml.in.h:70
 msgid "Multimedia Libraries"
-msgstr ""
+msgstr "Pustaka multimedia"
 
 #: ../repo_data/components.xml.in.h:71
 msgid "GStreamer Runtime"
-msgstr ""
+msgstr "GStreamer Runtime"
 
 #: ../repo_data/components.xml.in.h:72
 msgid "GStreamer Runtime &amp; Support Libraries"
-msgstr ""
+msgstr "GStreamer Runtime &amp; Pustaka pendukung"
 
 #: ../repo_data/components.xml.in.h:73
 msgid "Desktop Libraries"
-msgstr ""
+msgstr "Pustaka desktop"
 
 #: ../repo_data/components.xml.in.h:74
 msgid "Common libraries required for a desktop"
-msgstr ""
+msgstr "Pustaka umum yang dibutuhkan dekstop"
 
 #: ../repo_data/components.xml.in.h:75
 msgid "Desktop Theming"
-msgstr ""
+msgstr "Tema desktop"
 
 #: ../repo_data/components.xml.in.h:76
 msgid "Themes to enhance the desktop"
-msgstr ""
+msgstr "Tema untuk peningkatan desktop"
 
 #: ../repo_data/components.xml.in.h:77
 msgid "Desktop Fonts"
-msgstr ""
+msgstr "Fonta desktop"
 
 #: ../repo_data/components.xml.in.h:78
 msgid "Fonts to enhance the desktop"
-msgstr ""
+msgstr "Fonta untuk peningkatan desktop"
 
 #: ../repo_data/components.xml.in.h:79
 msgid "Qt Runtime Libraries"
-msgstr ""
+msgstr "Qt Runtime Libraries"
 
 #: ../repo_data/components.xml.in.h:80
 msgid "GTK Runtime Libraries"
-msgstr ""
+msgstr "GTK Runtime Libraries"
 
 #: ../repo_data/components.xml.in.h:81
 msgid "Budgie Desktop"
-msgstr ""
+msgstr "Budgie Desktop"
 
 #: ../repo_data/components.xml.in.h:82
 msgid "Elements of the Solus Budgie Experience"
-msgstr ""
+msgstr "Elemen dari Solus Budgie Experience"
 
 #: ../repo_data/components.xml.in.h:83
 msgid "GNOME Desktop"
-msgstr ""
+msgstr "Desktop GNOME"
 
 #: ../repo_data/components.xml.in.h:84
 msgid "MATE Desktop"
-msgstr ""
+msgstr "Desktop Mate"
 
 #: ../repo_data/components.xml.in.h:85
 msgid "i3 Desktop"
-msgstr ""
+msgstr "Desktop i3"
 
 #: ../repo_data/components.xml.in.h:86
 msgid "GNOME Desktop - Core System"
-msgstr ""
+msgstr "Desktop GNOME - Sistem Utama"
 
 #: ../repo_data/components.xml.in.h:87
 msgid "GNOME Documentation Tools"
-msgstr ""
+msgstr "Perkakas Dokumentasi GNOME"
 
 #: ../repo_data/components.xml.in.h:88
 msgid "Documentation tools for GNOME"
-msgstr ""
+msgstr "Perkakas Dokumentasi untuk GNOME"
 
 #: ../repo_data/components.xml.in.h:89
 msgid "Desktop Core Components"
-msgstr ""
+msgstr "Komponen Inti Desktop"
 
 #: ../repo_data/components.xml.in.h:90
 msgid "Core components for desktop systems"
-msgstr ""
+msgstr "Komponen inti untuk sistem desktop"
 
 #: ../repo_data/components.xml.in.h:91
-#, fuzzy
 msgid "Security applications"
-msgstr "Hanya pembaruan keamanan"
+msgstr "Aplikasi keamanan"
 
 #: ../repo_data/components.xml.in.h:92
 msgid "Cryptographic utilities"
-msgstr ""
+msgstr "Utilitas kriptografi"
 
 #: ../repo_data/components.xml.in.h:93
 msgid "Cryptographic utilities and runtimes"
-msgstr ""
+msgstr "Utilitas dan runtime kriptografi"
 
 #: ../repo_data/components.xml.in.h:94
-#, fuzzy
 msgid "Security-oriented libraries"
-msgstr "Pembaruan keamanan dan inti"
+msgstr "Pustaka berorientasi keamanan"
 
 #: ../repo_data/components.xml.in.h:95
 msgid "Main games collection"
-msgstr ""
+msgstr "Koleksi permainan utama"
 
 #: ../repo_data/components.xml.in.h:96
 msgid "Main games"
-msgstr ""
+msgstr "Permainan utama"
 
 #: ../repo_data/components.xml.in.h:97
 msgid "Action Games"
-msgstr ""
+msgstr "Permainan Aksi"
 
 #: ../repo_data/components.xml.in.h:98
 msgid "Arcade Games"
-msgstr ""
+msgstr "Permainan Arkade"
 
 #: ../repo_data/components.xml.in.h:99
 msgid "Card Games"
-msgstr ""
+msgstr "Permainan Kartu"
 
 #: ../repo_data/components.xml.in.h:100
 msgid "Console Emulators"
-msgstr ""
+msgstr "Emulator Konsol"
 
 #: ../repo_data/components.xml.in.h:101
 msgid "Massive Multiplayer Online Games"
-msgstr ""
+msgstr "Massive Multiplayer Online Games"
 
 #: ../repo_data/components.xml.in.h:102
 msgid "Platformer Games"
-msgstr ""
+msgstr "Permainan Platformer"
 
 #: ../repo_data/components.xml.in.h:103
 msgid "Puzzle Games"
-msgstr ""
+msgstr "Permainan Puzzle"
 
 #: ../repo_data/components.xml.in.h:104
 msgid "Role-playing Games"
-msgstr ""
+msgstr "Permainan Pera"
 
 #: ../repo_data/components.xml.in.h:105
 msgid "Strategy Games"
-msgstr ""
+msgstr "Permainan Strategi"
 
 #: ../repo_data/distribution.xml.in.h:1
 msgid "Solus Repository"
-msgstr ""
+msgstr "Lumbung Solus"
 
 #: ../repo_data/groups.xml.in.h:1
 msgid "System Software"
-msgstr ""
+msgstr "Piranti lunak Sistem"
 
 #: ../repo_data/groups.xml.in.h:2
 msgid "Internet Software"
-msgstr ""
+msgstr "Piranti lunak Internet"
 
 #: ../repo_data/groups.xml.in.h:3
 msgid "Multimedia &amp; Graphics"
-msgstr ""
+msgstr "Multimedia &amp; Grafis"
 
 #: ../repo_data/groups.xml.in.h:4
 msgid "Gaming on Solus"
-msgstr ""
+msgstr "Permainan di Solus"
 
 #: ../repo_data/groups.xml.in.h:6
 msgid "Programming Languages &amp; Tools"
-msgstr ""
+msgstr "Bahasa Pemrograman &amp; Perkakas"
 
 #: ../repo_data/groups.xml.in.h:7
 msgid "Desktop Software &amp; Theming"
-msgstr ""
+msgstr "Piranti lunak &amp; Tema"
 
 #: ../repo_data/groups.xml.in.h:8
-#, fuzzy
 msgid "Security Software"
-msgstr "Pembaruan keamanan dan inti"
+msgstr "Piranti lunak Keamanan"
 
 #: ../solus_sc/application.py:84
 msgid "Open up the updates view of the application"
@@ -493,7 +489,7 @@ msgstr "{} operasi tertunda"
 
 #: ../solus_sc/basket.py:153
 msgid " - This may take <b>some time!</b>"
-msgstr ""
+msgstr "Ini akan memakan <b>sedikit waktu!</b>"
 
 #. Only one package operation to be performed
 #: ../solus_sc/basket.py:158
@@ -540,19 +536,18 @@ msgstr "Dihapus {} dari {}: {}"
 #. "Downloading eopkg-index.xml.xz (10kb/s)
 #: ../solus_sc/basket.py:264
 msgid "Downloading {} ({})"
-msgstr ""
+msgstr "Mengunduh {} ({})"
 
 #. "Downloading 1 of 10: bash (10kb/s)
 #: ../solus_sc/basket.py:268
-#, fuzzy
 msgid "Downloading {} of {}: {} ({})"
-msgstr "Memasang {} dari {}: {}"
+msgstr "Mengunduh {} dari {}: {} ({})"
 
 #. print args
 #. Downloading eopkg-index.xml.sha1sum
 #: ../solus_sc/basket.py:278
 msgid "Downloading {}"
-msgstr ""
+msgstr "Mengunduh {}"
 
 #: ../solus_sc/basket.py:323
 msgid "The following dependencies need to be installed to continue"
@@ -614,7 +609,7 @@ msgstr "Ukuran terpasang"
 #. License field
 #: ../solus_sc/details.py:205
 msgid "License"
-msgstr ""
+msgstr "Lisensi"
 
 #: ../solus_sc/details.py:257
 msgid "Cannot remove core system software"
@@ -755,14 +750,13 @@ msgstr "Pembaruan Terpilih"
 
 #. "2 of 10 updates selected"
 #: ../solus_sc/updates_view.py:684
-#, fuzzy
 msgid "{} of {} updates selected"
-msgstr "Pembaruan Terpilih"
+msgstr "{} dari {} pembaruan dipilih"
 
 #. "2 of 10 updates selected (20.05MB to download)"
 #: ../solus_sc/updates_view.py:691
 msgid "{} of {} updates selected ({} to download)"
-msgstr ""
+msgstr "{} dari {} pembaruan dipilih ({} untuk diunduh)"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
@@ -772,9 +766,7 @@ msgstr "Pembaruan keamanan yang tersedia"
 msgid ""
 "Update at your earliest convenience to ensure continued security of your "
 "device"
-msgstr ""
-"Perbarui secepatnya untuk memastikan keamanan yang berkelanjutan untuk "
-"perangkat Anda"
+msgstr "Perbarui secepatnya untuk memastikan keamanan yang berkelanjutan untuk perangkat Anda"
 
 #: ../solus_update/application.py:306
 msgid "Software updates available"
