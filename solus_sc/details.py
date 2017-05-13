@@ -14,6 +14,7 @@
 from gi.repository import Gtk
 from gi.repository import Gio
 from gi.repository import AppStreamGlib as As
+from .imagewidget import ScImageWidget
 from .util import sc_format_size_local
 
 
@@ -51,6 +52,9 @@ class PackageDetailsView(Gtk.VBox):
     # Allow switching between our various views
     view_stack = None
     view_switcher = None
+
+    # Main screenshot view
+    image_widget = None
 
     # Urls..
     url_website = None
@@ -159,6 +163,10 @@ class PackageDetailsView(Gtk.VBox):
         self.remove_button.set_no_show_all(True)
 
         header.set_property("margin-bottom", 24)
+
+        # Now set up the screenshot section
+        self.image_widget = ScImageWidget()
+        self.pack_start(self.image_widget, True, True, 0)
 
         # View switcher provides inline switcher
         self.view_switcher = Gtk.StackSwitcher()
