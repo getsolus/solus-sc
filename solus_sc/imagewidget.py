@@ -32,6 +32,9 @@ class ScImageWidget(Gtk.Frame):
         Gtk.Frame.__init__(self)
 
         self.stack = Gtk.Stack.new()
+        self.stack.set_homogeneous(False)
+        self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
+        self.stack.set_interpolate_size(True)
         self.add(self.stack)
         self.set_border_width(0)
         self.set_property("margin", 0)
