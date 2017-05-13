@@ -53,7 +53,8 @@ class AppSystem:
                 "folder-download",
                 64,
                 Gtk.IconLookupFlags.GENERIC_FALLBACK)
-            self.default_pixbuf = defpbuf.scale_simple(64,64,GdkPixbuf.InterpType.BILINEAR)
+            self.default_pixbuf = defpbuf.scale_simple(
+                64, 64, GdkPixbuf.InterpType.BILINEAR)
         except Exception as e:
             print(e)
 
@@ -135,7 +136,8 @@ class AppSystem:
                     64,
                     Gtk.IconLookupFlags.GENERIC_FALLBACK)
                 if pbuf.get_height() != 64:
-                    pbuf = pbuf.scale_simple(64,64,GdkPixbuf.InterpType.BILINEAR)
+                    pbuf = pbuf.scale_simple(
+                        64, 64, GdkPixbuf.InterpType.BILINEAR)
                 return pbuf
             except Exception as e:
                 print(e)
@@ -144,7 +146,8 @@ class AppSystem:
             return self.default_pixbuf
         pbuf = icon.get_pixbuf()
         if pbuf.get_height() != 64:
-            pbuf = pbuf.scale_simple(64,64,GdkPixbuf.InterpType.BILINEAR)
+            pbuf = pbuf.scale_simple(
+                64, 64, GdkPixbuf.InterpType.BILINEAR)
         return pbuf
 
     def get_website(self, package):
