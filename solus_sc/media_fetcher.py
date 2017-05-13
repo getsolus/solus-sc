@@ -15,7 +15,7 @@
 import Queue
 import multiprocessing
 import threading
-from gi.repository import GObject, GLib
+from gi.repository import GObject, GLib, GdkPixbuf, Gio
 import os
 import hashlib
 
@@ -39,7 +39,7 @@ class ScMediaFetcher(GObject.Object):
     # Emit media-fetched URL local-URL
     __gsignals__ = {
         'media-fetched': (GObject.SIGNAL_RUN_FIRST, None,
-                          (str, str))
+                          (str, str, GdkPixbuf.Pixbuf))
     }
 
     __gtype_name__ = "ScMediaFetcher"
@@ -99,6 +99,52 @@ class ScMediaFetcher(GObject.Object):
                 return True
         return False
 
+    def load_pixbuf(self, local_file):
+        """ Load the pixbuf itself in the background thread """
+        pbuf = None
+        try:
+            pbuf = GdkPixbuf.Pixbuf.new_from_file(local_file)
+        except Exception as e:
+            raise e
+            return None
+        return pbuf
+
+    def fetch_pixbuf(self, uri, local_file):
+        """ Load the GdkPixbuf in the background thread so it can be updated
+            immediately in the UI without a secondary load routine
+        """
+        if os.path.exists(local_file):
+            return self.load_pixbuf(local_file)
+
+        # Attempt download to a local location, then finally rename to the
+        # final path
+        inf = Gio.File.new_for_uri(uri)
+        out, ios = Gio.File.new_tmp("solus-sc.XXXXXX")
+        try:
+            inf.copy(out, Gio.FileCopyFlags.OVERWRITE, None, None)
+        except Exception as e:
+            raise e
+            return None
+
+        # Downloaded to local file so load that one up
+        pbuf = None
+        try:
+            pbuf = self.load_pixbuf(out.get_path())
+        except Exception as e:
+            raise e
+            return None
+
+        # Copy temporary over the original
+        try:
+            out2 = Gio.File.new_for_path(local_file)
+            out.copy(out2, Gio.FileCopyFlags.OVERWRITE, None, None)
+            out.delete()
+        except Exception as e:
+            out.delete()
+            raise e
+            return None
+        return pbuf
+
     def begin_fetch(self):
         """ Main thread body function, will effectively run forever
             based on lock conditions
@@ -106,17 +152,25 @@ class ScMediaFetcher(GObject.Object):
         while True:
             # Grab the next job and wipe from the cache
             uri = self.queue.get()
+
+            local_file = self.get_cache_filename_full(uri)
+            pbuf = None
+            try:
+                pbuf = self.fetch_pixbuf(uri, local_file)
+            except Exception as e:
+                print("Failed to fetch {}: {}".format(uri, e))
+                with self.cache_lock:
+                    del self.cache[uri]
+                self.queue.task_done()
+                continue
+
             with self.cache_lock:
                 del self.cache[uri]
-
-            # TODO: Actually fetch it.
-            print("Fetching %s" % uri)
-            local_file = self.get_cache_filename_full(uri)
             self.queue.task_done()
 
             # Let clients know the media is now ready
             GLib.idle_add(lambda: self.emit(
-                'media-fetched', uri, local_file),
+                'media-fetched', uri, local_file, pbuf),
                 priority=GLib.PRIORITY_LOW)
 
     def fetch_media(self, uri):
