@@ -175,6 +175,7 @@ class ScMediaFetcher(GObject.Object):
                 Gdk.threads_enter()
                 self.emit('media-fetched', uri, filename, pbuf)
                 Gdk.threads_leave()
+                pbuf = None
             self.load_queue.task_done()
 
     def begin_fetch(self):

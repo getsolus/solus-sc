@@ -24,6 +24,9 @@ class ScImageWidget(Gtk.Frame):
     page_image = None
     stack = None
 
+    # The currently set URI
+    uri = None
+
     def __init__(self):
         Gtk.Frame.__init__(self)
 
@@ -64,3 +67,15 @@ class ScImageWidget(Gtk.Frame):
         """ The main image preview. """
         self.page_image = Gtk.Image.new()
         self.stack.add_named(self.page_image, "page-image")
+
+    def show_image(self, uri, pbuf):
+        """ Show the loaded image and switch to it on the view """
+        self.uri = uri
+        self.page_image.set_from_pixbuf(pbuf)
+        self.stack.set_visible_child_name("page-image")
+
+    def show_failed(self, uri, err):
+        """ Show that the image loading failed """
+        self.uri = uri
+        # TODO: Do something with the error
+        self.stack.set_visible_child_name("page-not-found")

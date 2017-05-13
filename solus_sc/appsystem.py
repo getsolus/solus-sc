@@ -13,6 +13,7 @@
 
 from gi.repository import AppStreamGlib as As
 from gi.repository import Gio, GLib, GdkPixbuf, Gtk
+from .media_fetcher import ScMediaFetcher
 
 
 class AppSystem:
@@ -30,8 +31,10 @@ class AppSystem:
     security_pixbuf = None
     mandatory_pixbuf = None
     other_pixbuf = None
+    fetcher = None
 
     def __init__(self):
+        self.fetcher = ScMediaFetcher()
         self.store = As.Store()
         self.store.load(As.StoreLoadFlags.APP_INFO_SYSTEM)
 

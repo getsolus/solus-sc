@@ -62,6 +62,8 @@ class PackageDetailsView(Gtk.VBox):
     is_install_page = False
     basket = None
 
+    fetcher = None
+
     def on_donate(self, btn, udata=None):
         """ Launch the donation site """
         try:
@@ -115,11 +117,24 @@ class PackageDetailsView(Gtk.VBox):
                 self.is_install_page = True
                 self.update_from_package(pkg)
 
+    def on_media_fetched(self, fetcher, uri, filename, pixbuf):
+        """ Some media that we asked for has been loaded """
+        pass
+
+    def on_fetch_failed(self, fetcher, uri, err):
+        """ We failed to fetch *something* """
+        pass
+
     def __init__(self, appsystem, basket):
         Gtk.VBox.__init__(self)
         self.appsystem = appsystem
         self.basket = basket
         self.basket.connect("basket-changed", self.on_basket_changed)
+
+        # Bind a weak reference for later usage
+        self.fetcher = appsystem.fetcher
+        self.fetcher.connect('media-fetched', self.on_media_fetched)
+        self.fetcher.connect('fetch-failed', self.on_fetch_failed)
 
         self.set_border_width(24)
 
