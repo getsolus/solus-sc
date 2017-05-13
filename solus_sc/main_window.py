@@ -57,6 +57,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     # Default open mode
     mode_open = None
     action_bar = None
+    did_map_once = False
 
     def show_updates(self):
         """ Switch to updates view """
@@ -122,6 +123,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
         return False
 
     def on_mapped(self, w, udata=None):
+        if self.did_map_once:
+            return
+        self.did_map_once = True
         GLib.timeout_add(200, self.init_view)
 
     def on_button_press_event(self, widget, event):
