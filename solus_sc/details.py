@@ -48,6 +48,10 @@ class PackageDetailsView(Gtk.VBox):
     website_button = None
     donate_button = None
 
+    # Allow switching between our various views
+    view_stack = None
+    view_switcher = None
+
     # Urls..
     url_website = None
     url_donate = None
@@ -156,6 +160,26 @@ class PackageDetailsView(Gtk.VBox):
 
         header.set_property("margin-bottom", 24)
 
+        # View switcher provides inline switcher
+        self.view_switcher = Gtk.StackSwitcher()
+        self.view_switcher.get_style_context().add_class("flat")
+        self.view_switcher.set_can_focus(False)
+        self.pack_start(self.view_switcher, False, False, 0)
+
+        # View stack will contain our various pages
+        self.view_stack = Gtk.Stack()
+        self.pack_start(self.view_stack, True, True, 0)
+        self.view_switcher.set_stack(self.view_stack)
+        self.view_switcher.set_halign(Gtk.Align.START)
+
+        # Create pages
+        self.setup_details_view()
+        self.setup_changelog_view()
+
+    def setup_details_view(self):
+        self.scroll_wrap = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.view_stack.add_titled(self.scroll_wrap, "details", _("Details"))
+
         self.scroll = Gtk.ScrolledWindow(None, None)
         self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         # Need the description down a bit and a fair bit padded
@@ -171,43 +195,61 @@ class PackageDetailsView(Gtk.VBox):
         self.label_description.set_selectable(True)
         self.label_description.set_can_focus(False)
         self.scroll.add(self.label_description)
-        self.pack_start(self.scroll, True, True, 0)
+        self.scroll_wrap.pack_start(self.scroll, True, True, 0)
 
         # Begin the tail grid
         self.tail_grid = Gtk.Grid()
-        self.tail_grid.set_margin_top(8)
+        self.tail_grid.set_margin_top(20)
         self.tail_grid.set_row_spacing(8)
         self.tail_grid.set_column_spacing(8)
-        self.pack_end(self.tail_grid, False, False, 0)
+        self.scroll_wrap.pack_end(self.tail_grid, False, False, 0)
 
+        grid_row = 0
+        col_label = 0
+        col_value = 1
+
+        # Size of the package when installed locally
+        self.label_installed = Gtk.Label(_("Installed size"))
+        self.label_installed.set_halign(Gtk.Align.END)
+        self.label_installed.get_style_context().add_class("dim-label")
+        self.tail_grid.attach(self.label_installed, col_label, grid_row, 1, 1)
+
+        self.label_size = Gtk.Label("")
+        self.label_size.set_halign(Gtk.Align.START)
+        self.tail_grid.attach(self.label_size, col_value, grid_row, 1, 1)
+
+        grid_row += 1
+
+        # License field
+        label_license_field = Gtk.Label(_("License"))
+        label_license_field.set_halign(Gtk.Align.END)
+        label_license_field.get_style_context().add_class("dim-label")
+        self.tail_grid.attach(label_license_field, col_label, grid_row, 1, 1)
+
+        self.label_license = Gtk.Label("")
+        self.label_license.set_halign(Gtk.Align.START)
+        self.tail_grid.attach(self.label_license, col_value, grid_row, 1, 1)
+
+        grid_row += 1
+
+        # TODO: Make this stuff way less ugly.
         # Visit the website of the package
         self.website_button = Gtk.Button(_("Website"))
         self.website_button.set_no_show_all(True)
         self.website_button.connect("clicked", self.on_website)
-        # self.tail_grid.attach(button_website, t, w, h)
-        self.tail_grid.attach(self.website_button, 0, 1, 1, 1)
+        self.tail_grid.attach(self.website_button, col_label, grid_row, 2, 1)
+
+        grid_row += 1
 
         # Donation button launches website to donate to authors
         self.donate_button = Gtk.Button(_("Donate"))
         self.donate_button.connect("clicked", self.on_donate)
         self.donate_button.set_no_show_all(True)
-        self.tail_grid.attach(self.donate_button, 1, 1, 1, 1)
+        self.tail_grid.attach(self.donate_button, col_label, grid_row, 2, 1)
 
-        # Size of the package when installed locally
-        self.label_installed = Gtk.Label(_("Installed size"))
-        self.label_installed.get_style_context().add_class("dim-label")
-        self.tail_grid.attach(self.label_installed, 0, 0, 1, 1)
-
-        self.label_size = Gtk.Label("")
-        self.tail_grid.attach(self.label_size, 1, 0, 1, 1)
-
-        # License field
-        label_license_field = Gtk.Label(_("License"))
-        label_license_field.get_style_context().add_class("dim-label")
-        self.tail_grid.attach(label_license_field, 2, 0, 1, 1)
-
-        self.label_license = Gtk.Label("")
-        self.tail_grid.attach(self.label_license, 3, 0, 1, 1)
+    def setup_changelog_view(self):
+        box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.view_stack.add_titled(box, "changelog", _("Changelog"))
 
     def update_from_package(self, package):
         """ Update our view based on a given package """
