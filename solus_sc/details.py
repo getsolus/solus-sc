@@ -143,9 +143,8 @@ class PackageDetailsView(Gtk.VBox):
         self.fetcher.connect('media-fetched', self.on_media_fetched)
         self.fetcher.connect('fetch-failed', self.on_fetch_failed)
 
-        self.set_border_width(24)
-
         header = Gtk.HBox(0)
+        header.set_border_width(24)
         self.pack_start(header, False, False, 0)
 
         # Set up the icon
@@ -184,22 +183,29 @@ class PackageDetailsView(Gtk.VBox):
         action_line.pack_end(self.remove_button, False, False, 0)
         self.remove_button.set_no_show_all(True)
 
-        header.set_property("margin-bottom", 24)
+        box_body = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        box_body.set_margin_start(24)
+        box_body.set_margin_end(24)
+        box_body.set_margin_bottom(24)
+        self.scroll = Gtk.ScrolledWindow(None, None)
+        self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        self.scroll.add(box_body)
+        self.pack_start(self.scroll, True, True, 0)
 
         # Now set up the screenshot section
         self.image_widget = ScImageWidget()
         self.image_widget.set_margin_bottom(30)
-        self.pack_start(self.image_widget, False, False, 0)
+        box_body.pack_start(self.image_widget, False, False, 0)
 
         # View switcher provides inline switcher
         self.view_switcher = Gtk.StackSwitcher()
         self.view_switcher.get_style_context().add_class("flat")
         self.view_switcher.set_can_focus(False)
-        self.pack_start(self.view_switcher, False, False, 0)
+        box_body.pack_start(self.view_switcher, False, False, 0)
 
         # View stack will contain our various pages
         self.view_stack = Gtk.Stack()
-        self.pack_start(self.view_stack, True, True, 0)
+        box_body.pack_start(self.view_stack, True, True, 0)
         self.view_switcher.set_stack(self.view_stack)
         self.view_switcher.set_halign(Gtk.Align.START)
 
@@ -211,8 +217,6 @@ class PackageDetailsView(Gtk.VBox):
         self.scroll_wrap = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         self.view_stack.add_titled(self.scroll_wrap, "details", _("Details"))
 
-        self.scroll = Gtk.ScrolledWindow(None, None)
-        self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         # Need the description down a bit and a fair bit padded
         self.label_description = Gtk.Label("")
         self.label_description.set_halign(Gtk.Align.START)
@@ -225,8 +229,7 @@ class PackageDetailsView(Gtk.VBox):
         self.label_description.set_line_wrap(True)
         self.label_description.set_selectable(True)
         self.label_description.set_can_focus(False)
-        self.scroll.add(self.label_description)
-        self.scroll_wrap.pack_start(self.scroll, True, True, 0)
+        self.scroll_wrap.pack_start(self.label_description, True, True, 0)
 
         # Begin the tail grid
         self.tail_grid = Gtk.Grid()
