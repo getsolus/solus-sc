@@ -22,6 +22,7 @@ class ScImageWidget(Gtk.Frame):
 
     page_not_found = None
     page_image = None
+    page_loading = None
     stack = None
 
     # The currently set URI
@@ -38,6 +39,7 @@ class ScImageWidget(Gtk.Frame):
 
         self.create_page_not_found()
         self.create_page_image()
+        self.create_page_loading()
 
         self.show_all()
 
@@ -68,19 +70,35 @@ class ScImageWidget(Gtk.Frame):
         self.page_image = Gtk.Image.new()
         self.stack.add_named(self.page_image, "page-image")
 
+    def create_page_loading(self):
+        """ Loading spinner to irritate and annoy """
+        self.page_loading = Gtk.Spinner.new()
+        self.page_loading.set_halign(Gtk.Align.CENTER)
+        self.page_loading.set_valign(Gtk.Align.CENTER)
+        self.page_loading.set_size_request(-1, 64)
+        self.stack.add_named(self.page_loading, "page-loading")
+
     def show_image(self, uri, pbuf):
         """ Show the loaded image and switch to it on the view """
         self.uri = uri
+        self.page_loading.stop()
         self.page_image.set_from_pixbuf(pbuf)
         self.stack.set_visible_child_name("page-image")
 
     def show_failed(self, uri, err):
         """ Show that the image loading failed """
         self.uri = uri
+        self.page_loading.stop()
         # TODO: Do something with the error
         self.stack.set_visible_child_name("page-not-found")
 
-    def show_not_found(self, uri, err):
+    def show_not_found(self):
         """ Show that the image wasn't found """
-        self.uri = uri
+        self.uri = None
+        self.page_loading.stop()
         self.stack.set_visible_child_name("page-not-found")
+
+    def show_loading(self):
+        self.uri = None
+        self.page_loading.start()
+        self.stack.set_visible_child_name("page-loading")

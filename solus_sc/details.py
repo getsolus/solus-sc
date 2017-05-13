@@ -119,12 +119,18 @@ class PackageDetailsView(Gtk.VBox):
 
     def on_media_fetched(self, fetcher, uri, filename, pixbuf):
         """ Some media that we asked for has been loaded """
-        self.image_widget.show_image(uri, pixbuf)
+        # Check if its our main preview
+        if uri == self.image_widget.uri:
+            self.image_widget.show_image(uri, pixbuf)
+            self.image_widget.set_size_request(-1, -1)
+            self.image_widget.queue_resize()
         pixbuf = None
 
     def on_fetch_failed(self, fetcher, uri, err):
         """ We failed to fetch *something* """
         self.image_widget.show_failed(uri, err)
+        self.image_widget.set_size_request(-1, -1)
+        self.image_widget.queue_resize()
 
     def __init__(self, appsystem, basket):
         Gtk.VBox.__init__(self)
@@ -356,12 +362,17 @@ class PackageDetailsView(Gtk.VBox):
         screens = self.appsystem.get_screenshots(package)
         if not screens:
             self.image_widget.show_not_found()
+            self.image_widget.set_size_request(-1, -1)
+            self.image_widget.queue_resize()
             return
+        # Update the UI immediately to show we're going to load
+        self.image_widget.show_loading()
         default = None
         for scr in screens:
             if scr.default:
                 default = scr
         if not default:
             default = screens[0]
+        self.image_widget.uri = default.main_uri
         # Always "fetch", fetcher knows if it exists or not.
         self.fetcher.fetch_media(default.main_uri)
