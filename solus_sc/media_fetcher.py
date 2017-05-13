@@ -15,7 +15,7 @@
 import Queue
 import multiprocessing
 import threading
-from gi.repository import GObject, GLib, GdkPixbuf, Gio
+from gi.repository import GObject, GdkPixbuf, Gio, Gdk
 import os
 import hashlib
 
@@ -26,20 +26,33 @@ class ScMediaFetcher(GObject.Object):
         This allows for background fetching of screenshots and handles all
         the blocking, etc.
 
-        We'll limit to a maximum of 2 threads, and we'll very likely only
-        ever use one anyway. This allows us to switch between views with
-        minimal transition pain. For single core systems we limit to 1 thread
-        and avoid context issues.
+        We'll limit to a maximum of 2 threads for fetching
+        and we'll very likely only ever use one anyway. This allows us to
+        switch between views with minimal transition pain. For single core
+        systems we limit to 1 thread and avoid context issues.
+
+        In all cases we also run a dedicated load thread, which takes over
+        as the fetch thread routine ends, allowing interleaving of the
+        operations as well as ensuring locally existing files are loaded
+        while fetches are ongoing.
     """
 
+    # The main queue is used to attempt fetching of images
     queue = None
     cache_lock = None
     cache = None
 
+    # The load queue is dedicated on a single thread to attempting to
+    # read the images
+    load_queue = None
+
     # Emit media-fetched URL local-URL
+    # or fetch-failed URL error
     __gsignals__ = {
         'media-fetched': (GObject.SIGNAL_RUN_FIRST, None,
-                          (str, str, GdkPixbuf.Pixbuf))
+                          (str, str, GdkPixbuf.Pixbuf)),
+        'fetch-failed': (GObject.SIGNAL_RUN_FIRST, None,
+                         (str, str)),
     }
 
     __gtype_name__ = "ScMediaFetcher"
@@ -74,6 +87,12 @@ class ScMediaFetcher(GObject.Object):
             t = threading.Thread(target=self.begin_fetch)
             t.daemon = True
             t.start()
+
+        # Now start the main read queue
+        self.load_queue = Queue.LifoQueue(0)
+        t = threading.Thread(target=self.begin_load)
+        t.daemon = True
+        t.start()
 
     def get_cache_dir(self):
         """ Return the Solus SC cache directory """
@@ -110,11 +129,11 @@ class ScMediaFetcher(GObject.Object):
         return pbuf
 
     def fetch_pixbuf(self, uri, local_file):
-        """ Load the GdkPixbuf in the background thread so it can be updated
+        """ Fetch the GdkPixbuf in the background thread so it can be updated
             immediately in the UI without a secondary load routine
         """
         if os.path.exists(local_file):
-            return self.load_pixbuf(local_file)
+            return
 
         # Attempt download to a local location, then finally rename to the
         # final path
@@ -124,15 +143,7 @@ class ScMediaFetcher(GObject.Object):
             inf.copy(out, Gio.FileCopyFlags.OVERWRITE, None, None)
         except Exception as e:
             raise e
-            return None
-
-        # Downloaded to local file so load that one up
-        pbuf = None
-        try:
-            pbuf = self.load_pixbuf(out.get_path())
-        except Exception as e:
-            raise e
-            return None
+            return
 
         # Copy temporary over the original
         try:
@@ -142,8 +153,29 @@ class ScMediaFetcher(GObject.Object):
         except Exception as e:
             out.delete()
             raise e
-            return None
-        return pbuf
+
+    def begin_load(self):
+        """ Handles loading of the images that already exist """
+        while True:
+            uri = self.load_queue.get()
+            filename = self.get_cache_filename_full(uri)
+            pbuf = None
+            try:
+                pbuf = self.load_pixbuf(filename)
+            except Exception as e:
+                pbuf = None
+                print("Failed to load pixbuf {}: {}".format(
+                    filename, e))
+                Gdk.threads_enter()
+                self.emit('fetch-failed', uri, str(e))
+                Gdk.threads_leave()
+
+            # Let clients know the media is now ready
+            if pbuf:
+                Gdk.threads_enter()
+                self.emit('media-fetched', uri, filename, pbuf)
+                Gdk.threads_leave()
+            self.load_queue.task_done()
 
     def begin_fetch(self):
         """ Main thread body function, will effectively run forever
@@ -154,24 +186,24 @@ class ScMediaFetcher(GObject.Object):
             uri = self.queue.get()
 
             local_file = self.get_cache_filename_full(uri)
-            pbuf = None
+            fail = False
             try:
-                pbuf = self.fetch_pixbuf(uri, local_file)
+                self.fetch_pixbuf(uri, local_file)
             except Exception as e:
+                Gdk.threads_enter()
+                self.emit('fetch-failed', uri, str(e))
+                Gdk.threads_leave()
                 print("Failed to fetch {}: {}".format(uri, e))
-                with self.cache_lock:
-                    del self.cache[uri]
-                self.queue.task_done()
-                continue
+                fail = True
 
+            # Request load on the main load thread
+            if not fail:
+                self.load_queue.put(uri)
+
+            # Clean up the fetch state
             with self.cache_lock:
                 del self.cache[uri]
             self.queue.task_done()
-
-            # Let clients know the media is now ready
-            GLib.idle_add(lambda: self.emit(
-                'media-fetched', uri, local_file, pbuf),
-                priority=GLib.PRIORITY_LOW)
 
     def fetch_media(self, uri):
         """ Request background fetch of the given media """
