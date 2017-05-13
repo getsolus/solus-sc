@@ -15,7 +15,9 @@
 import Queue
 import multiprocessing
 import threading
-from gi.repository import GObject
+from gi.repository import GObject, GLib
+import os
+import hashlib
 
 
 class ScMediaFetcher(GObject.Object):
@@ -52,6 +54,16 @@ class ScMediaFetcher(GObject.Object):
         print("{} CPUs detected, restricting to {} threads".format(
             cpuCount, threadCount))
 
+        # Ensure we have a cache directory before we start
+        cacheDir = self.get_cache_dir()
+        try:
+            if not os.path.exists(cacheDir):
+                os.makedirs(cacheDir, 00755)
+        except Exception as ex:
+            print("Check home directory permissions for {}: {}".format(
+                cacheDir, ex))
+            pass
+
         # Set up the basics
         self.cache = dict()
         self.cache_lock = threading.Lock()
@@ -62,6 +74,21 @@ class ScMediaFetcher(GObject.Object):
             t = threading.Thread(target=self.begin_fetch)
             t.daemon = True
             t.start()
+
+    def get_cache_dir(self):
+        """ Return the Solus SC cache directory """
+        home = os.path.expanduser("~")
+        return os.path.join(home, ".cache", "solus-sc", "media")
+
+    def get_cache_filename(self, url):
+        """ Return the unique local filename part for a URL """
+        f, ext = os.path.splitext(url)
+        h = hashlib.sha256(f).hexdigest()
+        return "{}.{}".format(h, ext[1:])
+
+    def get_cache_filename_full(self, url):
+        """ Return fully qualified local path for the URL """
+        return os.path.join(self.get_cache_dir(), self.get_cache_filename(url))
 
     def is_media_pending(self, uri):
         """ Determine if the media is pending before asking for
@@ -77,12 +104,20 @@ class ScMediaFetcher(GObject.Object):
             based on lock conditions
         """
         while True:
+            # Grab the next job and wipe from the cache
             uri = self.queue.get()
-            print("Fetching %s" % uri)
             with self.cache_lock:
                 del self.cache[uri]
+
+            # TODO: Actually fetch it.
+            print("Fetching %s" % uri)
+            local_file = self.get_cache_filename_full(uri)
             self.queue.task_done()
-            # TODO: Emit signal
+
+            # Let clients know the media is now ready
+            GLib.idle_add(lambda: self.emit(
+                'media-fetched', uri, local_file),
+                priority=GLib.PRIORITY_LOW)
 
     def fetch_media(self, uri):
         """ Request background fetch of the given media """
