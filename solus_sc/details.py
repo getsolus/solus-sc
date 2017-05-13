@@ -190,7 +190,7 @@ class PackageDetailsView(Gtk.VBox):
         # Deprecated but still needs using with linewrap
         self.label_description.set_property("xalign", 0.0)
         self.label_description.set_margin_start(8)
-        self.label_description.set_max_width_chars(70)
+        self.label_description.set_max_width_chars(180)
         self.label_description.set_line_wrap(True)
         self.label_description.set_selectable(True)
         self.label_description.set_can_focus(False)
@@ -200,6 +200,7 @@ class PackageDetailsView(Gtk.VBox):
         # Begin the tail grid
         self.tail_grid = Gtk.Grid()
         self.tail_grid.set_margin_top(20)
+        self.tail_grid.set_margin_start(20)
         self.tail_grid.set_row_spacing(8)
         self.tail_grid.set_column_spacing(8)
         self.scroll_wrap.pack_end(self.tail_grid, False, False, 0)
