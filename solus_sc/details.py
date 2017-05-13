@@ -343,9 +343,16 @@ class PackageDetailsView(Gtk.VBox):
 
         size = sc_format_size_local(package.installedSize)
         self.label_size.set_markup(size)
+        self.setup_screenshots(package)
 
     def render_plain(self, input_string):
         """ Render a plain version of the description, no markdown """
         plain = As.markup_convert_simple(input_string)
         plain = plain.replace("&quot;", "\"").replace("&apos;", "'")
         return plain
+
+    def setup_screenshots(self, package):
+        screens = self.appsystem.get_screenshots(package)
+        if not screens:
+            return
+        print("Have {} screens for {}".format(len(screens), package.name))

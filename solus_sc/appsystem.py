@@ -16,6 +16,56 @@ from gi.repository import Gio, GLib, GdkPixbuf, Gtk
 from .media_fetcher import ScMediaFetcher
 
 
+class Screenshot:
+    """ Wrap AppStream screenshots into something usable. """
+
+    main_uri = None
+    thumb_uri = None
+    default = None
+
+    def __init__(self, asImg, scale):
+        large = None
+        normal = None
+        thumbnail = None
+
+        if asImg.get_kind() == As.ScreenshotKind.DEFAULT:
+            self.default = True
+        else:
+            self.default = False
+
+        # Loop em all with scale factor
+        for image in asImg.get_images():
+            if image.get_width() == As.IMAGE_LARGE_WIDTH * scale:
+                large = image
+            elif image.get_width() == As.IMAGE_NORMAL_WIDTH * scale:
+                normal = image
+            elif image.get_width() == As.IMAGE_THUMBNAIL_WIDTH * scale:
+                thumbnail = image
+            if large and normal and thumbnail:
+                break
+        # Couldn't find with scale factor so try with normal sizes
+        if scale != 1:
+            if not thumbnail or not normal:
+                for image in asImg.get_images():
+                    if image.get_width() == As.IMAGE_LARGE_WIDTH:
+                        large = image
+                    elif image.get_width() == As.IMAGE_NORMAL_WIDTH:
+                        normal = image
+                    elif image.get_width() == As.IMAGE_THUMBNAIL_WIDTH:
+                        thumbnail = image
+                    if large and normal and thumbnail:
+                        break
+
+        if large is None:
+            large = normal
+
+        if not normal or not thumbnail:
+            raise RuntimeError("Invalid screenshot")
+
+        self.main_uri = large.get_url()
+        self.thumb_uri = thumbnail.get_url()
+
+
 class AppSystem:
     """ Mux calls into AppStream where appropriate.
 
@@ -170,3 +220,21 @@ class AppSystem:
             return None
         url = app.get_url_item(As.UrlKind.DONATION)
         return url
+
+    def get_screenshots(self, package):
+        """ Return wrapped Screenshot objects for the package """
+        app = self.store.get_app_by_pkgname(package.name)
+        if not app:
+            return None
+        screens = app.get_screenshots()
+        if not screens:
+            return None
+        ret = []
+        for screen in screens:
+            try:
+                # TODO: Pass scale factor
+                img = Screenshot(screen, 1)
+                ret.append(img)
+            except Exception as e:
+                print("Unable to load screen: {}".format(e))
+        return ret
