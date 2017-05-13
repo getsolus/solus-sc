@@ -79,3 +79,8 @@ class ScImageWidget(Gtk.Frame):
         self.uri = uri
         # TODO: Do something with the error
         self.stack.set_visible_child_name("page-not-found")
+
+    def show_not_found(self, uri, err):
+        """ Show that the image wasn't found """
+        self.uri = uri
+        self.stack.set_visible_child_name("page-not-found")

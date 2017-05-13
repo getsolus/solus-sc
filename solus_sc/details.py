@@ -119,11 +119,12 @@ class PackageDetailsView(Gtk.VBox):
 
     def on_media_fetched(self, fetcher, uri, filename, pixbuf):
         """ Some media that we asked for has been loaded """
-        pass
+        self.image_widget.show_image(uri, pixbuf)
+        pixbuf = None
 
     def on_fetch_failed(self, fetcher, uri, err):
         """ We failed to fetch *something* """
-        pass
+        self.image_widget.show_failed(uri, err)
 
     def __init__(self, appsystem, basket):
         Gtk.VBox.__init__(self)
@@ -283,6 +284,7 @@ class PackageDetailsView(Gtk.VBox):
         comment = self.appsystem.get_summary(package)
         description = self.appsystem.get_description(package)
         self.package = package
+        self.setup_screenshots(package)
 
         version = "{}-{}".format(str(package.version), str(package.release))
         # Update display now.
@@ -343,7 +345,6 @@ class PackageDetailsView(Gtk.VBox):
 
         size = sc_format_size_local(package.installedSize)
         self.label_size.set_markup(size)
-        self.setup_screenshots(package)
 
     def render_plain(self, input_string):
         """ Render a plain version of the description, no markdown """
@@ -354,5 +355,13 @@ class PackageDetailsView(Gtk.VBox):
     def setup_screenshots(self, package):
         screens = self.appsystem.get_screenshots(package)
         if not screens:
+            self.image_widget.show_not_found()
             return
-        print("Have {} screens for {}".format(len(screens), package.name))
+        default = None
+        for scr in screens:
+            if scr.default:
+                default = scr
+        if not default:
+            default = screens[0]
+        # Always "fetch", fetcher knows if it exists or not.
+        self.fetcher.fetch_media(default.main_uri)
