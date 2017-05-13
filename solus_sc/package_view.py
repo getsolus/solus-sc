@@ -131,19 +131,6 @@ class ScPackageView(Gtk.VBox):
         model = Gtk.ListStore(str, str, GdkPixbuf.Pixbuf, str)
         model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
 
-        """ HAX: Allow me to test stuff.
-        whitelist_packages = [
-            "blender",
-            "firefox",
-            "font-clear-sans-ttf",
-            "libreoffice-writer",
-            "gnome-weather",
-            "pitivi",
-            "gimp",
-            "steam",
-            "totem",
-        ]"""
-
         for pkg_name in self.basket.installdb.list_installed():
             pkg = self.basket.installdb.get_package(pkg_name)
 
