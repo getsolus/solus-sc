@@ -39,9 +39,25 @@ class ScChangelogEntry(Gtk.EventBox):
     def decode_changelog(self, text):
         ret = ""
 
+        block_elems = [
+            "Summary",
+            "Test Plan",
+            "Maniphest Tasks",
+        ]
+        block_elem_ids = ["{}:".format(x) for x in block_elems]
+
         # Iterate all the lines
         for r in text.split("\n"):
             r = r.strip()
+
+            # Handle Differential IDs by stylizing them
+            for i, id in enumerate(block_elem_ids):
+                if not r.startswith(id):
+                    continue
+                ret += "<b><u>{}</u></b>\n".format(block_elems[i])
+                r = r.split(id)[1].strip()
+                break
+
             # Check if this is a bullet point
             if (r.startswith("- ") or r.startswith("* ")) and len(r) > 2:
                 r = u' \u2022 ' + r[2:]
