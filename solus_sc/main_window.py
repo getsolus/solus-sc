@@ -17,6 +17,7 @@ from .package_view import ScPackageView
 from .sidebar import ScSidebar
 from .updates_view import ScUpdatesView
 from .basket import BasketView
+from .media_fetcher import ScMediaFetcher
 from .search import ScSearchView
 from .thirdparty import ThirdPartyView
 from .settings_view import ScSettingsView
@@ -42,6 +43,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     stack = None
     sidebar_revealer = None
     appsystem = None
+    fetcher = None
 
     # Pages
     package_view = None
@@ -141,6 +143,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         self.app = app
         self.mode_open = "home"
+        self.fetcher = ScMediaFetcher()
         self.appsystem = AppSystem()
 
         self.set_icon_name("system-software-install")
