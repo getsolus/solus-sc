@@ -21,6 +21,7 @@ class ScImageWidget(Gtk.Frame):
     """
 
     page_not_found = None
+    page_image = None
     stack = None
 
     def __init__(self):
@@ -30,9 +31,14 @@ class ScImageWidget(Gtk.Frame):
         self.add(self.stack)
         self.set_border_width(0)
         self.set_property("margin", 0)
+        self.set_shadow_type(Gtk.ShadowType.NONE)
+
         self.create_page_not_found()
+        self.create_page_image()
+
+        self.show_all()
+
         self.stack.set_visible_child_name("page-not-found")
-        self.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
 
     def create_page_not_found(self):
         """ Construct the "no screenshot available" page """
@@ -53,3 +59,8 @@ class ScImageWidget(Gtk.Frame):
         lab.set_use_markup(True)
         lab.get_style_context().add_class("dim-label")
         self.page_not_found.pack_start(lab, False, False, 0)
+
+    def create_page_image(self):
+        """ The main image preview. """
+        self.page_image = Gtk.Image.new()
+        self.stack.add_named(self.page_image, "page-image")

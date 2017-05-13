@@ -166,7 +166,8 @@ class PackageDetailsView(Gtk.VBox):
 
         # Now set up the screenshot section
         self.image_widget = ScImageWidget()
-        self.pack_start(self.image_widget, True, True, 0)
+        self.image_widget.set_margin_bottom(30)
+        self.pack_start(self.image_widget, False, False, 0)
 
         # View switcher provides inline switcher
         self.view_switcher = Gtk.StackSwitcher()
