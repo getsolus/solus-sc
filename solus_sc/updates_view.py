@@ -32,19 +32,26 @@ CVE_URI = "https://cve.mitre.org/cgi-bin/cvename.cgi?name={}"
 
 class ScChangelogEntry(Gtk.EventBox):
 
-    def markup_le_cves(self, text):
+    def decode_changelog(self, text):
         ret = ""
 
-        # Stop multiline run-ins
+        # Iterate all the lines
         for r in text.split("\n"):
             r = r.strip()
+            # Check if this is a bullet point
+            if (r.startswith("- ") or r.startswith("* ")) and len(r) > 2:
+                r = u' \u2022 ' + r[2:]
+
             for i in r.split(" "):
-                if not CVE_HIT.match(i.upper()):
-                    ret += i + " "
+                if CVE_HIT.match(i.upper()):
+                    i = i.upper()
+                    href = "<a href=\"{}\">{}</a>".format(CVE_URI.format(i), i)
+                    ret += href + " "
                     continue
-                i = i.upper()
-                href = "<a href=\"{}\">{}</a>".format(CVE_URI.format(i), i)
-                ret += href + " "
+                # Just add the text
+                ret += i + " "
+                continue
+
             ret += "\n"
         return ret.strip()
 
@@ -86,7 +93,7 @@ class ScChangelogEntry(Gtk.EventBox):
         vbox.pack_start(main_lab, False, False, 0)
 
         # Add the summary, etc.
-        sum_lab = Gtk.Label(self.markup_le_cves(text))
+        sum_lab = Gtk.Label(self.decode_changelog(text))
         sum_lab.set_halign(Gtk.Align.START)
         sum_lab.set_valign(Gtk.Align.START)
         sum_lab.set_property("margin-start", 4)
