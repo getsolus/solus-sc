@@ -29,6 +29,10 @@ PACKAGE_ICON_MANDATORY = "software-update-urgent-symbolic"
 CVE_HIT = re.compile(r".*(CVE\-[0-9]+\-[0-9]+).*")
 CVE_URI = "https://cve.mitre.org/cgi-bin/cvename.cgi?name={}"
 
+# All TNNNN hits are Maniphest Tasks
+BUG_HIT = re.compile(r"T(\d+)")
+BUG_URI = "https://dev.solus-project.com/{}"
+
 
 class ScChangelogEntry(Gtk.EventBox):
 
@@ -43,10 +47,19 @@ class ScChangelogEntry(Gtk.EventBox):
                 r = u' \u2022 ' + r[2:]
 
             for i in r.split(" "):
-                if CVE_HIT.match(i.upper()):
-                    i = i.upper()
-                    href = "<a href=\"{}\">{}</a>".format(CVE_URI.format(i), i)
-                    ret += href + " "
+                cve = CVE_HIT.match(i.upper())
+                if cve is not None:
+                    cve_id = cve.group(0)
+                    href = "<a href=\"{}\">{}</a>".format(
+                        CVE_URI.format(cve_id), cve_id)
+                    ret += href + i[len(cve_id):] + " "
+                    continue
+                bug = BUG_HIT.match(i.upper())
+                if bug is not None:
+                    bug_id = bug.group(0)
+                    href = "<a href=\"{}\">{}</a>".format(
+                        BUG_URI.format(bug_id), bug_id)
+                    ret += href + i[len(bug_id):] + " "
                     continue
                 # Just add the text
                 ret += i + " "
