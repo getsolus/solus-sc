@@ -125,7 +125,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         GLib.timeout_add(200, self.init_view)
 
     def on_button_press_event(self, widget, event):
-        if event.button == 8: # Back button
+        if event.button == 8:  # Back button
             self.do_back()
 
     def on_key_press_event(self, widget, event):
