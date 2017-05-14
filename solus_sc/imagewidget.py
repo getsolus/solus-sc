@@ -11,8 +11,8 @@
 #  (at your option) any later version.
 #
 
-# from gi.repository import AppStreamGlib as As
 from gi.repository import Gtk
+from gi.repository import AppStreamGlib as As
 
 
 class ScImageWidget(Gtk.Frame):
@@ -28,8 +28,14 @@ class ScImageWidget(Gtk.Frame):
     # The currently set URI
     uri = None
 
+    # Alternative URI (i.e. for when clicked)
+    alt_uri = None
+
     def __init__(self):
         Gtk.Frame.__init__(self)
+        # Be at least the size of a thumbnail
+        self.set_size_request(As.IMAGE_THUMBNAIL_WIDTH,
+                              As.IMAGE_THUMBNAIL_HEIGHT)
 
         self.stack = Gtk.Stack.new()
         self.stack.set_homogeneous(False)

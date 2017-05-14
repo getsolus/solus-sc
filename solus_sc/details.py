@@ -60,6 +60,10 @@ class PackageDetailsView(Gtk.VBox):
     # Main screenshot view
     image_widget = None
 
+    # A box of thumbnails for selecting the main image
+    box_thumbnails = None
+    screen_map = None
+
     # Urls..
     url_website = None
     url_donate = None
@@ -128,13 +132,24 @@ class PackageDetailsView(Gtk.VBox):
             self.image_widget.show_image(uri, pixbuf)
             self.image_widget.set_size_request(-1, -1)
             self.image_widget.queue_resize()
+        elif uri in self.screen_map:
+            wid = self.screen_map[uri]
+            wid.show_image(uri, pixbuf)
+            wid.set_size_request(-1, -1)
+            wid.queue_resize()
         pixbuf = None
 
     def on_fetch_failed(self, fetcher, uri, err):
         """ We failed to fetch *something* """
-        self.image_widget.show_failed(uri, err)
-        self.image_widget.set_size_request(-1, -1)
-        self.image_widget.queue_resize()
+        if uri == self.image_widget.uri:
+            self.image_widget.show_failed(uri, err)
+            self.image_widget.set_size_request(-1, -1)
+            self.image_widget.queue_resize()
+        elif uri in self.screen_map:
+            wid = self.screen_map[uri]
+            wid.show_failed(uri, err)
+            wid.set_size_request(-1, -1)
+            wid.queue_resize()
 
     def __init__(self, appsystem, basket):
         Gtk.VBox.__init__(self)
@@ -144,6 +159,7 @@ class PackageDetailsView(Gtk.VBox):
 
         # Bind a weak reference for later usage
         self.fetcher = appsystem.fetcher
+        self.screen_map = dict()
         self.fetcher.connect('media-fetched', self.on_media_fetched)
         self.fetcher.connect('fetch-failed', self.on_fetch_failed)
 
@@ -200,6 +216,15 @@ class PackageDetailsView(Gtk.VBox):
         self.image_widget = ScImageWidget()
         self.image_widget.set_margin_bottom(30)
         box_body.pack_start(self.image_widget, False, False, 0)
+
+        # And the thumbnails in horizontal-only scroller
+        self.box_thumbnails = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 2)
+        thumb_wrap = Gtk.ScrolledWindow(None, None)
+        thumb_wrap.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+        thumb_wrap.add(self.box_thumbnails)
+        thumb_wrap.set_margin_bottom(20)
+        thumb_wrap.set_margin_start(8)
+        box_body.pack_start(thumb_wrap, False, False, 0)
 
         # View switcher provides inline switcher
         self.view_switcher = Gtk.StackSwitcher()
@@ -378,6 +403,15 @@ class PackageDetailsView(Gtk.VBox):
         return plain
 
     def setup_screenshots(self, package):
+        # Clean up old thumbnails
+        for child in self.box_thumbnails.get_children():
+            child.destroy()
+            child = None
+        keys = self.screen_map.keys()
+        for key in keys:
+            del self.screen_map[key]
+        self.screen_map = dict()
+
         screens = self.appsystem.get_screenshots(package)
         if not screens:
             self.image_widget.show_not_found()
@@ -395,6 +429,23 @@ class PackageDetailsView(Gtk.VBox):
         self.image_widget.uri = default.main_uri
         # Always "fetch", fetcher knows if it exists or not.
         self.fetcher.fetch_media(default.main_uri)
+
+        # Set up the screenshot order
+        allScreens = [default]
+        allScreens.extend([x for x in screens if x != default])
+
+        # Set up all the screenshot thumbnails
+        for screen in allScreens:
+            preview = ScImageWidget()
+            self.box_thumbnails.pack_start(preview, False, False, 0)
+            preview.show_all()
+            preview.alt_uri = screen.main_uri
+            preview.uri = screen.thumb_uri
+            preview.show_loading()
+            self.screen_map[screen.thumb_uri] = preview
+        # Now ask the preview to fetch
+        for screen in allScreens:
+            self.fetcher.fetch_media(screen.thumb_uri)
 
     def update_changelog(self):
         """ Update the changelog for the current package """
