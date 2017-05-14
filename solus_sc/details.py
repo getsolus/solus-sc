@@ -210,7 +210,7 @@ class PackageDetailsView(Gtk.VBox):
 
         # Now set up the screenshot section
         self.image_widget = ScImageWidget()
-        self.image_widget.set_margin_bottom(30)
+        self.image_widget.set_margin_bottom(10)
         box_body.pack_start(self.image_widget, False, False, 0)
 
         # And the thumbnails in horizontal-only scroller
@@ -222,7 +222,7 @@ class PackageDetailsView(Gtk.VBox):
         # The rest forces a single line horizontal row. Not kidding.
         self.box_thumbnails.set_homogeneous(False)
         self.box_thumbnails.set_valign(Gtk.Align.START)
-        self.box_thumbnails.set_halign(Gtk.Align.START)
+        self.box_thumbnails.set_halign(Gtk.Align.CENTER)
         self.box_thumbnails.set_vexpand(False)
         self.box_thumbnails.set_orientation(Gtk.Orientation.VERTICAL)
         self.box_thumbnails.set_max_children_per_line(1)
@@ -230,21 +230,31 @@ class PackageDetailsView(Gtk.VBox):
         thumb_wrap.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
         thumb_wrap.add(self.box_thumbnails)
         thumb_wrap.set_margin_bottom(10)
-        thumb_wrap.set_margin_start(8)
         box_body.pack_start(thumb_wrap, False, False, 0)
 
         # View switcher provides inline switcher
         self.view_switcher = Gtk.StackSwitcher()
-        self.view_switcher.set_margin_start(8)
+
+        self.view_switcher.set_halign(Gtk.Align.CENTER)
         self.view_switcher.get_style_context().add_class("flat")
         self.view_switcher.set_can_focus(False)
-        box_body.pack_start(self.view_switcher, False, False, 0)
+
+        box_lines = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        box_body.pack_start(box_lines, False, False, 0)
+        sep1 = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
+        sep2 = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
+        sep1.set_valign(Gtk.Align.CENTER)
+        sep2.set_valign(Gtk.Align.CENTER)
+        box_lines.set_margin_start(8)
+        box_lines.set_margin_end(8)
+        box_lines.pack_start(sep1, True, True, 0)
+        box_lines.pack_start(self.view_switcher, False, False, 0)
+        box_lines.pack_start(sep2, True, True, 0)
 
         # View stack will contain our various pages
         self.view_stack = Gtk.Stack()
         box_body.pack_start(self.view_stack, True, True, 0)
         self.view_switcher.set_stack(self.view_stack)
-        self.view_switcher.set_halign(Gtk.Align.START)
 
         # Create pages
         self.setup_details_view()
