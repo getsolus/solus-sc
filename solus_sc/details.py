@@ -46,6 +46,9 @@ class PackageDetailsView(Gtk.VBox):
     # Package license(s)
     label_license = None
 
+    # Version string
+    label_version = None
+
     install_button = None
     remove_button = None
     website_button = None
@@ -296,6 +299,17 @@ class PackageDetailsView(Gtk.VBox):
         col_label = 0
         col_value = 1
 
+        lab_vers = Gtk.Label(_("Version"))
+        lab_vers.set_halign(Gtk.Align.END)
+        lab_vers.get_style_context().add_class("dim-label")
+        self.tail_grid.attach(lab_vers, col_label, grid_row, 1, 1)
+
+        self.label_version = Gtk.Label("")
+        self.label_version.set_halign(Gtk.Align.START)
+        self.tail_grid.attach(self.label_version, col_value, grid_row, 1, 1)
+
+        grid_row += 1
+
         # Size of the package when installed locally
         self.label_installed = Gtk.Label(_("Installed size"))
         self.label_installed.set_halign(Gtk.Align.END)
@@ -356,10 +370,10 @@ class PackageDetailsView(Gtk.VBox):
         self.setup_screenshots(package)
 
         version = "{}-{}".format(str(package.version), str(package.release))
+        self.label_version.set_markup(version)
         # Update display now.
-        title_format = "<span size='x-large'><b>{}</b> - {}</span>\n{}"
+        title_format = "<span size='x-large'><b>{}</b></span>\n{}"
         self.label_name.set_markup(title_format.format(name,
-                                                       version,
                                                        comment))
         licenses = u" | ".join([str(x) for x in package.license])
         self.label_license.set_text(licenses)
