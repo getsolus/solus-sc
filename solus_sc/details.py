@@ -222,6 +222,7 @@ class PackageDetailsView(Gtk.VBox):
 
         # Main action buttons
         self.install_button = Gtk.Button(_("Install"))
+        self.install_button.set_valign(Gtk.Align.CENTER)
         self.install_button.connect("clicked", self.on_install)
         self.install_button.set_can_focus(False)
         self.install_button.set_margin_start(4)
@@ -231,6 +232,7 @@ class PackageDetailsView(Gtk.VBox):
 
         # Remove button
         self.remove_button = Gtk.Button(_("Remove"))
+        self.remove_button.set_valign(Gtk.Align.CENTER)
         self.remove_button.connect("clicked", self.on_remove)
         self.remove_button.set_can_focus(False)
         self.remove_button.set_margin_start(4)
@@ -300,6 +302,7 @@ class PackageDetailsView(Gtk.VBox):
         button.show_all()
         button.set_hexpand(False)
         button.set_halign(Gtk.Align.CENTER)
+        button.set_valign(Gtk.Align.CENTER)
         button.set_margin_start(4)
         button.set_margin_end(4)
         button.set_can_focus(False)
