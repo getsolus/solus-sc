@@ -220,6 +220,9 @@ class PackageDetailsView(Gtk.VBox):
         # And the thumbnails in horizontal-only scroller
         self.box_thumbnails = Gtk.FlowBox()
         self.box_thumbnails.set_selection_mode(Gtk.SelectionMode.SINGLE)
+        self.box_thumbnails.connect("selected-children-changed",
+                                    self.on_thumbnail_selected)
+        self.box_thumbnails.set_activate_on_single_click(True)
         # The rest forces a single line horizontal row. Not kidding.
         self.box_thumbnails.set_homogeneous(False)
         self.box_thumbnails.set_valign(Gtk.Align.START)
@@ -454,6 +457,21 @@ class PackageDetailsView(Gtk.VBox):
         # Now ask the preview to fetch
         for screen in allScreens:
             self.fetcher.fetch_media(screen.thumb_uri)
+
+    def on_thumbnail_selected(self, fbox):
+        """ Thumbnail selected, request view of Big Picture """
+        selection = fbox.get_selected_children()
+        if not selection or len(selection) < 1:
+            return
+        child = selection[0]
+        thumb = child.get_child()
+        # Nothing to be done here
+        if self.image_widget.uri == thumb.alt_uri:
+            return
+        # Request show of new picture
+        self.image_widget.show_loading()
+        self.image_widget.uri = thumb.alt_uri
+        self.fetcher.fetch_media(thumb.alt_uri)
 
     def update_changelog(self):
         """ Update the changelog for the current package """
