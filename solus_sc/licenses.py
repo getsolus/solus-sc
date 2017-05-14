@@ -13,7 +13,12 @@
 
 
 def license_to_spdx(nom):
+    global licenses
     """ Attempt to convert the name into a correct SPDX ID """
+    nom = nom.strip()
+    # Might already be valid
+    if nom in licenses:
+        return nom
     if " " in nom:
         nom = nom.replace(" ", "-")
     nom = nom.upper()
