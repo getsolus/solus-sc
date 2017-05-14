@@ -31,7 +31,10 @@ class ScImageWidget(Gtk.Frame):
     # Alternative URI (i.e. for when clicked)
     alt_uri = None
 
-    def __init__(self):
+    # Are we in thumbnail mode?
+    thumbnail = False
+
+    def __init__(self, thumbnail=False):
         Gtk.Frame.__init__(self)
         # Be at least the size of a thumbnail
         self.set_size_request(As.IMAGE_THUMBNAIL_WIDTH,
@@ -45,6 +48,8 @@ class ScImageWidget(Gtk.Frame):
         self.set_border_width(0)
         self.set_property("margin", 0)
         self.set_shadow_type(Gtk.ShadowType.NONE)
+
+        self.thumbnail = thumbnail
 
         self.create_page_not_found()
         self.create_page_image()
@@ -73,6 +78,11 @@ class ScImageWidget(Gtk.Frame):
         lab.set_use_markup(True)
         lab.get_style_context().add_class("dim-label")
         self.page_not_found.pack_start(lab, False, False, 0)
+
+        # Can't fit this into a thumbnail
+        if self.thumbnail:
+            lab.set_no_show_all(True)
+            lab.hide()
 
     def create_page_image(self):
         """ The main image preview. """

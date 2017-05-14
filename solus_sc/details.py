@@ -480,7 +480,7 @@ class PackageDetailsView(Gtk.VBox):
 
         # Set up all the screenshot thumbnails
         for screen in allScreens:
-            preview = ScImageWidget()
+            preview = ScImageWidget(thumbnail=True)
             self.box_thumbnails.add(preview)
             preview.show_all()
             preview.alt_uri = screen.main_uri
