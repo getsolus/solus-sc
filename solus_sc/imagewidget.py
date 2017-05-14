@@ -50,6 +50,11 @@ class ScImageWidget(Gtk.Frame):
         self.set_shadow_type(Gtk.ShadowType.NONE)
 
         self.thumbnail = thumbnail
+        self.get_style_context().add_class("sc-image-widget")
+        if thumbnail:
+            self.get_style_context().add_class("image-preview")
+        else:
+            self.get_style_context().add_class("image-thumbnail")
 
         self.create_page_not_found()
         self.create_page_image()
