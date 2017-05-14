@@ -26,3 +26,7 @@ def get_resource_path():
 
 def join_resource_path(path):
     return os.path.join(get_resource_path(), path)
+
+PACKAGE_ICON_SECURITY = "security-high-symbolic"
+PACKAGE_ICON_NORMAL = "software-update-available-symbolic"
+PACKAGE_ICON_MANDATORY = "software-update-urgent-symbolic"
