@@ -32,6 +32,13 @@ list.sc-changelog .changelog-header {
     border: none;
 }
 
+.sc-image-widget.image-thumbnail {
+    background-color: @theme_base_color;
+    border-radius: 2px;
+    padding: 5px;
+    border: 1px solid @borders;
+}
+
 .updates-view.frame,
 .search-results.frame {
     border-top: 1px solid @borders;

@@ -52,9 +52,9 @@ class ScImageWidget(Gtk.Frame):
         self.thumbnail = thumbnail
         self.get_style_context().add_class("sc-image-widget")
         if thumbnail:
-            self.get_style_context().add_class("image-preview")
-        else:
             self.get_style_context().add_class("image-thumbnail")
+        else:
+            self.get_style_context().add_class("image-preview")
 
         self.create_page_not_found()
         self.create_page_image()
