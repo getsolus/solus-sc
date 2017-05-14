@@ -218,11 +218,19 @@ class PackageDetailsView(Gtk.VBox):
         box_body.pack_start(self.image_widget, False, False, 0)
 
         # And the thumbnails in horizontal-only scroller
-        self.box_thumbnails = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 2)
+        self.box_thumbnails = Gtk.FlowBox()
+        self.box_thumbnails.set_selection_mode(Gtk.SelectionMode.SINGLE)
+        # The rest forces a single line horizontal row. Not kidding.
+        self.box_thumbnails.set_homogeneous(False)
+        self.box_thumbnails.set_valign(Gtk.Align.START)
+        self.box_thumbnails.set_halign(Gtk.Align.START)
+        self.box_thumbnails.set_vexpand(False)
+        self.box_thumbnails.set_orientation(Gtk.Orientation.VERTICAL)
+        self.box_thumbnails.set_max_children_per_line(1)
         thumb_wrap = Gtk.ScrolledWindow(None, None)
         thumb_wrap.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
         thumb_wrap.add(self.box_thumbnails)
-        thumb_wrap.set_margin_bottom(20)
+        thumb_wrap.set_margin_bottom(10)
         thumb_wrap.set_margin_start(8)
         box_body.pack_start(thumb_wrap, False, False, 0)
 
@@ -437,7 +445,7 @@ class PackageDetailsView(Gtk.VBox):
         # Set up all the screenshot thumbnails
         for screen in allScreens:
             preview = ScImageWidget()
-            self.box_thumbnails.pack_start(preview, False, False, 0)
+            self.box_thumbnails.add(preview)
             preview.show_all()
             preview.alt_uri = screen.main_uri
             preview.uri = screen.thumb_uri
