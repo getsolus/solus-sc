@@ -366,8 +366,8 @@ class PackageDetailsView(Gtk.VBox):
     def update_from_package(self, package):
         """ Update our view based on a given package """
 
-        name = self.appsystem.get_name(package)
-        comment = self.appsystem.get_summary(package)
+        name = self.render_marked(self.appsystem.get_name(package))
+        comment = self.render_marked(self.appsystem.get_summary(package))
         description = self.appsystem.get_description(package)
         self.package = package
         self.setup_screenshots(package)
@@ -441,6 +441,9 @@ class PackageDetailsView(Gtk.VBox):
         plain = As.markup_convert_simple(input_string)
         plain = plain.replace("&quot;", "\"").replace("&apos;", "'")
         return plain
+
+    def render_marked(self, input_string):
+        return self.render_plain(input_string).replace("&", "&amp;")
 
     def setup_screenshots(self, package):
         # Clean up old thumbnails
