@@ -239,12 +239,18 @@ class PackageDetailsView(Gtk.VBox):
         self.view_switcher.get_style_context().add_class("flat")
         self.view_switcher.set_can_focus(False)
 
+        # Apply visual quirk for adapta
+        sep_valign = Gtk.Align.CENTER
+        gtk_theme = self.get_settings().get_property("gtk-theme-name").lower()
+        if gtk_theme.startswith("adapta"):
+            sep_valign = Gtk.Align.END
+
         box_lines = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         box_body.pack_start(box_lines, False, False, 0)
         sep1 = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
         sep2 = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
-        sep1.set_valign(Gtk.Align.CENTER)
-        sep2.set_valign(Gtk.Align.CENTER)
+        sep1.set_valign(sep_valign)
+        sep2.set_valign(sep_valign)
         box_lines.set_margin_start(8)
         box_lines.set_margin_end(8)
         box_lines.pack_start(sep1, True, True, 0)
