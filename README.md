@@ -48,7 +48,7 @@ Now just run the main launcher in this repo (don't ctrl+c, it'll explode)::
 License
 -------
 
-Copyright © 2013-2016 Ikey Doherty
+Copyright © 2013-2017 Ikey Doherty
 
 This software is available under the terms of the GPL-2.0 license.
 Please see `LICENSE` for details.
