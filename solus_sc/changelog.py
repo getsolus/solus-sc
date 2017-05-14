@@ -12,7 +12,6 @@
 #
 
 from gi.repository import Gtk, GLib, GObject, Pango
-from operator import attrgetter
 
 import re
 
@@ -211,4 +210,5 @@ class ScUpdateObject(GObject.Object):
             if int(i.release) <= int(old_release):
                 continue
             ret.append(i)
-        return sorted(ret, key=attrgetter('release'), reverse=True)
+        ret.sort(key=lambda x: int(x.release), reverse=True)
+        return ret
