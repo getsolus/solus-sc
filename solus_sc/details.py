@@ -368,7 +368,7 @@ class PackageDetailsView(Gtk.VBox):
             reportURI,
             _("Report an invalid or missing license")))
         mainLab = Gtk.Label(
-            _("This software is available in accordance with the terms "
+            _("This selection is available in accordance with the terms "
               "set in the following license(s):"))
 
         mainLab.set_margin_top(12)
