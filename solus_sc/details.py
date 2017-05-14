@@ -359,8 +359,30 @@ class PackageDetailsView(Gtk.VBox):
     def setup_license_view(self):
         """ Initialise the license area """
         self.license_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        lic_wrap = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         self.view_stack.add_titled(
-            self.license_box, "license", _("License"))
+            lic_wrap, "license", _("License"))
+
+        reportURI = "https://dev.solus-project.com/maniphest/task/edit/form/1/"
+        uriLab = Gtk.Label(u"\u2693 <a href=\"{}\">{}</a>".format(
+            reportURI,
+            _("Report an invalid or missing license")))
+        mainLab = Gtk.Label(
+            _("This software is available in accordance with the terms "
+              "set in the following license(s):"))
+
+        mainLab.set_margin_top(6)
+        mainLab.set_halign(Gtk.Align.START)
+        mainLab.set_margin_bottom(6)
+        uriLab.set_margin_top(12)
+        uriLab.set_margin_end(8)
+        uriLab.set_use_markup(True)
+        uriLab.set_halign(Gtk.Align.END)
+
+        lic_wrap.pack_start(mainLab, False, False, 0)
+        lic_wrap.pack_end(uriLab, False, False, 0)
+
+        lic_wrap.pack_start(self.license_box, True, True, 0)
 
     def update_from_package(self, package):
         """ Update our view based on a given package """
