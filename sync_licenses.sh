@@ -13,7 +13,7 @@ fi
 
 pushd license-list
 
-echo "licenses = [" > licenses.spdx
+echo "licenses = [" > ../licenses.spdx
 for i in *.txt ; do
     nom=`echo "$i" | sed 's@\.txt$@@'`
     echo -e "    \"${nom}\"," >> ../licenses.spdx
