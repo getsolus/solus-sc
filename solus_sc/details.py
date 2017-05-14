@@ -17,7 +17,6 @@ from gi.repository import AppStreamGlib as As
 from .imagewidget import ScImageWidget
 from .changelog import ScChangelogEntry
 from .util import sc_format_size_local
-from operator import attrgetter
 
 
 class PackageDetailsView(Gtk.VBox):
@@ -530,8 +529,8 @@ class PackageDetailsView(Gtk.VBox):
                 continue
             history.append(i)
 
-        updates = sorted(history, key=attrgetter('release'), reverse=True)
-        for update in updates:
+        history.sort(key=lambda x: int(x.release), reverse=True)
+        for update in history:
             entry = ScChangelogEntry(self.package, update)
             self.changelog_list.add(entry)
             entry.get_parent().set_margin_bottom(4)
