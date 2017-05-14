@@ -203,23 +203,37 @@ class AppSystem:
                 64, 64, GdkPixbuf.InterpType.BILINEAR)
         return pbuf
 
-    def get_website(self, package):
-        """ Get the website for a given package """
+    def _get_appstream_url(self, package, ptype):
+        """ Get an appstream link for the given package """
         app = self.store.get_app_by_pkgname(package.name)
         if not app:
-            if package.source.homepage:
-                return str(package.source.homepage)
             return None
-        url = app.get_url_item(As.UrlKind.HOMEPAGE)
+        url = app.get_url_item(ptype)
         return url
+
+    def get_website(self, package):
+        """ Get the website for a given package """
+        home = self._get_appstream_url(package, As.UrlKind.HOMEPAGE)
+        if home:
+            return home
+        if package.source.homepage:
+            return str(package.source.homepage)
+        return None
 
     def get_donation_site(self, package):
         """ Get a donation link for the given package """
+        return self._get_appstream_url(package, As.UrlKind.DONATION)
+
+    def get_bug_site(self, package):
+        """ Get a bug link for the given package """
+        return self._get_appstream_urlpackage, (As.UrlKind.BUGTRACKER)
+
+    def get_developers(self, package):
+        """ Get the developer names for the given package """
         app = self.store.get_app_by_pkgname(package.name)
         if not app:
             return None
-        url = app.get_url_item(As.UrlKind.DONATION)
-        return url
+        return app.get_developer_name("C")
 
     def get_screenshots(self, package):
         """ Return wrapped Screenshot objects for the package """

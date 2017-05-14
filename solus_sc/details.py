@@ -40,6 +40,9 @@ class PackageDetailsView(Gtk.VBox):
     # Description for this package. Currently stripped of markup..
     label_description = None
 
+    # Developers
+    label_developers = None
+
     # Installed size/download size
     label_size = None
 
@@ -320,8 +323,23 @@ class PackageDetailsView(Gtk.VBox):
         col_label = 0
         col_value = 1
 
+        lab_dev = Gtk.Label(_("Developers"))
+        lab_dev.set_halign(Gtk.Align.START)
+        lab_dev.get_style_context().add_class("dim-label")
+        self.tail_grid.attach(lab_dev, col_label, grid_row, 1, 1)
+
+        self.label_developers_assoc = lab_dev
+        self.label_developers_assoc.set_no_show_all(True)
+
+        self.label_developers = Gtk.Label("")
+        self.label_developers.set_no_show_all(True)
+        self.label_developers.set_halign(Gtk.Align.START)
+        self.tail_grid.attach(self.label_developers, col_value, grid_row, 1, 1)
+
+        grid_row += 1
+
         lab_vers = Gtk.Label(_("Version"))
-        lab_vers.set_halign(Gtk.Align.END)
+        lab_vers.set_halign(Gtk.Align.START)
         lab_vers.get_style_context().add_class("dim-label")
         self.tail_grid.attach(lab_vers, col_label, grid_row, 1, 1)
 
@@ -333,7 +351,7 @@ class PackageDetailsView(Gtk.VBox):
 
         # Size of the package when installed locally
         self.label_installed = Gtk.Label(_("Installed size"))
-        self.label_installed.set_halign(Gtk.Align.END)
+        self.label_installed.set_halign(Gtk.Align.START)
         self.label_installed.get_style_context().add_class("dim-label")
         self.tail_grid.attach(self.label_installed, col_label, grid_row, 1, 1)
 
@@ -430,6 +448,15 @@ class PackageDetailsView(Gtk.VBox):
 
         # Update the description
         self.label_description.set_label(self.render_plain(description))
+
+        dev = self.appsystem.get_developers(package)
+        if not dev:
+            self.label_developers.hide()
+            self.label_developers_assoc.hide()
+        else:
+            self.label_developers.set_text(dev)
+            self.label_developers.show()
+            self.label_developers_assoc.show()
 
         # Take the appropriate action ..
         if self.is_install_page:
