@@ -206,7 +206,7 @@ class PackageDetailsView(Gtk.VBox):
         # Project support links
         # Bugs
         self.bug_button = self.create_image_button(
-            _("Report issues"), "bug-symbolic")
+            _("Report issues"), "help-faq-symbolic")
         self.bug_button.set_no_show_all(True)
         self.bug_button.hide()
         self.bug_button.connect("clicked", self.on_bug)
