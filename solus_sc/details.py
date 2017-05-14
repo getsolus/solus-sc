@@ -371,9 +371,9 @@ class PackageDetailsView(Gtk.VBox):
             _("This software is available in accordance with the terms "
               "set in the following license(s):"))
 
-        mainLab.set_margin_top(6)
+        mainLab.set_margin_top(12)
         mainLab.set_halign(Gtk.Align.START)
-        mainLab.set_margin_bottom(6)
+        mainLab.set_margin_bottom(12)
         uriLab.set_margin_top(12)
         uriLab.set_margin_end(8)
         uriLab.set_use_markup(True)
