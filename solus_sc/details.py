@@ -203,6 +203,7 @@ class PackageDetailsView(Gtk.VBox):
 
         # View switcher provides inline switcher
         self.view_switcher = Gtk.StackSwitcher()
+        self.view_switcher.set_margin_start(8)
         self.view_switcher.get_style_context().add_class("flat")
         self.view_switcher.set_can_focus(False)
         box_body.pack_start(self.view_switcher, False, False, 0)
@@ -289,6 +290,9 @@ class PackageDetailsView(Gtk.VBox):
     def setup_changelog_view(self):
         """ Initialise the changelog area """
         self.changelog_list = Gtk.ListBox.new()
+        self.changelog_list.set_margin_top(8)
+        self.changelog_list.set_margin_start(7)
+        self.changelog_list.set_margin_end(8)
         self.changelog_list.get_style_context().add_class("sc-changelog")
         self.changelog_list.set_selection_mode(Gtk.SelectionMode.NONE)
         self.view_stack.add_titled(
@@ -413,3 +417,4 @@ class PackageDetailsView(Gtk.VBox):
         for update in updates:
             entry = ScChangelogEntry(self.package, update)
             self.changelog_list.add(entry)
+            entry.get_parent().set_margin_bottom(4)

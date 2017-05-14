@@ -94,7 +94,6 @@ class ScChangelogEntry(Gtk.EventBox):
     def __init__(self, obj, history):
         Gtk.EventBox.__init__(self)
         self.get_style_context().add_class("changelog-entry")
-        self.set_border_width(4)
 
         vbox = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         top_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
