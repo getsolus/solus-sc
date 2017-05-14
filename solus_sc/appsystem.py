@@ -81,6 +81,7 @@ class AppSystem:
     security_pixbuf = None
     mandatory_pixbuf = None
     other_pixbuf = None
+    addon_pixbuf = None
     fetcher = None
 
     def __init__(self):
@@ -108,6 +109,10 @@ class AppSystem:
                 Gtk.IconLookupFlags.GENERIC_FALLBACK)
             self.default_pixbuf = defpbuf.scale_simple(
                 64, 64, GdkPixbuf.InterpType.BILINEAR)
+            self.addon_pixbuf = itheme.load_icon(
+                "application-x-addon",
+                64,
+                Gtk.IconLookupFlags.GENERIC_FALLBACK)
         except Exception as e:
             print(e)
 
@@ -156,7 +161,7 @@ class AppSystem:
         # TODO: Incorporate HIDPI!
         icon = app.get_icon_for_size(64, 64)
         if not icon:
-            return None
+            return self.default_pixbuf_lookup(app)
         kind = icon.get_kind()
         if kind == As.IconKind.UNKNOWN or kind == As.IconKind.REMOTE:
             return None
@@ -168,15 +173,24 @@ class AppSystem:
             return None
         return icon.get_pixbuf()
 
+    def default_pixbuf_lookup(self, app):
+        """ Use our built in preloaded pixbufs """
+        if app is None:
+            return self.default_pixbuf
+        kind = app.get_kind()
+        if kind == As.AppKind.ADDON:
+            return self.addon_pixbuf
+        return self.default_pixbuf
+
     def get_pixbuf_only(self, package):
         """ Only get a pixbuf - no fallbacks  """
         app = self.store.get_app_by_pkgname(package.name)
         if not app:
-            return self.default_pixbuf
+            return self.default_pixbuf_lookup(app)
         # TODO: Incorporate HIDPI!
         icon = app.get_icon_for_size(64, 64)
         if not icon:
-            return self.default_pixbuf
+            return self.default_pixbuf_lookup(app)
         kind = icon.get_kind()
         if kind == As.IconKind.UNKNOWN or kind == As.IconKind.REMOTE:
             return None
