@@ -16,6 +16,7 @@ from gi.repository import Gio
 from gi.repository import AppStreamGlib as As
 from .imagewidget import ScImageWidget
 from .changelog import ScChangelogEntry
+from .licenses import license_to_spdx, spdx_to_uri
 from .util import sc_format_size_local
 
 
@@ -537,7 +538,12 @@ class PackageDetailsView(Gtk.VBox):
 
         for license in self.package.license:
             lc = str(license)
+            spdx = license_to_spdx(lc)
+            if spdx is not None:
+                uri = spdx_to_uri(spdx)
+                lc = "<a href=\"{}\">{}</a>".format(uri, spdx)
             lab = Gtk.Label(u"\u2022 " + lc)
+            lab.set_use_markup(True)
             self.license_box.pack_start(lab, False, False, 0)
             lab.set_halign(Gtk.Align.START)
             lab.set_margin_start(8)
