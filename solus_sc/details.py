@@ -130,12 +130,10 @@ class PackageDetailsView(Gtk.VBox):
         # Check if its our main preview
         if uri == self.image_widget.uri:
             self.image_widget.show_image(uri, pixbuf)
-            self.image_widget.set_size_request(-1, -1)
             self.image_widget.queue_resize()
         elif uri in self.screen_map:
             wid = self.screen_map[uri]
             wid.show_image(uri, pixbuf)
-            wid.set_size_request(-1, -1)
             wid.queue_resize()
         pixbuf = None
 
@@ -143,12 +141,10 @@ class PackageDetailsView(Gtk.VBox):
         """ We failed to fetch *something* """
         if uri == self.image_widget.uri:
             self.image_widget.show_failed(uri, err)
-            self.image_widget.set_size_request(-1, -1)
             self.image_widget.queue_resize()
         elif uri in self.screen_map:
             wid = self.screen_map[uri]
             wid.show_failed(uri, err)
-            wid.set_size_request(-1, -1)
             wid.queue_resize()
 
     def __init__(self, appsystem, basket):
