@@ -42,9 +42,6 @@ class PackageDetailsView(Gtk.VBox):
     # Installed size/download size
     label_size = None
 
-    # Package license(s)
-    label_license = None
-
     # Version string
     label_version = None
 
@@ -58,6 +55,9 @@ class PackageDetailsView(Gtk.VBox):
     view_switcher = None
 
     changelog_list = None
+
+    # Place to stick license links
+    license_box = None
 
     # Main screenshot view
     image_widget = None
@@ -274,6 +274,7 @@ class PackageDetailsView(Gtk.VBox):
         # Create pages
         self.setup_details_view()
         self.setup_changelog_view()
+        self.setup_license_view()
 
     def setup_details_view(self):
         self.scroll_wrap = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
@@ -328,18 +329,6 @@ class PackageDetailsView(Gtk.VBox):
 
         grid_row += 1
 
-        # License field
-        label_license_field = Gtk.Label(_("License"))
-        label_license_field.set_halign(Gtk.Align.END)
-        label_license_field.get_style_context().add_class("dim-label")
-        self.tail_grid.attach(label_license_field, col_label, grid_row, 1, 1)
-
-        self.label_license = Gtk.Label("")
-        self.label_license.set_halign(Gtk.Align.START)
-        self.tail_grid.attach(self.label_license, col_value, grid_row, 1, 1)
-
-        grid_row += 1
-
         # TODO: Make this stuff way less ugly.
         # Visit the website of the package
         self.website_button = Gtk.Button(_("Website"))
@@ -366,6 +355,12 @@ class PackageDetailsView(Gtk.VBox):
         self.view_stack.add_titled(
             self.changelog_list, "changelog", _("Changelog"))
 
+    def setup_license_view(self):
+        """ Initialise the license area """
+        self.license_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.view_stack.add_titled(
+            self.license_box, "license", _("License"))
+
     def update_from_package(self, package):
         """ Update our view based on a given package """
 
@@ -381,9 +376,6 @@ class PackageDetailsView(Gtk.VBox):
         title_format = "<span size='x-large'><b>{}</b></span>\n{}"
         self.label_name.set_markup(title_format.format(name,
                                                        comment))
-        licenses = u" | ".join([str(x) for x in package.license])
-        self.label_license.set_text(licenses)
-
         # Sort out a nice icon
         pbuf = self.appsystem.get_pixbuf(package)
         if pbuf:
@@ -435,6 +427,7 @@ class PackageDetailsView(Gtk.VBox):
         size = sc_format_size_local(package.installedSize)
         self.label_size.set_markup(size)
         self.update_changelog()
+        self.update_license()
 
         # Switch to details view now in case they were on changelog
         self.view_stack.set_visible_child_name("details")
@@ -534,3 +527,18 @@ class PackageDetailsView(Gtk.VBox):
             entry = ScChangelogEntry(self.package, update)
             self.changelog_list.add(entry)
             entry.get_parent().set_margin_bottom(4)
+
+    def update_license(self):
+        """ Update the license associated with the current package """
+        for child in self.license_box.get_children():
+            child.destroy()
+
+        # Hacky, just stick labels in for now
+
+        for license in self.package.license:
+            lc = str(license)
+            lab = Gtk.Label(u"\u2022 " + lc)
+            self.license_box.pack_start(lab, False, False, 0)
+            lab.set_halign(Gtk.Align.START)
+            lab.set_margin_start(8)
+            lab.show_all()
