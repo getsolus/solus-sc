@@ -451,6 +451,10 @@ class PackageDetailsView(Gtk.VBox):
         allScreens = [default]
         allScreens.extend([x for x in screens if x != default])
 
+        # No point showing thumbnails when only one screenshot is available
+        if len(allScreens) < 2:
+            return
+
         # Set up all the screenshot thumbnails
         for screen in allScreens:
             preview = ScImageWidget()
