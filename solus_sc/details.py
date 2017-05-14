@@ -513,6 +513,7 @@ class PackageDetailsView(Gtk.VBox):
         # No point showing thumbnails when only one screenshot is available
         if len(allScreens) < 2:
             return
+        defaultParent = None
 
         # Set up all the screenshot thumbnails
         for screen in allScreens:
@@ -522,10 +523,16 @@ class PackageDetailsView(Gtk.VBox):
             preview.alt_uri = screen.main_uri
             preview.uri = screen.thumb_uri
             preview.show_loading()
+            if screen == default:
+                defaultParent = preview.get_parent()
             self.screen_map[screen.thumb_uri] = preview
+
         # Now ask the preview to fetch
         for screen in allScreens:
             self.fetcher.fetch_media(screen.thumb_uri)
+
+        # And now select it
+        self.box_thumbnails.select_child(defaultParent)
 
     def on_thumbnail_selected(self, fbox):
         """ Thumbnail selected, request view of Big Picture """
