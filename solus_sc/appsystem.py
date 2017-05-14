@@ -226,7 +226,7 @@ class AppSystem:
 
     def get_bug_site(self, package):
         """ Get a bug link for the given package """
-        return self._get_appstream_urlpackage, (As.UrlKind.BUGTRACKER)
+        return self._get_appstream_url(package, As.UrlKind.BUGTRACKER)
 
     def get_developers(self, package):
         """ Get the developer names for the given package """

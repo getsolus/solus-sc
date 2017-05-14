@@ -53,6 +53,7 @@ class PackageDetailsView(Gtk.VBox):
     remove_button = None
     website_button = None
     donate_button = None
+    bug_button = None
 
     # Allow switching between our various views
     view_stack = None
@@ -72,6 +73,7 @@ class PackageDetailsView(Gtk.VBox):
 
     # Urls..
     url_website = None
+    url_bug = None
     url_donate = None
     is_install_page = False
     basket = None
@@ -89,6 +91,13 @@ class PackageDetailsView(Gtk.VBox):
         """ Launch the main website """
         try:
             Gtk.show_uri(None, self.url_website, 0)
+        except:
+            pass
+
+    def on_bug(self, btn, udata=None):
+        """ Launch the bug website """
+        try:
+            Gtk.show_uri(None, self.url_bug, 0)
         except:
             pass
 
@@ -193,9 +202,29 @@ class PackageDetailsView(Gtk.VBox):
         action_line.set_valign(Gtk.Align.CENTER)
         action_line.set_halign(Gtk.Align.END)
         header.pack_end(action_line, False, False, 0)
+
+        # Project support links
+        # Bugs
+        self.bug_button = self.create_image_button(
+            _("Report issues"), "bug-symbolic")
+        self.bug_button.set_no_show_all(True)
+        self.bug_button.hide()
+        self.bug_button.connect("clicked", self.on_bug)
+        action_line.pack_start(self.bug_button, False, False, 0)
+
+        # Visit the website of the package
+        self.website_button = self.create_image_button(
+            _("Visit Website"), "web-browser-symbolic")
+        self.website_button.set_no_show_all(True)
+        self.website_button.hide()
+        self.website_button.connect("clicked", self.on_website)
+        action_line.pack_start(self.website_button, False, False, 0)
+
+        # Main action buttons
         self.install_button = Gtk.Button(_("Install"))
         self.install_button.connect("clicked", self.on_install)
         self.install_button.set_can_focus(False)
+        self.install_button.set_margin_start(4)
         self.install_button.get_style_context().add_class("suggested-action")
         action_line.pack_end(self.install_button, False, False, 0)
         self.install_button.set_no_show_all(True)
@@ -204,6 +233,7 @@ class PackageDetailsView(Gtk.VBox):
         self.remove_button = Gtk.Button(_("Remove"))
         self.remove_button.connect("clicked", self.on_remove)
         self.remove_button.set_can_focus(False)
+        self.remove_button.set_margin_start(4)
         self.remove_button.get_style_context().add_class("destructive-action")
         action_line.pack_end(self.remove_button, False, False, 0)
         self.remove_button.set_no_show_all(True)
@@ -258,6 +288,23 @@ class PackageDetailsView(Gtk.VBox):
         self.setup_details_view()
         self.setup_changelog_view()
         self.setup_license_view()
+
+    def create_image_button(self, label, icon):
+        """ Helpful utility to create an image button """
+        button = Gtk.Button.new_from_icon_name(icon, Gtk.IconSize.BUTTON)
+        sc = button.get_style_context()
+        sc.add_class("image-button")
+        sc.add_class("circular")
+        button.set_tooltip_text(label)
+
+        button.show_all()
+        button.set_hexpand(False)
+        button.set_halign(Gtk.Align.CENTER)
+        button.set_margin_start(4)
+        button.set_margin_end(4)
+        button.set_can_focus(False)
+
+        return button
 
     def setup_details_view(self):
         self.scroll_wrap = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
@@ -358,15 +405,6 @@ class PackageDetailsView(Gtk.VBox):
         self.label_size = Gtk.Label("")
         self.label_size.set_halign(Gtk.Align.START)
         self.tail_grid.attach(self.label_size, col_value, grid_row, 1, 1)
-
-        grid_row += 1
-
-        # TODO: Make this stuff way less ugly.
-        # Visit the website of the package
-        self.website_button = Gtk.Button(_("Website"))
-        self.website_button.set_no_show_all(True)
-        self.website_button.connect("clicked", self.on_website)
-        self.tail_grid.attach(self.website_button, col_label, grid_row, 2, 1)
 
         grid_row += 1
 
@@ -487,6 +525,13 @@ class PackageDetailsView(Gtk.VBox):
             self.donate_button.show()
         else:
             self.donate_button.hide()
+
+        bug = self.appsystem.get_bug_site(package)
+        if donate:
+            self.url_bug = bug
+            self.bug_button.show()
+        else:
+            self.bug_button.hide()
 
         size = sc_format_size_local(package.installedSize)
         self.label_size.set_markup(size)
