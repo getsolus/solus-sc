@@ -267,6 +267,10 @@ class PackageDetailsView(Gtk.VBox):
         self.view_stack = Gtk.Stack()
         box_body.pack_start(self.view_stack, True, True, 0)
         self.view_switcher.set_stack(self.view_stack)
+        self.view_stack.set_homogeneous(False)
+        t = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
+        self.view_stack.set_transition_type(t)
+        self.view_stack.set_interpolate_size(True)
 
         # Create pages
         self.setup_details_view()
