@@ -214,6 +214,9 @@ class PackageDetailsView(Gtk.VBox):
         # Now set up the screenshot section
         self.image_widget = ScImageWidget()
         self.image_widget.set_margin_bottom(10)
+        self.image_widget.show_all()
+        self.image_widget.set_no_show_all(True)
+        self.image_widget.hide()
         box_body.pack_start(self.image_widget, False, False, 0)
 
         # And the thumbnails in horizontal-only scroller
@@ -451,10 +454,10 @@ class PackageDetailsView(Gtk.VBox):
 
         screens = self.appsystem.get_screenshots(package)
         if not screens:
+            self.image_widget.hide()
             self.image_widget.show_not_found()
-            self.image_widget.set_size_request(-1, -1)
-            self.image_widget.queue_resize()
             return
+        self.image_widget.show()
         # Update the UI immediately to show we're going to load
         self.image_widget.show_loading()
         default = None
