@@ -93,48 +93,51 @@ class ScChangelogEntry(Gtk.EventBox):
 
     def __init__(self, obj, history):
         Gtk.EventBox.__init__(self)
+        self.get_style_context().add_class("changelog-entry")
+        self.set_border_width(4)
 
-        hbox = Gtk.HBox(0)
-        self.add(hbox)
+        vbox = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        top_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        top_box.set_property("margin", 12)
+        top_box.get_style_context().add_class("changelog-header")
+        self.add(vbox)
+        vbox.pack_start(top_box, False, False, 0)
 
         # format name to correlate with git entry.
-        nom = "%s-%s-%s" % (str(obj.name),
-                            str(history.version),
-                            str(history.release))
+        nom = "{}-{}".format(history.version, history.release)
 
         text = GLib.markup_escape_text(str(history.comment))
 
         iname = PACKAGE_ICON_NORMAL
         up_type = str(history.type).lower()
+        tooltip = _("Standard Update")
         if up_type == "security":
             iname = PACKAGE_ICON_SECURITY
-        image = Gtk.Image.new_from_icon_name(iname, Gtk.IconSize.LARGE_TOOLBAR)
-        image.set_valign(Gtk.Align.START)
+            tooltip = _("Security Update")
 
-        hbox.pack_start(image, False, False, 0)
-        image.set_property("margin", 4)
+        image = Gtk.Image.new_from_icon_name(iname, Gtk.IconSize.BUTTON)
+        image.set_valign(Gtk.Align.END)
+        top_box.pack_end(image, False, False, 0)
+        image.set_margin_end(8)
+        image.set_margin_bottom(8)
+        image.set_tooltip_text(tooltip)
 
         main_lab = Gtk.Label("<b>%s</b>" % nom)
+        main_lab.set_margin_bottom(8)
         main_lab.set_use_markup(True)
-
-        vbox = Gtk.VBox(0)
-        vbox.set_valign(Gtk.Align.START)
-        hbox.pack_start(vbox, True, True, 0)
-
         main_lab.set_halign(Gtk.Align.START)
         main_lab.set_valign(Gtk.Align.START)
         main_lab.set_property("xalign", 0.0)
-        main_lab.set_property("margin", 4)
 
-        vbox.pack_start(main_lab, False, False, 0)
+        top_box.pack_start(main_lab, False, False, 0)
 
         # Add the summary, etc.
         sum_lab = Gtk.Label(self.decode_changelog(text))
         sum_lab.set_halign(Gtk.Align.START)
         sum_lab.set_valign(Gtk.Align.START)
-        sum_lab.set_property("margin-start", 4)
-        sum_lab.set_property("margin-end", 4)
-        sum_lab.set_property("margin-bottom", 4)
+        sum_lab.set_property("margin-start", 14)
+        sum_lab.set_property("margin-end", 14)
+        sum_lab.set_property("margin-bottom", 14)
         sum_lab.set_use_markup(True)
         sum_lab.set_line_wrap_mode(Pango.WrapMode.WORD)
         sum_lab.set_line_wrap(True)
@@ -144,11 +147,12 @@ class ScChangelogEntry(Gtk.EventBox):
         vbox.pack_start(sum_lab, True, True, 0)
 
         # Timestamp is kinda useful.
-        tstamp = Gtk.Label(str(history.date))
+        tstamp = Gtk.Label("({})".format(str(history.date)))
         tstamp.set_valign(Gtk.Align.START)
-        hbox.pack_end(tstamp, False, False, 0)
-        tstamp.set_property("margin", 4)
+        top_box.pack_start(tstamp, False, False, 0)
         tstamp.get_style_context().add_class("dim-label")
+        tstamp.set_margin_start(8)
+        tstamp.set_margin_bottom(8)
 
         self.show_all()
 

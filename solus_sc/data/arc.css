@@ -33,7 +33,7 @@
     background-color: alpha(@sidebar_fg, 0.15);
 }
 
-list.sc-changelog  row {
+list.sc-changelog .changelog-entry {
     background-color: @theme_base_color;
     border-radius: 2px;
 }

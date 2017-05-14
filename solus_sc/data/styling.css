@@ -19,9 +19,13 @@
     background: none;
 }
 
-list.sc-changelog row {
+list.sc-changelog .changelog-entry {
     padding: 5px;
     border: 1px solid @borders;
+}
+
+list.sc-changelog .changelog-header {
+    border-bottom: 1px solid alpha(@selected_bg_color, 0.7);
 }
 
 .solus-sc scrolledwindow {

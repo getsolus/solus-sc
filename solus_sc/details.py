@@ -15,7 +15,9 @@ from gi.repository import Gtk
 from gi.repository import Gio
 from gi.repository import AppStreamGlib as As
 from .imagewidget import ScImageWidget
+from .changelog import ScChangelogEntry
 from .util import sc_format_size_local
+from operator import attrgetter
 
 
 class PackageDetailsView(Gtk.VBox):
@@ -52,6 +54,8 @@ class PackageDetailsView(Gtk.VBox):
     # Allow switching between our various views
     view_stack = None
     view_switcher = None
+
+    changelog_list = None
 
     # Main screenshot view
     image_widget = None
@@ -283,8 +287,12 @@ class PackageDetailsView(Gtk.VBox):
         self.tail_grid.attach(self.donate_button, col_label, grid_row, 2, 1)
 
     def setup_changelog_view(self):
-        box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
-        self.view_stack.add_titled(box, "changelog", _("Changelog"))
+        """ Initialise the changelog area """
+        self.changelog_list = Gtk.ListBox.new()
+        self.changelog_list.get_style_context().add_class("sc-changelog")
+        self.changelog_list.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.view_stack.add_titled(
+            self.changelog_list, "changelog", _("Changelog"))
 
     def update_from_package(self, package):
         """ Update our view based on a given package """
@@ -354,6 +362,10 @@ class PackageDetailsView(Gtk.VBox):
 
         size = sc_format_size_local(package.installedSize)
         self.label_size.set_markup(size)
+        self.update_changelog()
+
+        # Switch to details view now in case they were on changelog
+        self.view_stack.set_visible_child_name("details")
 
     def render_plain(self, input_string):
         """ Render a plain version of the description, no markdown """
@@ -379,3 +391,25 @@ class PackageDetailsView(Gtk.VBox):
         self.image_widget.uri = default.main_uri
         # Always "fetch", fetcher knows if it exists or not.
         self.fetcher.fetch_media(default.main_uri)
+
+    def update_changelog(self):
+        """ Update the changelog for the current package """
+        for child in self.changelog_list.get_children():
+            child.destroy()
+
+        # At some point we *may* filter/promote those that are
+        # newer than the currently installed version
+        oldRelease = 0
+
+        history = list()
+
+        # Build up the relevant changelog items
+        for i in self.package.history:
+            if int(i.release) <= oldRelease:
+                continue
+            history.append(i)
+
+        updates = sorted(history, key=attrgetter('release'), reverse=True)
+        for update in updates:
+            entry = ScChangelogEntry(self.package, update)
+            self.changelog_list.add(entry)
