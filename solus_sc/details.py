@@ -163,7 +163,10 @@ class PackageDetailsView(Gtk.VBox):
         self.fetcher.connect('fetch-failed', self.on_fetch_failed)
 
         header = Gtk.HBox(0)
-        header.set_border_width(24)
+        header.set_margin_top(12)
+        header.set_margin_start(12)
+        header.set_margin_end(12)
+        header.set_margin_bottom(6)
         self.pack_start(header, False, False, 0)
 
         # Set up the icon
@@ -203,7 +206,7 @@ class PackageDetailsView(Gtk.VBox):
         self.remove_button.set_no_show_all(True)
 
         box_body = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
-        box_body.set_margin_start(24)
+        box_body.set_margin_start(12)
         box_body.set_margin_end(24)
         box_body.set_margin_bottom(24)
         self.scroll = Gtk.ScrolledWindow(None, None)
@@ -211,39 +214,13 @@ class PackageDetailsView(Gtk.VBox):
         self.scroll.add(box_body)
         self.pack_start(self.scroll, True, True, 0)
 
-        # Now set up the screenshot section
-        self.image_widget = ScImageWidget()
-        self.image_widget.set_margin_bottom(10)
-        self.image_widget.show_all()
-        self.image_widget.set_no_show_all(True)
-        self.image_widget.hide()
-        box_body.pack_start(self.image_widget, False, False, 0)
-
-        # And the thumbnails in horizontal-only scroller
-        self.box_thumbnails = Gtk.FlowBox()
-        self.box_thumbnails.set_selection_mode(Gtk.SelectionMode.SINGLE)
-        self.box_thumbnails.connect("selected-children-changed",
-                                    self.on_thumbnail_selected)
-        self.box_thumbnails.set_activate_on_single_click(True)
-        # The rest forces a single line horizontal row. Not kidding.
-        self.box_thumbnails.set_homogeneous(False)
-        self.box_thumbnails.set_valign(Gtk.Align.START)
-        self.box_thumbnails.set_halign(Gtk.Align.CENTER)
-        self.box_thumbnails.set_vexpand(False)
-        self.box_thumbnails.set_orientation(Gtk.Orientation.VERTICAL)
-        self.box_thumbnails.set_max_children_per_line(1)
-        thumb_wrap = Gtk.ScrolledWindow(None, None)
-        thumb_wrap.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
-        thumb_wrap.add(self.box_thumbnails)
-        thumb_wrap.set_margin_bottom(10)
-        box_body.pack_start(thumb_wrap, False, False, 0)
-
         # View switcher provides inline switcher
         self.view_switcher = Gtk.StackSwitcher()
 
         self.view_switcher.set_halign(Gtk.Align.CENTER)
         self.view_switcher.get_style_context().add_class("flat")
         self.view_switcher.set_can_focus(False)
+        self.view_switcher.set_margin_bottom(12)
 
         # Apply visual quirk for adapta
         sep_valign = Gtk.Align.CENTER
@@ -259,6 +236,8 @@ class PackageDetailsView(Gtk.VBox):
         sep2.set_valign(sep_valign)
         box_lines.set_margin_start(8)
         box_lines.set_margin_end(8)
+        sep1.set_margin_bottom(12)
+        sep2.set_margin_bottom(12)
         box_lines.pack_start(sep1, True, True, 0)
         box_lines.pack_start(self.view_switcher, False, False, 0)
         box_lines.pack_start(sep2, True, True, 0)
@@ -278,8 +257,42 @@ class PackageDetailsView(Gtk.VBox):
         self.setup_license_view()
 
     def setup_details_view(self):
-        self.scroll_wrap = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.scroll_wrap = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         self.view_stack.add_titled(self.scroll_wrap, "details", _("Details"))
+
+        # Now set up the screenshot section
+        self.screenshot_section = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.scroll_wrap.pack_start(self.screenshot_section, False, False, 0)
+
+        # Main screenshot
+        self.image_widget = ScImageWidget()
+        self.image_widget.set_margin_bottom(10)
+        self.image_widget.show_all()
+        self.image_widget.set_no_show_all(True)
+        self.image_widget.hide()
+        self.screenshot_section.pack_start(self.image_widget, False, False, 0)
+
+        # And the thumbnails in horizontal-only scroller
+        self.box_thumbnails = Gtk.FlowBox()
+        self.box_thumbnails.set_selection_mode(Gtk.SelectionMode.SINGLE)
+        self.box_thumbnails.connect("selected-children-changed",
+                                    self.on_thumbnail_selected)
+        self.box_thumbnails.set_activate_on_single_click(True)
+        # The rest forces a single line horizontal row. Not kidding.
+        self.box_thumbnails.set_homogeneous(False)
+        self.box_thumbnails.set_valign(Gtk.Align.START)
+        self.box_thumbnails.set_halign(Gtk.Align.CENTER)
+        self.box_thumbnails.set_vexpand(False)
+        self.box_thumbnails.set_orientation(Gtk.Orientation.VERTICAL)
+        self.box_thumbnails.set_max_children_per_line(1)
+        thumb_wrap = Gtk.ScrolledWindow(None, None)
+        thumb_wrap.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+        thumb_wrap.add(self.box_thumbnails)
+        thumb_wrap.set_margin_bottom(10)
+        self.screenshot_section.pack_start(thumb_wrap, False, False, 0)
+
+        details_wrap = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.scroll_wrap.pack_start(details_wrap, True, True, 0)
 
         # Need the description down a bit and a fair bit padded
         self.label_description = Gtk.Label("")
@@ -293,7 +306,7 @@ class PackageDetailsView(Gtk.VBox):
         self.label_description.set_line_wrap(True)
         self.label_description.set_selectable(True)
         self.label_description.set_can_focus(False)
-        self.scroll_wrap.pack_start(self.label_description, True, True, 0)
+        details_wrap.pack_start(self.label_description, True, True, 0)
 
         # Begin the tail grid
         self.tail_grid = Gtk.Grid()
@@ -301,7 +314,7 @@ class PackageDetailsView(Gtk.VBox):
         self.tail_grid.set_margin_start(20)
         self.tail_grid.set_row_spacing(8)
         self.tail_grid.set_column_spacing(8)
-        self.scroll_wrap.pack_end(self.tail_grid, False, False, 0)
+        details_wrap.pack_end(self.tail_grid, False, False, 0)
 
         grid_row = 0
         col_label = 0
@@ -360,6 +373,7 @@ class PackageDetailsView(Gtk.VBox):
         """ Initialise the license area """
         self.license_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         lic_wrap = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        lic_wrap.set_margin_start(8)
         self.view_stack.add_titled(
             lic_wrap, "license", _("License"))
 
