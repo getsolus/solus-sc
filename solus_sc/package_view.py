@@ -140,7 +140,7 @@ class ScPackageView(Gtk.VBox):
             if len(summary) > 76:
                 summary = "%s…" % summary[0:76]
 
-            name = str(pkg.name)
+            name = self.appsystem.get_name(pkg)
             p_print = "<b>%s</b> - %s\n%s" % (name, str(pkg.version),
                                               summary)
 

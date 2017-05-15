@@ -144,8 +144,8 @@ class AppSystem:
     def get_name(self, package):
         app = self.store.get_app_by_pkgname(package.name)
         if not app:
-            return package.name
-        return self.sanitize(app.get_name("C"))
+            return GLib.markup_escape_text(str(package.name))
+        return GLib.markup_escape_text(self.sanitize(app.get_name("C")))
 
     def get_icon(self, package):
         """ Fallback method """

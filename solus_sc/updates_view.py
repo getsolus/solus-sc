@@ -429,7 +429,7 @@ class ScUpdatesView(Gtk.VBox):
 
             icon = self.appsystem.get_pixbuf_only(new_pkg)
 
-            pkg_name = GLib.markup_escape_text(pkg_name)
+            pkg_name = self.appsystem.get_name(new_pkg)
             summary = GLib.markup_escape_text(summary)
 
             if old_item != item:

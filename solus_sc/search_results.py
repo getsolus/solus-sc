@@ -216,7 +216,7 @@ class ScSearchResults(Gtk.VBox):
 
             summary = GLib.markup_escape_text(summary)
 
-            name = str(pkg.name)
+            name = self.appsystem.get_name(pkg)
             p_print = "<b>%s</b> - %s\n%s" % (name, str(pkg.version),
                                               summary)
 
