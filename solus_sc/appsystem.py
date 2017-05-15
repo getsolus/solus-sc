@@ -62,7 +62,7 @@ class Screenshot:
         if not normal or not thumbnail:
             raise RuntimeError("Invalid screenshot")
 
-        self.main_uri = normal.get_url()
+        self.main_uri = large.get_url()
         self.thumb_uri = thumbnail.get_url()
 
 

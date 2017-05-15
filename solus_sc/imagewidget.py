@@ -41,8 +41,8 @@ class ScImageWidget(Gtk.Frame):
             self.set_size_request(As.IMAGE_THUMBNAIL_WIDTH,
                                   As.IMAGE_THUMBNAIL_HEIGHT)
         else:
-            self.set_size_request(As.IMAGE_NORMAL_WIDTH,
-                                  As.IMAGE_NORMAL_HEIGHT)
+            self.set_size_request(As.IMAGE_LARGE_WIDTH,
+                                  As.IMAGE_LARGE_HEIGHT)
 
         self.stack = Gtk.Stack.new()
         self.stack.set_homogeneous(False)

@@ -314,7 +314,10 @@ class PackageDetailsView(Gtk.VBox):
         self.view_stack.add_titled(self.scroll_wrap, "details", _("Details"))
 
         # Now set up the screenshot section
-        self.screenshot_section = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.screenshot_section = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.screenshot_section.set_valign(Gtk.Align.START)
+        self.screenshot_section.set_halign(Gtk.Align.START)
+        self.scroll_wrap.set_valign(Gtk.Align.START)
         self.scroll_wrap.pack_start(self.screenshot_section, False, False, 0)
 
         # Main screenshot
@@ -336,12 +339,15 @@ class PackageDetailsView(Gtk.VBox):
         self.box_thumbnails.set_valign(Gtk.Align.START)
         self.box_thumbnails.set_halign(Gtk.Align.CENTER)
         self.box_thumbnails.set_vexpand(False)
-        self.box_thumbnails.set_orientation(Gtk.Orientation.VERTICAL)
-        self.box_thumbnails.set_max_children_per_line(1)
+        self.box_thumbnails.set_orientation(Gtk.Orientation.HORIZONTAL)
+        self.box_thumbnails.set_max_children_per_line(4)
         thumb_wrap = Gtk.ScrolledWindow(None, None)
-        thumb_wrap.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+        thumb_wrap.set_halign(Gtk.Align.START)
+        thumb_wrap.set_overlay_scrolling(False)
+        thumb_wrap.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         thumb_wrap.add(self.box_thumbnails)
         thumb_wrap.set_margin_bottom(10)
+        thumb_wrap.set_margin_start(10)
         self.screenshot_section.pack_start(thumb_wrap, False, False, 0)
 
         details_wrap = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
@@ -600,6 +606,7 @@ class PackageDetailsView(Gtk.VBox):
             preview.show_loading()
             if screen == default:
                 defaultParent = preview.get_parent()
+            preview.get_parent().set_margin_bottom(8)
             self.screen_map[screen.thumb_uri] = preview
 
         # Now ask the preview to fetch
