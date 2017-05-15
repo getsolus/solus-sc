@@ -185,6 +185,9 @@ class ScSearchResults(Gtk.VBox):
 
         self.reset()
 
+        # Make sure spaces work and match potential packages
+        term = term.replace(" ", "[-_ ]")
+
         try:
             s_packages = set(self.basket.packagedb.search_package([term]))
             s_packages.update(self.basket.installdb.search_package([term]))
