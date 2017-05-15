@@ -31,3 +31,26 @@ def sc_format_size_local(size, double_precision=False):
     dlSize = "%s %s" % (locale.format(fmt, numeric, grouping=True), code)
 
     return dlSize
+
+developmentComponents = [
+    "system.devel",
+    "programming.devel"
+]
+
+
+def is_package_devel(pkg):
+    """ For filtering development packages """
+    if str(pkg.name).endswith("-devel"):
+        return True
+    if not pkg.partOf:
+        return False
+    return str(pkg.partOf) in developmentComponents
+
+
+def is_package_debug(pkg):
+    """ For filtering debug packages """
+    if str(pkg.name).endswith("-dbginfo"):
+        return True
+    if not pkg.partOf:
+        return False
+    return str(pkg.partOf) == "debug"

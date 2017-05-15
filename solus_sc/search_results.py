@@ -14,6 +14,7 @@
 from gi.repository import Gtk, GLib, GdkPixbuf
 from gi.repository import AppStreamGlib as As
 import difflib
+from .util import is_package_debug
 
 
 """ enum for the model fields """
@@ -189,8 +190,8 @@ class ScSearchResults(Gtk.VBox):
         term = term.replace(" ", "[-_ ]")
 
         try:
-            s_packages = set(self.basket.packagedb.search_package([term]))
-            s_packages.update(self.basket.installdb.search_package([term]))
+            srslt = set(self.basket.packagedb.search_package([term]))
+            srslt.update(self.basket.installdb.search_package([term]))
         except Exception as e:
             # Invalid regex, basically, from someone smashing FIREFOX????
             print(e)
@@ -199,15 +200,21 @@ class ScSearchResults(Gtk.VBox):
             return
 
         leaders = difflib.get_close_matches(term.lower(),
-                                            s_packages, cutoff=0.5)
+                                            srslt, cutoff=0.5)
         packages = leaders
-        packages.extend(sorted([x for x in s_packages if x not in leaders]))
+        packages.extend(sorted([x for x in srslt if x not in leaders]))
+        added = False
         for pkg_name in packages:
             if self.basket.packagedb.has_package(pkg_name):
                 pkg = self.basket.packagedb.get_package(pkg_name)
             else:
                 pkg = self.basket.installdb.get_package(pkg_name)
 
+            # Always hide debug packages
+            if is_package_debug(pkg) and "dbg" not in term:
+                continue
+
+            added = True
             summary = self.appsystem.get_summary(pkg)
             summary = self.render_plain(str(summary))
 
@@ -227,7 +234,7 @@ class ScSearchResults(Gtk.VBox):
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
 
-        if len(packages) == 0:
+        if not added:
             self.stack.set_visible_child_name("not-found")
         else:
             self.stack.set_visible_child_name("available")
