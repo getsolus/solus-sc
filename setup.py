@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name            = "solus-sc",
-    version         = "17.0",
+    version         = "18.0",
     author          = "Ikey Doherty",
     author_email    = "ikey@solus-project.com",
     description     = ("Solus Software Center"),
