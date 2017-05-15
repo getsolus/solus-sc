@@ -102,8 +102,13 @@ class ScImageWidget(Gtk.Frame):
         """ Loading spinner to irritate and annoy """
         self.page_loading = Gtk.Spinner.new()
         self.page_loading.set_halign(Gtk.Align.CENTER)
+        self.page_loading.set_hexpand(True)
+        self.page_loading.set_vexpand(True)
         self.page_loading.set_valign(Gtk.Align.CENTER)
-        self.page_loading.set_size_request(-1, 64)
+        if self.thumbnail:
+            self.page_loading.set_size_request(32, 32)
+        else:
+            self.page_loading.set_size_request(64, 64)
         self.stack.add_named(self.page_loading, "page-loading")
 
     def show_image(self, uri, pbuf):
