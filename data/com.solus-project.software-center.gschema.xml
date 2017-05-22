@@ -21,6 +21,11 @@
       <summary>Enable checking for updates on metered connections</summary>
       <description>Enable checking for updates on metered connections, i.e. cellular.</description>
     </key>
+    <key type="b" name="fetch-media">
+      <default>true</default>
+      <summary>Enable fetching of remote media</summary>
+      <description>When enabled, the download of external media such as screenshots is supported.</description>
+    </key>
     <key type="x" name="last-checked">
       <default>0</default>
       <summary>UNIX timestamp for the last update time</summary>

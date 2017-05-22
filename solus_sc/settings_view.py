@@ -62,6 +62,12 @@ class ScSettingsView(Gtk.EventBox):
                            mbutton, "active",
                            Gio.SettingsBindFlags.DEFAULT)
 
+        # Fetch screenies?
+        mbutton = builder.get_object("switch_fetch_media")
+        self.settings.bind("fetch-media",
+                           mbutton, "active",
+                           Gio.SettingsBindFlags.DEFAULT)
+
         # Update frequency
         combo = builder.get_object("combo_frequency")
         model = Gtk.ListStore(str, str)

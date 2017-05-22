@@ -46,6 +46,9 @@ class ScMediaFetcher(GObject.Object):
     # read the images
     load_queue = None
 
+    can_fetch_media = None
+    settings = None
+
     # Emit media-fetched URL local-URL
     # or fetch-failed URL error
     __gsignals__ = {
@@ -59,6 +62,12 @@ class ScMediaFetcher(GObject.Object):
 
     def __init__(self):
         GObject.Object.__init__(self)
+        self.can_fetch_media = True
+
+        self.settings = Gio.Settings.new("com.solus-project.software-center")
+        self.settings.connect("changed", self.on_settings_changed)
+        self.on_settings_changed(self.settings, "fetch-media")
+
         cpuCount = multiprocessing.cpu_count()
         if cpuCount < 2:
             threadCount = 1
@@ -93,6 +102,11 @@ class ScMediaFetcher(GObject.Object):
         t = threading.Thread(target=self.begin_load)
         t.daemon = True
         t.start()
+
+    def on_settings_changed(self, s, key, data=None):
+        if key != "fetch-media":
+            return
+        self.can_fetch_media = s.get_boolean(key)
 
     def get_cache_dir(self):
         """ Return the Solus SC cache directory """
@@ -133,6 +147,9 @@ class ScMediaFetcher(GObject.Object):
             immediately in the UI without a secondary load routine
         """
         if os.path.exists(local_file):
+            return
+        if not self.can_fetch_media:
+            raise RuntimeError("Media fetching disabled in user settings")
             return
 
         # Attempt download to a local location, then finally rename to the
