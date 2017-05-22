@@ -33,6 +33,8 @@ GENERAL_URI = re.compile(r"""(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d\
 ))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>\
 ?«»“”‘’]))""")
 
+MARKUP_URI_HIT = re.compile(".*\[({})\]\(({})\).*".format("[^\]]+", ".*"))
+
 
 class ScChangelogEntry(Gtk.EventBox):
 
@@ -57,6 +59,9 @@ class ScChangelogEntry(Gtk.EventBox):
                 ret += "<b><u>{}</u></b>\n".format(block_elems[i])
                 r = r.split(id)[1].strip()
                 break
+
+            if MARKUP_URI_HIT.match(r):
+                r = MARKUP_URI_HIT.sub(r'<a href="\2">\1</a>', r)
 
             # Check if this is a bullet point
             if (r.startswith("- ") or r.startswith("* ")) and len(r) > 2:
