@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 01:47+0100\n"
-"PO-Revision-Date: 2017-05-16 20:16+0000\n"
-"Last-Translator: pizux <pizuxmepis@gmail.com>\n"
+"POT-Creation-Date: 2017-05-27 09:58+0100\n"
+"PO-Revision-Date: 2017-05-27 14:55+0000\n"
+"Last-Translator: Fred Tempez <ftempez@gmail.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/solus-project/solus-sc/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgstr ""
 
 #: ../repo_data/components.xml.in.h:1
 msgid "System Base"
-msgstr "Base du système"
+msgstr "Logiciels système"
 
 #: ../repo_data/components.xml.in.h:2
 msgid "Base Components"
@@ -47,11 +47,11 @@ msgstr "Utilitaires de démarrage"
 
 #: ../repo_data/components.xml.in.h:5
 msgid "Tools and daemons required early in the boot process"
-msgstr "Outils et daemons requis au début du processus de démarrage"
+msgstr "Outils et démons requis au début du processus de démarrage"
 
 #: ../repo_data/components.xml.in.h:6
 msgid "System utilities"
-msgstr "Utilitaires du système"
+msgstr "Utilitaires système"
 
 #: ../repo_data/components.xml.in.h:7
 msgid ""
@@ -133,7 +133,7 @@ msgstr "Pilotes nécessaires pour utiliser le système X Window"
 
 #: ../repo_data/components.xml.in.h:26
 msgid "Networking Base"
-msgstr "Base réseau"
+msgstr "Utilitaires réseau"
 
 #: ../repo_data/components.xml.in.h:27
 msgid "Email clients"
@@ -205,7 +205,7 @@ msgstr "Logiciels financiers"
 
 #: ../repo_data/components.xml.in.h:44
 msgid "Mathematics-Oriented Software"
-msgstr "Logiciels "
+msgstr "Logiciels orientés mathématiques"
 
 #: ../repo_data/components.xml.in.h:45
 msgid "Note-Taking Software"
@@ -221,7 +221,7 @@ msgstr "Logiciels destinés à divers domaines scientifiques"
 
 #: ../repo_data/components.xml.in.h:48
 msgid "E-book and PDF Viewing Software"
-msgstr "e-Books et Lecteurs PDF"
+msgstr "eBooks et Lecteurs PDF"
 
 #: ../repo_data/components.xml.in.h:49
 msgid "Programming"
@@ -265,15 +265,15 @@ msgstr "Bibliothèques de programmation"
 
 #: ../repo_data/components.xml.in.h:59
 msgid "Database clients and servers"
-msgstr "Bases de données (clients et serveurs)"
+msgstr "Bases de données, clients et serveurs"
 
 #: ../repo_data/components.xml.in.h:60
 msgid "Desktop Software"
-msgstr "Applications"
+msgstr "Bureau"
 
 #: ../repo_data/components.xml.in.h:61
 msgid "Desktop specific software"
-msgstr "Logiciels spécifiques à une utilisation bureau."
+msgstr "Logiciels spécifiques au bureau"
 
 #: ../repo_data/components.xml.in.h:62
 msgid "General Multimedia Software"
@@ -281,7 +281,7 @@ msgstr "Logiciels multimédia"
 
 #: ../repo_data/components.xml.in.h:63
 msgid "Graphics"
-msgstr "Graphisme &amp; Photographie"
+msgstr "Graphisme photographie"
 
 #: ../repo_data/components.xml.in.h:64
 msgid "Graphics Manipulation Software"
@@ -293,7 +293,7 @@ msgstr "Codecs multimédia"
 
 #: ../repo_data/components.xml.in.h:66
 msgid "Multimedia Codecs and Format Support"
-msgstr "Codecs multimédia et support des formats."
+msgstr "Codecs et formats multimédia"
 
 #: ../repo_data/components.xml.in.h:67
 msgid "Video Software"
@@ -380,70 +380,78 @@ msgid "Documentation tools for GNOME"
 msgstr "Outils de documentation pour GNOME"
 
 #: ../repo_data/components.xml.in.h:88
+msgid "KDE Desktop"
+msgstr "Bureau KDE"
+
+#: ../repo_data/components.xml.in.h:89
+msgid "KDE Desktop - Core System"
+msgstr "Bureau KDE - noyau système"
+
+#: ../repo_data/components.xml.in.h:90
 msgid "Desktop Core Components"
 msgstr "Bureau - éléments essentiels"
 
-#: ../repo_data/components.xml.in.h:89
+#: ../repo_data/components.xml.in.h:91
 msgid "Core components for desktop systems"
 msgstr "Éléments essentiels pour les environnements de bureau"
 
-#: ../repo_data/components.xml.in.h:90
+#: ../repo_data/components.xml.in.h:92
 msgid "Security applications"
 msgstr "Logiciels de sécurité"
 
-#: ../repo_data/components.xml.in.h:91
+#: ../repo_data/components.xml.in.h:93
 msgid "Cryptographic utilities"
 msgstr "Utilitaires cryptographiques"
 
-#: ../repo_data/components.xml.in.h:92
+#: ../repo_data/components.xml.in.h:94
 msgid "Cryptographic utilities and runtimes"
-msgstr "En-têtes du protocole Xorg"
+msgstr "Logiciels et moteurs de cryptographie"
 
-#: ../repo_data/components.xml.in.h:93
+#: ../repo_data/components.xml.in.h:95
 msgid "Security-oriented libraries"
 msgstr "Bibliothèques orientées sécurité"
 
-#: ../repo_data/components.xml.in.h:94
+#: ../repo_data/components.xml.in.h:96
 msgid "Main games collection"
 msgstr "Collection de jeux vidéo"
 
-#: ../repo_data/components.xml.in.h:95
+#: ../repo_data/components.xml.in.h:97
 msgid "Main games"
 msgstr "Jeux vidéo"
 
-#: ../repo_data/components.xml.in.h:96
+#: ../repo_data/components.xml.in.h:98
 msgid "Action Games"
 msgstr "Jeux d'action"
 
-#: ../repo_data/components.xml.in.h:97
+#: ../repo_data/components.xml.in.h:99
 msgid "Arcade Games"
 msgstr "Jeux d'arcade"
 
-#: ../repo_data/components.xml.in.h:98
+#: ../repo_data/components.xml.in.h:100
 msgid "Card Games"
 msgstr "Jeux de cartes"
 
-#: ../repo_data/components.xml.in.h:99
+#: ../repo_data/components.xml.in.h:101
 msgid "Console Emulators"
 msgstr "Émulateurs"
 
-#: ../repo_data/components.xml.in.h:100
+#: ../repo_data/components.xml.in.h:102
 msgid "Massive Multiplayer Online Games"
 msgstr "Jeux massivement multijoueurs"
 
-#: ../repo_data/components.xml.in.h:101
+#: ../repo_data/components.xml.in.h:103
 msgid "Platformer Games"
 msgstr "Jeux de plateforme"
 
-#: ../repo_data/components.xml.in.h:102
+#: ../repo_data/components.xml.in.h:104
 msgid "Puzzle Games"
 msgstr "Jeux de puzzle"
 
-#: ../repo_data/components.xml.in.h:103
+#: ../repo_data/components.xml.in.h:105
 msgid "Role-playing Games"
 msgstr "Jeux de rôles"
 
-#: ../repo_data/components.xml.in.h:104
+#: ../repo_data/components.xml.in.h:106
 msgid "Strategy Games"
 msgstr "Jeux de stratégie"
 
@@ -557,7 +565,7 @@ msgstr "Téléchargement {}"
 
 #: ../solus_sc/basket.py:323
 msgid "The following dependencies need to be installed to continue"
-msgstr "Les dépendances suivantes doivent être installées avant de continuer"
+msgstr "Avant tout, les dépendances suivantes doivent être installées"
 
 #: ../solus_sc/basket.py:333
 msgid "Installation confirmation"
@@ -565,15 +573,15 @@ msgstr "installation confirmée"
 
 #: ../solus_sc/basket.py:336
 msgid "The following dependencies need to be removed to continue"
-msgstr "Les dépendances suivantes doivent être installées avant de continuer"
+msgstr "Avant tout, les dépendances suivantes doivent être supprimées"
 
 #: ../solus_sc/basket.py:337
 msgid "Removal confirmation"
-msgstr "Désinstallation confirmée"
+msgstr "Confirmation de la désinstallation"
 
 #: ../solus_sc/basket.py:340
 msgid "The following dependencies need to be updated to continue"
-msgstr "Les dépendances suivantes ont besoin d'être mises à jour avant de continuer"
+msgstr "Avant tout, les dépendances suivantes ont besoin d'être mises à jour"
 
 #: ../solus_sc/basket.py:341
 msgid "Update confirmation"
@@ -581,7 +589,7 @@ msgstr "Mise à jour confirmée"
 
 #: ../solus_sc/basket.py:368
 msgid "Cancel"
-msgstr "Annulation"
+msgstr "Annuler"
 
 #. Main action buttons
 #: ../solus_sc/basket.py:370 ../solus_sc/details.py:224
@@ -591,18 +599,18 @@ msgstr "Installer"
 
 #: ../solus_sc/basket.py:372
 msgid "Update"
-msgstr "Mise à jour"
+msgstr "Mettre à jour"
 
 #. Remove button
 #: ../solus_sc/basket.py:377 ../solus_sc/details.py:234
 msgid "Remove"
 msgstr "Désinstaller"
 
-#: ../solus_sc/changelog.py:111
+#: ../solus_sc/changelog.py:119
 msgid "Standard Update"
-msgstr "mise à jour normal"
+msgstr "Mise à jour standard"
 
-#: ../solus_sc/changelog.py:114
+#: ../solus_sc/changelog.py:122
 msgid "Security Update"
 msgstr "Mise à jour de sécurité"
 
@@ -618,43 +626,43 @@ msgstr "Visiter le site internet"
 msgid "Details"
 msgstr "Détails"
 
-#: ../solus_sc/details.py:376
+#: ../solus_sc/details.py:382
 msgid "Developers"
 msgstr "Développeur"
 
-#: ../solus_sc/details.py:391
+#: ../solus_sc/details.py:397
 msgid "Version"
 msgstr "Version"
 
 #. Size of the package when installed locally
-#: ../solus_sc/details.py:403
+#: ../solus_sc/details.py:409
 msgid "Installed size"
 msgstr "Taille de l'installation"
 
 #. Donation button launches website to donate to authors
-#: ../solus_sc/details.py:415
+#: ../solus_sc/details.py:421
 msgid "Donate"
 msgstr "Faire un don"
 
-#: ../solus_sc/details.py:429
+#: ../solus_sc/details.py:435
 msgid "Changelog"
 msgstr "Historique des modifications"
 
-#: ../solus_sc/details.py:437
+#: ../solus_sc/details.py:443
 msgid "License"
 msgstr "Licence"
 
-#: ../solus_sc/details.py:442
+#: ../solus_sc/details.py:448
 msgid "Report an invalid or missing license"
-msgstr "Signaler une license invalide ou manquante"
+msgstr "Signaler une licence erronée ou manquante"
 
-#: ../solus_sc/details.py:444
+#: ../solus_sc/details.py:450
 msgid ""
 "This selection is available in accordance with the terms set in the "
 "following license(s):"
-msgstr "Cette sélection est disponible selon les termes présentés dans la/les license(s) suivante:"
+msgstr "Cette sélection est disponible selon les termes dans la/les licence(s) suivante(s):"
 
-#: ../solus_sc/details.py:512
+#: ../solus_sc/details.py:518
 msgid "Cannot remove core system software"
 msgstr "Impossible de désinstaller un logiciel indispensable au système"
 
@@ -663,9 +671,9 @@ msgstr "Impossible de désinstaller un logiciel indispensable au système"
 msgid "{} categories"
 msgstr "{} catégories"
 
-#: ../solus_sc/imagewidget.py:82
+#: ../solus_sc/imagewidget.py:86
 msgid "No screenshots available"
-msgstr "Aucunes captures d'écran disponibles"
+msgstr "Aucune capture d'écran disponible"
 
 #. Window title
 #: ../solus_sc/main_window.py:162
@@ -690,7 +698,7 @@ msgstr "Installé"
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:220 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Logiciels partenaires"
+msgstr "Partenaires"
 
 #. The search page
 #: ../solus_sc/main_window.py:225 ../solus_sc/sidebar.py:69
@@ -721,32 +729,32 @@ msgid "No results found"
 msgstr "Aucun résultat trouvé"
 
 #. Check for updates every hour
-#: ../solus_sc/settings_view.py:69
+#: ../solus_sc/settings_view.py:75
 msgid "Every hour"
 msgstr "Toutes les heures"
 
 #. Check for updates once per day
-#: ../solus_sc/settings_view.py:71
+#: ../solus_sc/settings_view.py:77
 msgid "Daily"
 msgstr "Tous les jours"
 
 #. Check for updates once a week
-#: ../solus_sc/settings_view.py:73
+#: ../solus_sc/settings_view.py:79
 msgid "Weekly"
 msgstr "Hebdomadaire"
 
 #. Notify of all updates
-#: ../solus_sc/settings_view.py:88
+#: ../solus_sc/settings_view.py:94
 msgid "All updates"
 msgstr "Toutes les mises à jour"
 
 #. Notify only of security updates
-#: ../solus_sc/settings_view.py:90
+#: ../solus_sc/settings_view.py:96
 msgid "Security updates only"
 msgstr "Mises à jour de sécurité uniquement"
 
 #. Notify of security and core system updates ("mandatory")
-#: ../solus_sc/settings_view.py:92
+#: ../solus_sc/settings_view.py:98
 msgid "Security & core updates"
 msgstr "Mises à jour de sécurité"
 
@@ -794,7 +802,7 @@ msgstr "Mise à jour sélectionnée"
 #. "2 of 10 updates selected"
 #: ../solus_sc/updates_view.py:538
 msgid "{} of {} updates selected"
-msgstr "{} de {} mises à jour sélectionnées"
+msgstr "{} de {} mise(s) à jour sélectionnée(s)"
 
 #. "2 of 10 updates selected (20.05MB to download)"
 #: ../solus_sc/updates_view.py:545
@@ -803,7 +811,7 @@ msgstr "{} de {} mises à jour sélectionnées ({} à télécharger)"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
-msgstr "Mise à jour de sécurité disponible"
+msgstr "Mise(s) à jour de sécurité disponible(s)"
 
 #: ../solus_update/application.py:302
 msgid ""
@@ -813,11 +821,11 @@ msgstr "Mettez à jour dès que possible afin d'assurer la sécurité de votre s
 
 #: ../solus_update/application.py:306
 msgid "Software updates available"
-msgstr "Mises à jour disponibles"
+msgstr "Des mises à jour sont disponibles"
 
 #: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
-msgstr "De nouvelles mises à jour sont disponibles pour votre appareil"
+msgstr "Mises à jour disponibles"
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
