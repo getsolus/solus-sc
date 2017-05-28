@@ -33,8 +33,9 @@ GENERAL_URI = re.compile(r"""(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d\
 ))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>\
 ?«»“”‘’]))""")
 
-MARKUP_URI_HIT = re.compile(".*\[({})\]\(({})\).*".format("[^\]]+", ".*"))
-MARKUP_CODE_HIT = re.compile(r".*`([^`]+)`.*")
+MARKUP_URI_HIT = re.compile("\[({})\]\(({})\)".format("[^\]]+", ".*"))
+MARKUP_CODE_HIT = re.compile(r"`([^`]+)`")
+MARKUP_BOLD_HIT = re.compile(r"\*{2}([^\*{2}]+)\*{2}")
 
 
 class ScChangelogEntry(Gtk.EventBox):
@@ -61,10 +62,9 @@ class ScChangelogEntry(Gtk.EventBox):
                 r = r.split(id)[1].strip()
                 break
 
-            if MARKUP_URI_HIT.match(r):
-                r = MARKUP_URI_HIT.sub(r'<a href="\2">\1</a>', r)
-            if MARKUP_CODE_HIT.match(r):
-                r = MARKUP_CODE_HIT.sub(r'<tt>\1</tt>', r)
+            r = MARKUP_URI_HIT.sub(r'<a href="\2">\1</a>', r)
+            r = MARKUP_CODE_HIT.sub(r'<tt>\1</tt>', r)
+            r = MARKUP_BOLD_HIT.sub(r'<b>\1</b>', r)
 
             # Check if this is a bullet point
             if (r.startswith("- ") or r.startswith("* ")) and len(r) > 2:
