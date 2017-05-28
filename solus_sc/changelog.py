@@ -26,9 +26,6 @@ CVE_URI = "https://cve.mitre.org/cgi-bin/cvename.cgi?name={}"
 BUG_HIT = re.compile(r"T(\d+)")
 BUG_URI = "https://dev.solus-project.com/{}"
 
-DIFF_HIT = re.compile("D(\d+)")
-DIFF_URI = "https://dev.solus-project.com/{}"
-
 # I know, it's evil. From:
 # http://daringfireball.net/2010/07/improved_regex_for_matching_urls
 GENERAL_URI = re.compile(r"""(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d\
@@ -87,13 +84,6 @@ class ScChangelogEntry(Gtk.EventBox):
                     href = "<a href=\"{}\">{}</a>".format(
                         BUG_URI.format(bug_id), bug_id)
                     ret += href + i[len(bug_id):] + " "
-                    continue
-                diff = DIFF_HIT.match(i.upper())
-                if diff is not None:
-                    diff_id = diff.group(0)
-                    href = "<a href=\"{}\">{}</a>".format(
-                        DIFF_URI.format(diff_id), diff_id)
-                    ret += href + i[len(diff_id):] + " "
                     continue
                 uri = GENERAL_URI.match(i)
                 if uri is not None:
