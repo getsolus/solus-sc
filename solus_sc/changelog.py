@@ -33,7 +33,7 @@ GENERAL_URI = re.compile(r"""(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d\
 ))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>\
 ?«»“”‘’]))""")
 
-MARKUP_URI_HIT = re.compile("\[({})\]\(({})\)".format("[^\]]+", ".*"))
+MARKUP_URI_HIT = re.compile(r"\[({})\]\(({})\)".format("[^\]]+", "[^)]+"))
 MARKUP_CODE_HIT = re.compile(r"`([^`]+)`")
 MARKUP_BOLD_HIT = re.compile(r"\*{2}([^\*{2}]+)\*{2}")
 
