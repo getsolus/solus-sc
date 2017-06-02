@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 01:47+0100\n"
-"PO-Revision-Date: 2017-05-16 04:24+0000\n"
-"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
+"POT-Creation-Date: 2017-05-27 09:58+0100\n"
+"PO-Revision-Date: 2017-06-01 14:22+0000\n"
+"Last-Translator: Yurizal Susanto <rizal.sagi@gmail.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/solus-project/solus-sc/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -67,7 +67,7 @@ msgstr "Komponen dasar yang dibutuhkan sistem X.Org"
 
 #: ../repo_data/components.xml.in.h:12
 msgid "X.Org Protocol Headers"
-msgstr "Header Protokol X.Org"
+msgstr " Protokol Header X.Org"
 
 #: ../repo_data/components.xml.in.h:13
 msgid "Protocol headers required for building X.Org Libraries"
@@ -227,7 +227,7 @@ msgstr "Berkas pengembangan"
 
 #: ../repo_data/components.xml.in.h:52
 msgid "Integrated Developer Environments"
-msgstr "Integrated Developer Environments"
+msgstr "Lingkungan Pengembang Terpadu"
 
 #: ../repo_data/components.xml.in.h:53
 msgid "Development tools"
@@ -331,19 +331,19 @@ msgstr "Fonta untuk peningkatan desktop"
 
 #: ../repo_data/components.xml.in.h:78
 msgid "Qt Runtime Libraries"
-msgstr "Qt Runtime Libraries"
+msgstr "Pustaka Qt"
 
 #: ../repo_data/components.xml.in.h:79
 msgid "GTK Runtime Libraries"
-msgstr "GTK Runtime Libraries"
+msgstr "Pustaka GTK"
 
 #: ../repo_data/components.xml.in.h:80
 msgid "Budgie Desktop"
-msgstr "Budgie Desktop"
+msgstr "Desktop Budgie"
 
 #: ../repo_data/components.xml.in.h:81
 msgid "Elements of the Solus Budgie Experience"
-msgstr "Elemen dari Solus Budgie Experience"
+msgstr "Unsur dari pengalaman Solus Budgie"
 
 #: ../repo_data/components.xml.in.h:82
 msgid "GNOME Desktop"
@@ -370,70 +370,78 @@ msgid "Documentation tools for GNOME"
 msgstr "Perkakas Dokumentasi untuk GNOME"
 
 #: ../repo_data/components.xml.in.h:88
+msgid "KDE Desktop"
+msgstr "Desktop KDE"
+
+#: ../repo_data/components.xml.in.h:89
+msgid "KDE Desktop - Core System"
+msgstr "Desktop KDE - Sistem Utama"
+
+#: ../repo_data/components.xml.in.h:90
 msgid "Desktop Core Components"
 msgstr "Komponen Inti Desktop"
 
-#: ../repo_data/components.xml.in.h:89
+#: ../repo_data/components.xml.in.h:91
 msgid "Core components for desktop systems"
 msgstr "Komponen inti untuk sistem desktop"
 
-#: ../repo_data/components.xml.in.h:90
+#: ../repo_data/components.xml.in.h:92
 msgid "Security applications"
 msgstr "Aplikasi keamanan"
 
-#: ../repo_data/components.xml.in.h:91
+#: ../repo_data/components.xml.in.h:93
 msgid "Cryptographic utilities"
 msgstr "Utilitas kriptografi"
 
-#: ../repo_data/components.xml.in.h:92
+#: ../repo_data/components.xml.in.h:94
 msgid "Cryptographic utilities and runtimes"
 msgstr "Utilitas dan runtime kriptografi"
 
-#: ../repo_data/components.xml.in.h:93
+#: ../repo_data/components.xml.in.h:95
 msgid "Security-oriented libraries"
 msgstr "Pustaka berorientasi keamanan"
 
-#: ../repo_data/components.xml.in.h:94
+#: ../repo_data/components.xml.in.h:96
 msgid "Main games collection"
 msgstr "Koleksi permainan utama"
 
-#: ../repo_data/components.xml.in.h:95
+#: ../repo_data/components.xml.in.h:97
 msgid "Main games"
 msgstr "Permainan utama"
 
-#: ../repo_data/components.xml.in.h:96
+#: ../repo_data/components.xml.in.h:98
 msgid "Action Games"
 msgstr "Permainan Aksi"
 
-#: ../repo_data/components.xml.in.h:97
+#: ../repo_data/components.xml.in.h:99
 msgid "Arcade Games"
 msgstr "Permainan Arkade"
 
-#: ../repo_data/components.xml.in.h:98
+#: ../repo_data/components.xml.in.h:100
 msgid "Card Games"
 msgstr "Permainan Kartu"
 
-#: ../repo_data/components.xml.in.h:99
+#: ../repo_data/components.xml.in.h:101
 msgid "Console Emulators"
 msgstr "Emulator Konsol"
 
-#: ../repo_data/components.xml.in.h:100
+#: ../repo_data/components.xml.in.h:102
 msgid "Massive Multiplayer Online Games"
-msgstr "Massive Multiplayer Online Games"
+msgstr "Permainan Massive Multiplayer Online"
 
-#: ../repo_data/components.xml.in.h:101
+#: ../repo_data/components.xml.in.h:103
 msgid "Platformer Games"
 msgstr "Permainan Platformer"
 
-#: ../repo_data/components.xml.in.h:102
+#: ../repo_data/components.xml.in.h:104
 msgid "Puzzle Games"
 msgstr "Permainan Puzzle"
 
-#: ../repo_data/components.xml.in.h:103
+#: ../repo_data/components.xml.in.h:105
 msgid "Role-playing Games"
 msgstr "Permainan Pera"
 
-#: ../repo_data/components.xml.in.h:104
+#: ../repo_data/components.xml.in.h:106
 msgid "Strategy Games"
 msgstr "Permainan Strategi"
 
@@ -588,11 +596,11 @@ msgstr "Perbarui"
 msgid "Remove"
 msgstr "Hapus"
 
-#: ../solus_sc/changelog.py:111
+#: ../solus_sc/changelog.py:119
 msgid "Standard Update"
 msgstr "Pembaruan Standar"
 
-#: ../solus_sc/changelog.py:114
+#: ../solus_sc/changelog.py:122
 msgid "Security Update"
 msgstr "Pembaruan Keamanan"
 
@@ -608,43 +616,43 @@ msgstr "Kunjungi Situs Web"
 msgid "Details"
 msgstr "Detil"
 
-#: ../solus_sc/details.py:376
+#: ../solus_sc/details.py:382
 msgid "Developers"
 msgstr "Pengembang"
 
-#: ../solus_sc/details.py:391
+#: ../solus_sc/details.py:397
 msgid "Version"
 msgstr "Versi"
 
 #. Size of the package when installed locally
-#: ../solus_sc/details.py:403
+#: ../solus_sc/details.py:409
 msgid "Installed size"
 msgstr "Ukuran terpasang"
 
 #. Donation button launches website to donate to authors
-#: ../solus_sc/details.py:415
+#: ../solus_sc/details.py:421
 msgid "Donate"
 msgstr "Donasi"
 
-#: ../solus_sc/details.py:429
+#: ../solus_sc/details.py:435
 msgid "Changelog"
 msgstr "Changelog"
 
-#: ../solus_sc/details.py:437
+#: ../solus_sc/details.py:443
 msgid "License"
 msgstr "Lisensi"
 
-#: ../solus_sc/details.py:442
+#: ../solus_sc/details.py:448
 msgid "Report an invalid or missing license"
-msgstr "Laporkan lisensi yang tidak valid atau hilang"
+msgstr "Laporkan lisensi yang tidak sah atau hilang"
 
-#: ../solus_sc/details.py:444
+#: ../solus_sc/details.py:450
 msgid ""
 "This selection is available in accordance with the terms set in the "
 "following license(s):"
 msgstr "Pilihan ini tersedia sesuai dengan persyaratan yang ditetapkan dalam lisensi berikut:"
 
-#: ../solus_sc/details.py:512
+#: ../solus_sc/details.py:518
 msgid "Cannot remove core system software"
 msgstr "Tidak dapat menghapus perangkat lunak sistem inti"
 
@@ -653,7 +661,7 @@ msgstr "Tidak dapat menghapus perangkat lunak sistem inti"
 msgid "{} categories"
 msgstr "{} kategori"
 
-#: ../solus_sc/imagewidget.py:82
+#: ../solus_sc/imagewidget.py:86
 msgid "No screenshots available"
 msgstr "Tidak ada tangkapan layar yang tersedia"
 
@@ -711,32 +719,32 @@ msgid "No results found"
 msgstr "Tidak ada hasil yang ditemukan"
 
 #. Check for updates every hour
-#: ../solus_sc/settings_view.py:69
+#: ../solus_sc/settings_view.py:75
 msgid "Every hour"
 msgstr "Setiap jam"
 
 #. Check for updates once per day
-#: ../solus_sc/settings_view.py:71
+#: ../solus_sc/settings_view.py:77
 msgid "Daily"
 msgstr "Harian"
 
 #. Check for updates once a week
-#: ../solus_sc/settings_view.py:73
+#: ../solus_sc/settings_view.py:79
 msgid "Weekly"
 msgstr "Mingguan"
 
 #. Notify of all updates
-#: ../solus_sc/settings_view.py:88
+#: ../solus_sc/settings_view.py:94
 msgid "All updates"
 msgstr "Semua pembaruan"
 
 #. Notify only of security updates
-#: ../solus_sc/settings_view.py:90
+#: ../solus_sc/settings_view.py:96
 msgid "Security updates only"
 msgstr "Hanya pembaruan keamanan"
 
 #. Notify of security and core system updates ("mandatory")
-#: ../solus_sc/settings_view.py:92
+#: ../solus_sc/settings_view.py:98
 msgid "Security & core updates"
 msgstr "Pembaruan keamanan dan inti"
 
@@ -764,7 +772,7 @@ msgstr "Periksa kembali nanti, sedang menerapkan pembaruan "
 
 #: ../solus_sc/updates_view.py:207
 msgid "Software is up to date"
-msgstr "Perangkat lunak up to date"
+msgstr "Perangkat lunak sudah terbaru"
 
 #. Selection label
 #. No updates currently selected for installation
