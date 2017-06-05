@@ -12,7 +12,7 @@
 #
 
 import sys
-from solus_sc.application import ScApplication
+from solus_sc20.application import ScApplication
 from dbus.mainloop.glib import DBusGMainLoop
 from gi.repository import GObject, Gdk
 import gettext
