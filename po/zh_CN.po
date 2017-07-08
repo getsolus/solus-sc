@@ -3,822 +3,819 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Puppelimies, 2017
-# samilarity <sami.kosonen@gmail.com>, 2016
-# samilarity <sami.kosonen@gmail.com>, 2016
-# Ville Kivelä <vkivela@hotmail.com>, 2016
+# plantman <weihanlin@live.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-06-28 10:59+0000\n"
-"Last-Translator: Puppelimies\n"
-"Language-Team: Finnish (http://www.transifex.com/solus-project/solus-sc/language/fi/)\n"
+"PO-Revision-Date: 2017-06-30 21:09+0000\n"
+"Last-Translator: plantman <weihanlin@live.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/solus-project/solus-sc/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fi\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../repo_data/components.xml.in.h:1
 msgid "System Base"
-msgstr "Perusjärjestelmä"
+msgstr "系统基层"
 
 #: ../repo_data/components.xml.in.h:2
 msgid "Base Components"
-msgstr "Peruskomponentit"
+msgstr "底层组件"
 
 #: ../repo_data/components.xml.in.h:3
 msgid "Base components of Solus"
-msgstr "Solus peruskomponentit"
+msgstr "Solus 底层组件"
 
 #: ../repo_data/components.xml.in.h:4
 msgid "Boot utilities"
-msgstr "Käynnistysapuohjelmat"
+msgstr "引导组件"
 
 #: ../repo_data/components.xml.in.h:5
 msgid "Tools and daemons required early in the boot process"
-msgstr "Työkalut ja daemonit jotka vaaditaan käynnistysprosessin alussa"
+msgstr "启动过程中所需的工具与 daemon"
 
 #: ../repo_data/components.xml.in.h:6
 msgid "System utilities"
-msgstr "Järjestelmäapuohjelmat"
+msgstr "系统程序"
 
 #: ../repo_data/components.xml.in.h:7
 msgid ""
 "Commonly used components for a full installation, not used in minimal "
 "environments"
-msgstr "Yleisesti käytetyt komponentit täydelliseen asennukseen, ei käytetä minimaalisissa ympäristöissä"
+msgstr "完整系统中的常用组件，不在精简化环境中使用的"
 
 #: ../repo_data/components.xml.in.h:8
 msgid "Base development tools"
-msgstr "Peruskehitystyökalut"
+msgstr "底层开发工具"
 
 #: ../repo_data/components.xml.in.h:9
 msgid "Development utilities - base system"
-msgstr "Kehitystyökalut - perusjärjestelmä"
+msgstr "开发工具包 - 底层系统"
 
 #: ../repo_data/components.xml.in.h:10
 msgid "X.Org Base Components"
-msgstr "X.Org Peruskomponentit"
+msgstr "X.Org 底层组件"
 
 #: ../repo_data/components.xml.in.h:11
 msgid "Base components required for the X.Org System"
-msgstr "X.Org Järjestelmän vaaditut peruskomponentit"
+msgstr "X.Org 系统所需的底层组件"
 
 #: ../repo_data/components.xml.in.h:12
 msgid "X.Org Protocol Headers"
-msgstr "X.Org Protokollan otsikot"
+msgstr "X.Org 协议头文件"
 
 #: ../repo_data/components.xml.in.h:13
 msgid "Protocol headers required for building X.Org Libraries"
-msgstr "X.Org kirjastojen rakentamiseen vaaditut protokollaotsikot"
+msgstr "构建 X.org 库所需的协议头文件"
 
 #: ../repo_data/components.xml.in.h:14
 msgid "X.Org Core Libraries"
-msgstr "X.Org Peruskirjastot"
+msgstr "X.Org 核心库"
 
 #: ../repo_data/components.xml.in.h:15
 msgid "Core libraries required by X.Org"
-msgstr "X.Org vaaditut peruskirjastot"
+msgstr "X.Org 所需的核心库"
 
 #: ../repo_data/components.xml.in.h:16
 msgid "X.Org Core Fonts"
-msgstr "X.Org peruskirjasimet"
+msgstr "X.Org 核心字体"
 
 #: ../repo_data/components.xml.in.h:17
 msgid "Core fonts required by X.Org"
-msgstr "X.Org vaaditut peruskirjasimet"
+msgstr "X.Org 所需的核心字体"
 
 #: ../repo_data/components.xml.in.h:18
 msgid "X.Org Core Applications"
-msgstr "X.Org Perussovellukset"
+msgstr "X.Org 核心应用程序"
 
 #: ../repo_data/components.xml.in.h:19
 msgid "Collection of simple applications for X.Org"
-msgstr "X.Org yksinkertaisten sovellusten kokoelma"
+msgstr "一组简单的 X.Org 小应用程序"
 
 #: ../repo_data/components.xml.in.h:20
 msgid "X.Org Display"
-msgstr "X.Org Näyttö"
+msgstr "X.Org 显示"
 
 #: ../repo_data/components.xml.in.h:21
 msgid "Software required to run an X.Org Display"
-msgstr "X.Org Näytölle vaadittu ohjelmisto"
+msgstr "X.Org 显示所需的软件"
 
 #: ../repo_data/components.xml.in.h:22
 msgid "X.Org Server"
-msgstr "X.Org Palvelin"
+msgstr "X.Org 服务器"
 
 #: ../repo_data/components.xml.in.h:23
 msgid "Core server of the X Window System"
-msgstr "X Window Järjestelmän peruspalvelin"
+msgstr "X 窗口系统核心服务器"
 
 #: ../repo_data/components.xml.in.h:24
 msgid "X.Org Drivers"
-msgstr "X.Org Ajurit"
+msgstr "X.Org 驱动"
 
 #: ../repo_data/components.xml.in.h:25
 msgid "Drivers required to use the X Window System"
-msgstr "X Window Järjestelmän käyttöön vaaditut ajurit"
+msgstr "X 窗口系统所需的驱动"
 
 #: ../repo_data/components.xml.in.h:26
 msgid "Networking Base"
-msgstr "Verkko"
+msgstr "网络底层包"
 
 #: ../repo_data/components.xml.in.h:27
 msgid "Email clients"
-msgstr "Sähköpostiasiakasohjelmistot"
+msgstr "电子邮件客户端"
 
 #: ../repo_data/components.xml.in.h:28
 msgid "IRC clients"
-msgstr "IRC-asiakasohjelmistot"
+msgstr "IRC 客户端"
 
 #: ../repo_data/components.xml.in.h:29
 msgid "Instant messaging"
-msgstr "Pikaviestintä"
+msgstr "即时通讯"
 
 #: ../repo_data/components.xml.in.h:30
 msgid "News and RSS readers"
-msgstr "Uutiset ja RSS-lukijat"
+msgstr "新闻与 RSS 阅读器"
 
 #: ../repo_data/components.xml.in.h:31
 msgid "Remote management software"
-msgstr "Etähallintaohjelmistot"
+msgstr "远程管理软件"
 
 #: ../repo_data/components.xml.in.h:32
 msgid "Web applications"
-msgstr "Web-sovellukset"
+msgstr "互联网程序"
 
 #: ../repo_data/components.xml.in.h:33
 msgid "Web browsers"
-msgstr "Web-selaimet"
+msgstr "浏览器"
 
 #: ../repo_data/components.xml.in.h:34
 msgid "Networking utilities"
-msgstr "Verkkoapuohjelmat"
+msgstr "网络工具"
 
 #: ../repo_data/components.xml.in.h:35
 msgid "Download managers"
-msgstr "Latausten hallintaohjelmistot"
+msgstr "下载管理器"
 
 #: ../repo_data/components.xml.in.h:36
 msgid "Networking CLI Clients"
-msgstr "Verkko CLI-asiakasohjelmistot"
+msgstr "网络命令行客户端"
 
 #: ../repo_data/components.xml.in.h:37
 msgid "Kernel Images"
-msgstr "Kernel Levykuvat"
+msgstr "内核镜像"
 
 #: ../repo_data/components.xml.in.h:38
 msgid "Kernel Development"
-msgstr "Kernel Kehitys"
+msgstr "内核开发"
 
 #: ../repo_data/components.xml.in.h:39
 msgid "Text Editors"
-msgstr "Tekstieditorit"
+msgstr "文字编辑器"
 
 #: ../repo_data/components.xml.in.h:40
 msgid "Simple and advanced text editors"
-msgstr "Yksinkertaiset ja edistyneet tekstieditorit"
+msgstr "基本与高级文件编辑器"
 
 #: ../repo_data/components.xml.in.h:41 ../repo_data/groups.xml.in.h:5
 msgid "Office Software"
-msgstr "Toimisto-ohjelmistot"
+msgstr "办公软件"
 
 #: ../repo_data/components.xml.in.h:42
 msgid "Office software"
-msgstr "Toimisto-ohjelmistot"
+msgstr "办公软件"
 
 #: ../repo_data/components.xml.in.h:43
 msgid "Financial Software"
-msgstr "Taloushallinto-ohjelmistot"
+msgstr "金融软件"
 
 #: ../repo_data/components.xml.in.h:44
 msgid "Mathematics-Oriented Software"
-msgstr "Matematiikkaan suuntautuneet ohjelmistot"
+msgstr "数学类软件"
 
 #: ../repo_data/components.xml.in.h:45
 msgid "Note-Taking Software"
-msgstr "Muistiinpano-ohjelmistot"
+msgstr "笔记软件"
 
 #: ../repo_data/components.xml.in.h:46
 msgid "Scientific Software"
-msgstr "Tieteelliset ohjelmistot"
+msgstr "科学类软件"
 
 #: ../repo_data/components.xml.in.h:47
 msgid "Software aimed at various scientific fields."
-msgstr "Ohjelmistot tarkoitettu eri tieteellisille aloille."
+msgstr "面向各科学领域的软件"
 
 #: ../repo_data/components.xml.in.h:48
 msgid "E-book and PDF Viewing Software"
-msgstr "E-kirja ja PDF-katseluohjelmistot"
+msgstr "电子书与 PDF 阅读软件"
 
 #: ../repo_data/components.xml.in.h:49
 msgid "Programming"
-msgstr "Ohjelmointi"
+msgstr "编程"
 
 #: ../repo_data/components.xml.in.h:50
 msgid "Software related to programming"
-msgstr "Ohjelmointiin liittyvät ohjelmistot"
+msgstr "编程有关的软件"
 
 #: ../repo_data/components.xml.in.h:51
 msgid "Development files"
-msgstr "Kehitystiedostot"
+msgstr "开发文件"
 
 #: ../repo_data/components.xml.in.h:52
 msgid "Integrated Developer Environments"
-msgstr "Integroidut kehittäjäympäristöt"
+msgstr "集成开发环境"
 
 #: ../repo_data/components.xml.in.h:53
 msgid "Development tools"
-msgstr "Kehitystyökalut"
+msgstr "开发工具"
 
 #: ../repo_data/components.xml.in.h:54
 msgid "Haskell libraries"
-msgstr "Haskell kirjastot"
+msgstr "Haskell 库"
 
 #: ../repo_data/components.xml.in.h:55
 msgid "Python modules"
-msgstr "Python moduulit"
+msgstr "Python 模块"
 
 #: ../repo_data/components.xml.in.h:56
 msgid "Perl modules"
-msgstr "Perl moduulit"
+msgstr "Perl 模块"
 
 #: ../repo_data/components.xml.in.h:57
 msgid "Java modules and libraries"
-msgstr "Java moduulit ja kirjastot"
+msgstr "Java 模块与库"
 
 #: ../repo_data/components.xml.in.h:58
 msgid "Programming libraries"
-msgstr "Ohjelmointikirjastot"
+msgstr "编程库"
 
 #: ../repo_data/components.xml.in.h:59
 msgid "Database clients and servers"
-msgstr "Tietokanta-asiakasohjelmistot ja palvelimet"
+msgstr "数据库客户端与服务器"
 
 #: ../repo_data/components.xml.in.h:60
 msgid "Desktop Software"
-msgstr "Työpöytä-ohjelmistot"
+msgstr "桌面软件"
 
 #: ../repo_data/components.xml.in.h:61
 msgid "Desktop specific software"
-msgstr "Työpöydille määrätyt ohjelmistot"
+msgstr "桌面专用软件"
 
 #: ../repo_data/components.xml.in.h:62
 msgid "General Multimedia Software"
-msgstr "Yleiset multimediaohjelmistot"
+msgstr "一般多媒体软件"
 
 #: ../repo_data/components.xml.in.h:63
 msgid "Graphics"
-msgstr "Kuvankäsittely"
+msgstr "图形"
 
 #: ../repo_data/components.xml.in.h:64
 msgid "Graphics Manipulation Software"
-msgstr "Kuvankäsittelyohjelmistot"
+msgstr "图形编辑软件"
 
 #: ../repo_data/components.xml.in.h:65
 msgid "Multimedia Codecs"
-msgstr "Multimediakoodekit"
+msgstr "多媒体编解码器"
 
 #: ../repo_data/components.xml.in.h:66
 msgid "Multimedia Codecs and Format Support"
-msgstr "Multimediakoodekit ja formaattien tuki"
+msgstr "多媒体编解码器与格式支持"
 
 #: ../repo_data/components.xml.in.h:67
 msgid "Video Software"
-msgstr "Video-ohjelmistot"
+msgstr "视频软件"
 
 #: ../repo_data/components.xml.in.h:68
 msgid "Audio Software"
-msgstr "Audio-ohjelmistot"
+msgstr "声频软件"
 
 #: ../repo_data/components.xml.in.h:69
 msgid "Multimedia Libraries"
-msgstr "Multimediakirjastot"
+msgstr "多媒体库"
 
 #: ../repo_data/components.xml.in.h:70
 msgid "GStreamer Runtime"
-msgstr "GStreamer Runtime"
+msgstr "GStreamer 运行时"
 
 #: ../repo_data/components.xml.in.h:71
 msgid "GStreamer Runtime &amp; Support Libraries"
-msgstr "GStreamer Runtime &amp; Tukikirjastot"
+msgstr "GStreamer 运行时 &amp; 支持库"
 
 #: ../repo_data/components.xml.in.h:72
 msgid "Desktop Libraries"
-msgstr "Työpöytäkirjastot"
+msgstr "桌面库"
 
 #: ../repo_data/components.xml.in.h:73
 msgid "Common libraries required for a desktop"
-msgstr "Työpöytään vaaditut yhteiset kirjastot"
+msgstr "桌面所需的常用库"
 
 #: ../repo_data/components.xml.in.h:74
 msgid "Desktop Theming"
-msgstr "Työpöydän Teema"
+msgstr "桌面美化"
 
 #: ../repo_data/components.xml.in.h:75
 msgid "Themes to enhance the desktop"
-msgstr "Työpöytää parantavat teemat"
+msgstr "桌面增强主题"
 
 #: ../repo_data/components.xml.in.h:76
 msgid "Desktop Fonts"
-msgstr "Työpöytäkirjasimet"
+msgstr "桌面字体"
 
 #: ../repo_data/components.xml.in.h:77
 msgid "Fonts to enhance the desktop"
-msgstr "Työpöytää parantavat kirjasimet"
+msgstr "桌面增强字体"
 
 #: ../repo_data/components.xml.in.h:78
 msgid "Qt Runtime Libraries"
-msgstr "Qt Runtime Kirjastot"
+msgstr "Qt 运行时库"
 
 #: ../repo_data/components.xml.in.h:79
 msgid "GTK Runtime Libraries"
-msgstr "GTK Runtime Kirjastot"
+msgstr "GTK 运行时库"
 
 #: ../repo_data/components.xml.in.h:80
 msgid "Budgie Desktop"
-msgstr "Budgie Työpöytä"
+msgstr "Budgie 桌面"
 
 #: ../repo_data/components.xml.in.h:81
 msgid "Elements of the Solus Budgie Experience"
-msgstr "Solus Budgie -kokemuksen elementit"
+msgstr "Solus Budgie 体验元素"
 
 #: ../repo_data/components.xml.in.h:82
 msgid "GNOME Desktop"
-msgstr "GNOME Työpöytä"
+msgstr "GNOME 桌面"
 
 #: ../repo_data/components.xml.in.h:83
 msgid "MATE Desktop"
-msgstr "MATE Työpöytä"
+msgstr "MATE 桌面"
 
 #: ../repo_data/components.xml.in.h:84
 msgid "i3 Desktop"
-msgstr "i3 Työpöytä"
+msgstr "i3 桌面"
 
 #: ../repo_data/components.xml.in.h:85
 msgid "GNOME Desktop - Core System"
-msgstr "GNOME Työpöytä - Ydinjärjestelmä"
+msgstr "GNOME 桌面 - 核心系统"
 
 #: ../repo_data/components.xml.in.h:86
 msgid "GNOME Documentation Tools"
-msgstr "GNOME Dokumentaatiotyökalut"
+msgstr "GNOME 文档工具"
 
 #: ../repo_data/components.xml.in.h:87
 msgid "Documentation tools for GNOME"
-msgstr "Dokumentaatiotyökalut GNOME:lle"
+msgstr "GNOME 文档工具"
 
 #: ../repo_data/components.xml.in.h:88
 msgid "KDE Desktop"
-msgstr "KDE Työpöytä"
+msgstr "KDE 桌面"
 
 #: ../repo_data/components.xml.in.h:89
 msgid "KDE Desktop - Core System"
-msgstr "KDE Työpöytä - Ydinjärjestelmä"
+msgstr "KDE 桌面 - 核心系统"
 
 #: ../repo_data/components.xml.in.h:90
 msgid "Desktop Core Components"
-msgstr "Ydinjärjestelmäkomponentit"
+msgstr "桌面核心组件"
 
 #: ../repo_data/components.xml.in.h:91
 msgid "Core components for desktop systems"
-msgstr "Ydinjärjestelmäkomponentit työpöytäjärjestelmille"
+msgstr "桌面核心组件"
 
 #: ../repo_data/components.xml.in.h:92
 msgid "Security applications"
-msgstr "Turvallisuussovellukset"
+msgstr "安全软件"
 
 #: ../repo_data/components.xml.in.h:93
 msgid "Cryptographic utilities"
-msgstr "Salausapuvälineet"
+msgstr "密码学软件"
 
 #: ../repo_data/components.xml.in.h:94
 msgid "Cryptographic utilities and runtimes"
-msgstr "Salausapuvälineet ja runtimet"
+msgstr "密码学工具与运行时"
 
 #: ../repo_data/components.xml.in.h:95
 msgid "Security-oriented libraries"
-msgstr "Turvallisuuteen keskittyneet kirjastot"
+msgstr "安全类软件"
 
 #: ../repo_data/components.xml.in.h:96
 msgid "Main games collection"
-msgstr "Pelikokoelma"
+msgstr "主要游戏合辑"
 
 #: ../repo_data/components.xml.in.h:97
 msgid "Main games"
-msgstr "Pelit"
+msgstr "主要游戏"
 
 #: ../repo_data/components.xml.in.h:98
 msgid "Action Games"
-msgstr "Toimintapelit"
+msgstr "动作游戏"
 
 #: ../repo_data/components.xml.in.h:99
 msgid "Arcade Games"
-msgstr "Arcade-pelit"
+msgstr "街机游戏"
 
 #: ../repo_data/components.xml.in.h:100
 msgid "Card Games"
-msgstr "Korttipelit"
+msgstr "卡牌游戏"
 
 #: ../repo_data/components.xml.in.h:101
 msgid "Console Emulators"
-msgstr "Konsoliemulaattorit"
+msgstr "主机模拟器"
 
 #: ../repo_data/components.xml.in.h:102
 msgid "Massive Multiplayer Online Games"
-msgstr "Massiiviset monipelaaja online-pelit"
+msgstr "大型多人在线网游"
 
 #: ../repo_data/components.xml.in.h:103
 msgid "Platformer Games"
-msgstr "Tasohyppelypelit"
+msgstr "横版游戏"
 
 #: ../repo_data/components.xml.in.h:104
 msgid "Puzzle Games"
-msgstr "Palapelit"
+msgstr "益智游戏"
 
 #: ../repo_data/components.xml.in.h:105
 msgid "Role-playing Games"
-msgstr "Roolipelit"
+msgstr "角色扮演游戏"
 
 #: ../repo_data/components.xml.in.h:106
 msgid "Strategy Games"
-msgstr "Strategiapelit"
+msgstr "策略游戏"
 
 #: ../repo_data/distribution.xml.in.h:1
 msgid "Solus Repository"
-msgstr "Solus Ohjelmavarasto"
+msgstr "Solus 软件库"
 
 #: ../repo_data/groups.xml.in.h:1
 msgid "System Software"
-msgstr "Järjestelmäohjelmisto"
+msgstr "系统软件"
 
 #: ../repo_data/groups.xml.in.h:2
 msgid "Internet Software"
-msgstr "Internet-ohjelmisto"
+msgstr "互联网软件"
 
 #: ../repo_data/groups.xml.in.h:3
 msgid "Multimedia &amp; Graphics"
-msgstr "Multimedia &amp; Grafiikka"
+msgstr "多媒体 &amp; 图形"
 
 #: ../repo_data/groups.xml.in.h:4
 msgid "Gaming on Solus"
-msgstr "Solus pelaaminen"
+msgstr "在 Solus 上玩游戏"
 
 #: ../repo_data/groups.xml.in.h:6
 msgid "Programming Languages &amp; Tools"
-msgstr "Ohjelmointikielet &amp; Työkalut"
+msgstr "编程语言 &amp; 工具"
 
 #: ../repo_data/groups.xml.in.h:7
 msgid "Desktop Software &amp; Theming"
-msgstr "Työpöytä-ohjelmisto &amp; Teemat"
+msgstr "桌面软件 &amp; 美化"
 
 #: ../repo_data/groups.xml.in.h:8
 msgid "Security Software"
-msgstr "Tietoturvaohjelmisto"
+msgstr "安全软件"
 
 #: ../solus_sc/application.py:84
 msgid "Open up the updates view of the application"
-msgstr "Avaa ohjelman päivitys-näkymä"
+msgstr "打开程序的更新视图"
 
 #. Quirky loading message
 #: ../solus_sc/available_view.py:38
 msgid "Switching to the B-side of the cassette…"
-msgstr "Vaihdetaan kasetin B-puolelle..."
+msgstr "切换到卡带B面"
 
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
 msgid "{} operations pending"
-msgstr "{} toimenpidettä jäljellä"
+msgstr "{} 操作等待中"
 
 #: ../solus_sc/basket.py:153
 msgid " - This may take <b>some time!</b>"
-msgstr "- Tämä voi kestää <b>hetken!</b>"
+msgstr "- 这将需要 <b>一些时间！</b>"
 
 #. Only one package operation to be performed
 #: ../solus_sc/basket.py:158
 msgid "One operation pending"
-msgstr "Yksi toimenpide jäljellä."
+msgstr "一项操作等待中"
 
 #. "Updating Solus repository" (named repo)
 #: ../solus_sc/basket.py:203
 #, python-format
 msgid "Updating %s repository"
-msgstr "Päivitetään %s pakettivarasto"
+msgstr "更新 %s 软件库"
 
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
 msgid "Extracting {} of {}: {}"
-msgstr "Puretaan {} / {}: {}"
+msgstr "解压 {} 至 {}: {}"
 
 #. "Configuring 1 of 10: bash"
 #: ../solus_sc/basket.py:213
 msgid "Configuring {} of {}: {}"
-msgstr "Määritetään asetuksia {} / {}: {}"
+msgstr "配置 {} 至 {}: {}"
 
 #. "Installing 1 of 10: bash"
 #: ../solus_sc/basket.py:219
 msgid "Installing {} of {}: {}"
-msgstr "Asennetaan  {} / {}: {}"
+msgstr "安装 {} 至 {}: {}"
 
 #. "Removing (1 of 10): bash"
 #: ../solus_sc/basket.py:222
 msgid "Removing {} of {}: {}"
-msgstr "Poistetaan  {} / {}: {}"
+msgstr "移除 {} 至 {}: {}"
 
 #. "Upgraded 1 of 10: bash"
 #: ../solus_sc/basket.py:231
 msgid "Upgraded {} of {}: {}"
-msgstr "Päivitetty {} / {}: {}"
+msgstr "已升级 {} 至 {}: {}"
 
 #. "Removed 1 of 10: bash"
 #. "Installed 1 of 10: bash"
 #: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
 msgid "Removed {} of {}: {}"
-msgstr "Poistettu {} / {}: {}"
+msgstr "已移除 {} 至 {}: {}"
 
 #. "Downloading eopkg-index.xml.xz (10kb/s)
 #: ../solus_sc/basket.py:264
 msgid "Downloading {} ({})"
-msgstr "Ladataan {} ({})"
+msgstr "下载 {} ({})"
 
 #. "Downloading 1 of 10: bash (10kb/s)
 #: ../solus_sc/basket.py:268
 msgid "Downloading {} of {}: {} ({})"
-msgstr "Ladataan {} / {}: {} ({})"
+msgstr "下载 {} 至 {}: {} ({})"
 
 #. print args
 #. Downloading eopkg-index.xml.sha1sum
 #: ../solus_sc/basket.py:278
 msgid "Downloading {}"
-msgstr "Ladataan {}"
+msgstr "正在下载 {}"
 
 #: ../solus_sc/basket.py:323
 msgid "The following dependencies need to be installed to continue"
-msgstr "Jatkaaksesi seuraavat riippuvuudet on asennettava"
+msgstr "需要安装以下依赖才可继续"
 
 #: ../solus_sc/basket.py:333
 msgid "Installation confirmation"
-msgstr "Asennuksen varmistus"
+msgstr "确认安装"
 
 #: ../solus_sc/basket.py:336
 msgid "The following dependencies need to be removed to continue"
-msgstr "Jatkaaksesi seuraavat riippuvuudet on poistettava"
+msgstr "需要移除以下依赖才可继续"
 
 #: ../solus_sc/basket.py:337
 msgid "Removal confirmation"
-msgstr "Poistamisen varmistus"
+msgstr "确认移除"
 
 #: ../solus_sc/basket.py:340
 msgid "The following dependencies need to be updated to continue"
-msgstr "Jatkaaksesi seuraavat riippuvuudet on päivitettävä"
+msgstr "需要更新以下依赖才可继续"
 
 #: ../solus_sc/basket.py:341
 msgid "Update confirmation"
-msgstr "Päivityksen varmistus"
+msgstr "更新确认"
 
 #: ../solus_sc/basket.py:368
 msgid "Cancel"
-msgstr "Peruuta"
+msgstr "取消"
 
 #. Main action buttons
 #: ../solus_sc/basket.py:370 ../solus_sc/details.py:224
 #: ../solus_sc/thirdparty.py:186
 msgid "Install"
-msgstr "Asenna"
+msgstr "安装"
 
 #: ../solus_sc/basket.py:372
 msgid "Update"
-msgstr "Päivitä"
+msgstr "更新"
 
 #. Remove button
 #: ../solus_sc/basket.py:377 ../solus_sc/details.py:234
 msgid "Remove"
-msgstr "Poista"
+msgstr "移除"
 
 #: ../solus_sc/changelog.py:119
 msgid "Standard Update"
-msgstr "Vakiopäivitys"
+msgstr "标准更新"
 
 #: ../solus_sc/changelog.py:122
 msgid "Security Update"
-msgstr "Tietoturvapäivitys"
+msgstr "安全更新"
 
 #: ../solus_sc/details.py:209
 msgid "Report issues"
-msgstr "Ilmoita ongelmista"
+msgstr "反馈问题"
 
 #: ../solus_sc/details.py:217
 msgid "Visit Website"
-msgstr "Käy verkkosivuilla"
+msgstr "查看网站"
 
 #: ../solus_sc/details.py:314 ../solus_sc/updates_view.py:296
 msgid "Details"
-msgstr "Tiedot"
+msgstr "详细"
 
 #: ../solus_sc/details.py:382
 msgid "Developers"
-msgstr "Kehittäjät"
+msgstr "开发者"
 
 #: ../solus_sc/details.py:397
 msgid "Version"
-msgstr "Versio"
+msgstr "版本"
 
 #. Size of the package when installed locally
 #: ../solus_sc/details.py:409
 msgid "Installed size"
-msgstr "Asennettu koko"
+msgstr "已安装大小"
 
 #. Donation button launches website to donate to authors
 #: ../solus_sc/details.py:421
 msgid "Donate"
-msgstr "Lahjoita"
+msgstr "捐助"
 
 #: ../solus_sc/details.py:435
 msgid "Changelog"
-msgstr "Muutosloki"
+msgstr "更新日志"
 
 #: ../solus_sc/details.py:443
 msgid "License"
-msgstr "Lisenssi"
+msgstr "许可证"
 
 #: ../solus_sc/details.py:448
 msgid "Report an invalid or missing license"
-msgstr "Ilmoita virheellinen tai puuttuva lisenssi"
+msgstr "反馈无效或者缺失的许可证"
 
 #: ../solus_sc/details.py:450
 msgid ""
 "This selection is available in accordance with the terms set in the "
 "following license(s):"
-msgstr "Tämä valinta on käytettävissä asetettujen ehtojen mukaisesti lisens(e)issä:"
+msgstr "此选项所遵守的协议来自以下许可证："
 
 #: ../solus_sc/details.py:518
 msgid "Cannot remove core system software"
-msgstr "Järjestelmän ydin-ohjelmistoja ei voi poistaa."
+msgstr "无法移除核心系统软件"
 
 #. "5 categories" - the number of categories within each group
 #: ../solus_sc/groups.py:72
 msgid "{} categories"
-msgstr "{} ryhmät"
+msgstr "{} 类别"
 
 #: ../solus_sc/imagewidget.py:86
 msgid "No screenshots available"
-msgstr "Ei kuvakaappauksia saatavilla"
+msgstr "无截图"
 
 #. Window title
 #: ../solus_sc/main_window.py:162
 msgid "Software Center"
-msgstr "Ohjelmakeskus"
+msgstr "软件中心"
 
 #. Main view, primary view, when opening the software center
 #: ../solus_sc/main_window.py:207 ../solus_sc/sidebar.py:65
 msgid "Home"
-msgstr "Koti"
+msgstr "主页"
 
 #. The page where updates are display
 #: ../solus_sc/main_window.py:210 ../solus_sc/sidebar.py:66
 msgid "Updates"
-msgstr "Päivitykset"
+msgstr "更新"
 
 #. This page shows the locally instaleld items
 #: ../solus_sc/main_window.py:216 ../solus_sc/sidebar.py:67
 msgid "Installed"
-msgstr "Asennettu"
+msgstr "已安装"
 
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:220 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Kolmas osapuoli"
+msgstr "第三方"
 
 #. The search page
 #: ../solus_sc/main_window.py:225 ../solus_sc/sidebar.py:69
 msgid "Search"
-msgstr "Etsi"
+msgstr "搜索"
 
 #. The settings page
 #: ../solus_sc/main_window.py:229 ../solus_sc/sidebar.py:70
 msgid "Settings"
-msgstr "Asetukset"
+msgstr "设置"
 
 #: ../solus_sc/package_view.py:41
 msgid "Solving the Paradox Of Choice"
-msgstr "Ratkaistaan valinnanvapauden paradoksia"
+msgstr "解开选择的悖论"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
 #: ../solus_sc/search_results.py:41
 msgid "Concentrating really hard"
-msgstr "Keskitytään todella lujasti"
+msgstr "尽量集中精力"
 
 #: ../solus_sc/search_results.py:62
 msgid "Type a query to get started"
-msgstr "Kirjoita hakusana aloittaaksesi"
+msgstr "输入查询内容以开始"
 
 #: ../solus_sc/search_results.py:81
 msgid "No results found"
-msgstr "Yhtään tulosta ei löytynyt"
+msgstr "没有找到搜索结果"
 
 #. Check for updates every hour
 #: ../solus_sc/settings_view.py:75
 msgid "Every hour"
-msgstr "Tunnin välein"
+msgstr "每小时"
 
 #. Check for updates once per day
 #: ../solus_sc/settings_view.py:77
 msgid "Daily"
-msgstr "Päivittäin"
+msgstr "每天"
 
 #. Check for updates once a week
 #: ../solus_sc/settings_view.py:79
 msgid "Weekly"
-msgstr "Viikottain"
+msgstr "每周"
 
 #. Notify of all updates
 #: ../solus_sc/settings_view.py:94
 msgid "All updates"
-msgstr "Kaikki päivitykset"
+msgstr "全部更新"
 
 #. Notify only of security updates
 #: ../solus_sc/settings_view.py:96
 msgid "Security updates only"
-msgstr "Vain turvallisuuspäivitykset"
+msgstr "仅安全更新"
 
 #. Notify of security and core system updates ("mandatory")
 #: ../solus_sc/settings_view.py:98
 msgid "Security & core updates"
-msgstr "Turvallisuus ja ydin -päivitykset "
+msgstr "安全与核心更新"
 
 #: ../solus_sc/thirdparty.py:184 ../solus_sc/updates_view.py:192
 #: ../solus_sc/updates_view.py:194 ../solus_sc/updates_view.py:288
 msgid "Check for updates"
-msgstr "Tarkista päivitykset"
+msgstr "检查更新"
 
 #. Title of dialog displaying the details of a given update
 #: ../solus_sc/updates_view.py:33
 msgid "Update Details"
-msgstr "Päivityksen tiedot"
+msgstr "更新详情"
 
 #: ../solus_sc/updates_view.py:47
 msgid "Not installed"
-msgstr "Ei asennettu"
+msgstr "未安装"
 
 #: ../solus_sc/updates_view.py:87
 msgid "Discombobulating update matrix"
-msgstr "Hämmennetään päivitysmatriisia."
+msgstr "打乱更新基体"
 
 #: ../solus_sc/updates_view.py:110
 msgid "Please check back later, updates are now applying"
-msgstr "Päivityksiä asennetaan. Tarkista myöhemmin uudestaan."
+msgstr "安装更新中，请稍后查看"
 
 #: ../solus_sc/updates_view.py:207
 msgid "Software is up to date"
-msgstr "Ohjelmat ovat ajan tasalla"
+msgstr "已是最新软件"
 
 #. Selection label
 #. No updates currently selected for installation
 #: ../solus_sc/updates_view.py:273
 msgid "0 items selected"
-msgstr "0 kohtaa valittu"
+msgstr "已选择 0 个项目"
 
 #: ../solus_sc/updates_view.py:287
 msgid "Check new updates"
-msgstr "Tarkista uudet päivitykset"
+msgstr "检查更新"
 
 #. Apply the updates
 #: ../solus_sc/updates_view.py:302 ../solus_sc/updates_view.py:303
 msgid "Update Selected"
-msgstr "Päivitä valinnat"
+msgstr "已选择更新"
 
 #. "2 of 10 updates selected"
 #: ../solus_sc/updates_view.py:538
 msgid "{} of {} updates selected"
-msgstr "{} / {} päivitystä valittu"
+msgstr "{} 至 {} 更新已选中"
 
 #. "2 of 10 updates selected (20.05MB to download)"
 #: ../solus_sc/updates_view.py:545
 msgid "{} of {} updates selected ({} to download)"
-msgstr "{} / {} päivitystä valittu ({} ladattavaksi)"
+msgstr "{} 至 {} 更新已选中 ({} 将下载)"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
-msgstr "Turvallisuuspäivityksiä saatavilla"
+msgstr "有新的安全更新"
 
 #: ../solus_update/application.py:302
 msgid ""
 "Update at your earliest convenience to ensure continued security of your "
 "device"
-msgstr "Päivitä ajoissa varmistaaksesi että laitteesi pysyy turvallisena."
+msgstr "请尽早更新，以确保你的设备一直安全"
 
 #: ../solus_update/application.py:306
 msgid "Software updates available"
-msgstr "Ohjelmapäivityksiä saatavilla"
+msgstr "有新的软件更新"
 
 #: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
-msgstr "Uusia ohjelmapäivityksiä on saatavilla laitteellesi"
+msgstr "你的设备有新的更新可用"
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
-msgstr "Avaa Ohjelmakeskus"
+msgstr "打开软件中心"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-05-28 10:41+0000\n"
+"PO-Revision-Date: 2017-07-08 09:53+0000\n"
 "Last-Translator: Davidmp <medipas@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/solus-project/solus-sc/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -767,7 +767,7 @@ msgstr "Matriu d'actualització desconcertant"
 
 #: ../solus_sc/updates_view.py:110
 msgid "Please check back later, updates are now applying"
-msgstr "Si us plau, torneu-ho a comprovar més tard, ara s'apliquen actualitzacions"
+msgstr "Si us plau, torneu-ho a comprovar més tard, ara s'apliquen actualitzacions."
 
 #: ../solus_sc/updates_view.py:207
 msgid "Software is up to date"
