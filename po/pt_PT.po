@@ -5,15 +5,16 @@
 # Translators:
 # António Ribeiro <contact@antonioribeiro.xyz>, 2017
 # Luís Lima <geral@liqensoft.com>, 2016
+# Luis Filipe Teixeira <lufilte@gmail.com>, 2017
 # Nuno Santos <nunosantos2000@hotmail.com>, 2016
 # Vasco Antunes <vasco.antunes@sapo.pt>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 01:47+0100\n"
-"PO-Revision-Date: 2017-05-15 07:51+0000\n"
-"Last-Translator: António Ribeiro <contact@antonioribeiro.xyz>\n"
+"POT-Creation-Date: 2017-05-27 09:58+0100\n"
+"PO-Revision-Date: 2017-07-12 17:58+0000\n"
+"Last-Translator: Luis Filipe Teixeira <lufilte@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/solus-project/solus-sc/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -372,70 +373,78 @@ msgid "Documentation tools for GNOME"
 msgstr "Ferramentas de documentação para o GNOME"
 
 #: ../repo_data/components.xml.in.h:88
+msgid "KDE Desktop"
+msgstr "Ambiente KDE"
+
+#: ../repo_data/components.xml.in.h:89
+msgid "KDE Desktop - Core System"
+msgstr "Ambiente KDE - Sistema Base"
+
+#: ../repo_data/components.xml.in.h:90
 msgid "Desktop Core Components"
 msgstr "Componentes Principais do Ambiente"
 
-#: ../repo_data/components.xml.in.h:89
+#: ../repo_data/components.xml.in.h:91
 msgid "Core components for desktop systems"
 msgstr "Componentes principais para ambientes de sistema"
 
-#: ../repo_data/components.xml.in.h:90
+#: ../repo_data/components.xml.in.h:92
 msgid "Security applications"
 msgstr "Aplicações de segurança"
 
-#: ../repo_data/components.xml.in.h:91
+#: ../repo_data/components.xml.in.h:93
 msgid "Cryptographic utilities"
 msgstr "Utilidades criptográficas"
 
-#: ../repo_data/components.xml.in.h:92
+#: ../repo_data/components.xml.in.h:94
 msgid "Cryptographic utilities and runtimes"
 msgstr "Utilidades e motores criptográficos"
 
-#: ../repo_data/components.xml.in.h:93
+#: ../repo_data/components.xml.in.h:95
 msgid "Security-oriented libraries"
 msgstr "Bibliotecas orientadas a segurança"
 
-#: ../repo_data/components.xml.in.h:94
+#: ../repo_data/components.xml.in.h:96
 msgid "Main games collection"
 msgstr "Coleção principal de jogos"
 
-#: ../repo_data/components.xml.in.h:95
+#: ../repo_data/components.xml.in.h:97
 msgid "Main games"
 msgstr "Jogos principais"
 
-#: ../repo_data/components.xml.in.h:96
+#: ../repo_data/components.xml.in.h:98
 msgid "Action Games"
 msgstr "Jogos de Ação"
 
-#: ../repo_data/components.xml.in.h:97
+#: ../repo_data/components.xml.in.h:99
 msgid "Arcade Games"
 msgstr "Jogos Arcada"
 
-#: ../repo_data/components.xml.in.h:98
+#: ../repo_data/components.xml.in.h:100
 msgid "Card Games"
 msgstr "Jogos de Cartas"
 
-#: ../repo_data/components.xml.in.h:99
+#: ../repo_data/components.xml.in.h:101
 msgid "Console Emulators"
 msgstr "Emuladores de Consolas"
 
-#: ../repo_data/components.xml.in.h:100
+#: ../repo_data/components.xml.in.h:102
 msgid "Massive Multiplayer Online Games"
 msgstr "Jogo Multijogador Massivo Online"
 
-#: ../repo_data/components.xml.in.h:101
+#: ../repo_data/components.xml.in.h:103
 msgid "Platformer Games"
 msgstr "Jogos de Plataformas"
 
-#: ../repo_data/components.xml.in.h:102
+#: ../repo_data/components.xml.in.h:104
 msgid "Puzzle Games"
 msgstr "Jogos de Puzzle"
 
-#: ../repo_data/components.xml.in.h:103
+#: ../repo_data/components.xml.in.h:105
 msgid "Role-playing Games"
 msgstr "Jogos Role-playing"
 
-#: ../repo_data/components.xml.in.h:104
+#: ../repo_data/components.xml.in.h:106
 msgid "Strategy Games"
 msgstr "Jogos de Estratégia"
 
@@ -498,7 +507,7 @@ msgstr "Uma operação pendente "
 #: ../solus_sc/basket.py:203
 #, python-format
 msgid "Updating %s repository"
-msgstr "O repositório %s está a ser atualizado"
+msgstr "A actualizar em %s o repositório  "
 
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
@@ -590,11 +599,11 @@ msgstr "Atualizar "
 msgid "Remove"
 msgstr "Remover "
 
-#: ../solus_sc/changelog.py:111
+#: ../solus_sc/changelog.py:119
 msgid "Standard Update"
 msgstr "Atualização Padrão"
 
-#: ../solus_sc/changelog.py:114
+#: ../solus_sc/changelog.py:122
 msgid "Security Update"
 msgstr "Atualização de Segurança"
 
@@ -610,43 +619,43 @@ msgstr "Visitar Website"
 msgid "Details"
 msgstr "Detalhes "
 
-#: ../solus_sc/details.py:376
+#: ../solus_sc/details.py:382
 msgid "Developers"
 msgstr "Programadores"
 
-#: ../solus_sc/details.py:391
+#: ../solus_sc/details.py:397
 msgid "Version"
 msgstr "Versão"
 
 #. Size of the package when installed locally
-#: ../solus_sc/details.py:403
+#: ../solus_sc/details.py:409
 msgid "Installed size"
 msgstr "Tamanho da instalação "
 
 #. Donation button launches website to donate to authors
-#: ../solus_sc/details.py:415
+#: ../solus_sc/details.py:421
 msgid "Donate"
 msgstr "Doar"
 
-#: ../solus_sc/details.py:429
+#: ../solus_sc/details.py:435
 msgid "Changelog"
 msgstr "Changelog"
 
-#: ../solus_sc/details.py:437
+#: ../solus_sc/details.py:443
 msgid "License"
 msgstr "Licença"
 
-#: ../solus_sc/details.py:442
+#: ../solus_sc/details.py:448
 msgid "Report an invalid or missing license"
 msgstr "Reportar uma licensa inválida ou em falta"
 
-#: ../solus_sc/details.py:444
+#: ../solus_sc/details.py:450
 msgid ""
 "This selection is available in accordance with the terms set in the "
 "following license(s):"
-msgstr "Esta seleção encontra-se disponivel em concordância com os termos definidos pelas seguintes licensas:"
+msgstr "Esta selecção encontra-se disponível em concordância com os termos definidos pelas seguintes licenças:"
 
-#: ../solus_sc/details.py:512
+#: ../solus_sc/details.py:518
 msgid "Cannot remove core system software"
 msgstr "Não é possível remover o software base do sistema"
 
@@ -655,7 +664,7 @@ msgstr "Não é possível remover o software base do sistema"
 msgid "{} categories"
 msgstr "{} categorias "
 
-#: ../solus_sc/imagewidget.py:82
+#: ../solus_sc/imagewidget.py:86
 msgid "No screenshots available"
 msgstr "Nenhuma imagem disponível"
 
@@ -713,32 +722,32 @@ msgid "No results found"
 msgstr "Sem resultados "
 
 #. Check for updates every hour
-#: ../solus_sc/settings_view.py:69
+#: ../solus_sc/settings_view.py:75
 msgid "Every hour"
 msgstr "A cada hora"
 
 #. Check for updates once per day
-#: ../solus_sc/settings_view.py:71
+#: ../solus_sc/settings_view.py:77
 msgid "Daily"
 msgstr "Diário "
 
 #. Check for updates once a week
-#: ../solus_sc/settings_view.py:73
+#: ../solus_sc/settings_view.py:79
 msgid "Weekly"
 msgstr "Semanal "
 
 #. Notify of all updates
-#: ../solus_sc/settings_view.py:88
+#: ../solus_sc/settings_view.py:94
 msgid "All updates"
 msgstr "Todas as atualizações "
 
 #. Notify only of security updates
-#: ../solus_sc/settings_view.py:90
+#: ../solus_sc/settings_view.py:96
 msgid "Security updates only"
 msgstr "Apenas atualizações de segurança"
 
 #. Notify of security and core system updates ("mandatory")
-#: ../solus_sc/settings_view.py:92
+#: ../solus_sc/settings_view.py:98
 msgid "Security & core updates"
 msgstr "Atualizações base e de segurança"
 

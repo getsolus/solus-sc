@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-05-27 14:55+0000\n"
+"PO-Revision-Date: 2017-07-20 07:19+0000\n"
 "Last-Translator: Fred Tempez <ftempez@gmail.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/solus-project/solus-sc/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -565,11 +565,11 @@ msgstr "Téléchargement {}"
 
 #: ../solus_sc/basket.py:323
 msgid "The following dependencies need to be installed to continue"
-msgstr "Avant tout, les dépendances suivantes doivent être installées"
+msgstr "Les dépendances suivantes doivent être installées"
 
 #: ../solus_sc/basket.py:333
 msgid "Installation confirmation"
-msgstr "installation confirmée"
+msgstr "Confirmation de l'installation"
 
 #: ../solus_sc/basket.py:336
 msgid "The following dependencies need to be removed to continue"
@@ -581,11 +581,11 @@ msgstr "Confirmation de la désinstallation"
 
 #: ../solus_sc/basket.py:340
 msgid "The following dependencies need to be updated to continue"
-msgstr "Avant tout, les dépendances suivantes ont besoin d'être mises à jour"
+msgstr "Les dépendances suivantes ont besoin d'être mises à jour"
 
 #: ../solus_sc/basket.py:341
 msgid "Update confirmation"
-msgstr "Mise à jour confirmée"
+msgstr "Confirmation de mise à jour"
 
 #: ../solus_sc/basket.py:368
 msgid "Cancel"
@@ -698,7 +698,7 @@ msgstr "Installé"
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:220 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Partenaires"
+msgstr "Logiciels tiers"
 
 #. The search page
 #: ../solus_sc/main_window.py:225 ../solus_sc/sidebar.py:69
@@ -722,7 +722,7 @@ msgstr "La concentration est maximale"
 
 #: ../solus_sc/search_results.py:62
 msgid "Type a query to get started"
-msgstr "Débuter en saisissant une recherche"
+msgstr "Commencer par une recherche"
 
 #: ../solus_sc/search_results.py:81
 msgid "No results found"
@@ -778,7 +778,7 @@ msgstr "Chamboulement et mise à jour de la matrice"
 
 #: ../solus_sc/updates_view.py:110
 msgid "Please check back later, updates are now applying"
-msgstr "Revenez ultérieurement, des mises à jour sont en cours d'installation"
+msgstr "Merci de patienter, des mises à jour sont en cours d'installation"
 
 #: ../solus_sc/updates_view.py:207
 msgid "Software is up to date"
@@ -797,12 +797,12 @@ msgstr "Vérifier les mises à jour "
 #. Apply the updates
 #: ../solus_sc/updates_view.py:302 ../solus_sc/updates_view.py:303
 msgid "Update Selected"
-msgstr "Mise à jour sélectionnée"
+msgstr "Mettre à jour sélection"
 
 #. "2 of 10 updates selected"
 #: ../solus_sc/updates_view.py:538
 msgid "{} of {} updates selected"
-msgstr "{} de {} mise(s) à jour sélectionnée(s)"
+msgstr "{} de {} sélectionné"
 
 #. "2 of 10 updates selected (20.05MB to download)"
 #: ../solus_sc/updates_view.py:545
@@ -811,7 +811,7 @@ msgstr "{} de {} mises à jour sélectionnées ({} à télécharger)"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
-msgstr "Mise(s) à jour de sécurité disponible(s)"
+msgstr "Mise à jour de sécurité disponible"
 
 #: ../solus_update/application.py:302
 msgid ""
@@ -825,8 +825,8 @@ msgstr "Des mises à jour sont disponibles"
 
 #: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
-msgstr "Mises à jour disponibles"
+msgstr "Mises à jour en attente"
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
-msgstr "Logithèque"
+msgstr "Applications"
