@@ -91,30 +91,34 @@ class AppSystem:
 
         itheme = Gtk.IconTheme.get_default()
         try:
-            defpbuf = itheme.load_icon(
+            self.default_pixbuf = self.scaled_icon(itheme.load_icon(
                 "package-x-generic",
                 64,
-                Gtk.IconLookupFlags.GENERIC_FALLBACK)
-            self.security_pixbuf = itheme.load_icon(
+                Gtk.IconLookupFlags.GENERIC_FALLBACK))
+            self.security_pixbuf = self.scaled_icon(itheme.load_icon(
                 "network-vpn",
                 64,
-                Gtk.IconLookupFlags.GENERIC_FALLBACK)
-            self.mandatory_pixbuf = itheme.load_icon(
+                Gtk.IconLookupFlags.GENERIC_FALLBACK))
+            self.mandatory_pixbuf = self.scaled_icon(itheme.load_icon(
                 "computer",
                 64,
-                Gtk.IconLookupFlags.GENERIC_FALLBACK)
-            self.other_pixbuf = itheme.load_icon(
+                Gtk.IconLookupFlags.GENERIC_FALLBACK))
+            self.other_pixbuf = self.scaled_icon(itheme.load_icon(
                 "folder-download",
                 64,
-                Gtk.IconLookupFlags.GENERIC_FALLBACK)
-            self.default_pixbuf = defpbuf.scale_simple(
-                64, 64, GdkPixbuf.InterpType.BILINEAR)
-            self.addon_pixbuf = itheme.load_icon(
+                Gtk.IconLookupFlags.GENERIC_FALLBACK))
+            self.addon_pixbuf = self.scaled_icon(itheme.load_icon(
                 "application-x-addon",
                 64,
-                Gtk.IconLookupFlags.GENERIC_FALLBACK)
+                Gtk.IconLookupFlags.GENERIC_FALLBACK))
         except Exception as e:
             print(e)
+
+    def scaled_icon(self, pbuf):
+        if pbuf.get_height() != 64:
+            pbuf = pbuf.scale_simple(
+                64, 64, GdkPixbuf.InterpType.BILINEAR)
+        return pbuf
 
     def sanitize(self, text):
         return text.replace("&quot;", "\"")
