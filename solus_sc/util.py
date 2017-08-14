@@ -32,6 +32,7 @@ def sc_format_size_local(size, double_precision=False):
 
     return dlSize
 
+
 developmentComponents = [
     "system.devel",
     "programming.devel"
