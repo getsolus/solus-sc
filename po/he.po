@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# GenghisKhan <genghiskhan@gmx.ca>, 2017
 # Moriel Ever, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-20 03:42+0100\n"
-"PO-Revision-Date: 2017-04-27 18:39+0000\n"
-"Last-Translator: Moriel Ever\n"
+"POT-Creation-Date: 2017-05-27 09:58+0100\n"
+"PO-Revision-Date: 2017-08-03 08:03+0000\n"
+"Last-Translator: GenghisKhan <genghiskhan@gmx.ca>\n"
 "Language-Team: Hebrew (http://www.transifex.com/solus-project/solus-sc/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,354 +90,358 @@ msgid "Core fonts required by X.Org"
 msgstr "גופני גרעין הדרושים על ידי X.Org"
 
 #: ../repo_data/components.xml.in.h:18
-msgid "X.Org Core Aplications"
-msgstr "ישומיי גרעין של X.Org"
-
-#: ../repo_data/components.xml.in.h:19
 msgid "X.Org Core Applications"
 msgstr "יישומי גרעין של X.Org"
 
-#: ../repo_data/components.xml.in.h:20
+#: ../repo_data/components.xml.in.h:19
 msgid "Collection of simple applications for X.Org"
 msgstr "אוסף יישומים פשוטים בשביל X.Org"
 
-#: ../repo_data/components.xml.in.h:21
+#: ../repo_data/components.xml.in.h:20
 msgid "X.Org Display"
 msgstr "תצוגת X.org"
 
-#: ../repo_data/components.xml.in.h:22
+#: ../repo_data/components.xml.in.h:21
 msgid "Software required to run an X.Org Display"
 msgstr "תוכנות הדרושות להפעלת צג X.Org"
 
-#: ../repo_data/components.xml.in.h:23
+#: ../repo_data/components.xml.in.h:22
 msgid "X.Org Server"
 msgstr "שרת X.Org"
 
-#: ../repo_data/components.xml.in.h:24
+#: ../repo_data/components.xml.in.h:23
 msgid "Core server of the X Window System"
 msgstr "שרת ליבה של מערכת החלונות X"
 
-#: ../repo_data/components.xml.in.h:25
+#: ../repo_data/components.xml.in.h:24
 msgid "X.Org Drivers"
 msgstr "דרייברי X.Org"
 
-#: ../repo_data/components.xml.in.h:26
+#: ../repo_data/components.xml.in.h:25
 msgid "Drivers required to use the X Window System"
 msgstr "דרייברים הדרושים לשימוש במערכת החלונות X"
 
-#: ../repo_data/components.xml.in.h:27
+#: ../repo_data/components.xml.in.h:26
 msgid "Networking Base"
 msgstr "בסיס תקשורת"
 
-#: ../repo_data/components.xml.in.h:28
+#: ../repo_data/components.xml.in.h:27
 msgid "Email clients"
 msgstr "יישומי דואר אלקטרוני"
 
-#: ../repo_data/components.xml.in.h:29
+#: ../repo_data/components.xml.in.h:28
 msgid "IRC clients"
 msgstr "יישומי IRC"
 
-#: ../repo_data/components.xml.in.h:30
+#: ../repo_data/components.xml.in.h:29
 msgid "Instant messaging"
 msgstr "הודעות מהירות"
 
-#: ../repo_data/components.xml.in.h:31
+#: ../repo_data/components.xml.in.h:30
 msgid "News and RSS readers"
 msgstr "קוראי חדשות ור.ס.ס."
 
-#: ../repo_data/components.xml.in.h:32
+#: ../repo_data/components.xml.in.h:31
 msgid "Remote management software"
 msgstr "תוכנות ניהול מרחוק"
 
-#: ../repo_data/components.xml.in.h:33
+#: ../repo_data/components.xml.in.h:32
 msgid "Web applications"
 msgstr "יישומי מרשתת"
 
-#: ../repo_data/components.xml.in.h:34
+#: ../repo_data/components.xml.in.h:33
 msgid "Web browsers"
 msgstr "דפדפני מרשתת"
 
-#: ../repo_data/components.xml.in.h:35
+#: ../repo_data/components.xml.in.h:34
 msgid "Networking utilities"
 msgstr "כלי רשת"
 
-#: ../repo_data/components.xml.in.h:36
+#: ../repo_data/components.xml.in.h:35
 msgid "Download managers"
 msgstr "מנהלי הורדות"
 
-#: ../repo_data/components.xml.in.h:37
+#: ../repo_data/components.xml.in.h:36
 msgid "Networking CLI Clients"
 msgstr "תוכנות תקשורת פקודתיים"
 
-#: ../repo_data/components.xml.in.h:38
+#: ../repo_data/components.xml.in.h:37
 msgid "Kernel Images"
 msgstr "תמונות ליבה"
 
-#: ../repo_data/components.xml.in.h:39
+#: ../repo_data/components.xml.in.h:38
 msgid "Kernel Development"
 msgstr "פיתוח קרנל"
 
-#: ../repo_data/components.xml.in.h:40
+#: ../repo_data/components.xml.in.h:39
 msgid "Text Editors"
 msgstr "עורכי טקסט"
 
-#: ../repo_data/components.xml.in.h:41
+#: ../repo_data/components.xml.in.h:40
 msgid "Simple and advanced text editors"
 msgstr "עורכי טקסט פשוטים ומסובכים"
 
-#: ../repo_data/components.xml.in.h:42 ../repo_data/groups.xml.in.h:5
+#: ../repo_data/components.xml.in.h:41 ../repo_data/groups.xml.in.h:5
 msgid "Office Software"
 msgstr "תוכנות משרדיות"
 
-#: ../repo_data/components.xml.in.h:43
+#: ../repo_data/components.xml.in.h:42
 msgid "Office software"
 msgstr "תוכנות משרדיות"
 
-#: ../repo_data/components.xml.in.h:44
+#: ../repo_data/components.xml.in.h:43
 msgid "Financial Software"
 msgstr "תוכנות כספיות"
 
-#: ../repo_data/components.xml.in.h:45
+#: ../repo_data/components.xml.in.h:44
 msgid "Mathematics-Oriented Software"
 msgstr "תוכנות חשבוניות"
 
-#: ../repo_data/components.xml.in.h:46
+#: ../repo_data/components.xml.in.h:45
 msgid "Note-Taking Software"
 msgstr "תוכנות רישום הערות"
 
-#: ../repo_data/components.xml.in.h:47
+#: ../repo_data/components.xml.in.h:46
 msgid "Scientific Software"
 msgstr "תוכנות מדעיות"
 
-#: ../repo_data/components.xml.in.h:48
+#: ../repo_data/components.xml.in.h:47
 msgid "Software aimed at various scientific fields."
 msgstr "תוכנות המכוונות כלפי שדות מדעיות שונות."
 
-#: ../repo_data/components.xml.in.h:49
+#: ../repo_data/components.xml.in.h:48
 msgid "E-book and PDF Viewing Software"
 msgstr "תוכנות הצגת ספרים אלקטרוניים וקובצי PDF"
 
-#: ../repo_data/components.xml.in.h:50
+#: ../repo_data/components.xml.in.h:49
 msgid "Programming"
 msgstr "פיתוח"
 
-#: ../repo_data/components.xml.in.h:51
+#: ../repo_data/components.xml.in.h:50
 msgid "Software related to programming"
 msgstr "תוכנות הקשורות לפיתוח"
 
-#: ../repo_data/components.xml.in.h:52
+#: ../repo_data/components.xml.in.h:51
 msgid "Development files"
 msgstr "קובצי פיתוח"
 
-#: ../repo_data/components.xml.in.h:53
+#: ../repo_data/components.xml.in.h:52
 msgid "Integrated Developer Environments"
 msgstr "סביבות פיתוח שלובות"
 
-#: ../repo_data/components.xml.in.h:54
+#: ../repo_data/components.xml.in.h:53
 msgid "Development tools"
 msgstr "כלי פיתוח"
 
-#: ../repo_data/components.xml.in.h:55
+#: ../repo_data/components.xml.in.h:54
 msgid "Haskell libraries"
 msgstr "ספריות האסקל"
 
-#: ../repo_data/components.xml.in.h:56
+#: ../repo_data/components.xml.in.h:55
 msgid "Python modules"
 msgstr "יחידות פיית'ון"
 
-#: ../repo_data/components.xml.in.h:57
+#: ../repo_data/components.xml.in.h:56
 msgid "Perl modules"
 msgstr "יחידות פרל"
 
-#: ../repo_data/components.xml.in.h:58
+#: ../repo_data/components.xml.in.h:57
 msgid "Java modules and libraries"
 msgstr "יחידות וספריות ג'אווה"
 
-#: ../repo_data/components.xml.in.h:59
+#: ../repo_data/components.xml.in.h:58
 msgid "Programming libraries"
 msgstr "ספריות פיתוח"
 
-#: ../repo_data/components.xml.in.h:60
+#: ../repo_data/components.xml.in.h:59
 msgid "Database clients and servers"
 msgstr "תוכנות מאגרי מידע ושרתים"
 
-#: ../repo_data/components.xml.in.h:61
+#: ../repo_data/components.xml.in.h:60
 msgid "Desktop Software"
 msgstr "תוכנות שולחן עבודה"
 
-#: ../repo_data/components.xml.in.h:62
+#: ../repo_data/components.xml.in.h:61
 msgid "Desktop specific software"
 msgstr "תוכנות יחודייות לשולחן העבודה"
 
-#: ../repo_data/components.xml.in.h:63
+#: ../repo_data/components.xml.in.h:62
 msgid "General Multimedia Software"
 msgstr "תוכנות מולטימדיה כלליות"
 
-#: ../repo_data/components.xml.in.h:64
+#: ../repo_data/components.xml.in.h:63
 msgid "Graphics"
 msgstr "גרפיקה"
 
-#: ../repo_data/components.xml.in.h:65
+#: ../repo_data/components.xml.in.h:64
 msgid "Graphics Manipulation Software"
 msgstr "תוכנות תמרון גרפיקה"
 
-#: ../repo_data/components.xml.in.h:66
+#: ../repo_data/components.xml.in.h:65
 msgid "Multimedia Codecs"
 msgstr "קודקי מולטימדיה"
 
-#: ../repo_data/components.xml.in.h:67
+#: ../repo_data/components.xml.in.h:66
 msgid "Multimedia Codecs and Format Support"
 msgstr "תמיכת קודקי ותבניות מולטימדיה"
 
-#: ../repo_data/components.xml.in.h:68
+#: ../repo_data/components.xml.in.h:67
 msgid "Video Software"
 msgstr "תוכנות וידאו"
 
-#: ../repo_data/components.xml.in.h:69
+#: ../repo_data/components.xml.in.h:68
 msgid "Audio Software"
 msgstr "תוכנות שמע"
 
-#: ../repo_data/components.xml.in.h:70
+#: ../repo_data/components.xml.in.h:69
 msgid "Multimedia Libraries"
 msgstr "ספריות מולטימדיה"
 
-#: ../repo_data/components.xml.in.h:71
+#: ../repo_data/components.xml.in.h:70
 msgid "GStreamer Runtime"
 msgstr "ספריות הרצת GStreamer"
 
-#: ../repo_data/components.xml.in.h:72
+#: ../repo_data/components.xml.in.h:71
 msgid "GStreamer Runtime &amp; Support Libraries"
 msgstr "ספריות הרצת GStreamer וספריות תמיכה"
 
-#: ../repo_data/components.xml.in.h:73
+#: ../repo_data/components.xml.in.h:72
 msgid "Desktop Libraries"
 msgstr "ספריות שולחן עבודה"
 
-#: ../repo_data/components.xml.in.h:74
+#: ../repo_data/components.xml.in.h:73
 msgid "Common libraries required for a desktop"
 msgstr "ספריות נפוצות הנצרכות בשביל שולחן עבודה"
 
-#: ../repo_data/components.xml.in.h:75
+#: ../repo_data/components.xml.in.h:74
 msgid "Desktop Theming"
 msgstr "עיצוב שולחן עבודה"
 
-#: ../repo_data/components.xml.in.h:76
+#: ../repo_data/components.xml.in.h:75
 msgid "Themes to enhance the desktop"
 msgstr "ערכות נושא להעשרת שולחן העבודה"
 
-#: ../repo_data/components.xml.in.h:77
+#: ../repo_data/components.xml.in.h:76
 msgid "Desktop Fonts"
 msgstr "גופני שולחן עבודה"
 
-#: ../repo_data/components.xml.in.h:78
+#: ../repo_data/components.xml.in.h:77
 msgid "Fonts to enhance the desktop"
 msgstr "גופנים להעשרת שולחן העבודה"
 
-#: ../repo_data/components.xml.in.h:79
+#: ../repo_data/components.xml.in.h:78
 msgid "Qt Runtime Libraries"
 msgstr "ספריות הרצת QT"
 
-#: ../repo_data/components.xml.in.h:80
+#: ../repo_data/components.xml.in.h:79
 msgid "GTK Runtime Libraries"
 msgstr "ספריות הרצת GTK"
 
-#: ../repo_data/components.xml.in.h:81
+#: ../repo_data/components.xml.in.h:80
 msgid "Budgie Desktop"
 msgstr "שולחן עבודה באדג'י"
 
-#: ../repo_data/components.xml.in.h:82
+#: ../repo_data/components.xml.in.h:81
 msgid "Elements of the Solus Budgie Experience"
 msgstr "רכיבי חווית הבאדג'י של סולוס"
 
-#: ../repo_data/components.xml.in.h:83
+#: ../repo_data/components.xml.in.h:82
 msgid "GNOME Desktop"
 msgstr "שולחן עבודה גנום"
 
-#: ../repo_data/components.xml.in.h:84
+#: ../repo_data/components.xml.in.h:83
 msgid "MATE Desktop"
 msgstr "שולחן עבודה מטיי"
 
-#: ../repo_data/components.xml.in.h:85
+#: ../repo_data/components.xml.in.h:84
 msgid "i3 Desktop"
 msgstr "שולחן עבודה i3"
 
-#: ../repo_data/components.xml.in.h:86
+#: ../repo_data/components.xml.in.h:85
 msgid "GNOME Desktop - Core System"
 msgstr "שולחן עבודה גנום - מערכת בסיס"
 
-#: ../repo_data/components.xml.in.h:87
+#: ../repo_data/components.xml.in.h:86
 msgid "GNOME Documentation Tools"
 msgstr "כלי תיעוד של גנום"
 
-#: ../repo_data/components.xml.in.h:88
+#: ../repo_data/components.xml.in.h:87
 msgid "Documentation tools for GNOME"
 msgstr "כלי תיעוד בשביל גנום"
 
+#: ../repo_data/components.xml.in.h:88
+msgid "KDE Desktop"
+msgstr "לוח עבודה KDE"
+
 #: ../repo_data/components.xml.in.h:89
+msgid "KDE Desktop - Core System"
+msgstr "לוח עבודה KDE - מערכת בסיס"
+
+#: ../repo_data/components.xml.in.h:90
 msgid "Desktop Core Components"
 msgstr "רכיבי גרעין שולחן עבודה"
 
-#: ../repo_data/components.xml.in.h:90
+#: ../repo_data/components.xml.in.h:91
 msgid "Core components for desktop systems"
 msgstr "רכיבי גרעין למערכות שולחניות"
 
-#: ../repo_data/components.xml.in.h:91
-msgid "Security applications"
-msgstr "יישומי אבתחה"
-
 #: ../repo_data/components.xml.in.h:92
+msgid "Security applications"
+msgstr "יישומי אבטחה"
+
+#: ../repo_data/components.xml.in.h:93
 msgid "Cryptographic utilities"
 msgstr "כלי הצפנה ופענוח"
 
-#: ../repo_data/components.xml.in.h:93
+#: ../repo_data/components.xml.in.h:94
 msgid "Cryptographic utilities and runtimes"
 msgstr "כלים וספריות הרצה קריפטוגרפיים"
 
-#: ../repo_data/components.xml.in.h:94
+#: ../repo_data/components.xml.in.h:95
 msgid "Security-oriented libraries"
 msgstr "ספריות מונחות אבטחה"
 
-#: ../repo_data/components.xml.in.h:95
+#: ../repo_data/components.xml.in.h:96
 msgid "Main games collection"
 msgstr "אוסף משחקים ראשיים"
 
-#: ../repo_data/components.xml.in.h:96
+#: ../repo_data/components.xml.in.h:97
 msgid "Main games"
 msgstr "משחקים ראשיים"
 
-#: ../repo_data/components.xml.in.h:97
+#: ../repo_data/components.xml.in.h:98
 msgid "Action Games"
 msgstr "משחקי פעולה"
 
-#: ../repo_data/components.xml.in.h:98
+#: ../repo_data/components.xml.in.h:99
 msgid "Arcade Games"
 msgstr "משחקי ארקייד"
 
-#: ../repo_data/components.xml.in.h:99
+#: ../repo_data/components.xml.in.h:100
 msgid "Card Games"
 msgstr "משחקי קלפים"
 
-#: ../repo_data/components.xml.in.h:100
+#: ../repo_data/components.xml.in.h:101
 msgid "Console Emulators"
 msgstr "אמיולטורים"
 
-#: ../repo_data/components.xml.in.h:101
+#: ../repo_data/components.xml.in.h:102
 msgid "Massive Multiplayer Online Games"
 msgstr "משחקי תפקידים המוניים ברשת"
 
-#: ../repo_data/components.xml.in.h:102
+#: ../repo_data/components.xml.in.h:103
 msgid "Platformer Games"
 msgstr "משחקי פלטפורמה"
 
-#: ../repo_data/components.xml.in.h:103
+#: ../repo_data/components.xml.in.h:104
 msgid "Puzzle Games"
 msgstr "משחקי חידה"
 
-#: ../repo_data/components.xml.in.h:104
+#: ../repo_data/components.xml.in.h:105
 msgid "Role-playing Games"
 msgstr "משחקי תפקידים"
 
-#: ../repo_data/components.xml.in.h:105
+#: ../repo_data/components.xml.in.h:106
 msgid "Strategy Games"
 msgstr "משחקי אסטרטגיה"
 
@@ -479,7 +484,7 @@ msgstr "פתח את צג העדכונים של היישום."
 #. Quirky loading message
 #: ../solus_sc/available_view.py:38
 msgid "Switching to the B-side of the cassette…"
-msgstr "עוברים לצד ב' של הקלטת"
+msgstr "עוברים לצד ב' של הקלטת…"
 
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
@@ -576,7 +581,8 @@ msgstr "אישור שידרוג"
 msgid "Cancel"
 msgstr "בטל"
 
-#: ../solus_sc/basket.py:370 ../solus_sc/details.py:142
+#. Main action buttons
+#: ../solus_sc/basket.py:370 ../solus_sc/details.py:224
 #: ../solus_sc/thirdparty.py:186
 msgid "Install"
 msgstr "התקן"
@@ -586,31 +592,67 @@ msgid "Update"
 msgstr "שדרג"
 
 #. Remove button
-#: ../solus_sc/basket.py:377 ../solus_sc/details.py:150
+#: ../solus_sc/basket.py:377 ../solus_sc/details.py:234
 msgid "Remove"
 msgstr "הסר"
 
-#. Visit the website of the package
-#: ../solus_sc/details.py:184
-msgid "Website"
-msgstr "אתר"
+#: ../solus_sc/changelog.py:119
+msgid "Standard Update"
+msgstr "עדכון רגיל"
 
-#. Donation button launches website to donate to authors
-#: ../solus_sc/details.py:191
-msgid "Donate"
-msgstr "תרום"
+#: ../solus_sc/changelog.py:122
+msgid "Security Update"
+msgstr "עדכון אבטחה"
+
+#: ../solus_sc/details.py:209
+msgid "Report issues"
+msgstr "דווח בעיות"
+
+#: ../solus_sc/details.py:217
+msgid "Visit Website"
+msgstr "בקר באתר"
+
+#: ../solus_sc/details.py:314 ../solus_sc/updates_view.py:296
+msgid "Details"
+msgstr "פרטים"
+
+#: ../solus_sc/details.py:382
+msgid "Developers"
+msgstr "מפתחים"
+
+#: ../solus_sc/details.py:397
+msgid "Version"
+msgstr "גרסה"
 
 #. Size of the package when installed locally
-#: ../solus_sc/details.py:197
+#: ../solus_sc/details.py:409
 msgid "Installed size"
 msgstr "נפח מותקן"
 
-#. License field
-#: ../solus_sc/details.py:205
+#. Donation button launches website to donate to authors
+#: ../solus_sc/details.py:421
+msgid "Donate"
+msgstr "תרום"
+
+#: ../solus_sc/details.py:435
+msgid "Changelog"
+msgstr "יומן שינויים"
+
+#: ../solus_sc/details.py:443
 msgid "License"
 msgstr "רשיון"
 
-#: ../solus_sc/details.py:257
+#: ../solus_sc/details.py:448
+msgid "Report an invalid or missing license"
+msgstr "דווח רשיון חסר או בלתי חוקי"
+
+#: ../solus_sc/details.py:450
+msgid ""
+"This selection is available in accordance with the terms set in the "
+"following license(s):"
+msgstr "הבחירה הזו זמינה בהתאם לתנאים בהסכם(/מים) הבא(ים):"
+
+#: ../solus_sc/details.py:518
 msgid "Cannot remove core system software"
 msgstr "לא ניתן להסיר תוכנת ליבה"
 
@@ -619,38 +661,42 @@ msgstr "לא ניתן להסיר תוכנת ליבה"
 msgid "{} categories"
 msgstr "{} קבוצות"
 
+#: ../solus_sc/imagewidget.py:86
+msgid "No screenshots available"
+msgstr "תצוגות אינן זמינות"
+
 #. Window title
-#: ../solus_sc/main_window.py:151
+#: ../solus_sc/main_window.py:162
 msgid "Software Center"
 msgstr "מרכז התוכנות"
 
 #. Main view, primary view, when opening the software center
-#: ../solus_sc/main_window.py:196 ../solus_sc/sidebar.py:65
+#: ../solus_sc/main_window.py:207 ../solus_sc/sidebar.py:65
 msgid "Home"
 msgstr "בית"
 
 #. The page where updates are display
-#: ../solus_sc/main_window.py:199 ../solus_sc/sidebar.py:66
+#: ../solus_sc/main_window.py:210 ../solus_sc/sidebar.py:66
 msgid "Updates"
 msgstr "עדכונים"
 
 #. This page shows the locally instaleld items
-#: ../solus_sc/main_window.py:205 ../solus_sc/sidebar.py:67
+#: ../solus_sc/main_window.py:216 ../solus_sc/sidebar.py:67
 msgid "Installed"
 msgstr "מותקן"
 
 #. Software made available from outside the Solus software repos
-#: ../solus_sc/main_window.py:209 ../solus_sc/sidebar.py:68
+#: ../solus_sc/main_window.py:220 ../solus_sc/sidebar.py:68
 msgid "Third Party"
 msgstr "צד שלישי"
 
 #. The search page
-#: ../solus_sc/main_window.py:214 ../solus_sc/sidebar.py:69
+#: ../solus_sc/main_window.py:225 ../solus_sc/sidebar.py:69
 msgid "Search"
 msgstr "חפש"
 
 #. The settings page
-#: ../solus_sc/main_window.py:218 ../solus_sc/sidebar.py:70
+#: ../solus_sc/main_window.py:229 ../solus_sc/sidebar.py:70
 msgid "Settings"
 msgstr "הגדרות"
 
@@ -660,100 +706,96 @@ msgstr "פותרים את פרדוקס הבחירה"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
-#: ../solus_sc/search_results.py:40
+#: ../solus_sc/search_results.py:41
 msgid "Concentrating really hard"
 msgstr "מתרכזים מאוד חזק"
 
-#: ../solus_sc/search_results.py:61
+#: ../solus_sc/search_results.py:62
 msgid "Type a query to get started"
 msgstr "הקלד כדי להתחיל"
 
-#: ../solus_sc/search_results.py:80
+#: ../solus_sc/search_results.py:81
 msgid "No results found"
 msgstr "לא נמצאו תוצאות"
 
 #. Check for updates every hour
-#: ../solus_sc/settings_view.py:69
+#: ../solus_sc/settings_view.py:75
 msgid "Every hour"
 msgstr "כל שעה"
 
 #. Check for updates once per day
-#: ../solus_sc/settings_view.py:71
+#: ../solus_sc/settings_view.py:77
 msgid "Daily"
 msgstr "יומי"
 
 #. Check for updates once a week
-#: ../solus_sc/settings_view.py:73
+#: ../solus_sc/settings_view.py:79
 msgid "Weekly"
 msgstr "שבועי"
 
 #. Notify of all updates
-#: ../solus_sc/settings_view.py:88
+#: ../solus_sc/settings_view.py:94
 msgid "All updates"
 msgstr "כל העדכונים"
 
 #. Notify only of security updates
-#: ../solus_sc/settings_view.py:90
+#: ../solus_sc/settings_view.py:96
 msgid "Security updates only"
 msgstr "עדכוני אבטחה בלבד"
 
 #. Notify of security and core system updates ("mandatory")
-#: ../solus_sc/settings_view.py:92
+#: ../solus_sc/settings_view.py:98
 msgid "Security & core updates"
 msgstr "עדכוני אבטחה וליבה"
 
-#: ../solus_sc/thirdparty.py:184 ../solus_sc/updates_view.py:338
-#: ../solus_sc/updates_view.py:340 ../solus_sc/updates_view.py:434
+#: ../solus_sc/thirdparty.py:184 ../solus_sc/updates_view.py:192
+#: ../solus_sc/updates_view.py:194 ../solus_sc/updates_view.py:288
 msgid "Check for updates"
 msgstr "בדוק עדכונים"
 
 #. Title of dialog displaying the details of a given update
-#: ../solus_sc/updates_view.py:121
+#: ../solus_sc/updates_view.py:33
 msgid "Update Details"
 msgstr "פרטי עדכון"
 
-#: ../solus_sc/updates_view.py:135
+#: ../solus_sc/updates_view.py:47
 msgid "Not installed"
 msgstr "לא מותקן"
 
-#: ../solus_sc/updates_view.py:233
+#: ../solus_sc/updates_view.py:87
 msgid "Discombobulating update matrix"
-msgstr "מבלבלים את מאגר העדכונים."
+msgstr "מבלבלים את מאגר העדכונים"
 
-#: ../solus_sc/updates_view.py:256
+#: ../solus_sc/updates_view.py:110
 msgid "Please check back later, updates are now applying"
-msgstr "נא לחזור מאוחר יותר, עדכונים כעת מיושמים."
+msgstr "נא לחזור מאוחר יותר, עדכונים כעת מיושמים"
 
-#: ../solus_sc/updates_view.py:353
+#: ../solus_sc/updates_view.py:207
 msgid "Software is up to date"
 msgstr "התוכנות מעודכנות"
 
 #. Selection label
 #. No updates currently selected for installation
-#: ../solus_sc/updates_view.py:419
+#: ../solus_sc/updates_view.py:273
 msgid "0 items selected"
 msgstr "0 פריטים נבחרו"
 
-#: ../solus_sc/updates_view.py:433
+#: ../solus_sc/updates_view.py:287
 msgid "Check new updates"
 msgstr "בדוק עדכונים חדשים"
 
-#: ../solus_sc/updates_view.py:442
-msgid "Details"
-msgstr "פרטים"
-
 #. Apply the updates
-#: ../solus_sc/updates_view.py:448 ../solus_sc/updates_view.py:449
+#: ../solus_sc/updates_view.py:302 ../solus_sc/updates_view.py:303
 msgid "Update Selected"
 msgstr "עדכן נבחר(ים)"
 
 #. "2 of 10 updates selected"
-#: ../solus_sc/updates_view.py:684
+#: ../solus_sc/updates_view.py:538
 msgid "{} of {} updates selected"
 msgstr "{} מ- {} עדכונים נבחרו"
 
 #. "2 of 10 updates selected (20.05MB to download)"
-#: ../solus_sc/updates_view.py:691
+#: ../solus_sc/updates_view.py:545
 msgid "{} of {} updates selected ({} to download)"
 msgstr "{} מ- {} עדכונים נבחרו ({} להוריד)"
 
