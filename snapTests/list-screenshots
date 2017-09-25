@@ -26,6 +26,7 @@ def snapdDemo():
     oneSnap = cl.list_one_sync(wanted)
     for screen in oneSnap.get_screenshots():
         print(screen)
+    print(cl.get_icon_sync(oneSnap.get_name()))
 
     # Remote snap WILL find screenshots -_-
     remotes = cl.find_sync(Snapd.FindFlags.MATCH_NAME, wanted)
