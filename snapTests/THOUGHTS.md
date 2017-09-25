@@ -10,3 +10,4 @@ Tracking descent into madness
    list snaps in the remote store.
  - Prod upstream about supporting categories (top 50 in each) and having a way
    to show all within a category + range.
+ - Use string ID for release/revisions so that "daily" isn't the specific version.
