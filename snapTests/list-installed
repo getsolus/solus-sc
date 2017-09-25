@@ -22,6 +22,8 @@ def snapdDemo():
     snaps = cl.list_sync()
     for snap in snaps:
         print("%s - %s (%s)" % (snap.get_name(), snap.get_title(), snap.get_version()))
+        print(" -> tracking channel: %s" % snap.get_tracking_channel())
+
 
 if __name__ == "__main__":
     snapdDemo()
