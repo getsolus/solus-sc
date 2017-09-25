@@ -18,7 +18,11 @@ class SnapdPlugin(ProviderPlugin):
 
     snapd_client = None
 
+    # Cache the snap items by their internal ID
+    items = None
+
     def __init__(self):
+        self.items = dict()
         self.snapd_client = snapd.Client()
         # TOOD: Add on an init hook as part of API contract
         self.snapd_client.connect_sync()
@@ -29,12 +33,23 @@ class SnapdPlugin(ProviderPlugin):
 
     def populate_installed(self, storage):
         for snap in self.snapd_client.list_sync():
+            snap_id = "snapd:{}".format(snap.get_id())
+            if snap_id in self.items:
+                snap = self.items[snap_id]
+                storage.add_item(snap_id, snap)
+                continue
             snap = SnapdItem(snap)
-            storage.add_item(snap.get_id(), snap)
+            storage.add_item(snap_id, snap)
+            self.push_item(snap)
+
+    def push_item(self, snap):
+        """ Hold a reference to the item to speed things up """
+        self.items[snap.get_id()] = snap
 
 class SnapdItem(ProviderItem):
 
     snap = None
+    enhanced_source = None
 
     def __init__(self, snap):
         self.snap = snap
