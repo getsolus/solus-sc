@@ -33,36 +33,65 @@ class NativePlugin(ProviderPlugin):
 
     def populate_search(self, storage, term):
         """ Attempt to search for a given term in the DB """
-        return
+        # Trick eopkg into searching through spaces and hyphens
+        term = term.replace(" ", "[-_ ]")
+
+        try:
+            srslt = set(self.availDB.search_package([term]))
+            srslt.update(self.installDB.search_package([term]))
+        except Exception as e:
+            # Invalid regex, basically, from someone smashing FIREFOX????
+            print(e)
+            return
+
+        for item in srslt:
+            available = None
+            installed = None
+
+            if self.installDB.has_package(item):
+                installed = self.installDB.get_package(item)
+            if self.availDB.has_package(item):
+                available = self.availDB.get_package(item)
+
+            pkg = NativeItem(installed, available)
+            storage.add_item(pkg.get_id(), pkg)
 
     def populate_installed(self, storage):
         """ Populate from the installed filter """
         for pkgID in self.installDB.list_installed():
             pkgObject = self.installDB.get_package(pkgID)
-            pkg = NativeItem(pkgObject)
+            pkg = NativeItem(pkgObject, pkgObject)
             storage.add_item(pkg.get_id(), pkg)
 
 
 class NativeItem(ProviderItem):
     """ NativeItem abstracts access to the native package type, i.e. eopkg """
 
-    pkg = None
+    installed = None
+    available = None
+    displayCandidate = None
 
-    def __init__(self, pkg):
+    def __init__(self, installed, available):
         ProviderItem.__init__(self)
-        self.pkg = pkg
+        self.installed = installed
+        self.available = available
+
+        if self.installed is not None:
+            self.displayCandidate = self.installed
+        else:
+            self.displayCandidate = self.available
 
     def get_id(self):
-        return "native:{}".format(self.pkg.name)
+        return "native:{}".format(self.displayCandidate.name)
 
     def get_name(self):
-        return self.pkg.name
+        return self.displayCandidate.name
 
     def get_title(self):
-        return self.pkg.name
+        return self.displayCandidate.name
 
     def get_description():
-        return self.pkg.description
+        return self.displayCandidate.description
 
     def get_version(self):
-        return self.pkg.history[0].version
+        return self.displayCandidate.history[0].version
