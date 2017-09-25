@@ -44,7 +44,7 @@ class ProviderPlugin:
 
     def populate_storage(self, storage, popfilter, extra):
         """ Populate storage using the given filter """
-        raise RuntimeError("implement populate_installed")
+        raise RuntimeError("implement populate_storage")
 
     def cancel(self):
         """ Cancel any ongoing populare_storage calls """
