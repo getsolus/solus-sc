@@ -77,6 +77,8 @@ class NativeItem(ProviderItem):
         self.installed = installed
         self.available = available
 
+        self.add_status(ItemStatus.META_CHANGELOG)
+
         if self.installed is not None:
             self.displayCandidate = self.installed
         else:

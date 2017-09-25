@@ -36,6 +36,7 @@ class ItemStatus:
     UPDATE_CRITICAL = 1 << 5 # Critical update available
     UPDATE_BUGFIX = 1 << 6 # Bugfix update available
     META_DEVEL = 1 << 7 # Is a development type of package
+    META_CHANGELOG = 1 << 8 # Supports changelog functionality
 
 class ProviderStorage:
     """ ProviderStorage is an abstract type that should be populated by
