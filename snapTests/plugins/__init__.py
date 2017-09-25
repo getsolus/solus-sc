@@ -14,9 +14,7 @@
 import gi
 gi.require_version('Snapd', '1')
 
-from enum import Enum
-
-class PopulationFilter(Enum):
+class PopulationFilter:
     """ A population filter is provided to the provider plugin to begin
         population of a given type
     """
