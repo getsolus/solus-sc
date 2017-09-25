@@ -59,8 +59,10 @@ class SnapdPlugin(ProviderPlugin):
         self.snapd_client.connect_sync()
 
     def populate_storage(self, storage, popfilter, extra):
-        if popfilter != PopulationFilter.INSTALLED:
-            return
+        if popfilter == PopulationFilter.INSTALLED:
+            return self.populate_installed(storage)
+
+    def populate_installed(self, storage):
         for snap in self.snapd_client.list_sync():
             snap = SnapdItem(snap)
             storage.add_item(snap.get_id(), snap)
