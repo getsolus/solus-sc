@@ -1,0 +1,40 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+#
+#  This file is part of solus-sc
+#
+#  Copyright © 2017 Ikey Doherty <ikey@solus-project.com>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+
+import gi
+gi.require_version('Snapd', '1')
+from gi.repository import Snapd
+import sys
+
+def snapdDemo():
+    cl = Snapd.Client()
+    cl.connect_sync()
+
+    # Local snap will NOT show screenshots
+
+    wanted = "ohmygiraffe"
+    oneSnap = cl.list_one_sync(wanted)
+    for screen in oneSnap.get_screenshots():
+        print(screen)
+
+    # Remote snap WILL find screenshots -_-
+    remotes = cl.find_sync(Snapd.FindFlags.MATCH_NAME, wanted)
+    remoteSnap = remotes[0]
+    for screen in remoteSnap.get_screenshots():
+        width = screen.get_width()
+        height = screen.get_height()
+        url = screen.get_url()
+        print("{} ({}x{})".format(url, width, height))
+
+if __name__ == "__main__":
+    snapdDemo()
