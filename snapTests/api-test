@@ -73,7 +73,7 @@ class SnapdItem(ProviderItem):
         self.snap = snap
 
     def get_id(self):
-        return self.snap.get_id()
+        return "snapd:{}".format(self.snap.get_id())
 
     def get_title(self):
         return self.snap.get_title()
@@ -104,7 +104,7 @@ class NativePlugin(ProviderPlugin):
         for pkgID in self.installDB.list_installed():
             pkgObject = self.installDB.get_package(pkgID)
             pkg = NativeItem(pkgObject)
-            storage.add_item(pkgID, pkg)
+            storage.add_item(pkg.get_id(), pkg)
 
 
 class NativeItem(ProviderItem):
@@ -116,7 +116,7 @@ class NativeItem(ProviderItem):
         self.pkg = pkg
 
     def get_id(self):
-        return self.pkg.name
+        return "native:{}".format(self.pkg.name)
 
     def get_name(self):
         return self.pkg.name
