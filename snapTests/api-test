@@ -17,8 +17,19 @@ from plugins import ProviderStorage, PopulationFilter
 
 class DummyStorage(ProviderStorage):
 
+    skip_devel = None
+
+    def __init__(self):
+        self.skip_devel = True
+
     def add_item(self, id, item):
+        # We can skip items from listing if we're told to
+        name = item.get_name()
+        if self.skip_devel:
+            if name.endswith("-dbginfo") or name.endswith("-devel"):
+                return
         print("New item! {} - {} ({})".format(item.get_title(), id, item.get_version()))
+
 
     def clear(self):
         pass

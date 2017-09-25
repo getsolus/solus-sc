@@ -102,6 +102,10 @@ class ProviderItem:
         """
         raise RuntimeError("implement get_id")
 
+    def get_name(self):
+        """ Actual name of the item. Title is stylised separateley """
+        raise RuntimeError("implement get_name")
+
     def get_title(self):
         """ Each item should return an appropriate item for displaying
             as the stylised title
