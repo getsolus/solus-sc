@@ -52,6 +52,7 @@ class SnapdItem(ProviderItem):
     enhanced_source = None
 
     def __init__(self, snap):
+        ProviderItem.__init__(self)
         self.snap = snap
 
     def get_id(self):

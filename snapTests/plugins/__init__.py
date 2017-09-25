@@ -25,6 +25,19 @@ class PopulationFilter(Enum):
     SEARCH = 1
     CATEGORY = 2
 
+class ItemStatus:
+    """ The ItemStatus allows us to know the exact state of any given item
+        as a combination of the various status flags
+    """
+
+    INSTALLED = 1 << 0
+    UPDATE_NEEDED = 1 << 1 # We have an update available
+    UPDATING = 1 << 2
+    REMOVING = 1 << 3
+    UPDATE_SECURITY = 1 << 4 # Security update available
+    UPDATE_CRITICAL = 1 << 5 # Critical update available
+    UPDATE_BUGFIX = 1 << 6 # Bugfix update available
+
 class ProviderStorage:
     """ ProviderStorage is an abstract type that should be populated by
         existing plugins
@@ -59,6 +72,31 @@ class ProviderItem:
         and enables access + caching of various backend package management
         systems
     """
+
+    status = None
+
+    def __init__(self):
+        # Default to installed status
+        self.status = ItemStatus.INSTALLED
+
+    def get_status(self):
+        """ Return the current status for this item """
+        return self.status
+
+    def remove_status(self, st):
+        """ Remove a status field """
+        self.status ^= st
+
+    def add_status(self, st):
+        """ Add a status field """
+        self.status |= st
+
+    def set_status(self, st):
+        """ Set the complete status """
+        self.status = st
+
+    def has_status(self, st):
+        return self.status & st == st
 
     def get_id(self):
         """ Every item should return their unique ID so that they can

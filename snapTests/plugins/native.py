@@ -43,6 +43,7 @@ class NativeItem(ProviderItem):
     pkg = None
 
     def __init__(self, pkg):
+        ProviderItem.__init__(self)
         self.pkg = pkg
 
     def get_id(self):
