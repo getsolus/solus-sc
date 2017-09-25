@@ -11,6 +11,9 @@
 #  (at your option) any later version.
 #
 
+import gi
+gi.require_version('Snapd', '1')
+
 from enum import Enum
 
 class PopulationFilter(Enum):
