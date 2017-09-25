@@ -13,7 +13,7 @@
 
 from plugins.snapd import SnapdPlugin
 from plugins.native import NativePlugin
-from plugins import ProviderStorage, PopulationFilter
+from plugins import ProviderStorage, PopulationFilter, ItemStatus
 
 class DummyStorage(ProviderStorage):
 
@@ -23,11 +23,8 @@ class DummyStorage(ProviderStorage):
         self.skip_devel = True
 
     def add_item(self, id, item):
-        # We can skip items from listing if we're told to
-        name = item.get_name()
-        if self.skip_devel:
-            if name.endswith("-dbginfo") or name.endswith("-devel"):
-                return
+        if self.skip_devel and item.has_status(ItemStatus.META_DEVEL):
+            return
         print("New item! {} - {} ({})".format(item.get_title(), id, item.get_version()))
 
 

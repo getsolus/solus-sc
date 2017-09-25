@@ -11,7 +11,8 @@
 #  (at your option) any later version.
 #
 
-from . import ProviderStorage, ProviderPlugin, ProviderItem, PopulationFilter
+from . import ProviderStorage, ProviderPlugin, ProviderItem
+from . import PopulationFilter, ItemStatus
 import pisi
 
 
@@ -80,6 +81,10 @@ class NativeItem(ProviderItem):
             self.displayCandidate = self.installed
         else:
             self.displayCandidate = self.available
+
+        name = self.get_name()
+        if name.endswith("-dbginfo") or name.endswith("-devel"):
+            self.add_status(ItemStatus.META_DEVEL)
 
     def get_id(self):
         return "native:{}".format(self.displayCandidate.name)
