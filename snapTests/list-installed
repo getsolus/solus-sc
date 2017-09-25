@@ -17,7 +17,11 @@ from gi.repository import Snapd
 import sys
 
 def snapdDemo():
-    sys.exit(1)
+    cl = Snapd.Client()
+    cl.connect_sync()
+    snaps = cl.list_sync()
+    for snap in snaps:
+        print("%s - %s (%s)" % (snap.get_name(), snap.get_title(), snap.get_version()))
 
 if __name__ == "__main__":
     snapdDemo()
