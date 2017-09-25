@@ -28,6 +28,12 @@ class NativePlugin(ProviderPlugin):
     def populate_storage(self, storage, popfilter, extra):
         if popfilter == PopulationFilter.INSTALLED:
             return self.populate_installed(storage)
+        elif popfilter == PopulationFilter.SEARCH:
+            return self.populate_search(storage, extra)
+
+    def populate_search(self, storage, term):
+        """ Attempt to search for a given term in the DB """
+        return
 
     def populate_installed(self, storage):
         """ Populate from the installed filter """

@@ -35,7 +35,13 @@ def snapdDemo():
     popfilter = PopulationFilter.INSTALLED
     for p in plugins:
         p.populate_storage(store, popfilter, None)
-        
+
+    # We want to be able to stop a search ...
+    searchStore = DummyStorage()
+    term = "vlc"
+    print(" -> searching for %s" % term)
+    for p in plugins:
+        p.populate_storage(store, PopulationFilter.SEARCH, term)
 
 if __name__ == "__main__":
     snapdDemo()

@@ -30,6 +30,20 @@ class SnapdPlugin(ProviderPlugin):
     def populate_storage(self, storage, popfilter, extra):
         if popfilter == PopulationFilter.INSTALLED:
             return self.populate_installed(storage)
+        elif popfilter == PopulationFilter.SEARCH:
+            return self.populate_search(storage, extra)
+
+    def populate_search(self, storage, term):
+        """ Search for the remote snap """
+        # TODO: Make async.
+        listage = self.snapd_client.find_sync(snapd.FindFlags.NONE, term)
+        if listage is None or len(listage) < 1:
+            return
+        for i in listage:
+            # TODO: Cache??
+            snap = SnapdItem(i)
+            snap_id = snap.get_id()
+            storage.add_item(snap_id, snap)
 
     def populate_installed(self, storage):
         for snap in self.snapd_client.list_sync():
