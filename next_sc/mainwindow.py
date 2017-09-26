@@ -13,7 +13,8 @@
 
 from gi.repository import Gtk
 import sys
-
+from plugins.native import get_native_plugin
+from plugins.snapd import SnapdPlugin
 
 class MainWindow(Gtk.ApplicationWindow):
 
@@ -24,6 +25,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
     # Default open mode
     mode_open = None
+
+    # Our next_sc plugin set
+    plugins = None
 
     def __init__(self, app):
         Gtk.ApplicationWindow.__init__(self, application=app)
@@ -47,11 +51,32 @@ class MainWindow(Gtk.ApplicationWindow):
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_default_size(950, 650)
 
+        self.init_plugins()
+
         try:
             self.init_first()
         except Exception as e:
             print(e)
             sys.exit(1)
+
+    def init_plugins(self):
+        """ Take care of setting up our plugins """
+        self.plugins = []
+        snap = None
+        try:
+            snap = SnapdPlugin()
+        except Exception as e:
+            print("snapd support unavailable on this system: {}".format(e))
+            snap = None
+
+        if snap is not None:
+            self.plugins.append(snap)
+
+        osPlugin = get_native_plugin()
+        if osPlugin is not None:
+            self.plugins.insert(0, osPlugin)
+        else:
+            print("WARNING: Unsupported OS, native packaging unavailable!")
 
     def init_first(self):
         """ TODO: Anything vaguely useful. """
