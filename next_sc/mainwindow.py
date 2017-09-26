@@ -120,7 +120,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self.show_all()
 
-        store = models.ListingModel()
+        store = models.ListingModel(self.appsystem)
         self.tview.set_model(store)
 
         # Pump stuff into it!

@@ -19,21 +19,24 @@ class ListingModel(Gtk.ListStore, plugins.base.ProviderStorage):
     """ ListingModel is used when listing packages in the view """
 
     skip_devel = False
+    appsystem = None
 
-    def __init__(self):
+    def __init__(self, appsystem):
         Gtk.ListStore.__init__(self, str, str)
+        self.appsystem = appsystem
 
     def add_item(self, id, item):
         """ We'll just insert the item directly into the model """
         if self.skip_devel and item.has_status(ItemStatus.META_DEVEL):
             return
 
+        id = item.get_id()
         # Forcibly truncate summary. Nasty.
-        summary = item.get_summary()
+        summary = self.appsystem.get_summary(id, item.get_summary())
         if len(summary) > 76:
             summary = "%s…" % summary[0:76]
 
-        name = item.get_title()
+        name = self.appsystem.get_name(id, item.get_title())
         version = item.get_version()
 
         p_print = "<b>{}</b> - {}\n{}".format(name, version, summary)
