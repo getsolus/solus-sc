@@ -16,6 +16,8 @@ from gi.repository import Snapd as snapd
 
 
 class SnapdPlugin(ProviderPlugin):
+    """ SnapdPlugin provides backend support to solus-sc to interact with the
+        snapd daemon via snapd-glib bindings. """
 
     snapd_client = None
 
@@ -63,6 +65,7 @@ class SnapdPlugin(ProviderPlugin):
 
 
 class SnapdItem(ProviderItem):
+    """ A SnapdItem is a reference to either a remote or local snapd.Snap """
 
     snap = None
     enhanced_source = None
