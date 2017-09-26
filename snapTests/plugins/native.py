@@ -13,9 +13,11 @@
 
 from .os_release import OsRelease
 
+
 _native_plugin = None
 _unsupported = None
 _os_release = None
+
 
 def get_os_release():
     """ Cache an OsRelease instance to prevent any future re-reads """
@@ -25,6 +27,7 @@ def get_os_release():
         return _os_release
     _os_release = OsRelease()
     return _os_release
+
 
 def get_native_plugin():
     global _native_plugin

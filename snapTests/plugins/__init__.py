@@ -14,6 +14,7 @@
 import gi
 gi.require_version('Snapd', '1')
 
+
 class PopulationFilter:
     """ A population filter is provided to the provider plugin to begin
         population of a given type
@@ -23,24 +24,26 @@ class PopulationFilter:
     SEARCH = 1
     CATEGORY = 2
 
+
 class ItemStatus:
     """ The ItemStatus allows us to know the exact state of any given item
         as a combination of the various status flags
     """
 
     INSTALLED = 1 << 0
-    UPDATE_NEEDED = 1 << 1 # We have an update available
+    UPDATE_NEEDED = 1 << 1  # We have an update available
     UPDATING = 1 << 2
     REMOVING = 1 << 3
-    UPDATE_SECURITY = 1 << 4 # Security update available
-    UPDATE_CRITICAL = 1 << 5 # Critical update available
-    UPDATE_BUGFIX = 1 << 6 # Bugfix update available
-    META_DEVEL = 1 << 7 # Is a development type of package
-    META_CHANGELOG = 1 << 8 # Supports changelog functionality
+    UPDATE_SECURITY = 1 << 4  # Security update available
+    UPDATE_CRITICAL = 1 << 5  # Critical update available
+    UPDATE_BUGFIX = 1 << 6  # Bugfix update available
+    META_DEVEL = 1 << 7  # Is a development type of package
+    META_CHANGELOG = 1 << 8  # Supports changelog functionality
+
 
 class ProviderSource:
     """ ProviderSource indicates sources used or available for use by a given
-        plugin backend. In native implementations this is invariably a repository.
+        plugin backend. In native implementations this is invariably a repo.
     """
 
     def describe(self):
@@ -59,6 +62,7 @@ class ProviderSource:
         """ Determines whether the source can be edited """
         return False
 
+
 class ProviderStorage:
     """ ProviderStorage is an abstract type that should be populated by
         existing plugins
@@ -72,6 +76,7 @@ class ProviderStorage:
 
     def clear(self):
         raise RuntimeError("implement clear")
+
 
 class ProviderPlugin:
     """ A ProviderPlugin provides its own managemenet and access to the
@@ -90,6 +95,7 @@ class ProviderPlugin:
     def sources(self):
         """ Return the current set of sources for this plugin """
         return []
+
 
 class ProviderItem:
     """ A ProviderItem is addded to the ProviderStorage by each ProviderPlugin

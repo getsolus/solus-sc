@@ -15,6 +15,7 @@ from plugins.snapd import SnapdPlugin
 from plugins import ProviderStorage, PopulationFilter, ItemStatus
 from plugins.native import get_native_plugin
 
+
 class DummyStorage(ProviderStorage):
 
     skip_devel = None
@@ -25,8 +26,8 @@ class DummyStorage(ProviderStorage):
     def add_item(self, id, item):
         if self.skip_devel and item.has_status(ItemStatus.META_DEVEL):
             return
-        print("New item! {} - {} ({})".format(item.get_title(), id, item.get_version()))
-
+        print("New item! {} - {} ({})".format(
+            item.get_title(), id, item.get_version()))
 
     def clear(self):
         pass
@@ -42,7 +43,7 @@ def snapdDemo():
     if osPlugin is not None:
         plugins.insert(0, osPlugin)
     else:
-        print("WARNING: Unsupported OS, native package management unavailable!")
+        print("WARNING: Unsupported OS, native packaging unavailable!")
 
     # Ask all plugins to populate with installed filter
     popfilter = PopulationFilter.INSTALLED
@@ -54,11 +55,12 @@ def snapdDemo():
     term = "vlc"
     print(" -> searching for %s" % term)
     for p in plugins:
-        p.populate_storage(store, PopulationFilter.SEARCH, term)
+        p.populate_storage(searchStore, PopulationFilter.SEARCH, term)
 
     sources = [x for y in plugins for x in y.sources()]
     for x in sources:
         print(" -> Source: {}".format(x.describe()))
+
 
 if __name__ == "__main__":
     snapdDemo()

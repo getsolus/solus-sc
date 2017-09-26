@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from . import ProviderStorage, ProviderPlugin, ProviderItem, ProviderSource
+from . import ProviderPlugin, ProviderItem, ProviderSource
 from . import PopulationFilter, ItemStatus
 import pisi
 
@@ -34,8 +34,9 @@ class EopkgSource(ProviderSource):
             ret += " (inactive)"
         return ret
 
+
 class EopkgPlugin(ProviderPlugin):
-    """ EopkgPlugin interfaces with the "native" package manager, i.e. eopkg """
+    """ EopkgPlugin interfaces with the eopkg package manager """
 
     availDB = None
     installDB = None
@@ -125,7 +126,7 @@ class EopkgItem(ProviderItem):
     def get_title(self):
         return self.displayCandidate.name
 
-    def get_description():
+    def get_description(self):
         return self.displayCandidate.description
 
     def get_version(self):

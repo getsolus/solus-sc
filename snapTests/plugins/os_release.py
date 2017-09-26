@@ -13,6 +13,7 @@
 
 import os.path
 
+
 class OsRelease:
 
     mapping = None
@@ -69,7 +70,7 @@ class OsRelease:
 
     def version(self):
         return self._keyval("version")
-    
+
     def name(self):
         """ Return the OS name """
         return self._keyval("name")

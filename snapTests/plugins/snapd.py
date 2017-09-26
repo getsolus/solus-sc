@@ -11,8 +11,9 @@
 #  (at your option) any later version.
 #
 
-from . import ProviderStorage, ProviderPlugin, ProviderItem, PopulationFilter
+from . import ProviderPlugin, ProviderItem, PopulationFilter
 from gi.repository import Snapd as snapd
+
 
 class SnapdPlugin(ProviderPlugin):
 
@@ -59,6 +60,7 @@ class SnapdPlugin(ProviderPlugin):
     def push_item(self, snap):
         """ Hold a reference to the item to speed things up """
         self.items[snap.get_id()] = snap
+
 
 class SnapdItem(ProviderItem):
 
