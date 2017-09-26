@@ -97,6 +97,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.worker.install_package(["nano"])
         self.worker.install_package(["gedit"])
         self.worker.install_package(["firefox"])
+        self.worker.remove_package(["moody-firefox-dep"])
 
     def init_first(self):
         """ TODO: Not use hardcoded demos! """

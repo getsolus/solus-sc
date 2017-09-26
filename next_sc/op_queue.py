@@ -15,9 +15,9 @@ import Queue
 
 class OperationType:
 
-    INSTALL = 0 # Installs should be evaluated after removals
+    INSTALL = 2 # Installs should be evaluated after removals
     REMOVE = 1  # Remove is low-ish priority but must be before installs
-    UPGRADE = 2 # Upgrades should be before everything!
+    UPGRADE = 0 # Upgrades should be before everything!
 
 
 class Operation:
