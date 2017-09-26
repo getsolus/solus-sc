@@ -26,9 +26,10 @@ class SnapdPlugin(ProviderPlugin):
 
     def __init__(self):
         self.items = dict()
+        # Ensure communication with snapd daemon
         self.snapd_client = snapd.Client()
-        # TOOD: Add on an init hook as part of API contract
         self.snapd_client.connect_sync()
+        self.snapd_client.get_system_information_sync()
 
     def populate_storage(self, storage, popfilter, extra):
         if popfilter == PopulationFilter.INSTALLED:
