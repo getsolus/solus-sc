@@ -27,7 +27,7 @@ class Operation:
     """
 
     opType = 0
-    data = none
+    data = None
 
     def __cmp__(self, other):
         """ Ensure we can make other items higher priority ... """

@@ -17,6 +17,7 @@ from plugins.snapd import SnapdPlugin
 from plugins.base import PopulationFilter
 from . import models
 from .appsystem import AppSystem
+from .executor import Executor
 import traceback
 import sys
 
@@ -63,6 +64,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.init_plugins()
 
         try:
+            self.init_worker()
             self.init_first()
         except Exception as e:
             print(e)
@@ -87,6 +89,10 @@ class MainWindow(Gtk.ApplicationWindow):
             self.plugins.insert(0, osPlugin)
         else:
             print("WARNING: Unsupported OS, native packaging unavailable!")
+
+    def init_worker(self):
+        """ Handle set up of the executor queue """
+        self.worker = Executor()
 
     def init_first(self):
         """ TODO: Not use hardcoded demos! """
