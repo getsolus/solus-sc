@@ -11,8 +11,8 @@
 #  (at your option) any later version.
 #
 
-from . import ProviderPlugin, ProviderItem, ProviderSource
-from . import PopulationFilter, ItemStatus
+from .base import ProviderPlugin, ProviderItem, ProviderSource
+from .base import PopulationFilter, ItemStatus
 import pisi
 
 
@@ -23,7 +23,10 @@ class EopkgSource(ProviderSource):
     url = None
     name = None
 
+    __gtype_name__ = "NxEopkgSource"
+
     def __init__(self, rdb, repoName):
+        ProviderSource.__init__(self)
         self.url = rdb.get_repo_url(repoName)
         self.name = repoName
         self.active = rdb.repo_active(repoName)
@@ -43,7 +46,10 @@ class EopkgPlugin(ProviderPlugin):
 
     repos = None
 
+    __gtype_name__ = "NxEopkgPlugin"
+
     def __init__(self):
+        ProviderPlugin.__init__(self)
         self.availDB = pisi.db.packagedb.PackageDB()
         self.installDB = pisi.db.installdb.InstallDB()
         self.repoDB = pisi.db.repodb.RepoDB()
@@ -100,6 +106,8 @@ class EopkgItem(ProviderItem):
     installed = None
     available = None
     displayCandidate = None
+
+    __gtype_name__ = "NxEopkgItem"
 
     def __init__(self, installed, available):
         ProviderItem.__init__(self)

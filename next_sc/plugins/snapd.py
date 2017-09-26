@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from . import ProviderPlugin, ProviderItem, PopulationFilter
+from .base import ProviderPlugin, ProviderItem, PopulationFilter
 from gi.repository import Snapd as snapd
 
 
@@ -19,12 +19,15 @@ class SnapdPlugin(ProviderPlugin):
     """ SnapdPlugin provides backend support to solus-sc to interact with the
         snapd daemon via snapd-glib bindings. """
 
+    __gtype_name__ = "NxSnapdPlugin"
+
     snapd_client = None
 
     # Cache the snap items by their internal ID
     items = None
 
     def __init__(self):
+        ProviderPlugin.__init__(self)
         self.items = dict()
         # Ensure communication with snapd daemon
         self.snapd_client = snapd.Client()
@@ -67,6 +70,8 @@ class SnapdPlugin(ProviderPlugin):
 
 class SnapdItem(ProviderItem):
     """ A SnapdItem is a reference to either a remote or local snapd.Snap """
+
+    __gtype_name__ = "NxSnapdItem"
 
     snap = None
     enhanced_source = None

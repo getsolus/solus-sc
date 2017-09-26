@@ -15,6 +15,7 @@ from gi.repository import Gtk
 import sys
 from plugins.native import get_native_plugin
 from plugins.snapd import SnapdPlugin
+from . import models
 
 class MainWindow(Gtk.ApplicationWindow):
 
@@ -79,5 +80,35 @@ class MainWindow(Gtk.ApplicationWindow):
             print("WARNING: Unsupported OS, native packaging unavailable!")
 
     def init_first(self):
-        """ TODO: Anything vaguely useful. """
+        """ TODO: Not use hardcoded demos! """
+        # Main treeview where it's all happening. Single click activate
+        self.tview = Gtk.TreeView()
+        self.tview.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
+        self.tview.set_activate_on_single_click(True)
+
+        self.scroll = Gtk.ScrolledWindow.new(None, None)
+        self.add(self.scroll)
+
+        # Defugly
+        self.tview.set_property("enable-grid-lines", False)
+        self.tview.set_property("headers-visible", False)
+        self.scroll.add(self.tview)
+
+        # img view
+        ren = Gtk.CellRendererPixbuf()
+        ren.set_property("stock-size", Gtk.IconSize.DIALOG)
+        ren.set_padding(5, 2)
+        column = Gtk.TreeViewColumn("Icon", ren, pixbuf=2)
+        self.tview.append_column(column)
+
+        # Set up display columns
+        ren = Gtk.CellRendererText()
+        ren.set_padding(5, 5)
+        column = Gtk.TreeViewColumn("Name", ren, markup=0)
+        self.tview.append_column(column)
+        self.tview.set_search_column(1)
+
         self.show_all()
+
+        store = models.ListingModel()
+        self.tview.set_model(store)
