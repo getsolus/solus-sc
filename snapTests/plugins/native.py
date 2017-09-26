@@ -15,6 +15,16 @@ from .os_release import OsRelease
 
 _native_plugin = None
 _unsupported = None
+_os_release = None
+
+def get_os_release():
+    """ Cache an OsRelease instance to prevent any future re-reads """
+    global _os_release
+
+    if _os_release is not None:
+        return _os_release
+    _os_release = OsRelease()
+    return _os_release
 
 def get_native_plugin():
     global _native_plugin
@@ -26,7 +36,7 @@ def get_native_plugin():
     if _unsupported:
         return None
 
-    osRel = OsRelease()
+    osRel = get_os_release()
     if osRel.id() == "solus":
         from .eopkg import EopkgPlugin
         _native_plugin = EopkgPlugin()
