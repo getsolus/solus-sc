@@ -12,8 +12,8 @@
 #
 
 from plugins.snapd import SnapdPlugin
-from plugins.native import NativePlugin
 from plugins import ProviderStorage, PopulationFilter, ItemStatus
+from plugins.native import get_native_plugin
 
 class DummyStorage(ProviderStorage):
 
@@ -35,9 +35,12 @@ class DummyStorage(ProviderStorage):
 def snapdDemo():
     store = DummyStorage()
     plugins = [
-        NativePlugin(),
         SnapdPlugin(),
     ]
+
+    osPlugin = get_native_plugin()
+    if osPlugin is not None:
+        plugins.insert(0, osPlugin)
 
     # Ask all plugins to populate with installed filter
     popfilter = PopulationFilter.INSTALLED
