@@ -131,11 +131,14 @@ class EopkgItem(ProviderItem):
     def get_name(self):
         return self.displayCandidate.name
 
+    def get_summary(self):
+        return str(self.displayCandidate.summary)
+
     def get_title(self):
-        return self.displayCandidate.name
+        return str(self.displayCandidate.name)
 
     def get_description(self):
-        return self.displayCandidate.description
+        return str(self.displayCandidate.description)
 
     def get_version(self):
         return self.displayCandidate.history[0].version

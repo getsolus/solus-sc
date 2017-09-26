@@ -21,14 +21,23 @@ class ListingModel(Gtk.ListStore, plugins.base.ProviderStorage):
     skip_devel = False
 
     def __init__(self):
-        Gtk.ListStore.__init__(self, str, str)
+        Gtk.ListStore.__init__(self, str)
 
     def add_item(self, id, item):
         """ We'll just insert the item directly into the model """
         if self.skip_devel and item.has_status(ItemStatus.META_DEVEL):
             return
-        self.append([item.get_title(), item.get_version()])
 
+        # Forcibly truncate summary. Nasty.
+        summary = item.get_summary()
+        if len(summary) > 76:
+            summary = "%s…" % summary[0:76]
+
+        name = item.get_title()
+        version = item.get_version()
+
+        p_print = "<b>{}</b> - {}\n{}".format(name, version, summary)
+        self.append([p_print])
 
     def clear(self):
         """ Purge the list store """

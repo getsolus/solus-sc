@@ -86,6 +86,9 @@ class SnapdItem(ProviderItem):
     def get_name(self):
         return self.snap.get_name()
 
+    def get_summary(self):
+        return self.snap.get_summary()
+
     def get_title(self):
         return self.snap.get_title()
 

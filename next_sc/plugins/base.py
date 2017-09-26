@@ -159,6 +159,12 @@ class ProviderItem(GObject.Object):
         """
         raise RuntimeError("implement get_title")
 
+    def get_summary(self):
+        """ Each item should return a brief summary suitable for single line
+            listing of the summary beside the name/version/etc
+        """
+        raise RuntimeError("implement get_summary")
+
     def get_description(self):
         """ Each item should support returning their complete description
         """

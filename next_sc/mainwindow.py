@@ -105,12 +105,6 @@ class MainWindow(Gtk.ApplicationWindow):
         self.tview.append_column(column)
         self.tview.set_search_column(1)
 
-        # Version
-        ren = Gtk.CellRendererText()
-        ren.set_padding(5, 5)
-        column = Gtk.TreeViewColumn("Version", ren, markup=1)
-        self.tview.append_column(column)
-
         self.show_all()
 
         store = models.ListingModel()
