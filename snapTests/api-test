@@ -41,6 +41,8 @@ def snapdDemo():
     osPlugin = get_native_plugin()
     if osPlugin is not None:
         plugins.insert(0, osPlugin)
+    else:
+        print("WARNING: Unsupported OS, native package management unavailable!")
 
     # Ask all plugins to populate with installed filter
     popfilter = PopulationFilter.INSTALLED
