@@ -96,4 +96,7 @@ class SnapdItem(ProviderItem):
         return self.snap.get_description()
 
     def get_version(self):
-        return self.snap.get_version()
+        return "{}-rev{}".format(
+            self.snap.get_version(),
+            self.snap.get_revision(),
+        )
