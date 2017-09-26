@@ -98,19 +98,18 @@ class MainWindow(Gtk.ApplicationWindow):
         self.tview.set_property("headers-visible", False)
         self.scroll.add(self.tview)
 
-        # img view
-        ren = Gtk.CellRendererPixbuf()
-        ren.set_property("stock-size", Gtk.IconSize.DIALOG)
-        ren.set_padding(5, 2)
-        column = Gtk.TreeViewColumn("Icon", ren, pixbuf=2)
-        self.tview.append_column(column)
-
         # Set up display columns
         ren = Gtk.CellRendererText()
         ren.set_padding(5, 5)
         column = Gtk.TreeViewColumn("Name", ren, markup=0)
         self.tview.append_column(column)
         self.tview.set_search_column(1)
+
+        # Version
+        ren = Gtk.CellRendererText()
+        ren.set_padding(5, 5)
+        column = Gtk.TreeViewColumn("Version", ren, markup=1)
+        self.tview.append_column(column)
 
         self.show_all()
 
