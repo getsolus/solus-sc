@@ -38,6 +38,27 @@ class ItemStatus:
     META_DEVEL = 1 << 7 # Is a development type of package
     META_CHANGELOG = 1 << 8 # Supports changelog functionality
 
+class ProviderSource:
+    """ ProviderSource indicates sources used or available for use by a given
+        plugin backend. In native implementations this is invariably a repository.
+    """
+
+    def describe(self):
+        """ Request a human readable description for this source """
+        raise RuntimeError("implement describe")
+
+    def enable(self):
+        """ Request this source be enabled """
+        raise RuntimeError("implement enable")
+
+    def disable(self):
+        """ Request this source be disabled """
+        raise RuntimeError("implement disable")
+
+    def can_edit(self):
+        """ Determines whether the source can be edited """
+        return False
+
 class ProviderStorage:
     """ ProviderStorage is an abstract type that should be populated by
         existing plugins
@@ -66,6 +87,9 @@ class ProviderPlugin:
         """ Cancel any ongoing populare_storage calls """
         raise RuntimeError("implement cancel")
 
+    def sources(self):
+        """ Return the current set of sources for this plugin """
+        return []
 
 class ProviderItem:
     """ A ProviderItem is addded to the ProviderStorage by each ProviderPlugin

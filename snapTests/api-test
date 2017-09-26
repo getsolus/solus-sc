@@ -56,5 +56,9 @@ def snapdDemo():
     for p in plugins:
         p.populate_storage(store, PopulationFilter.SEARCH, term)
 
+    sources = [x for y in plugins for x in y.sources()]
+    for x in sources:
+        print(" -> Source: {}".format(x.describe()))
+
 if __name__ == "__main__":
     snapdDemo()
