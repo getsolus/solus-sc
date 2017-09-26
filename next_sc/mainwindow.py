@@ -12,10 +12,13 @@
 #
 
 from gi.repository import Gtk
-import sys
 from plugins.native import get_native_plugin
 from plugins.snapd import SnapdPlugin
+from plugins.base import PopulationFilter
 from . import models
+import traceback
+import sys
+
 
 class MainWindow(Gtk.ApplicationWindow):
 
@@ -58,6 +61,7 @@ class MainWindow(Gtk.ApplicationWindow):
             self.init_first()
         except Exception as e:
             print(e)
+            traceback.print_exc()
             sys.exit(1)
 
     def init_plugins(self):
@@ -112,3 +116,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
         store = models.ListingModel()
         self.tview.set_model(store)
+
+        # Pump stuff into it!
+        for p in self.plugins:
+            p.populate_storage(store, PopulationFilter.INSTALLED, None)

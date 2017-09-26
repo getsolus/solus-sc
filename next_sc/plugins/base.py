@@ -111,7 +111,7 @@ class ProviderPlugin(GObject.Object):
         return []
 
 
-class ProviderItem:
+class ProviderItem(GObject.Object):
     """ A ProviderItem is addded to the ProviderStorage by each ProviderPlugin
         and enables access + caching of various backend package management
         systems
