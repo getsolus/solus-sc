@@ -126,7 +126,7 @@ class EopkgItem(ProviderItem):
             self.add_status(ItemStatus.META_DEVEL)
 
     def get_id(self):
-        return "eopkg:{}".format(self.displayCandidate.name)
+        return str(self.displayCandidate.name)
 
     def get_name(self):
         return self.displayCandidate.name
