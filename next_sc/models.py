@@ -22,7 +22,7 @@ class ListingModel(Gtk.ListStore, plugins.base.ProviderStorage):
 
     def add_item(self, id, item):
         """ We'll just insert the item directly into the model """
-        self.append([item.get_name(), item.get_version()])
+        self.append([item.get_title(), item.get_version()])
 
 
     def clear(self):
