@@ -16,6 +16,7 @@ from plugins.native import get_native_plugin
 from plugins.snapd import SnapdPlugin
 from plugins.base import PopulationFilter
 from . import models
+from .appsystem import AppSystem
 import traceback
 import sys
 
@@ -32,6 +33,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
     # Our next_sc plugin set
     plugins = None
+
+    # Our appsystem for resolving metadata
+    appsystem = None
 
     def __init__(self, app):
         Gtk.ApplicationWindow.__init__(self, application=app)
@@ -55,6 +59,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_default_size(950, 650)
 
+        self.appsystem = AppSystem()
         self.init_plugins()
 
         try:

@@ -28,7 +28,6 @@ class AppSystem:
     store = None
 
     def __init__(self):
-        self.fetcher = MediaFetcher()
         self.store = As.Store()
         self.store.load(As.StoreLoadFlags.APP_INFO_SYSTEM)
 
