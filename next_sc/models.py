@@ -13,15 +13,20 @@
 
 from gi.repository import Gtk
 import plugins
+from plugins.base import ItemStatus
 
 class ListingModel(Gtk.ListStore, plugins.base.ProviderStorage):
     """ ListingModel is used when listing packages in the view """
+
+    skip_devel = False
 
     def __init__(self):
         Gtk.ListStore.__init__(self, str, str)
 
     def add_item(self, id, item):
         """ We'll just insert the item directly into the model """
+        if self.skip_devel and item.has_status(ItemStatus.META_DEVEL):
+            return
         self.append([item.get_title(), item.get_version()])
 
 
