@@ -21,7 +21,7 @@ class ListingModel(Gtk.ListStore, plugins.base.ProviderStorage):
     skip_devel = False
 
     def __init__(self):
-        Gtk.ListStore.__init__(self, str)
+        Gtk.ListStore.__init__(self, str, str)
 
     def add_item(self, id, item):
         """ We'll just insert the item directly into the model """
@@ -37,7 +37,7 @@ class ListingModel(Gtk.ListStore, plugins.base.ProviderStorage):
         version = item.get_version()
 
         p_print = "<b>{}</b> - {}\n{}".format(name, version, summary)
-        self.append([p_print])
+        self.append([p_print, "package-x-generic"])
 
     def clear(self):
         """ Purge the list store """

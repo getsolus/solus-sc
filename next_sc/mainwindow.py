@@ -98,6 +98,14 @@ class MainWindow(Gtk.ApplicationWindow):
         self.tview.set_property("headers-visible", False)
         self.scroll.add(self.tview)
 
+        # Icon for testing UI layout
+        ren = Gtk.CellRendererPixbuf()
+        ren.set_property("stock-size", Gtk.IconSize.DIALOG)
+        ren.set_padding(5, 5)
+        column = Gtk.TreeViewColumn("Icon", ren, icon_name=1)
+        self.tview.append_column(column)
+        ren.set_property("xalign", 0.0)
+
         # Set up display columns
         ren = Gtk.CellRendererText()
         ren.set_padding(5, 5)
