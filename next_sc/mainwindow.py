@@ -94,6 +94,10 @@ class MainWindow(Gtk.ApplicationWindow):
         """ Handle set up of the executor queue """
         self.worker = Executor()
 
+        self.worker.install_package(["nano"])
+        self.worker.install_package(["gedit"])
+        self.worker.install_package(["firefox"])
+
     def init_first(self):
         """ TODO: Not use hardcoded demos! """
         # Main treeview where it's all happening. Single click activate

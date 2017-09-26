@@ -13,6 +13,7 @@
 
 
 from .op_queue import OperationQueue, Operation
+from threading import Lock, Thread
 
 class Executor:
     """ Executor is responsible for handling the main "loop" around the
@@ -20,20 +21,54 @@ class Executor:
     """
 
     queue = None
+    thread_lock = None
+    thread_running = False
 
     def __init__(self):
         self.queue = OperationQueue()
+        self.thread_lock = Lock()
+        self.thread_running = False
 
         # TODO: Spawn a thread
 
     def install_package(self, ids):
         """ Install or queue installation """
         self.queue.push_operation(Operation.Install(ids))
+        self.maybe_respawn()
 
     def remove_package(self, ids):
         """ Remove or queue removal """
         self.queue.push_operation(Operation.Remove(ids))
+        self.maybe_respawn()
 
     def upgrade_package(self, ids):
         """ Upgrade or queue upgrade """
         self.queue.push_operation(Operation.Upgrade(ids))
+        self.maybe_respawn()
+
+    def maybe_respawn(self):
+        """ Start up the worker thread again if our thread ended """
+        self.thread_lock.acquire()
+        try:
+            if not self.thread_running:
+                self.thread_running = True
+                print("debug: spawning new work thread")
+                t = Thread(target=self.process_queue)
+                t.start()
+            else:
+                print("debug: thread is already running")
+        finally:
+            self.thread_lock.release()
+
+    def process_queue(self):
+        """ Process the queue until it empties """
+        while not self.queue.opstack.empty():
+            item = self.queue.opstack.get()
+            print("Got item: {}".format(item.data))
+        # Queue ran out
+        print("queue emptied")
+        self.thread_lock.acquire()
+        try:
+            self.thread_running = False
+        finally:
+            self.thread_lock.release()
