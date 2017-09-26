@@ -11,9 +11,9 @@
 #  (at your option) any later version.
 #
 
-from plugins.snapd import SnapdPlugin
-from plugins import ProviderStorage, PopulationFilter, ItemStatus
-from plugins.native import get_native_plugin
+from next_sc.plugins.snapd import SnapdPlugin
+from next_sc.plugins import ProviderStorage, PopulationFilter, ItemStatus
+from next_sc.plugins.native import get_native_plugin
 
 
 class DummyStorage(ProviderStorage):
