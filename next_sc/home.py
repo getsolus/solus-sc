@@ -40,6 +40,7 @@ class HomeView(Gtk.Box):
         lab.set_halign(Gtk.Align.START)
         self.pack_start(lab, False, False, 0)
         self.box_new = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.box_new.set_margin_top(6)
         self.box_new.set_margin_bottom(12)
         self.pack_start(self.box_new, False, False, 0)
 
@@ -50,6 +51,7 @@ class HomeView(Gtk.Box):
         lab.set_halign(Gtk.Align.START)
         self.pack_start(lab, False, False, 0)
         self.box_recent = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.box_recent.set_margin_top(6)
         self.pack_start(self.box_recent, False, False, 0)
 
         # find out about new shinies
@@ -79,8 +81,8 @@ class HomeView(Gtk.Box):
         img.set_margin_end(8)
         btnText = self.appsystem.get_name(id, item.get_title())
         summary = self.appsystem.get_summary(id, item.get_summary())
-        if len(summary) > 40:
-            summary = "%s…" % summary[0:40]
+        if len(summary) > 30:
+            summary = "%s…" % summary[0:30]
         btnText = "<b>{}</b>\n{}".format(btnText, summary)
         btn = Gtk.Button.new()
         btn.get_style_context().add_class("flat")
@@ -92,7 +94,7 @@ class HomeView(Gtk.Box):
         box.pack_start(lab, False, False, 0)
         btn.add(box)
         btn.show_all()
-        btn.set_margin_start(6)
-        btn.set_margin_end(6)
+        btn.set_margin_start(3)
+        btn.set_margin_end(3)
         self.box_group.add_widget(btn)
         target.pack_start(btn, False, False, 0)
