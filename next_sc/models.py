@@ -26,7 +26,7 @@ class ListingModel(Gtk.ListStore, plugins.base.ProviderStorage):
         self.appsystem = appsystem
         self.set_sort_column_id(2, Gtk.SortType.ASCENDING)
 
-    def add_item(self, id, item):
+    def add_item(self, id, item, popfilter):
         """ We'll just insert the item directly into the model """
         if self.skip_devel and item.has_status(ItemStatus.META_DEVEL):
             return

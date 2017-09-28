@@ -90,14 +90,14 @@ class EopkgPlugin(ProviderPlugin):
                 available = self.availDB.get_package(item)
 
             pkg = EopkgItem(installed, available)
-            storage.add_item(pkg.get_id(), pkg)
+            storage.add_item(pkg.get_id(), pkg, PopulationFilter.SEARCH)
 
     def populate_installed(self, storage):
         """ Populate from the installed filter """
         for pkgID in self.installDB.list_installed():
             pkgObject = self.installDB.get_package(pkgID)
             pkg = EopkgItem(pkgObject, pkgObject)
-            storage.add_item(pkg.get_id(), pkg)
+            storage.add_item(pkg.get_id(), pkg, PopulationFilter.INSTALLED)
 
 
 class EopkgItem(ProviderItem):

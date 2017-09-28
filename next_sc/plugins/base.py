@@ -82,7 +82,7 @@ class ProviderStorage(GObject.Object):
     def __init__(self):
         GObject.Object.__init__(self)
 
-    def add_item(self, id, item):
+    def add_item(self, id, item, popfilter):
         raise RuntimeError("implement add_item")
 
     def clear(self):

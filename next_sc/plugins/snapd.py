@@ -50,17 +50,17 @@ class SnapdPlugin(ProviderPlugin):
             # TODO: Cache??
             snap = SnapdItem(i)
             snap_id = snap.get_id()
-            storage.add_item(snap_id, snap)
+            storage.add_item(snap_id, snap, PopulationFilter.SEARCH)
 
     def populate_installed(self, storage):
         for snap in self.snapd_client.list_sync():
             snap_id = "snapd:{}".format(snap.get_id())
             if snap_id in self.items:
                 snap = self.items[snap_id]
-                storage.add_item(snap_id, snap)
+                storage.add_item(snap_id, snap, PopulationFilter.INSTALLED)
                 continue
             snap = SnapdItem(snap)
-            storage.add_item(snap_id, snap)
+            storage.add_item(snap_id, snap, PopulationFilter.INSTALLED)
             self.push_item(snap)
 
     def push_item(self, snap):
