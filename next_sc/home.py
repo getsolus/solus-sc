@@ -40,9 +40,12 @@ class HomeView(Gtk.Box):
         lab.set_halign(Gtk.Align.START)
         self.pack_start(lab, False, False, 0)
         self.box_new = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
-        self.box_new.set_margin_top(6)
-        self.box_new.set_margin_bottom(12)
-        self.pack_start(self.box_new, False, False, 0)
+        scroll = Gtk.ScrolledWindow.new(None, None)
+        scroll.set_margin_top(6)
+        scroll.set_margin_bottom(12)
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+        scroll.add(self.box_new)
+        self.pack_start(scroll, False, False, 0)
 
         lab = Gtk.Label.new("<big>{}</big>".format(_("Recently updated")))
         lab.set_margin_start(6)
@@ -51,8 +54,12 @@ class HomeView(Gtk.Box):
         lab.set_halign(Gtk.Align.START)
         self.pack_start(lab, False, False, 0)
         self.box_recent = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
-        self.box_recent.set_margin_top(6)
-        self.pack_start(self.box_recent, False, False, 0)
+
+        scroll = Gtk.ScrolledWindow.new(None, None)
+        scroll.set_margin_top(6)
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+        scroll.add(self.box_recent)
+        self.pack_start(scroll, False, False, 0)
 
         # find out about new shinies
         for p in self.plugins:
