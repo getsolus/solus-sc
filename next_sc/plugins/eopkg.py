@@ -73,11 +73,9 @@ class EopkgPlugin(ProviderPlugin):
 
     def populate_recent(self, storage, appsystem):
         """ Populate home view with recently updated packages """
-        pkg = self.availDB.get_package("firefox")
+        pkg = self.availDB.get_package("gnome-weather")
         item = EopkgItem(None, pkg)
         storage.add_item(item.get_id(), item, PopulationFilter.RECENT)
-        print("yay")
-        pass
 
     def populate_new(self, storage, appsystem):
         """ Populate home view with recently uploaded packages """

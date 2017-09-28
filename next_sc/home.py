@@ -63,6 +63,12 @@ class HomeView(Gtk.Box):
         else:
             return
 
-        btn = Gtk.Button(item.get_title())
-        target.pack_start(btn, False, False, 0)
+        btnText = self.appsystem.get_name(id, item.get_title())
+        btn = Gtk.Button.new()
+        btn.get_style_context().add_class("flat")
+        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        lab = Gtk.Label.new(btnText)
+        box.pack_start(lab, True, True, 0)
+        btn.add(box)
         btn.show_all()
+        target.pack_start(btn, False, False, 0)
