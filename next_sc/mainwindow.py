@@ -102,7 +102,9 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def init_first(self):
         self.home = HomeView(self.appsystem, self.plugins)
-        self.add(self.home)
+        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.add(box)
+        box.pack_start(self.home, False, False, 0)
 
         self.show_all()
 

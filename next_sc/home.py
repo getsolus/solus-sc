@@ -146,6 +146,7 @@ class HomeView(Gtk.Box):
     def build_categories(self):
         """ Build up a flowbox allowing navigation to different categories """
         self.flowbox_groups = Gtk.FlowBox()
+        self.flowbox_groups.set_min_children_per_line(3)
         self.flowbox_groups.set_property("margin", 20)
         self.flowbox_groups.set_column_spacing(15)
         self.flowbox_groups.set_row_spacing(15)
