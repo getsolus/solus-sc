@@ -44,6 +44,12 @@ class AppSystem:
             ret = app.get_comment("C")
         return self.sanitize(ret)
 
+    def has_id(self, id):
+        """ Determine if an ID is known or not """
+        if self.store.get_app_by_pkgname(id) is None:
+            return False
+        return True
+
     def get_description(self, id, fallback):
         """ Return a usable description for a package """
         app = self.store.get_app_by_pkgname(id)
