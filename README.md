@@ -27,6 +27,16 @@ optimized runtimes of our own, as such the performance of Solus  would be
 Lastly, the Solus stack pre-dates GNOME Software, and Solus mandates tight integration
 between components. Nuff said.
 
+TODO
+====
+
+ - [ ] Restore details view
+ - [ ] Restore basic install/remove ops
+ - [ ] Add snap install/remove ops
+ - [ ] Add `run` option for all types
+ - [ ] Show off crappy demo
+ - [ ] Make less crap
+
 
 Testing
 -------
