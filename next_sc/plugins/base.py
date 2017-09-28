@@ -19,9 +19,11 @@ class PopulationFilter:
         population of a given type
     """
 
-    INSTALLED = 0
-    SEARCH = 1
-    CATEGORY = 2
+    INSTALLED = 0  # Installed packages
+    SEARCH = 1     # Perform a search
+    CATEGORY = 2   # List within category
+    NEW = 3        # Find new packages
+    RECENT = 4     # Find recently updated packages
 
 
 class ItemStatus:
@@ -30,14 +32,14 @@ class ItemStatus:
     """
 
     INSTALLED = 1 << 0
-    UPDATE_NEEDED = 1 << 1  # We have an update available
+    UPDATE_NEEDED = 1 << 1    # We have an update available
     UPDATING = 1 << 2
     REMOVING = 1 << 3
     UPDATE_SECURITY = 1 << 4  # Security update available
     UPDATE_CRITICAL = 1 << 5  # Critical update available
-    UPDATE_BUGFIX = 1 << 6  # Bugfix update available
-    META_DEVEL = 1 << 7  # Is a development type of package
-    META_CHANGELOG = 1 << 8  # Supports changelog functionality
+    UPDATE_BUGFIX = 1 << 6    # Bugfix update available
+    META_DEVEL = 1 << 7       # Is a development type of package
+    META_CHANGELOG = 1 << 8   # Supports changelog functionality
 
 
 class ProviderSource(GObject.Object):
