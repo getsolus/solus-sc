@@ -63,10 +63,13 @@ class HomeView(Gtk.Box):
         else:
             return
 
+        pbuf = self.appsystem.get_pixbuf(id)
+        img = Gtk.Image.new_from_pixbuf(pbuf)
         btnText = self.appsystem.get_name(id, item.get_title())
         btn = Gtk.Button.new()
         btn.get_style_context().add_class("flat")
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        box.pack_start(img, False, False, 0)
         lab = Gtk.Label.new(btnText)
         box.pack_start(lab, True, True, 0)
         btn.add(box)
