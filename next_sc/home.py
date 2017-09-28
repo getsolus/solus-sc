@@ -24,12 +24,14 @@ class HomeView(Gtk.Box):
 
     box_new = None
     box_recent = None
+    box_group = None
 
     def __init__(self, appsystem, plugins):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self.appsystem = appsystem
         self.plugins = plugins
+        self.box_group = Gtk.SizeGroup.new(Gtk.SizeGroupMode.BOTH)
 
         lab = Gtk.Label.new("<big>{}</big>".format(_("New software")))
         lab.set_margin_start(6)
@@ -91,4 +93,5 @@ class HomeView(Gtk.Box):
         btn.show_all()
         btn.set_margin_start(6)
         btn.set_margin_end(6)
+        self.box_group.add_widget(btn)
         target.pack_start(btn, False, False, 0)
