@@ -93,11 +93,11 @@ class EopkgPlugin(ProviderPlugin):
 
         # Hack for demo
         news = [
-            "gnome-weather",
-            "gnome-mpv",
-            "kdenlive",
-            "hexchat",
-            "dustrac",
+            "lutris",
+            "darktable",
+            "shotwell",
+            "noise",
+            "gnome-maps",
         ]
 
         for i in news:
