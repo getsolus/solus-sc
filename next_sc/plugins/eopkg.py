@@ -73,9 +73,20 @@ class EopkgPlugin(ProviderPlugin):
 
     def populate_recent(self, storage, appsystem):
         """ Populate home view with recently updated packages """
-        pkg = self.availDB.get_package("gnome-weather")
-        item = EopkgItem(None, pkg)
-        storage.add_item(item.get_id(), item, PopulationFilter.RECENT)
+
+        # Hack for demo
+        recents = [
+            "gnome-weather",
+            "gnome-mpv",
+            "kdenlive",
+            "hexchat",
+            "dustrac",
+        ]
+
+        for i in recents:
+            pkg = self.availDB.get_package(i)
+            item = EopkgItem(None, pkg)
+            storage.add_item(item.get_id(), item, PopulationFilter.RECENT)
 
     def populate_new(self, storage, appsystem):
         """ Populate home view with recently uploaded packages """
