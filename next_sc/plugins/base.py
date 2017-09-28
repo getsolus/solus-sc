@@ -42,6 +42,29 @@ class ItemStatus:
     META_CHANGELOG = 1 << 8   # Supports changelog functionality
 
 
+class ProviderCategory(GObject.Object):
+    """ ProviderCategory provides categorisation for the software center and
+        allows nesting for the native items """
+
+    __gtype_name__ = "NxProviderCategory"
+
+    def get_id():
+        """ Get the internal ID for this category """
+        raise RuntimeError("implement get_id")
+
+    def get_name():
+        """ Get the display name for this category """
+        raise RuntimeError("implement get_name")
+
+    def get_icon_name():
+        """ Get a display icon for this category """
+        raise RuntimeError("implement get_icon_name")
+
+    def get_children():
+        """ Get any nested child categories """
+        return []
+
+
 class ProviderSource(GObject.Object):
     """ ProviderSource indicates sources used or available for use by a given
         plugin backend. In native implementations this is invariably a repo.
@@ -110,6 +133,10 @@ class ProviderPlugin(GObject.Object):
 
     def sources(self):
         """ Return the current set of sources for this plugin """
+        return []
+
+    def categories(self):
+        """ Return the categories known by this plugin """
         return []
 
 
