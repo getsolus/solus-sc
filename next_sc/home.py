@@ -1,0 +1,52 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+#
+#  This file is part of solus-sc
+#
+#  Copyright © 2013-2017 Ikey Doherty <ikey@solus-project.com>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 2 of the License, or
+#  (at your option) any later version.
+#
+
+from gi.repository import Gtk
+
+class HomeView(Gtk.Box):
+
+    # Our next_sc plugin set
+    plugins = None
+
+    # Our appsystem for resolving metadata
+    appsystem = None
+
+    box_new = None
+    box_recent = None
+
+    def __init__(self, appsystem, plugins):
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+
+        self.appsystem = appsystem
+        self.plugins = plugins
+
+        lab = Gtk.Label.new(_("New software"))
+        self.pack_start(lab, False, False, 0)
+        self.box_new = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.pack_start(self.box_new, False, False, 0)
+
+        lab = Gtk.Label.new(_("Recently updated"))
+        self.pack_start(lab, False, False, 0)
+        self.box_recent = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.pack_start(self.box_recent, False, False, 0)
+
+    def clear(self):
+        """ Clear any custom stuff from the home view """
+        for child in box_new.get_children():
+            child.destroy()
+        for child in box_recent.get_children():
+            child.destroy()
+
+    def add_item(self, id, item):
+        """ Handle adding items to our view """
+        pass

@@ -18,6 +18,7 @@ from plugins.base import PopulationFilter
 from . import models
 from .appsystem import AppSystem
 from .executor import Executor
+from .home import HomeView
 import traceback
 import sys
 
@@ -100,6 +101,12 @@ class MainWindow(Gtk.ApplicationWindow):
         self.worker.remove_package(["moody-firefox-dep"])
 
     def init_first(self):
+        self.home = HomeView(self.appsystem, self.plugins)
+        self.add(self.home)
+
+        self.show_all()
+
+    def init_first_old(self):
         """ TODO: Not use hardcoded demos! """
         # Main treeview where it's all happening. Single click activate
         self.tview = Gtk.TreeView()
