@@ -65,13 +65,21 @@ class HomeView(Gtk.Box):
 
         pbuf = self.appsystem.get_pixbuf(id)
         img = Gtk.Image.new_from_pixbuf(pbuf)
+        img.set_margin_end(8)
         btnText = self.appsystem.get_name(id, item.get_title())
+        summary = self.appsystem.get_summary(id, item.get_summary())
+        if len(summary) > 40:
+            summary = "%s…" % summary[0:40]
+        btnText = "<b>{}</b>\n{}".format(btnText, summary)
         btn = Gtk.Button.new()
         btn.get_style_context().add_class("flat")
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         box.pack_start(img, False, False, 0)
         lab = Gtk.Label.new(btnText)
+        lab.set_use_markup(True)
         box.pack_start(lab, True, True, 0)
         btn.add(box)
         btn.show_all()
+        btn.set_margin_start(6)
+        btn.set_margin_end(6)
         target.pack_start(btn, False, False, 0)
