@@ -12,6 +12,7 @@
 #
 
 from gi.repository import Gtk
+from plugins.base import PopulationFilter
 
 class HomeView(Gtk.Box):
 
@@ -40,6 +41,11 @@ class HomeView(Gtk.Box):
         self.box_recent = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         self.pack_start(self.box_recent, False, False, 0)
 
+        # find out about new shinies
+        for p in self.plugins:
+            p.populate_storage(self, PopulationFilter.INSTALLED, self.appsystem)
+            p.populate_storage(self, PopulationFilter.RECENT, self.appsystem)
+
     def clear(self):
         """ Clear any custom stuff from the home view """
         for child in box_new.get_children():
@@ -47,6 +53,15 @@ class HomeView(Gtk.Box):
         for child in box_recent.get_children():
             child.destroy()
 
-    def add_item(self, id, item):
+    def add_item(self, id, item, popfilter):
         """ Handle adding items to our view """
-        pass
+        target = None
+        if popfilter == PopulationFilter.NEW:
+            target = self.box_new
+        elif popfilter == PopulationFilter.RECENT:
+            target = self.box_recent
+        else:
+            return
+
+        btn = Gtk.Button.new(item.get_title())
+        target.pack_start(btn, False, False, 0)
