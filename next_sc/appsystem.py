@@ -124,9 +124,9 @@ class AppSystem:
             return str(fallback)
         return None
 
-    def get_pixbuf(self, package):
+    def get_pixbuf(self, id):
         """ Get the AppStream GdkPixbuf for a package """
-        app = self.store.get_app_by_pkgname(package.name)
+        app = self.store.get_app_by_pkgname(id)
         if not app:
             return None
         # TODO: Incorporate HIDPI!
