@@ -26,6 +26,8 @@ class HomeView(Gtk.Box):
     box_recent = None
     box_group = None
 
+    flowbox_groups = None
+
     def __init__(self, appsystem, plugins):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
@@ -65,6 +67,19 @@ class HomeView(Gtk.Box):
         for p in self.plugins:
             p.populate_storage(self, PopulationFilter.NEW, self.appsystem)
             p.populate_storage(self, PopulationFilter.RECENT, self.appsystem)
+
+        # Fix up categories
+        self.build_categories()
+
+    def build_categories(self):
+        """ Build up a flowbox allowing navigation to different categories """
+        self.flowbox_groups = Gtk.FlowBox()
+        self.pack_start(self.flowbox_groups, False, False, 0)
+        for p in self.plugins:
+            for cat in p.categories():
+                btn = Gtk.Button(cat.get_name())
+                self.flowbox_groups.add(btn)
+                btn.show_all()
 
     def clear(self):
         """ Clear any custom stuff from the home view """
