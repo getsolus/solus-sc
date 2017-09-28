@@ -96,7 +96,7 @@ class EopkgPlugin(ProviderPlugin):
             "lutris",
             "darktable",
             "shotwell",
-            "noise",
+            "gnome-music",
             "gnome-maps",
         ]
 
