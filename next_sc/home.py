@@ -63,5 +63,6 @@ class HomeView(Gtk.Box):
         else:
             return
 
-        btn = Gtk.Button.new(item.get_title())
+        btn = Gtk.Button(item.get_title())
         target.pack_start(btn, False, False, 0)
+        btn.show_all()

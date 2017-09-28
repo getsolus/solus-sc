@@ -66,6 +66,22 @@ class EopkgPlugin(ProviderPlugin):
             return self.populate_installed(storage)
         elif popfilter == PopulationFilter.SEARCH:
             return self.populate_search(storage, extra)
+        elif popfilter == PopulationFilter.RECENT:
+            return self.populate_recent(storage, extra)
+        elif popfilter == PopulationFilter.NEW:
+            return self.populate_new(storage, extra)
+
+    def populate_recent(self, storage, appsystem):
+        """ Populate home view with recently updated packages """
+        pkg = self.availDB.get_package("firefox")
+        item = EopkgItem(None, pkg)
+        storage.add_item(item.get_id(), item, PopulationFilter.RECENT)
+        print("yay")
+        pass
+
+    def populate_new(self, storage, appsystem):
+        """ Populate home view with recently uploaded packages """
+        pass
 
     def populate_search(self, storage, term):
         """ Attempt to search for a given term in the DB """

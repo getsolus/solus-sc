@@ -40,7 +40,7 @@ def get_native_plugin():
         return None
 
     osRel = get_os_release()
-    if osRel.id() == "solussderewrewrew":
+    if osRel.id() == "solus":
         from .eopkg import EopkgPlugin
         _native_plugin = EopkgPlugin()
         return _native_plugin
