@@ -14,7 +14,69 @@
 from gi.repository import Gtk
 from plugins.base import PopulationFilter
 
+class GroupButton(Gtk.Button):
+    """ Manage the monotony of a Group """
+
+    group = None
+
+    def __init__(self, group):
+        Gtk.Button.__init__(self)
+
+        self.group = group
+
+        icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
+        icon_theme = icon_theme.lower().replace("-", "")
+        # Sneaky, I know.
+        if icon_theme == "arcicons" or icon_theme == "arc":
+            devIcon = "text-x-changelog"
+        else:
+            devIcon = "gnome-dev-computer"
+
+        replacements = {
+            "text-editor": "x-office-calendar",
+            "redhat-programming": devIcon,
+            "security-high": "preferences-system-privacy",
+            "network": "preferences-system-network",
+        }
+
+        # Pretty things up with a Icon|Label setup
+        icon = group.get_icon_name()
+        if icon in replacements:
+            icon = replacements[icon]
+
+        gDesc = group.get_name()
+        image = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.DIALOG)
+        image.set_halign(Gtk.Align.START)
+        image.set_pixel_size(64)
+
+        label_box = Gtk.VBox(0)
+        label_box.set_valign(Gtk.Align.CENTER)
+
+        box = Gtk.HBox(0)
+        box.pack_start(image, False, False, 0)
+        image.set_property("margin-right", 10)
+        label = Gtk.Label(gDesc)
+        label.get_style_context().add_class("title")
+        label.set_halign(Gtk.Align.START)
+        label.set_valign(Gtk.Align.START)
+        label_box.pack_start(label, True, True, 0)
+        box.pack_start(label_box, True, True, 0)
+        self.add(box)
+
+        # count the components
+        nkids = len(group.get_children())
+        # "5 categories" - the number of categories within each group
+        info_label = Gtk.Label(_("{} categories").format(nkids))
+        info_label.set_halign(Gtk.Align.START)
+        info_label.get_style_context().add_class("info-label")
+        info_label.get_style_context().add_class("dim-label")
+        label_box.pack_start(info_label, False, False, 0)
+
+        self.get_style_context().add_class("group-button")
+        
 class HomeView(Gtk.Box):
+    """ Main home view - shows a repo activity feed with the root level
+        category switcher """
 
     # Our next_sc plugin set
     plugins = None
@@ -68,16 +130,31 @@ class HomeView(Gtk.Box):
             p.populate_storage(self, PopulationFilter.NEW, self.appsystem)
             p.populate_storage(self, PopulationFilter.RECENT, self.appsystem)
 
+
         # Fix up categories
+        lab = Gtk.Label.new("<big>{}</big>".format(_("Categories")))
+        lab.set_margin_start(6)
+        lab.set_margin_top(36)
+        lab.set_margin_bottom(12)
+        lab.set_use_markup(True)
+        lab.set_halign(Gtk.Align.START)
+        self.pack_start(lab, False, False, 0)
+
         self.build_categories()
 
     def build_categories(self):
         """ Build up a flowbox allowing navigation to different categories """
         self.flowbox_groups = Gtk.FlowBox()
+        self.flowbox_groups.set_property("margin", 20)
+        self.flowbox_groups.set_column_spacing(15)
+        self.flowbox_groups.set_row_spacing(15)
+        self.flowbox_groups.set_orientation(Gtk.Orientation.HORIZONTAL)
+        self.flowbox_groups.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.flowbox_groups.set_valign(Gtk.Align.START)
         self.pack_start(self.flowbox_groups, False, False, 0)
         for p in self.plugins:
             for cat in p.categories():
-                btn = Gtk.Button(cat.get_name())
+                btn = GroupButton(cat)
                 self.flowbox_groups.add(btn)
                 btn.show_all()
 

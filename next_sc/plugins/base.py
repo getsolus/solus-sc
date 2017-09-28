@@ -48,19 +48,22 @@ class ProviderCategory(GObject.Object):
 
     __gtype_name__ = "NxProviderCategory"
 
-    def get_id():
+    def __init__(self):
+        GObject.Object.__init__(self)
+
+    def get_id(self):
         """ Get the internal ID for this category """
         raise RuntimeError("implement get_id")
 
-    def get_name():
+    def get_name(self):
         """ Get the display name for this category """
         raise RuntimeError("implement get_name")
 
-    def get_icon_name():
+    def get_icon_name(self):
         """ Get a display icon for this category """
         raise RuntimeError("implement get_icon_name")
 
-    def get_children():
+    def get_children(self):
         """ Get any nested child categories """
         return []
 
