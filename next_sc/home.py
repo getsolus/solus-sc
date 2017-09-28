@@ -31,12 +31,21 @@ class HomeView(Gtk.Box):
         self.appsystem = appsystem
         self.plugins = plugins
 
-        lab = Gtk.Label.new(_("New software"))
+        lab = Gtk.Label.new("<big>{}</big>".format(_("New software")))
+        lab.set_margin_start(6)
+        lab.set_margin_top(6)
+        lab.set_use_markup(True)
+        lab.set_halign(Gtk.Align.START)
         self.pack_start(lab, False, False, 0)
         self.box_new = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.box_new.set_margin_bottom(12)
         self.pack_start(self.box_new, False, False, 0)
 
-        lab = Gtk.Label.new(_("Recently updated"))
+        lab = Gtk.Label.new("<big>{}</big>".format(_("Recently updated")))
+        lab.set_margin_start(6)
+        lab.set_margin_top(6)
+        lab.set_use_markup(True)
+        lab.set_halign(Gtk.Align.START)
         self.pack_start(lab, False, False, 0)
         self.box_recent = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         self.pack_start(self.box_recent, False, False, 0)
