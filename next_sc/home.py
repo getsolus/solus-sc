@@ -185,7 +185,6 @@ class HomeView(Gtk.Box):
             summary = "%s…" % summary[0:30]
         btnText = "<b>{}</b>\n{}".format(btnText, summary)
         btn = Gtk.Button.new()
-        btn.get_style_context().add_class("flat")
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         box.pack_start(img, False, False, 0)
         lab = Gtk.Label.new(btnText)
@@ -194,6 +193,8 @@ class HomeView(Gtk.Box):
         box.pack_start(lab, False, False, 0)
         btn.add(box)
         btn.show_all()
+        btn.set_margin_top(6)
+        btn.set_margin_bottom(6)
         btn.set_margin_start(3)
         btn.set_margin_end(3)
         self.box_group.add_widget(btn)
