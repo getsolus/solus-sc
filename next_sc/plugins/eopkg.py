@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from .base import ProviderPlugin, ProviderItem, ProviderSource
+from .base import ProviderPlugin, ProviderItem, ProviderSource, ProviderCategory
 from .base import PopulationFilter, ItemStatus
 import pisi
 
@@ -38,11 +38,36 @@ class EopkgSource(ProviderSource):
         return ret
 
 
+class EopkgGroup(ProviderCategory):
+    """ Wraps a GroupDB entry for top level groups """
+
+    id = None
+    group = None
+
+    def __init__(self, groupID, group):
+        ProviderCategory.__init__(self)
+        self.id = groupID
+        self.group = group
+
+    def get_name(self):
+        return self.group.localName
+
+    def get_id(self):
+        return self.id
+
+    def get_icon_name(self):
+        """ Return internal eopkg group icon name """
+        return self.group.icon
+
+
 class EopkgPlugin(ProviderPlugin):
     """ EopkgPlugin interfaces with the eopkg package manager """
 
     availDB = None
     installDB = None
+    groupDB = None
+    compDB = None
+    cats = None
 
     repos = None
 
@@ -53,6 +78,22 @@ class EopkgPlugin(ProviderPlugin):
         self.availDB = pisi.db.packagedb.PackageDB()
         self.installDB = pisi.db.installdb.InstallDB()
         self.repoDB = pisi.db.repodb.RepoDB()
+        self.groupDB = pisi.db.groupdb.GroupDB()
+        self.compDB = pisi.db.componentdb.ComponentDB()
+
+        self.build_categories()
+
+    def build_categories(self):
+        """ Find all of our possible categories and nest them. """
+        self.cats = []
+        for groupID in self.groupDB.list_groups():
+            group = self.groupDB.get_group(groupID)
+            item = EopkgGroup(groupID, group)
+            self.cats.append(item)
+
+    def categories(self):
+        return self.cats
+        
 
     def sources(self):
         repos = []
