@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib
 from plugins.base import PopulationFilter
 
 class GroupButton(Gtk.Button):
@@ -44,10 +44,10 @@ class GroupButton(Gtk.Button):
         if icon in replacements:
             icon = replacements[icon]
 
-        gDesc = group.get_name()
+        gDesc = GLib.markup_escape_text(group.get_name())
         image = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.DIALOG)
         image.set_halign(Gtk.Align.START)
-        image.set_pixel_size(64)
+        image.set_pixel_size(96)
 
         label_box = Gtk.VBox(0)
         label_box.set_valign(Gtk.Align.CENTER)
@@ -55,7 +55,8 @@ class GroupButton(Gtk.Button):
         box = Gtk.HBox(0)
         box.pack_start(image, False, False, 0)
         image.set_property("margin-right", 10)
-        label = Gtk.Label(gDesc)
+        label = Gtk.Label("<big>{}</big>".format(gDesc))
+        label.set_use_markup(True)
         label.get_style_context().add_class("title")
         label.set_halign(Gtk.Align.START)
         label.set_valign(Gtk.Align.START)

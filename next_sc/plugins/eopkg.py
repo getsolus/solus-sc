@@ -50,14 +50,14 @@ class EopkgGroup(ProviderCategory):
         self.group = group
 
     def get_name(self):
-        return self.group.localName
+        return str(self.group.localName)
 
     def get_id(self):
-        return self.id
+        return str(self.id)
 
     def get_icon_name(self):
         """ Return internal eopkg group icon name """
-        return self.group.icon
+        return str(self.group.icon)
 
 
 class EopkgPlugin(ProviderPlugin):
@@ -93,7 +93,6 @@ class EopkgPlugin(ProviderPlugin):
 
     def categories(self):
         return self.cats
-        
 
     def sources(self):
         repos = []
