@@ -52,7 +52,7 @@ class HomeView(Gtk.Box):
 
         # find out about new shinies
         for p in self.plugins:
-            p.populate_storage(self, PopulationFilter.INSTALLED, self.appsystem)
+            p.populate_storage(self, PopulationFilter.NEW, self.appsystem)
             p.populate_storage(self, PopulationFilter.RECENT, self.appsystem)
 
     def clear(self):

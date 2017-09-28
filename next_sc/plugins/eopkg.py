@@ -90,7 +90,20 @@ class EopkgPlugin(ProviderPlugin):
 
     def populate_new(self, storage, appsystem):
         """ Populate home view with recently uploaded packages """
-        pass
+
+        # Hack for demo
+        news = [
+            "gnome-weather",
+            "gnome-mpv",
+            "kdenlive",
+            "hexchat",
+            "dustrac",
+        ]
+
+        for i in news:
+            pkg = self.availDB.get_package(i)
+            item = EopkgItem(None, pkg)
+            storage.add_item(item.get_id(), item, PopulationFilter.NEW)
 
     def populate_search(self, storage, term):
         """ Attempt to search for a given term in the DB """
