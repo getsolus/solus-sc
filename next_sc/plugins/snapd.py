@@ -114,9 +114,19 @@ class SnapdPlugin(ProviderPlugin):
         name = snap.get_name()
         channel = None  # default channel
         revision = None  # default revision
-        progress_callback = None
+        progress_callback = self.progress_cb
         self.snapd_client.install2_sync(flags, name, channel, revision, progress_callback, None, None)
 
+    def progress_cb(self, c, change, _, udata=None):
+        # Stolen from: https://github.com/ubuntu-mate/software-boutique/blob/master/pylib/snapsupport.py
+        total = 0
+        done = 0
+        for task in change.get_tasks():
+            total += task.get_progress_total()
+            done += task.get_progress_done()
+
+        pct = (done/total)*100
+        print("progress {} ({} / {})".format(pct, done, total))
 
 class SnapdItem(ProviderItem):
     """ A SnapdItem is a reference to either a remote or local snapd.Snap """
