@@ -47,7 +47,7 @@ class InstalledView(Gtk.Box):
         ren = Gtk.CellRendererPixbuf()
         ren.set_property("stock-size", Gtk.IconSize.DIALOG)
         ren.set_padding(5, 5)
-        column = Gtk.TreeViewColumn("Icon", ren, icon_name=1)
+        column = Gtk.TreeViewColumn("Icon", ren, pixbuf=1)
         self.tview.append_column(column)
         ren.set_property("xalign", 0.0)
 
