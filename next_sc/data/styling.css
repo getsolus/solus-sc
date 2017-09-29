@@ -1,0 +1,53 @@
+.solus-sc .group-button .title {
+    font-size: 110%;
+    padding: 4px;
+}
+
+.solus-sc .group-button .info-label {
+    padding: 4px;
+}
+
+.solus-sc .main-sidebar {
+    border: none;
+}
+
+.solus-sc list.main-sidebar row {
+    padding: 8px 0;
+}
+
+.sc-changelog {
+    background: none;
+}
+
+list.sc-changelog .changelog-entry {
+    padding: 5px;
+    border: 1px solid @borders;
+}
+
+list.sc-changelog .changelog-header {
+    border-bottom: 1px solid alpha(@selected_bg_color, 0.7);
+}
+
+.solus-sc scrolledwindow {
+    border: none;
+}
+
+.sc-image-widget.image-thumbnail {
+    background-color: @theme_base_color;
+    border-radius: 2px;
+    padding: 5px;
+    border: 1px solid @borders;
+}
+
+.updates-view.frame,
+.search-results.frame {
+    border-top: 1px solid @borders;
+}
+
+.third-party-view.frame {
+    border-bottom: 1px solid @borders;
+}
+
+.group-button:hover {
+    -gtk-icon-effect: none;
+}
