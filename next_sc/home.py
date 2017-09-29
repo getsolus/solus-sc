@@ -14,6 +14,7 @@
 from gi.repository import Gtk, GLib
 from plugins.base import PopulationFilter
 from .available import AvailableView
+from .details import DetailsView
 
 class GroupButton(Gtk.Button):
     """ Manage the monotony of a Group """
@@ -95,6 +96,7 @@ class HomeView(Gtk.Box):
     flowbox_groups = None
     available = None
     stack = None
+    details = None
 
     def __init__(self, appsystem, plugins):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
@@ -109,6 +111,8 @@ class HomeView(Gtk.Box):
         self.stack.add_named(self.box, "home_main")
         self.available = AvailableView(self.appsystem, self.plugins, self)
         self.stack.add_named(self.available, "home_available")
+        self.details = DetailsView(self.appsystem, self.plugins)
+        self.stack.add_named(self.details, "home_details")
 
         self.box_group = Gtk.SizeGroup.new(Gtk.SizeGroupMode.BOTH)
         self.set_margin_start(20)
@@ -204,3 +208,5 @@ class HomeView(Gtk.Box):
 
     def select_details(self, pkg_object):
         print(pkg_object)
+        self.details.update_from_package(pkg_object)
+        self.stack.set_visible_child_name("home_details")
