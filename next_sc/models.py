@@ -24,7 +24,7 @@ class ListingModel(Gtk.ListStore, plugins.base.ProviderStorage):
     def __init__(self, appsystem):
         Gtk.ListStore.__init__(self, str, GdkPixbuf.Pixbuf, str)
         self.appsystem = appsystem
-        self.set_sort_column_id(2, Gtk.SortType.ASCENDING)
+        # self.set_sort_column_id(2, Gtk.SortType.ASCENDING)
 
     def add_item(self, id, item, popfilter):
         """ We'll just insert the item directly into the model """
