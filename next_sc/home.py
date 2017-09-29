@@ -97,6 +97,8 @@ class HomeView(Gtk.Box):
         self.appsystem = appsystem
         self.plugins = plugins
         self.box_group = Gtk.SizeGroup.new(Gtk.SizeGroupMode.BOTH)
+        self.set_margin_start(20)
+        self.set_margin_end(20)
 
         lab = Gtk.Label.new("<big>{}</big>".format(_("New software")))
         lab.set_margin_start(6)
