@@ -102,16 +102,6 @@ class HomeView(Gtk.Box):
         self.set_margin_start(20)
         self.set_margin_end(20)
 
-
-        # Fix up categories
-        lab = Gtk.Label.new("<big>{}</big>".format(_("Categories")))
-        lab.set_margin_start(6)
-        lab.set_margin_top(36)
-        lab.set_margin_bottom(12)
-        lab.set_use_markup(True)
-        lab.set_halign(Gtk.Align.START)
-        self.pack_start(lab, False, False, 0)
-
         self.build_categories()
 
         lab = Gtk.Label.new("<big>{}</big>".format(_("Recently updated")))
