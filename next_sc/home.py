@@ -13,6 +13,7 @@
 
 from gi.repository import Gtk, GLib
 from plugins.base import PopulationFilter
+from .available import AvailableView
 
 class GroupButton(Gtk.Button):
     """ Manage the monotony of a Group """
@@ -92,9 +93,19 @@ class HomeView(Gtk.Box):
     box_group = None
 
     flowbox_groups = None
+    available = None
+    stack = None
 
     def __init__(self, appsystem, plugins):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+
+        self.stack = Gtk.Stack()
+        self.box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.pack_start(self.stack, True, True, 0)
+
+        self.stack.add_named(self.box, "home_main")
+        self.available = AvailableView(self.appsystem, self.plugins)
+        self.stack.add_named(self.available, "home_available")
 
         self.appsystem = appsystem
         self.plugins = plugins
@@ -115,12 +126,15 @@ class HomeView(Gtk.Box):
         scroll.set_margin_top(6)
         scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
         scroll.add(self.box_recent)
-        self.pack_start(lab, False, False, 0)
-        self.pack_start(scroll, False, False, 0)
+        self.box.pack_start(lab, False, False, 0)
+        self.box.pack_start(scroll, False, False, 0)
 
         # find out about new shinies
         for p in self.plugins:
             p.populate_storage(self, PopulationFilter.RECENT, self.appsystem)
+
+        self.box.show_all()
+        self.stack.set_visible_child_name("home_main")
 
 
     def build_categories(self):
@@ -133,7 +147,7 @@ class HomeView(Gtk.Box):
         self.flowbox_groups.set_orientation(Gtk.Orientation.HORIZONTAL)
         self.flowbox_groups.set_selection_mode(Gtk.SelectionMode.NONE)
         self.flowbox_groups.set_valign(Gtk.Align.START)
-        self.pack_start(self.flowbox_groups, False, False, 0)
+        self.box.pack_start(self.flowbox_groups, False, False, 0)
         for p in self.plugins:
             for cat in p.categories():
                 btn = GroupButton(cat)
