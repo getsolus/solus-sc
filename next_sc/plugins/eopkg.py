@@ -43,11 +43,16 @@ class EopkgGroup(ProviderCategory):
 
     id = None
     group = None
+    children = None
 
     def __init__(self, groupID, group):
         ProviderCategory.__init__(self)
         self.id = groupID
         self.group = group
+        self.children = []
+
+    def get_children(self):
+        return self.children
 
     def get_name(self):
         return str(self.group.localName)
@@ -59,6 +64,25 @@ class EopkgGroup(ProviderCategory):
         """ Return internal eopkg group icon name """
         return str(self.group.icon)
 
+class EopkgComponent(ProviderCategory):
+    """ Wraps an eopkg component """
+
+    id = None
+    comp = None
+
+    def __init__(self, compID, comp):
+        ProviderCategory.__init__(self)
+        self.id = compID
+        self.comp = comp
+
+    def get_name(self):
+        return str(self.comp.localName)
+
+    def get_id(self):
+        return str(self.id)
+
+    def get_icon_name(self):
+        return "package-x-generic"
 
 class EopkgPlugin(ProviderPlugin):
     """ EopkgPlugin interfaces with the eopkg package manager """
@@ -89,6 +113,12 @@ class EopkgPlugin(ProviderPlugin):
         for groupID in self.groupDB.list_groups():
             group = self.groupDB.get_group(groupID)
             item = EopkgGroup(groupID, group)
+
+            for compID in self.groupDB.get_group_components(groupID):
+                comp = self.compDB.get_component(compID)
+                childItem = EopkgComponent(compID, comp)
+                item.children.append(childItem)
+
             self.cats.append(item)
 
     def categories(self):
