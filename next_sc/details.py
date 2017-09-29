@@ -99,19 +99,17 @@ class DetailsView(Gtk.VBox):
 
     def on_install(self, btn, udata=None):
         """ Install a package """
-        self.basket.install_package(self.package)
-        self.basket.apply_operations()
+        self.worker.install_package(self.package)
 
     def on_remove(self, btn, udata=None):
         """ Install a package """
-        self.basket.remove_package(self.package)
-        self.basket.apply_operations()
+        self.worker.remove_package(self.package)
 
-
-    def __init__(self, appsystem, plugins):
+    def __init__(self, appsystem, plugins, worker):
         Gtk.VBox.__init__(self)
         self.appsystem = appsystem
         self.plugins = plugins
+        self.worker = worker
 
         header = Gtk.HBox(0)
         header.set_margin_top(12)

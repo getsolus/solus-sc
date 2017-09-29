@@ -108,13 +108,8 @@ class MainWindow(Gtk.ApplicationWindow):
         """ Handle set up of the executor queue """
         self.worker = Executor()
 
-        self.worker.install_package(["nano"])
-        self.worker.install_package(["gedit"])
-        self.worker.install_package(["firefox"])
-        self.worker.remove_package(["moody-firefox-dep"])
-
     def init_first(self):
-        self.home = HomeView(self.appsystem, self.plugins)
+        self.home = HomeView(self.appsystem, self.plugins, self.worker)
         self.stack.add_named(self.home, "home")
         self.installed = InstalledView(self.appsystem, self.plugins)
         self.stack.add_named(self.installed, "installed")

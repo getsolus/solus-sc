@@ -97,12 +97,14 @@ class HomeView(Gtk.Box):
     available = None
     stack = None
     details = None
+    worker = None
 
-    def __init__(self, appsystem, plugins):
+    def __init__(self, appsystem, plugins, worker):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self.appsystem = appsystem
         self.plugins = plugins
+        self.worker = worker
 
         self.stack = Gtk.Stack()
         self.box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
@@ -111,7 +113,7 @@ class HomeView(Gtk.Box):
         self.stack.add_named(self.box, "home_main")
         self.available = AvailableView(self.appsystem, self.plugins, self)
         self.stack.add_named(self.available, "home_available")
-        self.details = DetailsView(self.appsystem, self.plugins)
+        self.details = DetailsView(self.appsystem, self.plugins, self.worker)
         self.stack.add_named(self.details, "home_details")
 
         self.box_group = Gtk.SizeGroup.new(Gtk.SizeGroupMode.BOTH)
