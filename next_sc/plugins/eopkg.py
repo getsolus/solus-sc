@@ -110,11 +110,16 @@ class EopkgPlugin(ProviderPlugin):
     def build_categories(self):
         """ Find all of our possible categories and nest them. """
         self.cats = []
-        for groupID in self.groupDB.list_groups():
+        groups = self.groupDB.list_groups()
+        groups.sort()
+        for groupID in groups:
             group = self.groupDB.get_group(groupID)
             item = EopkgGroup(groupID, group)
 
-            for compID in self.groupDB.get_group_components(groupID):
+            components = self.groupDB.get_group_components(groupID)
+            components.sort()
+
+            for compID in components:
                 comp = self.compDB.get_component(compID)
                 childItem = EopkgComponent(compID, comp)
                 item.children.append(childItem)
