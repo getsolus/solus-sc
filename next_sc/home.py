@@ -64,6 +64,8 @@ class GroupButton(Gtk.Button):
         box.pack_start(label_box, True, True, 0)
         self.add(box)
 
+        self.get_style_context().add_class("flat")
+
         # count the components
         nkids = len(group.get_children())
         # "5 categories" - the number of categories within each group
@@ -150,7 +152,7 @@ class HomeView(Gtk.Box):
         self.flowbox_groups = Gtk.FlowBox()
         self.flowbox_groups.set_min_children_per_line(3)
         self.flowbox_groups.set_property("margin", 20)
-        self.flowbox_groups.set_column_spacing(15)
+        self.flowbox_groups.set_column_spacing(30)
         self.flowbox_groups.set_row_spacing(15)
         self.flowbox_groups.set_orientation(Gtk.Orientation.HORIZONTAL)
         self.flowbox_groups.set_selection_mode(Gtk.SelectionMode.NONE)
