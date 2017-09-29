@@ -11,8 +11,24 @@
 #  (at your option) any later version.
 #
 
-from .base import ProviderPlugin, ProviderItem, PopulationFilter
+from .base import ProviderPlugin, ProviderItem, PopulationFilter, ProviderCategory
 from gi.repository import Snapd as snapd
+
+class SnapdCategory(ProviderCategory):
+
+    __gtype_name__ = "NxSnapdCategory"
+
+    def __init__(self):
+        ProviderCategory.__init__(self)
+
+    def get_icon_name(self):
+        return "start-here-ubuntu"
+
+    def get_id(self):
+        return "ubuntu-rally"
+
+    def get_name(self):
+        return "Ubuntu Rally Demo"
 
 
 class SnapdPlugin(ProviderPlugin):
@@ -33,6 +49,12 @@ class SnapdPlugin(ProviderPlugin):
         self.snapd_client = snapd.Client()
         self.snapd_client.connect_sync()
         self.snapd_client.get_system_information_sync()
+
+        self.children = []
+        self.children.append(SnapdCategory())
+
+    def categories(self):
+        return self.children
 
     def populate_storage(self, storage, popfilter, extra):
         if popfilter == PopulationFilter.INSTALLED:
