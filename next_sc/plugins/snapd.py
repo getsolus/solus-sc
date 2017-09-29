@@ -61,6 +61,21 @@ class SnapdPlugin(ProviderPlugin):
             return self.populate_installed(storage)
         elif popfilter == PopulationFilter.SEARCH:
             return self.populate_search(storage, extra)
+        elif popfilter == PopulationFilter.CATEGORY:
+            return self.populate_category(storage, extra)
+
+    def populate_category(self, storage, extra):
+        snaps = [
+            "ohmygiraffe",
+            "emoj",
+            "http",
+            "vlc",
+        ]
+        for i in snaps:
+            rm = self.snapd_client.find_sync(snapd.FindFlags.MATCH_NAME, i)[0]
+            snap = SnapdItem(rm)
+            snap_id = snap.get_id()
+            storage.add_item(snap_id, snap, PopulationFilter.CATEGORY)
 
     def populate_search(self, storage, term):
         """ Search for the remote snap """
