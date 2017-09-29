@@ -123,8 +123,6 @@ class ProviderPlugin(GObject.Object):
 
     __gtype_name__ = "NxProviderPlugin"
 
-    parent_plugin = None
-
     def __init__(self):
         GObject.Object.__init__(self)
 
@@ -144,8 +142,14 @@ class ProviderPlugin(GObject.Object):
         """ Return the categories known by this plugin """
         return []
 
-    def get_plugin(self):
-        return self.parent_plugin
+    def install_item(self, item):
+        raise RuntimeError("implement install_item")
+
+    def remove_item(self, item):
+        raise RuntimeError("implement remove_item")
+
+    def upgrade_item(self, item):
+        raise RuntimeError("implement upgrade_item")
 
 
 class ProviderItem(GObject.Object):
@@ -155,6 +159,8 @@ class ProviderItem(GObject.Object):
     """
 
     status = None
+
+    parent_plugin = None
 
     def __init__(self):
         GObject.Object.__init__(self)
@@ -212,3 +218,6 @@ class ProviderItem(GObject.Object):
             for cosmectics
         """
         raise RuntimeError("implement get_version")
+
+    def get_plugin(self):
+        return self.parent_plugin

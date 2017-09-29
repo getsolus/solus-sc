@@ -12,7 +12,7 @@
 #
 
 
-from .op_queue import OperationQueue, Operation
+from .op_queue import OperationQueue, Operation, OperationType
 from threading import Lock, Thread
 
 class Executor:
@@ -64,6 +64,13 @@ class Executor:
         """ Process the queue until it empties """
         while not self.queue.opstack.empty():
             item = self.queue.opstack.get()
+            plugin = item.data.get_plugin()
+            if item.opType == OperationType.INSTALL:
+                plugin.install_item(item)
+            elif item.opType == OperationType.REMOVE:
+                plugin.install_item(item)
+            elif item.opType == OperationType.UPGRADE:
+                plugin.remove_item(item)
             print("Got item: {}".format(item.data))
         # Queue ran out
         print("queue emptied")
