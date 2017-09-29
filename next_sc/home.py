@@ -208,5 +208,6 @@ class HomeView(Gtk.Box):
 
     def select_details(self, pkg_object):
         print(pkg_object)
+        self.details.is_install_page = True
         self.details.update_from_package(pkg_object)
         self.stack.set_visible_child_name("home_details")
