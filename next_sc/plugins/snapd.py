@@ -69,6 +69,7 @@ class SnapdPlugin(ProviderPlugin):
             "ohmygiraffe",
             "emoj",
             "http",
+            "gnome-calculator",
             "vlc",
         ]
         for i in snaps:
