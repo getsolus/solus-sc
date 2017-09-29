@@ -123,6 +123,8 @@ class ProviderPlugin(GObject.Object):
 
     __gtype_name__ = "NxProviderPlugin"
 
+    parent_plugin = None
+
     def __init__(self):
         GObject.Object.__init__(self)
 
@@ -141,6 +143,9 @@ class ProviderPlugin(GObject.Object):
     def categories(self):
         """ Return the categories known by this plugin """
         return []
+
+    def get_plugin(self):
+        return self.parent_plugin
 
 
 class ProviderItem(GObject.Object):

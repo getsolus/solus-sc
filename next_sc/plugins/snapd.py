@@ -75,6 +75,7 @@ class SnapdPlugin(ProviderPlugin):
         for i in snaps:
             rm = self.snapd_client.find_sync(snapd.FindFlags.MATCH_NAME, i)[0]
             snap = SnapdItem(rm)
+            snap.parent_plugin = self
             snap_id = snap.get_id()
             storage.add_item(snap_id, snap, PopulationFilter.CATEGORY)
 
@@ -87,6 +88,7 @@ class SnapdPlugin(ProviderPlugin):
         for i in listage:
             # TODO: Cache??
             snap = SnapdItem(i)
+            snap.parent_plugin = self
             snap_id = snap.get_id()
             storage.add_item(snap_id, snap, PopulationFilter.SEARCH)
 
@@ -98,6 +100,7 @@ class SnapdPlugin(ProviderPlugin):
                 storage.add_item(snap_id, snap, PopulationFilter.INSTALLED)
                 continue
             snap = SnapdItem(snap)
+            snap.parent_plugin = self
             storage.add_item(snap_id, snap, PopulationFilter.INSTALLED)
             self.push_item(snap)
 

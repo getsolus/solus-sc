@@ -161,6 +161,7 @@ class EopkgPlugin(ProviderPlugin):
         for i in recents:
             pkg = self.availDB.get_package(i)
             item = EopkgItem(None, pkg)
+            item.parent_plugin = self
             storage.add_item(item.get_id(), item, PopulationFilter.RECENT)
 
     def populate_new(self, storage, appsystem):
@@ -178,6 +179,7 @@ class EopkgPlugin(ProviderPlugin):
         for i in news:
             pkg = self.availDB.get_package(i)
             item = EopkgItem(None, pkg)
+            item.parent_plugin = self
             storage.add_item(item.get_id(), item, PopulationFilter.NEW)
 
     def populate_search(self, storage, term):
@@ -203,6 +205,7 @@ class EopkgPlugin(ProviderPlugin):
                 available = self.availDB.get_package(item)
 
             pkg = EopkgItem(installed, available)
+            pkg.parent_plugin = self
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.SEARCH)
 
     def populate_installed(self, storage):
@@ -210,6 +213,7 @@ class EopkgPlugin(ProviderPlugin):
         for pkgID in self.installDB.list_installed():
             pkgObject = self.installDB.get_package(pkgID)
             pkg = EopkgItem(pkgObject, pkgObject)
+            pkg.parent_plugin = self
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.INSTALLED)
 
 
