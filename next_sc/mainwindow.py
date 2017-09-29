@@ -15,11 +15,11 @@ from gi.repository import Gtk
 from plugins.native import get_native_plugin
 from plugins.snapd import SnapdPlugin
 from plugins.base import PopulationFilter
-from . import models
 from .appsystem import AppSystem
 from .executor import Executor
 from .home import HomeView
 from .sidebar import Sidebar
+from .installed import InstalledView
 import traceback
 import sys
 
@@ -116,44 +116,7 @@ class MainWindow(Gtk.ApplicationWindow):
     def init_first(self):
         self.home = HomeView(self.appsystem, self.plugins)
         self.stack.add_named(self.home, "home")
+        self.installed = InstalledView(self.appsystem, self.plugins)
+        self.stack.add_named(self.installed, "installed")
 
         self.show_all()
-
-    def init_first_old(self):
-        """ TODO: Not use hardcoded demos! """
-        # Main treeview where it's all happening. Single click activate
-        self.tview = Gtk.TreeView()
-        self.tview.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
-        self.tview.set_activate_on_single_click(True)
-
-        self.scroll = Gtk.ScrolledWindow.new(None, None)
-        self.add(self.scroll)
-
-        # Defugly
-        self.tview.set_property("enable-grid-lines", False)
-        self.tview.set_property("headers-visible", False)
-        self.scroll.add(self.tview)
-
-        # Icon for testing UI layout
-        ren = Gtk.CellRendererPixbuf()
-        ren.set_property("stock-size", Gtk.IconSize.DIALOG)
-        ren.set_padding(5, 5)
-        column = Gtk.TreeViewColumn("Icon", ren, icon_name=1)
-        self.tview.append_column(column)
-        ren.set_property("xalign", 0.0)
-
-        # Set up display columns
-        ren = Gtk.CellRendererText()
-        ren.set_padding(5, 5)
-        column = Gtk.TreeViewColumn("Name", ren, markup=0)
-        self.tview.append_column(column)
-        self.tview.set_search_column(1)
-
-        self.show_all()
-
-        store = models.ListingModel(self.appsystem)
-        self.tview.set_model(store)
-
-        # Pump stuff into it!
-        for p in self.plugins:
-            p.populate_storage(store, PopulationFilter.INSTALLED, None)
