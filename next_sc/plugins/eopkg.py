@@ -151,11 +151,11 @@ class EopkgPlugin(ProviderPlugin):
 
         # Hack for demo
         recents = [
-            "gnome-weather",
-            "gnome-mpv",
-            "kdenlive",
-            "hexchat",
-            "dustrac",
+            "lutris",
+            "darktable",
+            "shotwell",
+            "gnome-music",
+            "gnome-maps",
         ]
 
         for i in recents:
@@ -168,11 +168,11 @@ class EopkgPlugin(ProviderPlugin):
 
         # Hack for demo
         news = [
-            "lutris",
-            "darktable",
-            "shotwell",
-            "gnome-music",
-            "gnome-maps",
+            "gnome-weather",
+            "gnome-mpv",
+            "kdenlive",
+            "hexchat",
+            "dustrac",
         ]
 
         for i in news:

@@ -102,39 +102,6 @@ class HomeView(Gtk.Box):
         self.set_margin_start(20)
         self.set_margin_end(20)
 
-        lab = Gtk.Label.new("<big>{}</big>".format(_("New software")))
-        lab.set_margin_start(6)
-        lab.set_margin_top(6)
-        lab.set_use_markup(True)
-        lab.set_halign(Gtk.Align.START)
-        self.pack_start(lab, False, False, 0)
-        self.box_new = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
-        scroll = Gtk.ScrolledWindow.new(None, None)
-        scroll.set_margin_top(6)
-        scroll.set_margin_bottom(12)
-        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
-        scroll.add(self.box_new)
-        self.pack_start(scroll, False, False, 0)
-
-        lab = Gtk.Label.new("<big>{}</big>".format(_("Recently updated")))
-        lab.set_margin_start(6)
-        lab.set_margin_top(6)
-        lab.set_use_markup(True)
-        lab.set_halign(Gtk.Align.START)
-        self.pack_start(lab, False, False, 0)
-        self.box_recent = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
-
-        scroll = Gtk.ScrolledWindow.new(None, None)
-        scroll.set_margin_top(6)
-        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
-        scroll.add(self.box_recent)
-        self.pack_start(scroll, False, False, 0)
-
-        # find out about new shinies
-        for p in self.plugins:
-            p.populate_storage(self, PopulationFilter.NEW, self.appsystem)
-            p.populate_storage(self, PopulationFilter.RECENT, self.appsystem)
-
 
         # Fix up categories
         lab = Gtk.Label.new("<big>{}</big>".format(_("Categories")))
@@ -146,6 +113,25 @@ class HomeView(Gtk.Box):
         self.pack_start(lab, False, False, 0)
 
         self.build_categories()
+
+        lab = Gtk.Label.new("<big>{}</big>".format(_("Recently updated")))
+        lab.set_margin_start(6)
+        lab.set_margin_top(6)
+        lab.set_use_markup(True)
+        lab.set_halign(Gtk.Align.START)
+        self.box_recent = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+
+        scroll = Gtk.ScrolledWindow.new(None, None)
+        scroll.set_margin_top(6)
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+        scroll.add(self.box_recent)
+        self.pack_end(scroll, False, False, 0)
+        self.pack_end(lab, False, False, 0)
+
+        # find out about new shinies
+        for p in self.plugins:
+            p.populate_storage(self, PopulationFilter.RECENT, self.appsystem)
+
 
     def build_categories(self):
         """ Build up a flowbox allowing navigation to different categories """
@@ -188,7 +174,7 @@ class HomeView(Gtk.Box):
         summary = self.appsystem.get_summary(id, item.get_summary())
         if len(summary) > 30:
             summary = "%s…" % summary[0:30]
-        btnText = "<b>{}</b>\n{}".format(btnText, summary)
+        btnText = "<big>{}</big>\n{}".format(btnText, summary)
         btn = Gtk.Button.new()
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         box.pack_start(img, False, False, 0)
@@ -202,5 +188,6 @@ class HomeView(Gtk.Box):
         btn.set_margin_bottom(6)
         btn.set_margin_start(3)
         btn.set_margin_end(3)
+        btn.get_style_context().add_class("flat")
         self.box_group.add_widget(btn)
         target.pack_start(btn, False, False, 0)
