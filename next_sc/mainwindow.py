@@ -75,6 +75,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self.appsystem = AppSystem()
         self.init_plugins()
+        self.get_style_context().add_class("solus-sc")
 
         try:
             self.init_worker()
