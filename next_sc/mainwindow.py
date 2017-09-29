@@ -19,6 +19,7 @@ from . import models
 from .appsystem import AppSystem
 from .executor import Executor
 from .home import HomeView
+from .sidebar import Sidebar
 import traceback
 import sys
 
@@ -26,6 +27,8 @@ import sys
 class MainWindow(Gtk.ApplicationWindow):
 
     prev_button = None
+
+    stack = None
 
     # parent app
     app = None
@@ -60,6 +63,15 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_default_size(950, 650)
+
+        self.layout = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.add(self.layout)
+
+        self.stack = Gtk.Stack()
+        self.sidebar = Sidebar(self, self.stack)
+        self.layout.pack_start(self.sidebar, False, False, 0)
+
+        self.layout.pack_start(self.stack, True, True, 0)
 
         self.appsystem = AppSystem()
         self.init_plugins()
@@ -102,9 +114,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
     def init_first(self):
         self.home = HomeView(self.appsystem, self.plugins)
-        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
-        self.add(box)
-        box.pack_start(self.home, False, False, 0)
+        self.stack.add_named(self.home, "home")
 
         self.show_all()
 
