@@ -99,6 +99,9 @@ class HomeView(Gtk.Box):
     def __init__(self, appsystem, plugins):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
+        self.appsystem = appsystem
+        self.plugins = plugins
+
         self.stack = Gtk.Stack()
         self.box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         self.pack_start(self.stack, True, True, 0)
@@ -107,8 +110,6 @@ class HomeView(Gtk.Box):
         self.available = AvailableView(self.appsystem, self.plugins)
         self.stack.add_named(self.available, "home_available")
 
-        self.appsystem = appsystem
-        self.plugins = plugins
         self.box_group = Gtk.SizeGroup.new(Gtk.SizeGroupMode.BOTH)
         self.set_margin_start(20)
         self.set_margin_end(20)
@@ -151,8 +152,13 @@ class HomeView(Gtk.Box):
         for p in self.plugins:
             for cat in p.categories():
                 btn = GroupButton(cat)
+                btn.connect("clicked", self.on_category)
                 self.flowbox_groups.add(btn)
                 btn.show_all()
+
+    def on_category(self, btn, data=None):
+        self.stack.set_visible_child_name("home_available")
+        self.available.set_category(btn.group)
 
     def clear(self):
         """ Clear any custom stuff from the home view """
