@@ -108,6 +108,15 @@ class SnapdPlugin(ProviderPlugin):
         """ Hold a reference to the item to speed things up """
         self.items[snap.get_id()] = snap
 
+    def install_item(self, snap):
+        """ Handle installation of a snap package! """
+        flags = snapd.InstallFlags.NONE # CLASSIC, DEVMODE, DANGEROUS, JAILMODE
+        name = snap.get_name()
+        channel = None  # default channel
+        revision = None  # default revision
+        progress_callback = None
+        self.snapd_client.install2_sync(flags, name, channel, revision, progress_callback, None, None)
+
 
 class SnapdItem(ProviderItem):
     """ A SnapdItem is a reference to either a remote or local snapd.Snap """

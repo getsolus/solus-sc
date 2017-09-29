@@ -66,11 +66,11 @@ class Executor:
             item = self.queue.opstack.get()
             plugin = item.data.get_plugin()
             if item.opType == OperationType.INSTALL:
-                plugin.install_item(item)
+                plugin.install_item(item.data)
             elif item.opType == OperationType.REMOVE:
-                plugin.install_item(item)
+                plugin.install_item(item.data)
             elif item.opType == OperationType.UPGRADE:
-                plugin.remove_item(item)
+                plugin.remove_item(item.data)
             print("Got item: {}".format(item.data))
         # Queue ran out
         print("queue emptied")
