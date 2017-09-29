@@ -46,8 +46,8 @@ class GroupButton(Gtk.Button):
 
         gDesc = GLib.markup_escape_text(group.get_name())
         image = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.DIALOG)
+        image.set_pixel_size(64)
         image.set_halign(Gtk.Align.START)
-        image.set_pixel_size(96)
 
         label_box = Gtk.VBox(0)
         label_box.set_valign(Gtk.Align.CENTER)
