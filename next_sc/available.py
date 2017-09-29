@@ -24,15 +24,19 @@ class AvailableView(Gtk.Box):
     # Our appsystem for resolving metadata
     appsystem = None
 
-    def __init__(self, appsystem, plugins):
+    groups_view = None
+
+    def __init__(self, appsystem, plugins, groups_view):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
         self.appsystem = appsystem
         self.plugins = plugins
+        self.groups_view = groups_view
 
         # Main treeview where it's all happening. Single click activate
         self.tview = Gtk.TreeView()
         self.tview.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
         self.tview.set_activate_on_single_click(True)
+        self.tview.connect_after('row-activated', self.on_row_activated)
 
         self.scroll = Gtk.ScrolledWindow.new(None, None)
         self.pack_start(self.scroll, True, True, 0)
@@ -59,7 +63,6 @@ class AvailableView(Gtk.Box):
 
         self.show_all()
 
-
     def set_category(self, c):
         store = models.ListingModel(self.appsystem)
         self.tview.set_model(store)
@@ -67,3 +70,11 @@ class AvailableView(Gtk.Box):
         # Pump stuff into it!
         for p in self.plugins:
             p.populate_storage(store, PopulationFilter.CATEGORY, c)
+
+    def on_row_activated(self, tview, path, column, udata=None):
+        """ User clicked a row, now try to load the page """
+        model = tview.get_model()
+        row = model[path]
+
+        pkg_object = row[3]
+        self.groups_view.select_details(pkg_object)

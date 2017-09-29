@@ -107,7 +107,7 @@ class HomeView(Gtk.Box):
         self.pack_start(self.stack, True, True, 0)
 
         self.stack.add_named(self.box, "home_main")
-        self.available = AvailableView(self.appsystem, self.plugins)
+        self.available = AvailableView(self.appsystem, self.plugins, self)
         self.stack.add_named(self.available, "home_available")
 
         self.box_group = Gtk.SizeGroup.new(Gtk.SizeGroupMode.BOTH)
@@ -201,3 +201,6 @@ class HomeView(Gtk.Box):
         btn.get_style_context().add_class("flat")
         self.box_group.add_widget(btn)
         target.pack_start(btn, False, False, 0)
+
+    def select_details(self, pkg_object):
+        print(pkg_object)

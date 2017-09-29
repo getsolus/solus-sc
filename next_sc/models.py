@@ -13,7 +13,7 @@
 
 from gi.repository import Gtk, GdkPixbuf
 import plugins
-from plugins.base import ItemStatus
+from plugins.base import ItemStatus, ProviderItem
 
 class ListingModel(Gtk.ListStore, plugins.base.ProviderStorage):
     """ ListingModel is used when listing packages in the view """
@@ -22,7 +22,7 @@ class ListingModel(Gtk.ListStore, plugins.base.ProviderStorage):
     appsystem = None
 
     def __init__(self, appsystem):
-        Gtk.ListStore.__init__(self, str, GdkPixbuf.Pixbuf, str)
+        Gtk.ListStore.__init__(self, str, GdkPixbuf.Pixbuf, str, ProviderItem)
         self.appsystem = appsystem
         # self.set_sort_column_id(2, Gtk.SortType.ASCENDING)
 
@@ -42,7 +42,7 @@ class ListingModel(Gtk.ListStore, plugins.base.ProviderStorage):
 
         p_print = "<b>{}</b> - {}\n{}".format(name, version, summary)
         img = self.appsystem.get_pixbuf_only(id)
-        self.append([p_print, img, name])
+        self.append([p_print, img, name, item])
 
     def clear(self):
         """ Purge the list store """
