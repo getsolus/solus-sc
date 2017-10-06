@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Gaius Anderson <gaius.ankh@gmail.com>, 2016
+# Gaius Anderson, 2016
 # Puppelimies, 2017
 # Torbjörn Reuterberg <cecar66@gmail.com>, 2016
 msgid ""
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-06-27 11:22+0000\n"
+"PO-Revision-Date: 2017-09-23 06:26+0000\n"
 "Last-Translator: Puppelimies\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/solus-project/solus-sc/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"

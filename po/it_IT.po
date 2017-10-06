@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Andrea Cassioli <cassioliandre@gmail.com>, 2017
+# Fabio Forni <fabio94xx@gmail.com>, 2017
 # Leonardo, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-08-05 14:37+0000\n"
-"Last-Translator: Leonardo\n"
+"PO-Revision-Date: 2017-09-23 06:40+0000\n"
+"Last-Translator: Fabio Forni <fabio94xx@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/solus-project/solus-sc/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +22,7 @@ msgstr ""
 
 #: ../repo_data/components.xml.in.h:1
 msgid "System Base"
-msgstr "Sistema Base"
+msgstr "Sistema base"
 
 #: ../repo_data/components.xml.in.h:2
 msgid "Base Components"
@@ -37,7 +38,7 @@ msgstr "Utilità di avvio"
 
 #: ../repo_data/components.xml.in.h:5
 msgid "Tools and daemons required early in the boot process"
-msgstr "Tool e daemons richiesti all'inizio del processo di avvio"
+msgstr "Strumenti e demoni richiesti nelle prime fasi del processo di avvio"
 
 #: ../repo_data/components.xml.in.h:6
 msgid "System utilities"
@@ -59,39 +60,39 @@ msgstr "Strumenti di sviluppo - sistema base"
 
 #: ../repo_data/components.xml.in.h:10
 msgid "X.Org Base Components"
-msgstr "Componenti base X.Org"
+msgstr "Componenti base di X.Org"
 
 #: ../repo_data/components.xml.in.h:11
 msgid "Base components required for the X.Org System"
-msgstr "Componenti base richesti per il sistema X.Org"
+msgstr "Componenti base richiesti per il sistema X.Org"
 
 #: ../repo_data/components.xml.in.h:12
 msgid "X.Org Protocol Headers"
-msgstr "Intestazione protocollo X.Org"
+msgstr "Intestazioni protocollo X.Org"
 
 #: ../repo_data/components.xml.in.h:13
 msgid "Protocol headers required for building X.Org Libraries"
-msgstr "Intestazione protocollo richesta per costruire le librerie X.Org"
+msgstr "Intestazioni di protocollo richieste per compilare le librerie X.Org"
 
 #: ../repo_data/components.xml.in.h:14
 msgid "X.Org Core Libraries"
-msgstr "Librerie Core X.Org"
+msgstr "Librerie base di X.Org"
 
 #: ../repo_data/components.xml.in.h:15
 msgid "Core libraries required by X.Org"
-msgstr "Librerie Core richieste da X.org"
+msgstr "Librerie base richieste da X.org"
 
 #: ../repo_data/components.xml.in.h:16
 msgid "X.Org Core Fonts"
-msgstr "X.Org Core Fonts"
+msgstr "Font base di X.Org"
 
 #: ../repo_data/components.xml.in.h:17
 msgid "Core fonts required by X.Org"
-msgstr "Core fonts richiesti da X.Org"
+msgstr "Font di base richiesti da X.Org"
 
 #: ../repo_data/components.xml.in.h:18
 msgid "X.Org Core Applications"
-msgstr "Applicazioni Core X.Org"
+msgstr "Applicazioni base di X.Org"
 
 #: ../repo_data/components.xml.in.h:19
 msgid "Collection of simple applications for X.Org"
@@ -99,11 +100,11 @@ msgstr "Collezione di semplici applicazioni per X.Org"
 
 #: ../repo_data/components.xml.in.h:20
 msgid "X.Org Display"
-msgstr "X.Org Display"
+msgstr "Display X.Org"
 
 #: ../repo_data/components.xml.in.h:21
 msgid "Software required to run an X.Org Display"
-msgstr "Software richiesto per eseguire an X.Org Display"
+msgstr "Software richiesto per eseguire un Display X.Org"
 
 #: ../repo_data/components.xml.in.h:22
 msgid "X.Org Server"
@@ -111,11 +112,11 @@ msgstr "Server X.Org"
 
 #: ../repo_data/components.xml.in.h:23
 msgid "Core server of the X Window System"
-msgstr "Server Core del sistema X Window"
+msgstr "Server base del sistema X Window"
 
 #: ../repo_data/components.xml.in.h:24
 msgid "X.Org Drivers"
-msgstr "X.Org Drivers"
+msgstr "Driver X.Org"
 
 #: ../repo_data/components.xml.in.h:25
 msgid "Drivers required to use the X Window System"
@@ -123,7 +124,7 @@ msgstr "Driver richiesti per utilizzare il sistema X Window"
 
 #: ../repo_data/components.xml.in.h:26
 msgid "Networking Base"
-msgstr "Networking Base"
+msgstr "Software base di rete"
 
 #: ../repo_data/components.xml.in.h:27
 msgid "Email clients"
@@ -195,7 +196,7 @@ msgstr "Software finanziari"
 
 #: ../repo_data/components.xml.in.h:44
 msgid "Mathematics-Oriented Software"
-msgstr "Software orientato alla matematica"
+msgstr "Software orientati alla matematica"
 
 #: ../repo_data/components.xml.in.h:45
 msgid "Note-Taking Software"
@@ -207,11 +208,11 @@ msgstr "Software scientifici"
 
 #: ../repo_data/components.xml.in.h:47
 msgid "Software aimed at various scientific fields."
-msgstr "Software incentrati a vari campi scientifici."
+msgstr "Software indirizzati a vari campi scientifici."
 
 #: ../repo_data/components.xml.in.h:48
 msgid "E-book and PDF Viewing Software"
-msgstr "Software per la visualizzazione di E-book e PDF"
+msgstr "Software per la visualizzazione di e-book e PDF"
 
 #: ../repo_data/components.xml.in.h:49
 msgid "Programming"
@@ -227,7 +228,7 @@ msgstr "File di sviluppo"
 
 #: ../repo_data/components.xml.in.h:52
 msgid "Integrated Developer Environments"
-msgstr "Ambiente di sviluppo integrato"
+msgstr "Ambienti di sviluppo integrato"
 
 #: ../repo_data/components.xml.in.h:53
 msgid "Development tools"
@@ -255,7 +256,7 @@ msgstr "Librerie di programmazione"
 
 #: ../repo_data/components.xml.in.h:59
 msgid "Database clients and servers"
-msgstr "Database client e server"
+msgstr "Client e server per database"
 
 #: ../repo_data/components.xml.in.h:60
 msgid "Desktop Software"
@@ -263,7 +264,7 @@ msgstr "Software desktop"
 
 #: ../repo_data/components.xml.in.h:61
 msgid "Desktop specific software"
-msgstr "Software desktop specifico"
+msgstr "Software specifico dei desktop"
 
 #: ../repo_data/components.xml.in.h:62
 msgid "General Multimedia Software"
@@ -299,11 +300,11 @@ msgstr "Librerie multimediali"
 
 #: ../repo_data/components.xml.in.h:70
 msgid "GStreamer Runtime"
-msgstr "GStreamer Runtime"
+msgstr "Runtime GStreamer"
 
 #: ../repo_data/components.xml.in.h:71
 msgid "GStreamer Runtime &amp; Support Libraries"
-msgstr "GStreamer Runtime &amp; Librerie di Supporto"
+msgstr "Runtime GStreamer &amp; librerie di supporto"
 
 #: ../repo_data/components.xml.in.h:72
 msgid "Desktop Libraries"
@@ -331,15 +332,15 @@ msgstr "Font per migliorare il desktop"
 
 #: ../repo_data/components.xml.in.h:78
 msgid "Qt Runtime Libraries"
-msgstr "Librerie Qt Runtime"
+msgstr "Librerie di runtime Qt"
 
 #: ../repo_data/components.xml.in.h:79
 msgid "GTK Runtime Libraries"
-msgstr "Librerie GTK Runtime"
+msgstr "Librerie di runtime GTK"
 
 #: ../repo_data/components.xml.in.h:80
 msgid "Budgie Desktop"
-msgstr "Budgie Desktop"
+msgstr "Desktop Budgie"
 
 #: ../repo_data/components.xml.in.h:81
 msgid "Elements of the Solus Budgie Experience"
@@ -347,19 +348,19 @@ msgstr "Elementi dell'esperienza Solus Budgie"
 
 #: ../repo_data/components.xml.in.h:82
 msgid "GNOME Desktop"
-msgstr "Desktop di GNOME"
+msgstr "Desktop GNOME"
 
 #: ../repo_data/components.xml.in.h:83
 msgid "MATE Desktop"
-msgstr "Desktop di MATE"
+msgstr "Desktop MATE"
 
 #: ../repo_data/components.xml.in.h:84
 msgid "i3 Desktop"
-msgstr "i3 Desktop"
+msgstr "Desktop i3"
 
 #: ../repo_data/components.xml.in.h:85
 msgid "GNOME Desktop - Core System"
-msgstr "GNOME Desktop - Sistema Core"
+msgstr "Desktop GNOME - Sistema di base"
 
 #: ../repo_data/components.xml.in.h:86
 msgid "GNOME Documentation Tools"
@@ -371,19 +372,19 @@ msgstr "Strumenti per la documentazione di GNOME"
 
 #: ../repo_data/components.xml.in.h:88
 msgid "KDE Desktop"
-msgstr "KDE Desktop"
+msgstr "Desktop KDE"
 
 #: ../repo_data/components.xml.in.h:89
 msgid "KDE Desktop - Core System"
-msgstr "KDE Desktop - Sistema Core"
+msgstr "Desktop KDE - Sistema di base"
 
 #: ../repo_data/components.xml.in.h:90
 msgid "Desktop Core Components"
-msgstr "Componenti Core desktop"
+msgstr "Componenti base dei desktop"
 
 #: ../repo_data/components.xml.in.h:91
 msgid "Core components for desktop systems"
-msgstr "Componenti core per sistemi desktop"
+msgstr "Componenti base per sistemi desktop"
 
 #: ../repo_data/components.xml.in.h:92
 msgid "Security applications"
@@ -395,7 +396,7 @@ msgstr "Utilità crittografiche"
 
 #: ../repo_data/components.xml.in.h:94
 msgid "Cryptographic utilities and runtimes"
-msgstr "Utilità crittografiche e runtimes"
+msgstr "Utilità crittografiche e runtime"
 
 #: ../repo_data/components.xml.in.h:95
 msgid "Security-oriented libraries"
@@ -403,7 +404,7 @@ msgstr "Librerie orientate alla sicurezza"
 
 #: ../repo_data/components.xml.in.h:96
 msgid "Main games collection"
-msgstr "Collezione giochi principali"
+msgstr "Collezione di giochi principali"
 
 #: ../repo_data/components.xml.in.h:97
 msgid "Main games"
@@ -427,11 +428,11 @@ msgstr "Emulatori di console"
 
 #: ../repo_data/components.xml.in.h:102
 msgid "Massive Multiplayer Online Games"
-msgstr "Giochi in rete multigiocatore di massa"
+msgstr "Giochi MMO"
 
 #: ../repo_data/components.xml.in.h:103
 msgid "Platformer Games"
-msgstr "Giochi piattaforma"
+msgstr "Giochi platformer"
 
 #: ../repo_data/components.xml.in.h:104
 msgid "Puzzle Games"
@@ -447,7 +448,7 @@ msgstr "Giochi di strategia"
 
 #: ../repo_data/distribution.xml.in.h:1
 msgid "Solus Repository"
-msgstr "Solus Repository"
+msgstr "Repository di Solus"
 
 #: ../repo_data/groups.xml.in.h:1
 msgid "System Software"
@@ -459,7 +460,7 @@ msgstr "Software internet"
 
 #: ../repo_data/groups.xml.in.h:3
 msgid "Multimedia &amp; Graphics"
-msgstr "Multimedia &amp; Grafica"
+msgstr "Grafica &amp; multimedia"
 
 #: ../repo_data/groups.xml.in.h:4
 msgid "Gaming on Solus"
@@ -467,11 +468,11 @@ msgstr "Giocare su Solus"
 
 #: ../repo_data/groups.xml.in.h:6
 msgid "Programming Languages &amp; Tools"
-msgstr "Linguaggi di programmazione &amp; Strumenti"
+msgstr "Strumenti &amp; linguaggi di programmazione"
 
 #: ../repo_data/groups.xml.in.h:7
 msgid "Desktop Software &amp; Theming"
-msgstr "Software desktop &amp; Temi"
+msgstr "Software desktop &amp; temi"
 
 #: ../repo_data/groups.xml.in.h:8
 msgid "Security Software"
@@ -484,7 +485,7 @@ msgstr "Vedi gli aggiornamenti del programma"
 #. Quirky loading message
 #: ../solus_sc/available_view.py:38
 msgid "Switching to the B-side of the cassette…"
-msgstr "Passando al lato B della cassetta..."
+msgstr "Passaggio al lato B della cassetta..."
 
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
@@ -504,27 +505,27 @@ msgstr "Una operazione in corso"
 #: ../solus_sc/basket.py:203
 #, python-format
 msgid "Updating %s repository"
-msgstr "Aggiornando le repository del %s"
+msgstr "Aggiornamento del repository di %s"
 
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
 msgid "Extracting {} of {}: {}"
-msgstr "Estraendo {} di {}: {}"
+msgstr "Estrazione {} di {}: {}"
 
 #. "Configuring 1 of 10: bash"
 #: ../solus_sc/basket.py:213
 msgid "Configuring {} of {}: {}"
-msgstr "Configurando {} di {}: {}"
+msgstr "Configurazione {} di {}: {}"
 
 #. "Installing 1 of 10: bash"
 #: ../solus_sc/basket.py:219
 msgid "Installing {} of {}: {}"
-msgstr "Installando {} di {}: {}"
+msgstr "Installazione {} di {}: {}"
 
 #. "Removing (1 of 10): bash"
 #: ../solus_sc/basket.py:222
 msgid "Removing {} of {}: {}"
-msgstr "Eliminando {} di {}: {}"
+msgstr "Rimozione {} di {}: {}"
 
 #. "Upgraded 1 of 10: bash"
 #: ../solus_sc/basket.py:231
@@ -540,7 +541,7 @@ msgstr "Rimossi {} di {}: {}"
 #. "Downloading eopkg-index.xml.xz (10kb/s)
 #: ../solus_sc/basket.py:264
 msgid "Downloading {} ({})"
-msgstr "Scaricando {} ({})"
+msgstr "Scaricamento di {} ({})"
 
 #. "Downloading 1 of 10: bash (10kb/s)
 #: ../solus_sc/basket.py:268
@@ -551,7 +552,7 @@ msgstr "Scaricamento {} di {}: {} ({})"
 #. Downloading eopkg-index.xml.sha1sum
 #: ../solus_sc/basket.py:278
 msgid "Downloading {}"
-msgstr "Scaricando {}"
+msgstr "Scaricamento di {}"
 
 #: ../solus_sc/basket.py:323
 msgid "The following dependencies need to be installed to continue"
@@ -598,15 +599,15 @@ msgstr "Rimuovi"
 
 #: ../solus_sc/changelog.py:119
 msgid "Standard Update"
-msgstr "Update Standard"
+msgstr "Aggiornamenti standard"
 
 #: ../solus_sc/changelog.py:122
 msgid "Security Update"
-msgstr "Update per la sicurezza"
+msgstr "Aggiornamenti di sicurezza"
 
 #: ../solus_sc/details.py:209
 msgid "Report issues"
-msgstr "Segnala i problemi"
+msgstr "Segnala problemi"
 
 #: ../solus_sc/details.py:217
 msgid "Visit Website"
@@ -632,11 +633,11 @@ msgstr "Dimensione dell'installazione"
 #. Donation button launches website to donate to authors
 #: ../solus_sc/details.py:421
 msgid "Donate"
-msgstr "Contribuisci"
+msgstr "Dona"
 
 #: ../solus_sc/details.py:435
 msgid "Changelog"
-msgstr "Changelog"
+msgstr "Note di rilascio"
 
 #: ../solus_sc/details.py:443
 msgid "License"
@@ -644,7 +645,7 @@ msgstr "Licenza"
 
 #: ../solus_sc/details.py:448
 msgid "Report an invalid or missing license"
-msgstr "Segnala una licenza invalida o mancante"
+msgstr "Segnala licenza errata o mancante"
 
 #: ../solus_sc/details.py:450
 msgid ""
@@ -654,7 +655,7 @@ msgstr "Questa selezione è disponibile in conformità ai termini stabiliti nell
 
 #: ../solus_sc/details.py:518
 msgid "Cannot remove core system software"
-msgstr "Impossibile rimuovere software di sistema"
+msgstr "Impossibile rimuovere il software base di sistema"
 
 #. "5 categories" - the number of categories within each group
 #: ../solus_sc/groups.py:72
@@ -668,7 +669,7 @@ msgstr "Nessuno screenshot disponibile"
 #. Window title
 #: ../solus_sc/main_window.py:162
 msgid "Software Center"
-msgstr "Gestore Software"
+msgstr "Software Center"
 
 #. Main view, primary view, when opening the software center
 #: ../solus_sc/main_window.py:207 ../solus_sc/sidebar.py:65
@@ -688,7 +689,7 @@ msgstr "Installati"
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:220 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Di terze parti"
+msgstr "Software di terze parti"
 
 #. The search page
 #: ../solus_sc/main_window.py:225 ../solus_sc/sidebar.py:69
@@ -712,7 +713,7 @@ msgstr "Mi sto concentrando molto intensamente"
 
 #: ../solus_sc/search_results.py:62
 msgid "Type a query to get started"
-msgstr "Digita una query per iniziare"
+msgstr "Digita delle parole chiave per iniziare"
 
 #: ../solus_sc/search_results.py:81
 msgid "No results found"
@@ -751,7 +752,7 @@ msgstr "Aggiornamenti di sicurezza e di sistema"
 #: ../solus_sc/thirdparty.py:184 ../solus_sc/updates_view.py:192
 #: ../solus_sc/updates_view.py:194 ../solus_sc/updates_view.py:288
 msgid "Check for updates"
-msgstr "Controlla gli aggiornamenti"
+msgstr "Verifica disponibilità di aggiornamenti"
 
 #. Title of dialog displaying the details of a given update
 #: ../solus_sc/updates_view.py:33
@@ -768,7 +769,7 @@ msgstr "Ricaricando fonte aggiornamenti"
 
 #: ../solus_sc/updates_view.py:110
 msgid "Please check back later, updates are now applying"
-msgstr "Per favore controlla più tardi, gli aggiornamenti sono in fase di applicazione"
+msgstr "Torna più tardi, gli aggiornamenti sono in fase di applicazione"
 
 #: ../solus_sc/updates_view.py:207
 msgid "Software is up to date"
@@ -801,7 +802,7 @@ msgstr "{} di {} aggiornamenti selezionati ({} da scaricare)"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
-msgstr "Aggiornamenti per la sicurezza disponibili"
+msgstr "Aggiornamenti di sicurezza disponibili"
 
 #: ../solus_update/application.py:302
 msgid ""
@@ -819,4 +820,4 @@ msgstr "Nuovi aggiornamenti software disponibili per il tuo dispositivo"
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
-msgstr "Apri Gestore Software"
+msgstr "Apri Software Center"

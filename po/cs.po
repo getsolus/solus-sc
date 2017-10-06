@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-08-01 17:04+0000\n"
+"PO-Revision-Date: 2017-10-01 20:14+0000\n"
 "Last-Translator: Ondřej Pucholt <o.pucholt@windowslive.com>\n"
 "Language-Team: Czech (http://www.transifex.com/solus-project/solus-sc/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -287,11 +287,11 @@ msgstr "Multimediální kodeky a podpora formátů"
 
 #: ../repo_data/components.xml.in.h:67
 msgid "Video Software"
-msgstr "Video software"
+msgstr "Video"
 
 #: ../repo_data/components.xml.in.h:68
 msgid "Audio Software"
-msgstr "Audio software"
+msgstr "Audio"
 
 #: ../repo_data/components.xml.in.h:69
 msgid "Multimedia Libraries"
@@ -315,19 +315,19 @@ msgstr "Společné desktopové knihovny "
 
 #: ../repo_data/components.xml.in.h:74
 msgid "Desktop Theming"
-msgstr "Motivy pro desktopové prostředí"
+msgstr "Motivy pro desktopová prostředí"
 
 #: ../repo_data/components.xml.in.h:75
 msgid "Themes to enhance the desktop"
-msgstr "Motivy pro zkrášlení desktopového prostředí"
+msgstr "Motivy pro zkrášlení desktopových prostředí"
 
 #: ../repo_data/components.xml.in.h:76
 msgid "Desktop Fonts"
-msgstr "Písma pro desktopové prostředí"
+msgstr "Písma pro desktopová prostředí"
 
 #: ../repo_data/components.xml.in.h:77
 msgid "Fonts to enhance the desktop"
-msgstr "Písma pro zkrášlení desktopového prostředí"
+msgstr "Písma pro zkrášlení desktopových prostředí"
 
 #: ../repo_data/components.xml.in.h:78
 msgid "Qt Runtime Libraries"
@@ -339,7 +339,7 @@ msgstr "Běhové knihovny GTK"
 
 #: ../repo_data/components.xml.in.h:80
 msgid "Budgie Desktop"
-msgstr "Desktopové prostředí Budgie"
+msgstr "Prostředí Budgie"
 
 #: ../repo_data/components.xml.in.h:81
 msgid "Elements of the Solus Budgie Experience"
@@ -347,19 +347,19 @@ msgstr "Prvky tvořící ucelený prožitek ze Solusu Budgie"
 
 #: ../repo_data/components.xml.in.h:82
 msgid "GNOME Desktop"
-msgstr "Desktopové prostředí GNOME"
+msgstr "Prostředí GNOME"
 
 #: ../repo_data/components.xml.in.h:83
 msgid "MATE Desktop"
-msgstr "Desktopové prostředí MATE"
+msgstr "Prostředí MATE"
 
 #: ../repo_data/components.xml.in.h:84
 msgid "i3 Desktop"
-msgstr "Desktopové prostředí i3"
+msgstr "Prostředí i3"
 
 #: ../repo_data/components.xml.in.h:85
 msgid "GNOME Desktop - Core System"
-msgstr "Desktopové prostředí GNOME - základní systém"
+msgstr "Prostředí GNOME - základní systém"
 
 #: ../repo_data/components.xml.in.h:86
 msgid "GNOME Documentation Tools"
@@ -371,11 +371,11 @@ msgstr "Dokumentační nástroje pro GNOME"
 
 #: ../repo_data/components.xml.in.h:88
 msgid "KDE Desktop"
-msgstr "Desktopové prostředí KDE"
+msgstr "Prostředí KDE"
 
 #: ../repo_data/components.xml.in.h:89
 msgid "KDE Desktop - Core System"
-msgstr "Desktopové prostředí KDE - základní systém"
+msgstr "Prostředí KDE - základní systém"
 
 #: ../repo_data/components.xml.in.h:90
 msgid "Desktop Core Components"
@@ -435,7 +435,7 @@ msgstr "Skákačky"
 
 #: ../repo_data/components.xml.in.h:104
 msgid "Puzzle Games"
-msgstr "Puzzle hry"
+msgstr "Puzzle"
 
 #: ../repo_data/components.xml.in.h:105
 msgid "Role-playing Games"
@@ -455,7 +455,7 @@ msgstr "Systémový software"
 
 #: ../repo_data/groups.xml.in.h:2
 msgid "Internet Software"
-msgstr "Internetový software"
+msgstr "Internet"
 
 #: ../repo_data/groups.xml.in.h:3
 msgid "Multimedia &amp; Graphics"
@@ -504,7 +504,7 @@ msgstr "Zbývá jedna operace."
 #: ../solus_sc/basket.py:203
 #, python-format
 msgid "Updating %s repository"
-msgstr "Aktualizuji %s repozitář"
+msgstr "Aktualizuji repozitář %s"
 
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
@@ -555,7 +555,7 @@ msgstr "Stahuji {}"
 
 #: ../solus_sc/basket.py:323
 msgid "The following dependencies need to be installed to continue"
-msgstr "Následující závislosti musí být nainstalovány před pokračováním"
+msgstr "Nejdříve musí být instalovány následující závislosti"
 
 #: ../solus_sc/basket.py:333
 msgid "Installation confirmation"
@@ -563,15 +563,15 @@ msgstr "Potvrzení instalace"
 
 #: ../solus_sc/basket.py:336
 msgid "The following dependencies need to be removed to continue"
-msgstr "Následující závislosti musí být odstraněny před pokračováním"
+msgstr "Nejdříve musí být odstraněny následující závislosti"
 
 #: ../solus_sc/basket.py:337
 msgid "Removal confirmation"
-msgstr "Potvrzení odstranění"
+msgstr "Potvrzení odinstalace"
 
 #: ../solus_sc/basket.py:340
 msgid "The following dependencies need to be updated to continue"
-msgstr "Následující závislosti musí být aktualizovány před pokračováním"
+msgstr "Nejdříve musí být aktualizovány následující závislosti"
 
 #: ../solus_sc/basket.py:341
 msgid "Update confirmation"

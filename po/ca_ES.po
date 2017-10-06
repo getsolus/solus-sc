@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-05-28 10:42+0000\n"
+"PO-Revision-Date: 2017-09-23 06:26+0000\n"
 "Last-Translator: Davidmp <medipas@gmail.com>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/solus-project/solus-sc/language/ca_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -801,7 +801,7 @@ msgstr "{} de {} actualitzacions seleccionades ({} per baixar)"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
-msgstr "Hi ha actualitzacions de seguretat disponibles"
+msgstr "Actualitzacions de seguretat disponibles"
 
 #: ../solus_update/application.py:302
 msgid ""
@@ -811,7 +811,7 @@ msgstr "Actualitzeu el sistema al més aviat possible per garantir la continuït
 
 #: ../solus_update/application.py:306
 msgid "Software updates available"
-msgstr "Hi ha actualitzacions de programari disponibles"
+msgstr "Actualitzacions de programari disponibles"
 
 #: ../solus_update/application.py:307
 msgid "New software updates are available for your device"

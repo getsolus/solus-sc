@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 01:47+0100\n"
-"PO-Revision-Date: 2017-05-18 05:48+0000\n"
+"POT-Creation-Date: 2017-05-27 09:58+0100\n"
+"PO-Revision-Date: 2017-09-23 06:29+0000\n"
 "Last-Translator: Geert Verheyde <geert.verheyde@gmail.com>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/solus-project/solus-sc/language/nl_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../repo_data/components.xml.in.h:1
 msgid "System Base"
-msgstr "Basissysteem"
+msgstr "Kernsysteem"
 
 #: ../repo_data/components.xml.in.h:2
 msgid "Base Components"
@@ -59,7 +59,7 @@ msgstr "Ontwikkelingstoepassingen - basissysteem"
 
 #: ../repo_data/components.xml.in.h:10
 msgid "X.Org Base Components"
-msgstr "X.Org Base Componenten"
+msgstr "X.Org Basis Componenten"
 
 #: ../repo_data/components.xml.in.h:11
 msgid "Base components required for the X.Org System"
@@ -83,7 +83,7 @@ msgstr "Core bibliotheken vereist voor X.Org"
 
 #: ../repo_data/components.xml.in.h:16
 msgid "X.Org Core Fonts"
-msgstr "X.Org Core Lettertypen"
+msgstr "X.Org Kern Lettertypen"
 
 #: ../repo_data/components.xml.in.h:17
 msgid "Core fonts required by X.Org"
@@ -91,7 +91,7 @@ msgstr "Basislettertypen vereist voor X.Org"
 
 #: ../repo_data/components.xml.in.h:18
 msgid "X.Org Core Applications"
-msgstr "X.Org Core Toepassingen"
+msgstr "X.Org Kern Toepassingen"
 
 #: ../repo_data/components.xml.in.h:19
 msgid "Collection of simple applications for X.Org"
@@ -359,7 +359,7 @@ msgstr "i3 Desktop"
 
 #: ../repo_data/components.xml.in.h:85
 msgid "GNOME Desktop - Core System"
-msgstr "GNOME Desktop - Basissysteem"
+msgstr "GNOME Desktop - Kernsysteem"
 
 #: ../repo_data/components.xml.in.h:86
 msgid "GNOME Documentation Tools"
@@ -370,70 +370,78 @@ msgid "Documentation tools for GNOME"
 msgstr "Documentatie toepassingen voor GNOME"
 
 #: ../repo_data/components.xml.in.h:88
-msgid "Desktop Core Components"
-msgstr "Desktop Basiscomponenten"
+msgid "KDE Desktop"
+msgstr "KDE Desktop"
 
 #: ../repo_data/components.xml.in.h:89
+msgid "KDE Desktop - Core System"
+msgstr "KDE Desktop - Kernsysteem"
+
+#: ../repo_data/components.xml.in.h:90
+msgid "Desktop Core Components"
+msgstr "Desktop Kerncomponenten"
+
+#: ../repo_data/components.xml.in.h:91
 msgid "Core components for desktop systems"
 msgstr "Basiscomponenten voor desktop systemen"
 
-#: ../repo_data/components.xml.in.h:90
+#: ../repo_data/components.xml.in.h:92
 msgid "Security applications"
 msgstr "Beveiligingstoepassingen"
 
-#: ../repo_data/components.xml.in.h:91
+#: ../repo_data/components.xml.in.h:93
 msgid "Cryptographic utilities"
 msgstr "Cryptografische toepassingen"
 
-#: ../repo_data/components.xml.in.h:92
+#: ../repo_data/components.xml.in.h:94
 msgid "Cryptographic utilities and runtimes"
 msgstr "Cryptografische toepassingen en uitvoeringen"
 
-#: ../repo_data/components.xml.in.h:93
+#: ../repo_data/components.xml.in.h:95
 msgid "Security-oriented libraries"
 msgstr "Beveiligings-gerichte bibliotheken"
 
-#: ../repo_data/components.xml.in.h:94
+#: ../repo_data/components.xml.in.h:96
 msgid "Main games collection"
 msgstr "Algemene spelletjesverzameling"
 
-#: ../repo_data/components.xml.in.h:95
+#: ../repo_data/components.xml.in.h:97
 msgid "Main games"
 msgstr "Algemeen spelletjes"
 
-#: ../repo_data/components.xml.in.h:96
+#: ../repo_data/components.xml.in.h:98
 msgid "Action Games"
 msgstr "Actiespelletjes"
 
-#: ../repo_data/components.xml.in.h:97
+#: ../repo_data/components.xml.in.h:99
 msgid "Arcade Games"
 msgstr "Arcadespelletjes"
 
-#: ../repo_data/components.xml.in.h:98
+#: ../repo_data/components.xml.in.h:100
 msgid "Card Games"
 msgstr "Kaartspelletjes"
 
-#: ../repo_data/components.xml.in.h:99
+#: ../repo_data/components.xml.in.h:101
 msgid "Console Emulators"
 msgstr "Console Emulators"
 
-#: ../repo_data/components.xml.in.h:100
+#: ../repo_data/components.xml.in.h:102
 msgid "Massive Multiplayer Online Games"
 msgstr "Zware Online Multiplayer Spellen"
 
-#: ../repo_data/components.xml.in.h:101
+#: ../repo_data/components.xml.in.h:103
 msgid "Platformer Games"
 msgstr "Platformerspelletjes"
 
-#: ../repo_data/components.xml.in.h:102
+#: ../repo_data/components.xml.in.h:104
 msgid "Puzzle Games"
 msgstr "Puzzelspelletjes"
 
-#: ../repo_data/components.xml.in.h:103
+#: ../repo_data/components.xml.in.h:105
 msgid "Role-playing Games"
 msgstr "Rollenspellen"
 
-#: ../repo_data/components.xml.in.h:104
+#: ../repo_data/components.xml.in.h:106
 msgid "Strategy Games"
 msgstr "Strategische spelletjes"
 
@@ -588,11 +596,11 @@ msgstr "Bijwerken"
 msgid "Remove"
 msgstr "Verwijderen"
 
-#: ../solus_sc/changelog.py:111
+#: ../solus_sc/changelog.py:119
 msgid "Standard Update"
 msgstr "Standaard Update"
 
-#: ../solus_sc/changelog.py:114
+#: ../solus_sc/changelog.py:122
 msgid "Security Update"
 msgstr "Beveiligingsupdate"
 
@@ -608,43 +616,43 @@ msgstr "Website bezoeken"
 msgid "Details"
 msgstr "Details"
 
-#: ../solus_sc/details.py:376
+#: ../solus_sc/details.py:382
 msgid "Developers"
 msgstr "Ontwikkelaars"
 
-#: ../solus_sc/details.py:391
+#: ../solus_sc/details.py:397
 msgid "Version"
 msgstr "Versie"
 
 #. Size of the package when installed locally
-#: ../solus_sc/details.py:403
+#: ../solus_sc/details.py:409
 msgid "Installed size"
 msgstr "Geïnstalleerde grootte"
 
 #. Donation button launches website to donate to authors
-#: ../solus_sc/details.py:415
+#: ../solus_sc/details.py:421
 msgid "Donate"
 msgstr "Doneren"
 
-#: ../solus_sc/details.py:429
+#: ../solus_sc/details.py:435
 msgid "Changelog"
 msgstr "Logboek"
 
-#: ../solus_sc/details.py:437
+#: ../solus_sc/details.py:443
 msgid "License"
 msgstr "Licentie"
 
-#: ../solus_sc/details.py:442
+#: ../solus_sc/details.py:448
 msgid "Report an invalid or missing license"
 msgstr "Een ongeldige of ontbrekende licentie rapporteren"
 
-#: ../solus_sc/details.py:444
+#: ../solus_sc/details.py:450
 msgid ""
 "This selection is available in accordance with the terms set in the "
 "following license(s):"
 msgstr "Deze selectie is beschikbaar in overeenstemming met de bepalingen in volgende licientie(s):"
 
-#: ../solus_sc/details.py:512
+#: ../solus_sc/details.py:518
 msgid "Cannot remove core system software"
 msgstr "Systeemprogramma's kunnen niet verwijderd worden"
 
@@ -653,7 +661,7 @@ msgstr "Systeemprogramma's kunnen niet verwijderd worden"
 msgid "{} categories"
 msgstr "{} categoriën"
 
-#: ../solus_sc/imagewidget.py:82
+#: ../solus_sc/imagewidget.py:86
 msgid "No screenshots available"
 msgstr "Geen schermafdrukken beschikbaar"
 
@@ -711,32 +719,32 @@ msgid "No results found"
 msgstr "Geen resultaten gevonden"
 
 #. Check for updates every hour
-#: ../solus_sc/settings_view.py:69
+#: ../solus_sc/settings_view.py:75
 msgid "Every hour"
 msgstr "Ieder uur"
 
 #. Check for updates once per day
-#: ../solus_sc/settings_view.py:71
+#: ../solus_sc/settings_view.py:77
 msgid "Daily"
 msgstr "Dagelijks"
 
 #. Check for updates once a week
-#: ../solus_sc/settings_view.py:73
+#: ../solus_sc/settings_view.py:79
 msgid "Weekly"
 msgstr "Wekelijks"
 
 #. Notify of all updates
-#: ../solus_sc/settings_view.py:88
+#: ../solus_sc/settings_view.py:94
 msgid "All updates"
 msgstr "Alle updates"
 
 #. Notify only of security updates
-#: ../solus_sc/settings_view.py:90
+#: ../solus_sc/settings_view.py:96
 msgid "Security updates only"
 msgstr "Alleen beveiligingsupdates"
 
 #. Notify of security and core system updates ("mandatory")
-#: ../solus_sc/settings_view.py:92
+#: ../solus_sc/settings_view.py:98
 msgid "Security & core updates"
 msgstr "Beveiligings-en-systeemupdates"
 
