@@ -482,7 +482,7 @@ msgid "Open up the updates view of the application"
 msgstr "Membuka pandangan pembaruan dari aplikasi"
 
 #. Quirky loading message
-#: ../solus_sc/available_view.py:38
+#: ../solus_sc/available_view.py:24
 msgid "Switching to the B-side of the cassette…"
 msgstr "Beralih ke sisi-B dari kaset ..."
 
@@ -700,13 +700,13 @@ msgstr "Cari"
 msgid "Settings"
 msgstr "Pengaturan"
 
-#: ../solus_sc/package_view.py:41
+#: ../solus_sc/installed_view.py:30
 msgid "Solving the Paradox Of Choice"
 msgstr "Memecahkan masalah dunia lain"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
-#: ../solus_sc/search_results.py:41
+#: ../solus_sc/search_results.py:65
 msgid "Concentrating really hard"
 msgstr "Berkonsentrasi sangat keras"
 

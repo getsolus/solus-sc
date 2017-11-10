@@ -484,7 +484,7 @@ msgid "Open up the updates view of the application"
 msgstr "更新されるアプリケーションを開いて見る"
 
 #. Quirky loading message
-#: ../solus_sc/available_view.py:38
+#: ../solus_sc/available_view.py:24
 msgid "Switching to the B-side of the cassette…"
 msgstr "カセットを B 面へ切替中..."
 
@@ -662,7 +662,7 @@ msgstr "検索"
 msgid "Settings"
 msgstr "設定"
 
-#: ../solus_sc/package_view.py:41
+#: ../solus_sc/installed_view.py:30
 msgid "Solving the Paradox Of Choice"
 msgstr "Paradox の解決方法を選択して下さい"
 
