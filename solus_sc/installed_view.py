@@ -13,9 +13,12 @@
 
 from gi.repository import Gtk, GLib
 from .packages_view import ScPackagesView
+from .details import PackageDetailsView
 
 
 class ScInstalledView(ScPackagesView):
+    details_view = None
+
     def handle_back(self):
         """ Go back to the main view """
         self.stack.set_visible_child_name("packages")
@@ -27,6 +30,13 @@ class ScInstalledView(ScPackagesView):
 
     def __init__(self, owner, basket, appsystem):
         ScPackagesView.__init__(self, owner, basket, appsystem)
+
+        # Set up the details view
+        self.details_view = PackageDetailsView(self.appsystem, self.basket)
+        # Remove only
+        self.details_view.is_install_page = False
+        self.stack.add_named(self.details_view, "details")
+
         self.load_page.set_message(_("Solving the Paradox Of Choice"))
 
         self.stack.set_visible_child_name("loading")
