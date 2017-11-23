@@ -45,6 +45,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.build_search_bar()
         self.get_style_context().add_class("solus-sc")
 
+        self.init_plugins()
         # TODO: Fix this for updates-view handling
         self.show_all()
 
@@ -107,3 +108,33 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.search_button.bind_property('active', self.search_bar,
                                          'search-mode-enabled',
                                          GObject.BindingFlags.BIDIRECTIONAL)
+
+    def init_plugins(self):
+        """ Take care of setting up our plugins
+            This takes special care to wrap the initial import in case we
+            have a module level import that would fail, i.e. import of
+            the snapd-glib binding
+        """
+        self.plugins = []
+        snap = None
+        osPlugin = None
+        try:
+            from xng.plugins.snapd import SnapdPlugin
+            snap = SnapdPlugin()
+        except Exception as e:
+            print("snapd support unavailable on this system: {}".format(e))
+            snap = None
+
+        if snap is not None:
+            self.plugins.append(snap)
+
+        try:
+            from xng.plugins.native import get_native_plugin
+            osPlugin = get_native_plugin()
+        except Exception as e:
+            print("Native plugin support unavailable for this system: {}".
+                  format(e))
+        if osPlugin is not None:
+            self.plugins.insert(0, osPlugin)
+        else:
+            print("WARNING: Unsupported OS, native packaging unavailable!")
