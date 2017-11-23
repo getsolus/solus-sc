@@ -11,7 +11,8 @@
 #  (at your option) any later version.
 #
 
-from .base import ProviderPlugin, ProviderItem, ProviderSource, ProviderCategory
+from .base import ProviderPlugin, ProviderItem, ProviderSource, \
+    ProviderCategory
 from .base import PopulationFilter, ItemStatus
 import pisi
 
@@ -64,6 +65,7 @@ class EopkgGroup(ProviderCategory):
         """ Return internal eopkg group icon name """
         return str(self.group.icon)
 
+
 class EopkgComponent(ProviderCategory):
     """ Wraps an eopkg component """
 
@@ -83,6 +85,7 @@ class EopkgComponent(ProviderCategory):
 
     def get_icon_name(self):
         return "package-x-generic"
+
 
 class EopkgPlugin(ProviderPlugin):
     """ EopkgPlugin interfaces with the eopkg package manager """

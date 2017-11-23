@@ -11,8 +11,10 @@
 #  (at your option) any later version.
 #
 
-from .base import ProviderPlugin, ProviderItem, PopulationFilter, ProviderCategory
+from .base import ProviderPlugin, ProviderItem, PopulationFilter, \
+    ProviderCategory
 from gi.repository import Snapd as snapd
+
 
 class SnapdCategory(ProviderCategory):
 
@@ -110,15 +112,16 @@ class SnapdPlugin(ProviderPlugin):
 
     def install_item(self, snap):
         """ Handle installation of a snap package! """
-        flags = snapd.InstallFlags.NONE # CLASSIC, DEVMODE, DANGEROUS, JAILMODE
+        flags = snapd.InstallFlags.NONE  # CLASSIC, DEVMODE, DANGEROUS,JAILMODE
         name = snap.get_name()
         channel = None  # default channel
         revision = None  # default revision
         progress_callback = self.progress_cb
-        self.snapd_client.install2_sync(flags, name, channel, revision, progress_callback, None, None)
+        self.snapd_client.install2_sync(
+            flags, name, channel, revision, progress_callback, None, None)
 
     def progress_cb(self, c, change, _, udata=None):
-        # Stolen from: https://github.com/ubuntu-mate/software-boutique/blob/master/pylib/snapsupport.py
+        # Stolen from software-boutique snapsupport.py
         total = 0
         done = 0
         for task in change.get_tasks():
@@ -127,6 +130,7 @@ class SnapdPlugin(ProviderPlugin):
 
         pct = (done/total)*100
         print("progress {} ({} / {})".format(pct, done, total))
+
 
 class SnapdItem(ProviderItem):
     """ A SnapdItem is a reference to either a remote or local snapd.Snap """
