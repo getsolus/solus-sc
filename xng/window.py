@@ -11,8 +11,9 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GObject, GLib
 from .appsystem import AppSystem
+from xng.plugins.base import PopulationFilter
 
 
 class ScMainWindow(Gtk.ApplicationWindow):
@@ -30,6 +31,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     # Global AppSystem instance, handed to plugins
     appsystem = None
+
+    search_idle_timeout = 0
 
     resolutions = [
         (1024, 576),
@@ -114,6 +117,37 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.search_button.bind_property('active', self.search_bar,
                                          'search-mode-enabled',
                                          GObject.BindingFlags.BIDIRECTIONAL)
+        self.search_entry.connect('search-changed', self.search_changed)
+
+    def add_item(self, id, item, popfilter):
+        print("Search yield: {} - {}".format(id, item.get_name()))
+
+    def clear(self):
+        print("Not yet implemented: clear()")
+
+    def search_changed(self, w, udata=None):
+        """ Begin a search 1.2s after they stop typing as the built-in Gtk
+            150ms is far too short for most normal human beings.
+        """
+        txt = self.search_entry.get_text().strip()
+        if txt == "":
+            return
+        print("Search: {}".format(txt))
+
+        if self.search_idle_timeout > 0:
+            GLib.source_remove(self.search_idle_timeout)
+        self.search_idle_timeout = GLib.timeout_add(1200, self.begin_search)
+
+    def begin_search(self, udata=None):
+        self.search_idle_timeout = 0
+
+        txt = self.search_entry.get_text().strip()
+        if txt == "":
+            return False
+
+        for plugin in self.plugins:
+            plugin.populate_storage(self, PopulationFilter.SEARCH, txt)
+        return False
 
     def init_plugins(self):
         """ Take care of setting up our plugins
