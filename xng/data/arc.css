@@ -1,0 +1,51 @@
+/*
+ * Arc specific styling
+ */
+
+@define-color sidebar_bg rgba(53, 57, 69, 0.95);
+@define-color sidebar_fg #BAC3CF;
+
+.solus-sc.background {
+    background-color: transparent;
+}
+
+.solus-sc .main-view {
+    background-color: @theme_bg_color;
+}
+
+.solus-sc .sidebar-separator {
+    background-color: shade(@sidebar_bg, 0.7);
+}
+
+.solus-sc .main-sidebar {
+    background-color: @sidebar_bg;
+}
+
+.solus-sc list.main-sidebar row:not(:selected) {
+    color: @sidebar_fg;
+}
+
+.solus-sc list.main-sidebar row:not(:selected) GtkImage {
+    color: alpha(@sidebar_fg, 0.7);
+}
+
+.solus-sc list.main-sidebar row:hover:not(:selected) {
+    background-color: alpha(@sidebar_fg, 0.15);
+}
+
+list.sc-changelog .changelog-entry {
+    background-color: @theme_base_color;
+    border-radius: 2px;
+}
+
+.solus-sc .view.content {
+    background-color: @theme_bg_color;
+}
+
+.group-button:not(:active):not(:checked) {
+    background-color: @theme_base_color;
+}
+
+.group-button:not(:active):not(:checked):hover {
+    background-color: mix(@theme_base_color, @theme_fg_color, 0.05);
+}
