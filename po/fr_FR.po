@@ -496,7 +496,7 @@ msgid "Open up the updates view of the application"
 msgstr "Détails des mises à jour de l'application"
 
 #. Quirky loading message
-#: ../solus_sc/available_view.py:38
+#: ../solus_sc/available_view.py:24
 msgid "Switching to the B-side of the cassette…"
 msgstr "Passage à la face B de la cassette..."
 
@@ -714,13 +714,13 @@ msgstr "Rechercher"
 msgid "Settings"
 msgstr "Paramètres"
 
-#: ../solus_sc/package_view.py:41
+#: ../solus_sc/installed_view.py:30
 msgid "Solving the Paradox Of Choice"
 msgstr "Résoudre le paradoxe du choix"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
-#: ../solus_sc/search_results.py:41
+#: ../solus_sc/search_results.py:65
 msgid "Concentrating really hard"
 msgstr "La concentration est maximale"
 

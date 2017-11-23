@@ -483,7 +483,7 @@ msgid "Open up the updates view of the application"
 msgstr "Abrir a vista de actualizacións da aplicación"
 
 #. Quirky loading message
-#: ../solus_sc/available_view.py:38
+#: ../solus_sc/available_view.py:24
 msgid "Switching to the B-side of the cassette…"
 msgstr "Cambiando á cara B do casete..."
 
@@ -660,7 +660,7 @@ msgstr "Búsqueda"
 msgid "Settings"
 msgstr "Axustes"
 
-#: ../solus_sc/package_view.py:41
+#: ../solus_sc/installed_view.py:30
 msgid "Solving the Paradox Of Choice"
 msgstr "Resolvendo o Paradoxo da Elección"
 

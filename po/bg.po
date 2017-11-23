@@ -483,7 +483,7 @@ msgid "Open up the updates view of the application"
 msgstr "Отвори екрана за актуализации на приложението"
 
 #. Quirky loading message
-#: ../solus_sc/available_view.py:38
+#: ../solus_sc/available_view.py:24
 msgid "Switching to the B-side of the cassette…"
 msgstr "Обръщаме касетата…"
 
@@ -701,13 +701,13 @@ msgstr "Търсене"
 msgid "Settings"
 msgstr "Настройки"
 
-#: ../solus_sc/package_view.py:41
+#: ../solus_sc/installed_view.py:30
 msgid "Solving the Paradox Of Choice"
 msgstr "Разрешаваме парадокса на избора"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
-#: ../solus_sc/search_results.py:41
+#: ../solus_sc/search_results.py:65
 msgid "Concentrating really hard"
 msgstr "Концентрираме се усилено"
 

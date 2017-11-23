@@ -11,40 +11,10 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GLib, GdkPixbuf
-from gi.repository import AppStreamGlib as As
+from gi.repository import Gtk
 import difflib
 from .util import is_package_debug
-
-
-""" enum for the model fields """
-INDEX_FIELD_DISPLAY = 0
-INDEX_FIELD_NAME = 1
-INDEX_FIELD_ICON = 2
-INDEX_FIELD_ARROW = 3
-
-
-class LoadingPage(Gtk.VBox):
-    """ Simple loading page, nothing fancy. """
-
-    spinner = None
-
-    def __init__(self):
-        Gtk.VBox.__init__(self)
-
-        self.set_valign(Gtk.Align.CENTER)
-        self.set_halign(Gtk.Align.CENTER)
-        self.spinner = Gtk.Spinner()
-        self.spinner.set_size_request(-1, 64)
-        # self.spinner.start()
-        # "Witty" loading page, loading search results
-        lab = _("Concentrating really hard") + u"…"
-        self.label = Gtk.Label("<big>{}</big>".format(lab))
-        self.label.set_use_markup(True)
-
-        self.pack_start(self.spinner, True, True, 0)
-        self.pack_start(self.label, False, False, 0)
-        self.label.set_property("margin", 20)
+from .packages_view import ScPackagesView
 
 
 class BlankPage(Gtk.VBox):
@@ -59,7 +29,7 @@ class BlankPage(Gtk.VBox):
         self.set_halign(Gtk.Align.CENTER)
         # Search page, prompt to begin searching
         self.label = Gtk.Label("<big>{}</big>".format(
-                               _("Type a query to get started")))
+            _("Type a query to get started")))
         self.label.set_use_markup(True)
 
         self.pack_start(self.label, False, False, 0)
@@ -78,100 +48,38 @@ class NotFoundPage(Gtk.VBox):
         self.set_halign(Gtk.Align.CENTER)
         # Unable to find any matching search results
         self.label = Gtk.Label("<big>{}</big>".format(
-                               _("No results found")))
+            _("No results found")))
         self.label.set_use_markup(True)
 
         self.pack_start(self.label, False, False, 0)
         self.label.set_property("margin", 20)
 
 
-class ScSearchResults(Gtk.VBox):
-
-    scroll = None
-    tview = None
-    appsystem = None
-    basket = None
-    stack = None
-    load_page = None
-    owner = None
-    stack = None
-    component = None
+class ScSearchResults(ScPackagesView):
     empty_page = None
     notfound_page = None
     search_page = None
 
     def __init__(self, search_page, owner):
-        Gtk.VBox.__init__(self, 0)
-        self.basket = owner.basket
-        self.appsystem = owner.appsystem
-        self.owner = owner
-        self.search_page = search_page
+        ScPackagesView.__init__(self, owner, owner.basket, owner.appsystem)
+        self.load_page.set_message(_("Concentrating really hard"))
 
-        self.stack = Gtk.Stack()
-        t = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
-        self.stack.set_transition_type(t)
-        self.pack_start(self.stack, True, True, 0)
+        self.search_page = search_page
 
         # Not found/ search for somethin pls
         self.empty_page = BlankPage()
+        self.empty_page.show()
         self.stack.add_named(self.empty_page, "empty")
-
-        # Loading results
-        self.load_page = LoadingPage()
-        self.stack.add_named(self.load_page, "loading")
 
         # not found
         self.notfound_page = NotFoundPage()
         self.stack.add_named(self.notfound_page, "not-found")
 
-        self.scroll = Gtk.ScrolledWindow(None, None)
-        self.scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
-        self.scroll.set_overlay_scrolling(False)
-        self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        self.scroll.set_property("kinetic-scrolling", True)
-        self.scroll.get_style_context().add_class("search-results")
-        self.stack.add_named(self.scroll, "available")
-
-        # Main treeview where it's all happening. Single click activate
-        self.tview = Gtk.TreeView()
-        self.tview.get_selection().set_mode(Gtk.SelectionMode.SINGLE)
-        self.tview.connect_after('row-activated', self.on_row_activated)
-        self.tview.set_activate_on_single_click(True)
-
-        # Defugly
-        self.tview.set_property("enable-grid-lines", False)
-        self.tview.set_property("headers-visible", False)
-        self.scroll.add(self.tview)
-
-        # img view
-        ren = Gtk.CellRendererPixbuf()
-        ren.set_property("stock-size", Gtk.IconSize.DIALOG)
-        ren.set_padding(5, 2)
-        column = Gtk.TreeViewColumn("Icon", ren, pixbuf=2)
-        self.tview.append_column(column)
-
-        # Set up display columns
-        ren = Gtk.CellRendererText()
-        ren.set_padding(5, 5)
-        column = Gtk.TreeViewColumn("Name", ren, markup=0)
-        self.tview.append_column(column)
-        self.tview.set_search_column(1)
-
-        # Details
-        ren = Gtk.CellRendererPixbuf()
-        ren.set_padding(5, 5)
-        column = Gtk.TreeViewColumn("Details", ren, icon_name=3)
-        self.tview.append_column(column)
-        ren.set_property("xalign", 1.0)
-
         self.stack.set_visible_child_name("empty")
 
     def on_row_activated(self, tview, path, column, udata=None):
         """ User clicked a row, now try to load the page """
-        model = tview.get_model()
-        row = model[path]
-
-        pkg_name = row[INDEX_FIELD_NAME]
+        pkg_name = self.get_pkg_name_from_path(tview, path)
 
         if self.basket.packagedb.has_package(pkg_name):
             pkg = self.basket.packagedb.get_package(pkg_name)
@@ -182,7 +90,7 @@ class ScSearchResults(Gtk.VBox):
     def set_search_term(self, term):
         if term.strip() == "":
             return
-        model = Gtk.ListStore(str, str, GdkPixbuf.Pixbuf, str)
+        model = self.get_model()
 
         self.reset()
 
@@ -215,21 +123,8 @@ class ScSearchResults(Gtk.VBox):
                 continue
 
             added = True
-            summary = self.appsystem.get_summary(pkg)
-            summary = self.render_plain(str(summary))
 
-            if len(summary) > 76:
-                summary = "%s…" % summary[0:76]
-
-            summary = GLib.markup_escape_text(summary)
-
-            name = self.appsystem.get_name(pkg)
-            p_print = "<b>%s</b> - %s\n%s" % (name, str(pkg.version),
-                                              summary)
-
-            pbuf = self.appsystem.get_pixbuf_only(pkg)
-
-            model.append([p_print, pkg_name, pbuf, "go-next-symbolic"])
+            model.append(self.get_pkg_model(pkg))
 
             while (Gtk.events_pending()):
                 Gtk.main_iteration()
@@ -237,24 +132,12 @@ class ScSearchResults(Gtk.VBox):
         if not added:
             self.stack.set_visible_child_name("not-found")
         else:
-            self.stack.set_visible_child_name("available")
+            self.stack.set_visible_child_name("packages")
 
         self.tview.set_model(model)
         self.load_page.spinner.stop()
-
-    def reset(self):
-        self.tview.set_model(None)
-        self.stack.set_visible_child_name("loading")
-        self.load_page.spinner.start()
-        self.queue_draw()
 
     def clear_view(self):
         self.tview.set_model(None)
         self.stack.set_visible_child_name("empty")
         self.queue_draw()
-
-    def render_plain(self, input_string):
-        """ Render a plain version of the description, no markdown """
-        plain = As.markup_convert_simple(input_string)
-        plain = plain.replace("&quot;", "\"").replace("&apos;", "'")
-        return plain

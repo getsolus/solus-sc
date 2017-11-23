@@ -482,7 +482,7 @@ msgid "Open up the updates view of the application"
 msgstr "Obre la vista d'actualitzacions de l'aplicació"
 
 #. Quirky loading message
-#: ../solus_sc/available_view.py:38
+#: ../solus_sc/available_view.py:24
 msgid "Switching to the B-side of the cassette…"
 msgstr "Es canvia a la cara B del casset..."
 
@@ -700,13 +700,13 @@ msgstr "Cerca"
 msgid "Settings"
 msgstr "Paràmetres"
 
-#: ../solus_sc/package_view.py:41
+#: ../solus_sc/installed_view.py:30
 msgid "Solving the Paradox Of Choice"
 msgstr "Solució de la paradoxa de la tria"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
-#: ../solus_sc/search_results.py:41
+#: ../solus_sc/search_results.py:65
 msgid "Concentrating really hard"
 msgstr "M'hi estic trencant les banyes"
 

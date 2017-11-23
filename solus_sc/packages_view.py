@@ -11,10 +11,8 @@
 #  (at your option) any later version.
 #
 
-from .details import PackageDetailsView
 from gi.repository import Gtk, GLib, GdkPixbuf
 from gi.repository import AppStreamGlib as As
-
 
 """ enum for the model fields """
 INDEX_FIELD_DISPLAY = 0
@@ -28,7 +26,7 @@ class LoadingPage(Gtk.VBox):
 
     spinner = None
 
-    def __init__(self):
+    def __init__(self, message=""):
         Gtk.VBox.__init__(self)
 
         self.set_valign(Gtk.Align.CENTER)
@@ -37,34 +35,32 @@ class LoadingPage(Gtk.VBox):
         self.spinner.set_size_request(-1, 64)
         self.spinner.start()
         # Loading available packages (witty loading screen)
-        self.label = Gtk.Label(u"<big>{}…</big>".format(
-            _("Solving the Paradox Of Choice")))
-        self.label.set_use_markup(True)
+        self.label = Gtk.Label()
+        self.set_message(message)
 
         self.pack_start(self.spinner, True, True, 0)
         self.pack_start(self.label, False, False, 0)
         self.label.set_property("margin", 20)
 
+    def set_message(self, message):
+        self.label.set_markup(u"<big>{}…</big>".format(message))
 
-class ScPackageView(Gtk.VBox):
 
-    scroll = None
-    tview = None
+def render_plain(input_string):
+    """ Render a plain version of the description, no markdown """
+    plain = As.markup_convert_simple(input_string)
+    plain = plain.replace("&quot;", "\"").replace("&apos;", "'")
+    return plain
+
+
+class ScPackagesView(Gtk.VBox):
     appsystem = None
     basket = None
-    stack = None
-    load_page = None
-    details_view = None
     owner = None
-
-    def handle_back(self):
-        """ Go back to the main view """
-        self.stack.set_visible_child_name("packages")
-        self.owner.set_can_back(False)
-
-    def can_back(self):
-        """ Whether we can go back """
-        return self.stack.get_visible_child_name() != "packages"
+    stack = None
+    scroll = None
+    tview = None
+    load_page = None
 
     def __init__(self, owner, basket, appsystem):
         Gtk.VBox.__init__(self, 0)
@@ -119,57 +115,34 @@ class ScPackageView(Gtk.VBox):
         self.tview.append_column(column)
         ren.set_property("xalign", 1.0)
 
-        # Set up the details view
-        self.details_view = PackageDetailsView(self.appsystem, self.basket)
-        # Remove only
-        self.details_view.is_install_page = False
-        self.stack.add_named(self.details_view, "details")
-
-        self.stack.set_visible_child_name("loading")
-
-    def init_view(self):
-        model = Gtk.ListStore(str, str, GdkPixbuf.Pixbuf, str)
-        model.set_sort_column_id(1, Gtk.SortType.ASCENDING)
-
-        for pkg_name in self.basket.installdb.list_installed():
-            pkg = self.basket.installdb.get_package(pkg_name)
-
-            summary = self.appsystem.get_summary(pkg)
-            summary = self.render_plain(str(summary))
-
-            if len(summary) > 76:
-                summary = "%s…" % summary[0:76]
-
-            name = self.appsystem.get_name(pkg)
-            p_print = "<b>%s</b> - %s\n%s" % (name, str(pkg.version),
-                                              summary)
-
-            pbuf = self.appsystem.get_pixbuf_only(pkg)
-
-            model.append([p_print, pkg_name, pbuf, "go-next-symbolic"])
-
-        self.tview.set_model(model)
-        GLib.idle_add(self.finish_view)
-        return False
-
-    def finish_view(self):
-        self.load_page.spinner.stop()
-        self.stack.set_visible_child_name("packages")
-        return False
-
-    def on_row_activated(self, tview, path, column, udata=None):
-        """ User clicked a row, now try to load the page """
+    @staticmethod
+    def get_pkg_name_from_path(tview, path):
         model = tview.get_model()
         row = model[path]
 
-        pkg_name = row[INDEX_FIELD_NAME]
-        pkg = self.basket.installdb.get_package(pkg_name)
-        self.details_view.update_from_package(pkg)
-        self.stack.set_visible_child_name("details")
-        self.owner.set_can_back(True)
+        return row[INDEX_FIELD_NAME]
 
-    def render_plain(self, input_string):
-        """ Render a plain version of the description, no markdown """
-        plain = As.markup_convert_simple(input_string)
-        plain = plain.replace("&quot;", "\"").replace("&apos;", "'")
-        return plain
+    @staticmethod
+    def get_model():
+        return Gtk.ListStore(str, str, GdkPixbuf.Pixbuf, str)
+
+    def get_pkg_model(self, pkg):
+        summary = self.appsystem.get_summary(pkg)
+        summary = render_plain(str(summary))
+
+        if len(summary) > 76:
+            summary = "%s…" % summary[0:76]
+
+        name = self.appsystem.get_name(pkg)
+        p_print = "<b>%s</b> - %s\n%s" % (name, str(pkg.version),
+                                          summary)
+
+        pbuf = self.appsystem.get_pixbuf_only(pkg)
+
+        return [p_print, pkg.name, pbuf, "go-next-symbolic"]
+
+    def reset(self):
+        self.tview.set_model(None)
+        self.stack.set_visible_child_name("loading")
+        self.load_page.spinner.start()
+        self.queue_draw()

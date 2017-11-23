@@ -13,7 +13,7 @@
 
 from .appsystem import AppSystem
 from .groups import ScGroupsView
-from .package_view import ScPackageView
+from .installed_view import ScInstalledView
 from .sidebar import ScSidebar
 from .updates_view import ScUpdatesView
 from .basket import BasketView
@@ -44,7 +44,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     appsystem = None
 
     # Pages
-    package_view = None
+    installed_view = None
     updates_view = None
     search_view = None
     third_party = None
@@ -75,7 +75,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         """ Handle back navigation """
         nom = self.stack.get_visible_child_name()
         if nom == "installed":
-            self.package_view.handle_back()
+            self.installed_view.handle_back()
         elif nom == "home":
             self.groups_view.handle_back()
         elif nom == "search":
@@ -93,7 +93,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         """ Update back navigation """
         sensitive = False
         if nom == "installed":
-            sensitive = self.package_view.can_back()
+            sensitive = self.installed_view.can_back()
         elif nom == "home":
             sensitive = self.groups_view.can_back()
         elif nom == "search":
@@ -101,7 +101,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.set_can_back(sensitive)
 
     def init_children(self):
-        self.package_view.init_view()
+        self.installed_view.init_view()
 
         # If we're not allowed to refresh on metered connections, only
         # show the cached results on startup
@@ -210,10 +210,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.stack.add_titled(self.updates_view, "updates", _("Updates"))
 
         # Package view for installed page
-        self.package_view = ScPackageView(self, self.basket, self.appsystem)
+        self.installed_view = ScInstalledView(self, self.basket, self.appsystem)
 
         # This page shows the locally instaleld items
-        self.stack.add_titled(self.package_view, "installed", _("Installed"))
+        self.stack.add_titled(self.installed_view, "installed", _("Installed"))
 
         self.third_party = ThirdPartyView(self)
         # Software made available from outside the Solus software repos

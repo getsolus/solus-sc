@@ -8,7 +8,7 @@ solus_sc/basket.py
 solus_sc/details.py
 solus_sc/groups.py
 solus_sc/main_window.py
-solus_sc/package_view.py
+solus_sc/installed_view.py
 solus_sc/search_results.py
 solus_sc/settings_view.py
 solus_sc/sidebar.py
