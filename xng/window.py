@@ -11,9 +11,10 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GObject, GLib
+from gi.repository import Gtk, GObject, GLib, Gdk, Gio
 from .appsystem import AppSystem
 from xng.plugins.base import PopulationFilter
+import threading
 
 
 class ScMainWindow(Gtk.ApplicationWindow):
@@ -40,6 +41,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
         (1280, 760),
     ]
 
+    search_stop = None
+
+    _thread_search = None
+    _thread_cancel = None
+
     def __init__(self, app):
         Gtk.Window.__init__(self, application=app)
         self.pick_resolution()
@@ -52,11 +58,21 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.build_search_bar()
         self.get_style_context().add_class("solus-sc")
 
+        self.search_stop = threading.Event()
+        self._thread_cancel = Gio.Cancellable()
+
         self.init_plugins()
         # WARNING: Slows down startup!!
         self.appsystem = AppSystem()
         # TODO: Fix this for updates-view handling
+        self.dummy_code()
         self.show_all()
+
+    def dummy_code(self):
+        self.listbox = Gtk.ListBox.new()
+        self.scroll = Gtk.ScrolledWindow.new(None, None)
+        self.scroll.add(self.listbox)
+        self.layout.pack_start(self.scroll, True, True, 0)
 
     def pick_resolution(self):
         """ Attempt to pick a good 16:9 resolution for the screen """
@@ -120,34 +136,59 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.search_entry.connect('search-changed', self.search_changed)
 
     def add_item(self, id, item, popfilter):
-        print("Search yield: {} - {}".format(id, item.get_name()))
+        Gdk.threads_enter()
+        item = Gtk.Label.new("{} - {}".format(id, item.get_name()))
+        self.listbox.add(item)
+        item.show_all()
+        Gdk.threads_leave()
 
     def clear(self):
-        print("Not yet implemented: clear()")
+        for child in self.listbox.get_children():
+            child.destroy()
 
     def search_changed(self, w, udata=None):
-        """ Begin a search 1.2s after they stop typing as the built-in Gtk
-            150ms is far too short for most normal human beings.
-        """
+        """ Forcibly delay the search again """
         txt = self.search_entry.get_text().strip()
         if txt == "":
+            self.nuke_search()
             return
-        print("Search: {}".format(txt))
 
         if self.search_idle_timeout > 0:
             GLib.source_remove(self.search_idle_timeout)
         self.search_idle_timeout = GLib.timeout_add(1200, self.begin_search)
 
+    def nuke_search(self):
+        """ Unsearch things """
+        print("Cancelling cancellable")
+        self._thread_cancel.cancel()
+        if self._thread_search:
+            print("Setting stop condition!")
+            if not self.search_stop.is_set():
+                self.search_stop.set()
+            self._thread_search = None
+        self.clear()
+
     def begin_search(self, udata=None):
         self.search_idle_timeout = 0
+        self.nuke_search()
 
         txt = self.search_entry.get_text().strip()
         if txt == "":
+            self.clear()
             return False
 
-        for plugin in self.plugins:
-            plugin.populate_storage(self, PopulationFilter.SEARCH, txt)
+        self._thread_search = threading.Thread(
+            target=self.do_search, args=(txt,))
+        self._thread_cancel.reset()
+        self.search_stop.clear()
+        self._thread_search.start()
+
         return False
+
+    def do_search(self, txt):
+        for plugin in self.plugins:
+            plugin.populate_storage(
+                self, PopulationFilter.SEARCH, txt, self.search_stop)
 
     def init_plugins(self):
         """ Take care of setting up our plugins

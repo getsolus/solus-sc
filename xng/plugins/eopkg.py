@@ -139,11 +139,11 @@ class EopkgPlugin(ProviderPlugin):
             repos.append(EopkgSource(self.repoDB, x))
         return repos
 
-    def populate_storage(self, storage, popfilter, extra):
+    def populate_storage(self, storage, popfilter, extra, cancel):
         if popfilter == PopulationFilter.INSTALLED:
             return self.populate_installed(storage)
         elif popfilter == PopulationFilter.SEARCH:
-            return self.populate_search(storage, extra)
+            return self.populate_search(storage, extra, cancel)
         elif popfilter == PopulationFilter.RECENT:
             return self.populate_recent(storage, extra)
         elif popfilter == PopulationFilter.NEW:
@@ -185,7 +185,7 @@ class EopkgPlugin(ProviderPlugin):
             item.parent_plugin = self
             storage.add_item(item.get_id(), item, PopulationFilter.NEW)
 
-    def populate_search(self, storage, term):
+    def populate_search(self, storage, term, cancel):
         """ Attempt to search for a given term in the DB """
         # Trick eopkg into searching through spaces and hyphens
         term = term.replace(" ", "[-_ ]")
@@ -202,6 +202,11 @@ class EopkgPlugin(ProviderPlugin):
             available = None
             installed = None
 
+            # Check on each item if we need to bail NOW
+            if cancel.is_set():
+                print("Cancelled?!?")
+                return
+
             if self.installDB.has_package(item):
                 installed = self.installDB.get_package(item)
             if self.availDB.has_package(item):
@@ -210,6 +215,7 @@ class EopkgPlugin(ProviderPlugin):
             pkg = EopkgItem(installed, available)
             pkg.parent_plugin = self
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.SEARCH)
+        print("eopkg done!")
 
     def populate_installed(self, storage):
         """ Populate from the installed filter """
