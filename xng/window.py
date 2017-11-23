@@ -12,6 +12,7 @@
 #
 
 from gi.repository import Gtk, GObject
+from .appsystem import AppSystem
 
 
 class ScMainWindow(Gtk.ApplicationWindow):
@@ -26,6 +27,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
     search_entry = None
 
     mode_open = None
+
+    # Global AppSystem instance, handed to plugins
+    appsystem = None
 
     resolutions = [
         (1024, 576),
@@ -46,6 +50,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.get_style_context().add_class("solus-sc")
 
         self.init_plugins()
+        # WARNING: Slows down startup!!
+        self.appsystem = AppSystem()
         # TODO: Fix this for updates-view handling
         self.show_all()
 
