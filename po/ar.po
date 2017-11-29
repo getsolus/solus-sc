@@ -3,820 +3,820 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# David Macura <david@macurovi.cz>, 2016-2017
-# Ondřej Pucholt <o.pucholt@windowslive.com>, 2017
+# MUHAAB SHAAM <muhaab.org@gmail.com>, 2016-2017
+# risaro niro <pgn508@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-11-24 21:04+0000\n"
-"Last-Translator: Ondřej Pucholt <o.pucholt@windowslive.com>\n"
-"Language-Team: Czech (http://www.transifex.com/solus-project/solus-sc/language/cs/)\n"
+"PO-Revision-Date: 2017-11-06 20:12+0000\n"
+"Last-Translator: Ahmed Lemine <aljakany@gmail.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/solus-project/solus-sc/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: ../repo_data/components.xml.in.h:1
 msgid "System Base"
-msgstr "Základy systému"
+msgstr "النظام الأساسي"
 
 #: ../repo_data/components.xml.in.h:2
 msgid "Base Components"
-msgstr "Základní součásti"
+msgstr "المكونات الأساسية "
 
 #: ../repo_data/components.xml.in.h:3
 msgid "Base components of Solus"
-msgstr "Základní součásti Solusu"
+msgstr "المكونات الأساسية لنظام Solus"
 
 #: ../repo_data/components.xml.in.h:4
 msgid "Boot utilities"
-msgstr "Utility pro zavádění systému"
+msgstr "أدوات الإقلاع "
 
 #: ../repo_data/components.xml.in.h:5
 msgid "Tools and daemons required early in the boot process"
-msgstr "Nástroje a démoni nezbytní v rané fázi zavádění systému"
+msgstr "الأدوات والمصغيات المطلوبة مبكراً في عملية الإقلاع"
 
 #: ../repo_data/components.xml.in.h:6
 msgid "System utilities"
-msgstr "Systémové utility"
+msgstr "أدوات النظام "
 
 #: ../repo_data/components.xml.in.h:7
 msgid ""
 "Commonly used components for a full installation, not used in minimal "
 "environments"
-msgstr "Komponenty běžně využívané pro plnou instalaci, nevyužívají se v minimálních prostředích"
+msgstr "المكونات المستخدمة عادة في تثبيت كامل، لا تُستخدم في البيئات المصغرة "
 
 #: ../repo_data/components.xml.in.h:8
 msgid "Base development tools"
-msgstr "Základní vývojářské nástroje"
+msgstr "أدوات التطوير الأساسية "
 
 #: ../repo_data/components.xml.in.h:9
 msgid "Development utilities - base system"
-msgstr "Vývojařské utility - základní systém"
+msgstr "أدوات التطوير - النظام الأساسي "
 
 #: ../repo_data/components.xml.in.h:10
 msgid "X.Org Base Components"
-msgstr "Základní součásti X.Org"
+msgstr "المكونات الأساسية لـ X.Org"
 
 #: ../repo_data/components.xml.in.h:11
 msgid "Base components required for the X.Org System"
-msgstr "Základní komponenty potřebné pro systém X.Org"
+msgstr "المكونات الأساسية المطلوبة لنظام X.Org"
 
 #: ../repo_data/components.xml.in.h:12
 msgid "X.Org Protocol Headers"
-msgstr "Hlavičky protokolu X.Org"
+msgstr "رؤوس ميفاق X.Org"
 
 #: ../repo_data/components.xml.in.h:13
 msgid "Protocol headers required for building X.Org Libraries"
-msgstr "Hlavičky protokolu potřebné k sestavení knihoven X.Org"
+msgstr "رؤوس الميفاق المطلوبة لبناء مكتبات X.Org"
 
 #: ../repo_data/components.xml.in.h:14
 msgid "X.Org Core Libraries"
-msgstr "Základní knihovny X.Org"
+msgstr "مكتبات X.Org الأساسية"
 
 #: ../repo_data/components.xml.in.h:15
 msgid "Core libraries required by X.Org"
-msgstr "Základní knihovny potřebné pro X.Org"
+msgstr "مكتبات الأساسية المطلوبة من قبل X.Org"
 
 #: ../repo_data/components.xml.in.h:16
 msgid "X.Org Core Fonts"
-msgstr "Základní písma X.Org"
+msgstr "خطوط X.Org الأساسية"
 
 #: ../repo_data/components.xml.in.h:17
 msgid "Core fonts required by X.Org"
-msgstr "Základní písma potřebná pro X.Org"
+msgstr "الخطوط الأساسية المطلوبة من قبل X.Org"
 
 #: ../repo_data/components.xml.in.h:18
 msgid "X.Org Core Applications"
-msgstr "Základní aplikace X.Org"
+msgstr "تطبيقات X.Org الأساسية"
 
 #: ../repo_data/components.xml.in.h:19
 msgid "Collection of simple applications for X.Org"
-msgstr "Kolekce jednoduchých aplikací pro X.Org"
+msgstr "تشكلية من البرامج البسيطة لـ X.Org"
 
 #: ../repo_data/components.xml.in.h:20
 msgid "X.Org Display"
-msgstr "Displej X.Org"
+msgstr "شاشة X.Org"
 
 #: ../repo_data/components.xml.in.h:21
 msgid "Software required to run an X.Org Display"
-msgstr "Software potřebný pro běh displeje X.Org"
+msgstr "البرامج المطلوبة لتشغيل شاشة عرض X.Org"
 
 #: ../repo_data/components.xml.in.h:22
 msgid "X.Org Server"
-msgstr "Server X.Org"
+msgstr "خادم X.Org"
 
 #: ../repo_data/components.xml.in.h:23
 msgid "Core server of the X Window System"
-msgstr "Základní server X Window System"
+msgstr "الخادم الأساسي لنظام نافذة X"
 
 #: ../repo_data/components.xml.in.h:24
 msgid "X.Org Drivers"
-msgstr "Ovladače X.Org"
+msgstr "مشغلات X.Org"
 
 #: ../repo_data/components.xml.in.h:25
 msgid "Drivers required to use the X Window System"
-msgstr "Ovladače potřebné pro běh X Window System"
+msgstr "المشغلات المطلوبة لاستخدام نظام نافذة X"
 
 #: ../repo_data/components.xml.in.h:26
 msgid "Networking Base"
-msgstr "Správa sítě"
+msgstr "أساس الربط الشبكي"
 
 #: ../repo_data/components.xml.in.h:27
 msgid "Email clients"
-msgstr "Poštovní klienti"
+msgstr "عملاء البريد الإلكتروني"
 
 #: ../repo_data/components.xml.in.h:28
 msgid "IRC clients"
-msgstr "IRC klienti"
+msgstr "عملاء IRC"
 
 #: ../repo_data/components.xml.in.h:29
 msgid "Instant messaging"
-msgstr "Instant messaging"
+msgstr "التراسل الفوري"
 
 #: ../repo_data/components.xml.in.h:30
 msgid "News and RSS readers"
-msgstr "Čtečky zpráv a RSS"
+msgstr "الأخبار وقارئات RSS"
 
 #: ../repo_data/components.xml.in.h:31
 msgid "Remote management software"
-msgstr "Nástroje pro vzdálenou správu"
+msgstr "برامج التحكم عن بُعد"
 
 #: ../repo_data/components.xml.in.h:32
 msgid "Web applications"
-msgstr "Aplikace pro web"
+msgstr "تطبيقات الويب"
 
 #: ../repo_data/components.xml.in.h:33
 msgid "Web browsers"
-msgstr "Prohlížeče"
+msgstr "متصفحات الانترنت"
 
 #: ../repo_data/components.xml.in.h:34
 msgid "Networking utilities"
-msgstr "Síťové utility"
+msgstr "أدوات الربط الشبكي"
 
 #: ../repo_data/components.xml.in.h:35
 msgid "Download managers"
-msgstr "Správci stahování"
+msgstr "مدير التنزيلات"
 
 #: ../repo_data/components.xml.in.h:36
 msgid "Networking CLI Clients"
-msgstr "Síťoví klienti pro příkazovou řádku"
+msgstr "عملاء الربط الشبكي بسطر الأوامر"
 
 #: ../repo_data/components.xml.in.h:37
 msgid "Kernel Images"
-msgstr "Obrazy jádra"
+msgstr "صور النواة"
 
 #: ../repo_data/components.xml.in.h:38
 msgid "Kernel Development"
-msgstr "Vývoj jádra"
+msgstr "تطوير النواة"
 
 #: ../repo_data/components.xml.in.h:39
 msgid "Text Editors"
-msgstr "Textové editory"
+msgstr "محررات النصوص"
 
 #: ../repo_data/components.xml.in.h:40
 msgid "Simple and advanced text editors"
-msgstr "Jednoduché i pokročilé textové editory"
+msgstr "محررات النصوص البسيطة والمتقدمة"
 
 #: ../repo_data/components.xml.in.h:41 ../repo_data/groups.xml.in.h:5
 msgid "Office Software"
-msgstr "Kancelářský software"
+msgstr "برامج المكتب"
 
 #: ../repo_data/components.xml.in.h:42
 msgid "Office software"
-msgstr "Kancelářský software"
+msgstr "برامج المكتب"
 
 #: ../repo_data/components.xml.in.h:43
 msgid "Financial Software"
-msgstr "Finanční software"
+msgstr "برامج مالية"
 
 #: ../repo_data/components.xml.in.h:44
 msgid "Mathematics-Oriented Software"
-msgstr "Matematický software"
+msgstr "برامج حسابية"
 
 #: ../repo_data/components.xml.in.h:45
 msgid "Note-Taking Software"
-msgstr "Tvorba poznámek"
+msgstr "برامج تدوين الملاحظات"
 
 #: ../repo_data/components.xml.in.h:46
 msgid "Scientific Software"
-msgstr "Vědecký software"
+msgstr "برامج علمية"
 
 #: ../repo_data/components.xml.in.h:47
 msgid "Software aimed at various scientific fields."
-msgstr "Software určený pro různá vědecká odvětví"
+msgstr "برامج موجهة لمجالات علمية مختلفة."
 
 #: ../repo_data/components.xml.in.h:48
 msgid "E-book and PDF Viewing Software"
-msgstr "Čtečky e-knih a PDF"
+msgstr "برامج الكتب الإلكترونية وعرض PDF"
 
 #: ../repo_data/components.xml.in.h:49
 msgid "Programming"
-msgstr "Programování"
+msgstr "برمجة"
 
 #: ../repo_data/components.xml.in.h:50
 msgid "Software related to programming"
-msgstr "Software související s programováním"
+msgstr "برامج متعلقة بالبرمجة"
 
 #: ../repo_data/components.xml.in.h:51
 msgid "Development files"
-msgstr "Soubory pro vývoj"
+msgstr "ملفات التطوير"
 
 #: ../repo_data/components.xml.in.h:52
 msgid "Integrated Developer Environments"
-msgstr "Integrovaná vývojová prostředí"
+msgstr "بيئات التطوير المدمجة"
 
 #: ../repo_data/components.xml.in.h:53
 msgid "Development tools"
-msgstr "Vývojářské nástroje"
+msgstr "أدوات التطوير"
 
 #: ../repo_data/components.xml.in.h:54
 msgid "Haskell libraries"
-msgstr "Knihovny pro Haskell"
+msgstr "مكتبات هاسكل"
 
 #: ../repo_data/components.xml.in.h:55
 msgid "Python modules"
-msgstr "Moduly pro Python"
+msgstr "وحدات بايثون"
 
 #: ../repo_data/components.xml.in.h:56
 msgid "Perl modules"
-msgstr "Moduly pro Perl"
+msgstr "وحدات بيرل"
 
 #: ../repo_data/components.xml.in.h:57
 msgid "Java modules and libraries"
-msgstr "Knihovny a moduly pro Javu"
+msgstr "وحدات ومكتبات جافا"
 
 #: ../repo_data/components.xml.in.h:58
 msgid "Programming libraries"
-msgstr "Knihovny"
+msgstr "مكتبات البرمجة"
 
 #: ../repo_data/components.xml.in.h:59
 msgid "Database clients and servers"
-msgstr "Databázoví klienti a servery"
+msgstr "عملاء وخوادم قاعدة البيانات"
 
 #: ../repo_data/components.xml.in.h:60
 msgid "Desktop Software"
-msgstr "Desktopový software"
+msgstr "برامج سطح المكتب"
 
 #: ../repo_data/components.xml.in.h:61
 msgid "Desktop specific software"
-msgstr "Software specifický pro desktop"
+msgstr "برامج سطح مكتب خاصة"
 
 #: ../repo_data/components.xml.in.h:62
 msgid "General Multimedia Software"
-msgstr "Ostatní multimediální software"
+msgstr "برامج وسائط متعددة عامة"
 
 #: ../repo_data/components.xml.in.h:63
 msgid "Graphics"
-msgstr "Grafika"
+msgstr "الرسوم"
 
 #: ../repo_data/components.xml.in.h:64
 msgid "Graphics Manipulation Software"
-msgstr "Software pro úpravu grafiky"
+msgstr "برامج تعديل الرسوم"
 
 #: ../repo_data/components.xml.in.h:65
 msgid "Multimedia Codecs"
-msgstr "Multimediální kodeky"
+msgstr "مراميز الوسائط المتعددة"
 
 #: ../repo_data/components.xml.in.h:66
 msgid "Multimedia Codecs and Format Support"
-msgstr "Multimediální kodeky a podpora formátů"
+msgstr "مراميز ودعم صيغ الوسائط المتعددة"
 
 #: ../repo_data/components.xml.in.h:67
 msgid "Video Software"
-msgstr "Video"
+msgstr "برامج الفيديو"
 
 #: ../repo_data/components.xml.in.h:68
 msgid "Audio Software"
-msgstr "Audio"
+msgstr "برامج الصوت"
 
 #: ../repo_data/components.xml.in.h:69
 msgid "Multimedia Libraries"
-msgstr "Multimediální knihovny"
+msgstr "مكتبات الوسائط المتعددة"
 
 #: ../repo_data/components.xml.in.h:70
 msgid "GStreamer Runtime"
-msgstr "Běhové prostředí GStreamer"
+msgstr "زمن تشغيل جي ستريمر"
 
 #: ../repo_data/components.xml.in.h:71
 msgid "GStreamer Runtime &amp; Support Libraries"
-msgstr "Běhové prostředí GStreamer a podpůrné knihovny"
+msgstr "زمن تشغيل ومكتبات دعم جي ستريمر"
 
 #: ../repo_data/components.xml.in.h:72
 msgid "Desktop Libraries"
-msgstr "Desktopové knihovny"
+msgstr "مكتبات سطح المكتب"
 
 #: ../repo_data/components.xml.in.h:73
 msgid "Common libraries required for a desktop"
-msgstr "Společné desktopové knihovny "
+msgstr "المكتبات الشائعة المطلوبة لسطح مكتب"
 
 #: ../repo_data/components.xml.in.h:74
 msgid "Desktop Theming"
-msgstr "Motivy pro desktopová prostředí"
+msgstr "توسيم سطح المكتب "
 
 #: ../repo_data/components.xml.in.h:75
 msgid "Themes to enhance the desktop"
-msgstr "Motivy pro zkrášlení desktopových prostředí"
+msgstr "سمات لتحسين سطح المكتب"
 
 #: ../repo_data/components.xml.in.h:76
 msgid "Desktop Fonts"
-msgstr "Písma pro desktopová prostředí"
+msgstr "خطوط سطح المكتب"
 
 #: ../repo_data/components.xml.in.h:77
 msgid "Fonts to enhance the desktop"
-msgstr "Písma pro zkrášlení desktopových prostředí"
+msgstr "خطوط لتحسين سطح المكتب"
 
 #: ../repo_data/components.xml.in.h:78
 msgid "Qt Runtime Libraries"
-msgstr "Běhové knihovny Qt"
+msgstr "مكتبات زمن تشغيل Qt"
 
 #: ../repo_data/components.xml.in.h:79
 msgid "GTK Runtime Libraries"
-msgstr "Běhové knihovny GTK"
+msgstr "مكتبات زمن تشغيل GTK"
 
 #: ../repo_data/components.xml.in.h:80
 msgid "Budgie Desktop"
-msgstr "Prostředí Budgie"
+msgstr "سطح المكتب بَدْجي"
 
 #: ../repo_data/components.xml.in.h:81
 msgid "Elements of the Solus Budgie Experience"
-msgstr "Prvky tvořící ucelený prožitek ze Solusu Budgie"
+msgstr "عناصر تجربة Solus بسطح المكتب بَدْجي"
 
 #: ../repo_data/components.xml.in.h:82
 msgid "GNOME Desktop"
-msgstr "Prostředí GNOME"
+msgstr "سطح المكتب جنوم"
 
 #: ../repo_data/components.xml.in.h:83
 msgid "MATE Desktop"
-msgstr "Prostředí MATE"
+msgstr "سطح المكتب ماتيه"
 
 #: ../repo_data/components.xml.in.h:84
 msgid "i3 Desktop"
-msgstr "Prostředí i3"
+msgstr "سطح المكتب i3"
 
 #: ../repo_data/components.xml.in.h:85
 msgid "GNOME Desktop - Core System"
-msgstr "Prostředí GNOME - základní systém"
+msgstr "سطح المكتب جنوم - النظام الأساسي"
 
 #: ../repo_data/components.xml.in.h:86
 msgid "GNOME Documentation Tools"
-msgstr "Dokumentační nástroje GNOME"
+msgstr "أداة توثيق جنوم"
 
 #: ../repo_data/components.xml.in.h:87
 msgid "Documentation tools for GNOME"
-msgstr "Dokumentační nástroje pro GNOME"
+msgstr "أدوات توثيق لجنوم"
 
 #: ../repo_data/components.xml.in.h:88
 msgid "KDE Desktop"
-msgstr "Prostředí KDE"
+msgstr "سطح المكتب كي دي إي"
 
 #: ../repo_data/components.xml.in.h:89
 msgid "KDE Desktop - Core System"
-msgstr "Prostředí KDE - základní systém"
+msgstr "سطح المكتب كي دي إي - النظام الأساسي"
 
 #: ../repo_data/components.xml.in.h:90
 msgid "Desktop Core Components"
-msgstr "Základní součásti desktopu"
+msgstr "المكونات الأساسية لسطح المكتب"
 
 #: ../repo_data/components.xml.in.h:91
 msgid "Core components for desktop systems"
-msgstr "Základní součásti desktopových systémů"
+msgstr "المكونات الأساسية لأنظمة سطح المكتب"
 
 #: ../repo_data/components.xml.in.h:92
 msgid "Security applications"
-msgstr "Bezpečnostní aplikace"
+msgstr "تطبيقات الأمن"
 
 #: ../repo_data/components.xml.in.h:93
 msgid "Cryptographic utilities"
-msgstr "Kryptografické utility"
+msgstr "أدوات التعمية"
 
 #: ../repo_data/components.xml.in.h:94
 msgid "Cryptographic utilities and runtimes"
-msgstr "Kryptografické utility a běhová prostředí"
+msgstr "أدوات وأزمنة تشغيل التعمية"
 
 #: ../repo_data/components.xml.in.h:95
 msgid "Security-oriented libraries"
-msgstr "Bezpečnostní knihovny"
+msgstr "مكتبات أمنية"
 
 #: ../repo_data/components.xml.in.h:96
 msgid "Main games collection"
-msgstr "Herní příslušenství"
+msgstr "تشكيلة الألعاب الرئيسة"
 
 #: ../repo_data/components.xml.in.h:97
 msgid "Main games"
-msgstr "Hry"
+msgstr "الألعاب الرئيسة"
 
 #: ../repo_data/components.xml.in.h:98
 msgid "Action Games"
-msgstr "Akční hry"
+msgstr "ألعاب العمليات"
 
 #: ../repo_data/components.xml.in.h:99
 msgid "Arcade Games"
-msgstr "Arkádové hry"
+msgstr "ألعاب اركيد"
 
 #: ../repo_data/components.xml.in.h:100
 msgid "Card Games"
-msgstr "Karetní hry"
+msgstr "ألعاب البطاقات"
 
 #: ../repo_data/components.xml.in.h:101
 msgid "Console Emulators"
-msgstr "Emulátory konzolí"
+msgstr "محاكيات الطرفية"
 
 #: ../repo_data/components.xml.in.h:102
 msgid "Massive Multiplayer Online Games"
-msgstr "MMO hry"
+msgstr "ألعاب ضخمة متعددة اللاعبين على الإنترنت"
 
 #: ../repo_data/components.xml.in.h:103
 msgid "Platformer Games"
-msgstr "Skákačky"
+msgstr "ألعاب المنصات"
 
 #: ../repo_data/components.xml.in.h:104
 msgid "Puzzle Games"
-msgstr "Puzzle"
+msgstr "ألعاب الأحاجي"
 
 #: ../repo_data/components.xml.in.h:105
 msgid "Role-playing Games"
-msgstr "RPG hry"
+msgstr "ألعاب تمثيل الدور"
 
 #: ../repo_data/components.xml.in.h:106
 msgid "Strategy Games"
-msgstr "Strategické hry"
+msgstr "ألعاب الاستراتيجية"
 
 #: ../repo_data/distribution.xml.in.h:1
 msgid "Solus Repository"
-msgstr "Solus repozitář"
+msgstr "مخزن Solus"
 
 #: ../repo_data/groups.xml.in.h:1
 msgid "System Software"
-msgstr "Systémový software"
+msgstr "برامج النظام"
 
 #: ../repo_data/groups.xml.in.h:2
 msgid "Internet Software"
-msgstr "Internet"
+msgstr "برامج الانترنت"
 
 #: ../repo_data/groups.xml.in.h:3
 msgid "Multimedia &amp; Graphics"
-msgstr "Multimédia a grafika"
+msgstr "الوسائط المتعددة والرسوميات"
 
 #: ../repo_data/groups.xml.in.h:4
 msgid "Gaming on Solus"
-msgstr "Hry"
+msgstr "اللعب على Solus"
 
 #: ../repo_data/groups.xml.in.h:6
 msgid "Programming Languages &amp; Tools"
-msgstr "Programovací jazyky a nástroje"
+msgstr "لغات وأدوات البرمجة"
 
 #: ../repo_data/groups.xml.in.h:7
 msgid "Desktop Software &amp; Theming"
-msgstr "Desktopová prostředí a motivy"
+msgstr "برامج وسمات سطح المكتب"
 
 #: ../repo_data/groups.xml.in.h:8
 msgid "Security Software"
-msgstr "Bezpečnostní software"
+msgstr "برامج الأمن"
 
 #: ../solus_sc/application.py:84
 msgid "Open up the updates view of the application"
-msgstr "Otevřít pohled s aktualizacemi"
+msgstr "افتح التطبيق في وضع عرض التحديثات"
 
 #. Quirky loading message
 #: ../solus_sc/available_view.py:38
 msgid "Switching to the B-side of the cassette…"
-msgstr "Přehrávání kazety bude pokračovat ze strany B..."
+msgstr "تبديل إلى الوجه B من الشريط ..."
 
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
 msgid "{} operations pending"
-msgstr "Zbývá {} operací"
+msgstr "{}  عمليات قيد الانتظار"
 
 #: ../solus_sc/basket.py:153
 msgid " - This may take <b>some time!</b>"
-msgstr "- Toto může <b>nějaký čas</b> trvat"
+msgstr "- قد يستغرق هذا <b>بعض الوقت!</b>"
 
 #. Only one package operation to be performed
 #: ../solus_sc/basket.py:158
 msgid "One operation pending"
-msgstr "Zbývá jedna operace."
+msgstr "عملية واحدة قيد الانتظار"
 
 #. "Updating Solus repository" (named repo)
 #: ../solus_sc/basket.py:203
 #, python-format
 msgid "Updating %s repository"
-msgstr "Aktualizuji repozitář %s"
+msgstr "يجري تحديث المستودع %s"
 
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
 msgid "Extracting {} of {}: {}"
-msgstr "Extrahuji {} z {}: {}"
+msgstr "استخراج {} من {}: {}"
 
 #. "Configuring 1 of 10: bash"
 #: ../solus_sc/basket.py:213
 msgid "Configuring {} of {}: {}"
-msgstr "Nastavuji {} z {}: {}"
+msgstr "تكوين {} من {}: {}"
 
 #. "Installing 1 of 10: bash"
 #: ../solus_sc/basket.py:219
 msgid "Installing {} of {}: {}"
-msgstr "Instaluji {} z {}: {}"
+msgstr "تثبيت {} من {}: {}"
 
 #. "Removing (1 of 10): bash"
 #: ../solus_sc/basket.py:222
 msgid "Removing {} of {}: {}"
-msgstr "Odstraňuji {} z {}: {}"
+msgstr "إزالة {} من {}: {}"
 
 #. "Upgraded 1 of 10: bash"
 #: ../solus_sc/basket.py:231
 msgid "Upgraded {} of {}: {}"
-msgstr "Povýšeno {} z {}: {}"
+msgstr "تم تحديث {} من {}: {}"
 
 #. "Removed 1 of 10: bash"
 #. "Installed 1 of 10: bash"
 #: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
 msgid "Removed {} of {}: {}"
-msgstr "Odstraněno {} z {}: {}"
+msgstr "أزيل {} من {}: {}"
 
 #. "Downloading eopkg-index.xml.xz (10kb/s)
 #: ../solus_sc/basket.py:264
 msgid "Downloading {} ({})"
-msgstr "Stahuji {} ({})"
+msgstr "تنزيل {} ({})"
 
 #. "Downloading 1 of 10: bash (10kb/s)
 #: ../solus_sc/basket.py:268
 msgid "Downloading {} of {}: {} ({})"
-msgstr "Stahuji {} z {}: {} ({})"
+msgstr "تنزيل {} من {}: {} ({})"
 
 #. print args
 #. Downloading eopkg-index.xml.sha1sum
 #: ../solus_sc/basket.py:278
 msgid "Downloading {}"
-msgstr "Stahuji {}"
+msgstr "تنزيل {}"
 
 #: ../solus_sc/basket.py:323
 msgid "The following dependencies need to be installed to continue"
-msgstr "Nejdříve musí být nainstalovány následující závislosti"
+msgstr "الاعتماديات التالية تحتاج إلى التثبيت للاستمرار"
 
 #: ../solus_sc/basket.py:333
 msgid "Installation confirmation"
-msgstr "Potvrzení instalace"
+msgstr "تأكيد التثبيت"
 
 #: ../solus_sc/basket.py:336
 msgid "The following dependencies need to be removed to continue"
-msgstr "Nejdříve musí být odstraněny následující závislosti"
+msgstr "الاعتماديات التالية تحتاج  إلى حذف للاستمرار"
 
 #: ../solus_sc/basket.py:337
 msgid "Removal confirmation"
-msgstr "Potvrzení odinstalace"
+msgstr "تأكيد اﻹزالة"
 
 #: ../solus_sc/basket.py:340
 msgid "The following dependencies need to be updated to continue"
-msgstr "Nejdříve musí být aktualizovány následující závislosti"
+msgstr "الاعتماديات التالية تحتاج إلى تحديث للاستمرار"
 
 #: ../solus_sc/basket.py:341
 msgid "Update confirmation"
-msgstr "Potvrzení aktualizace"
+msgstr "تأكيد التحديث"
 
 #: ../solus_sc/basket.py:368
 msgid "Cancel"
-msgstr "Zrušit"
+msgstr "إلغاء"
 
 #. Main action buttons
 #: ../solus_sc/basket.py:370 ../solus_sc/details.py:224
 #: ../solus_sc/thirdparty.py:186
 msgid "Install"
-msgstr "Nainstalovat"
+msgstr "تثبيت"
 
 #: ../solus_sc/basket.py:372
 msgid "Update"
-msgstr "Aktualizovat"
+msgstr "تحديث"
 
 #. Remove button
 #: ../solus_sc/basket.py:377 ../solus_sc/details.py:234
 msgid "Remove"
-msgstr "Odstranit"
+msgstr "إزالة"
 
 #: ../solus_sc/changelog.py:119
 msgid "Standard Update"
-msgstr "Běžná aktualizace"
+msgstr "تحديث قياسي"
 
 #: ../solus_sc/changelog.py:122
 msgid "Security Update"
-msgstr "Bezpečnostní aktualizace"
+msgstr "تحديثات أمنية"
 
 #: ../solus_sc/details.py:209
 msgid "Report issues"
-msgstr "Nahlásit problém"
+msgstr "أبلغ عن مشاكل"
 
 #: ../solus_sc/details.py:217
 msgid "Visit Website"
-msgstr "Navštívit web"
+msgstr "زيارة موقع الويب"
 
 #: ../solus_sc/details.py:314 ../solus_sc/updates_view.py:296
 msgid "Details"
-msgstr "Detaily"
+msgstr "التفاصيل"
 
 #: ../solus_sc/details.py:382
 msgid "Developers"
-msgstr "Vývojáři"
+msgstr "المطورون"
 
 #: ../solus_sc/details.py:397
 msgid "Version"
-msgstr "Verze"
+msgstr "الإصدار"
 
 #. Size of the package when installed locally
 #: ../solus_sc/details.py:409
 msgid "Installed size"
-msgstr "Velikost po instalaci"
+msgstr "حجم التثبيت"
 
 #. Donation button launches website to donate to authors
 #: ../solus_sc/details.py:421
 msgid "Donate"
-msgstr "Přispět"
+msgstr "تبرع"
 
 #: ../solus_sc/details.py:435
 msgid "Changelog"
-msgstr "Changelog"
+msgstr "سجل التغييرات"
 
 #: ../solus_sc/details.py:443
 msgid "License"
-msgstr "Licence"
+msgstr "الرخصة"
 
 #: ../solus_sc/details.py:448
 msgid "Report an invalid or missing license"
-msgstr "Nahlásit neplatnou nebo chybějící licenci"
+msgstr "بلّغ عن رخصة لاغية أو مفقودة"
 
 #: ../solus_sc/details.py:450
 msgid ""
 "This selection is available in accordance with the terms set in the "
 "following license(s):"
-msgstr "Tento výběr je dostupný v souladu s podmínkami stanovenými v této licenci(ích)"
+msgstr "هذا التحديد متوفر وفقاً للشروط المقررة في الرخصة (الرخص) التالية:"
 
 #: ../solus_sc/details.py:518
 msgid "Cannot remove core system software"
-msgstr "Nemohu odstranit součást systému"
+msgstr "لا يمكن إزالة برامج النظام الأساسية"
 
 #. "5 categories" - the number of categories within each group
 #: ../solus_sc/groups.py:72
 msgid "{} categories"
-msgstr "{} kategorií"
+msgstr "تصنيفات {}"
 
 #: ../solus_sc/imagewidget.py:86
 msgid "No screenshots available"
-msgstr "K dispozici nejsou žádné snímky"
+msgstr "لا تتوفر لقطات شاشة"
 
 #. Window title
 #: ../solus_sc/main_window.py:162
 msgid "Software Center"
-msgstr "Centrum Softwaru"
+msgstr "مركز البرامج"
 
 #. Main view, primary view, when opening the software center
 #: ../solus_sc/main_window.py:207 ../solus_sc/sidebar.py:65
 msgid "Home"
-msgstr "Domů"
+msgstr "الرئيسية"
 
 #. The page where updates are display
 #: ../solus_sc/main_window.py:210 ../solus_sc/sidebar.py:66
 msgid "Updates"
-msgstr "Aktualizace"
+msgstr "تحديثات"
 
 #. This page shows the locally instaleld items
 #: ../solus_sc/main_window.py:216 ../solus_sc/sidebar.py:67
 msgid "Installed"
-msgstr "Nainstalováno"
+msgstr "مثبّتة"
 
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:220 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Třetí strany"
+msgstr "الطرف الثالث"
 
 #. The search page
 #: ../solus_sc/main_window.py:225 ../solus_sc/sidebar.py:69
 msgid "Search"
-msgstr "Hledat"
+msgstr "بحث"
 
 #. The settings page
 #: ../solus_sc/main_window.py:229 ../solus_sc/sidebar.py:70
 msgid "Settings"
-msgstr "Nastavení"
+msgstr "اﻹعدادات"
 
 #: ../solus_sc/package_view.py:41
 msgid "Solving the Paradox Of Choice"
-msgstr "Řešení Paradoxu volby"
+msgstr "حل التناقض في الاختيار"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
 #: ../solus_sc/search_results.py:41
 msgid "Concentrating really hard"
-msgstr "Opravu se moc soustředím"
+msgstr "التركيز بجدّ"
 
 #: ../solus_sc/search_results.py:62
 msgid "Type a query to get started"
-msgstr "Začněte zadáním dotazu"
+msgstr "اكتب تساؤلاً للبدء"
 
 #: ../solus_sc/search_results.py:81
 msgid "No results found"
-msgstr "Nebyly nalezeny žádné výsledky"
+msgstr "لم يتم العثور على نتائج"
 
 #. Check for updates every hour
 #: ../solus_sc/settings_view.py:75
 msgid "Every hour"
-msgstr "Každou hodinu"
+msgstr "كل ساعة"
 
 #. Check for updates once per day
 #: ../solus_sc/settings_view.py:77
 msgid "Daily"
-msgstr "Jednou denně"
+msgstr "يومياً"
 
 #. Check for updates once a week
 #: ../solus_sc/settings_view.py:79
 msgid "Weekly"
-msgstr "Jednou týdně"
+msgstr "أسبوعياً"
 
 #. Notify of all updates
 #: ../solus_sc/settings_view.py:94
 msgid "All updates"
-msgstr "Veškeré aktualizace"
+msgstr "كافة التحديثات"
 
 #. Notify only of security updates
 #: ../solus_sc/settings_view.py:96
 msgid "Security updates only"
-msgstr "Pouze bezpečnostní aktualizace"
+msgstr "التحديثات الأمنية فقط"
 
 #. Notify of security and core system updates ("mandatory")
 #: ../solus_sc/settings_view.py:98
 msgid "Security & core updates"
-msgstr "Bezpečnostní a systémové aktualizace"
+msgstr "تحديثات أمنية وأساسية"
 
 #: ../solus_sc/thirdparty.py:184 ../solus_sc/updates_view.py:192
 #: ../solus_sc/updates_view.py:194 ../solus_sc/updates_view.py:288
 msgid "Check for updates"
-msgstr "Zkontrolovat aktualizace"
+msgstr "التحقق من وجود تحديثات"
 
 #. Title of dialog displaying the details of a given update
 #: ../solus_sc/updates_view.py:33
 msgid "Update Details"
-msgstr "Podrobnosti aktualizace"
+msgstr "تفاصيل التحديث"
 
 #: ../solus_sc/updates_view.py:47
 msgid "Not installed"
-msgstr "Nenainstalováno"
+msgstr "غير مثبّت"
 
 #: ../solus_sc/updates_view.py:87
 msgid "Discombobulating update matrix"
-msgstr "Kontroluji aktualizace"
+msgstr "مصفوفة تحديث محيّرة"
 
 #: ../solus_sc/updates_view.py:110
 msgid "Please check back later, updates are now applying"
-msgstr "Vraťte se prosím později, aktualizace se právě instalují"
+msgstr "يرجى التحقق في وقتٍ لاحق، يجري تطبيق التحديثات اﻵن"
 
 #: ../solus_sc/updates_view.py:207
 msgid "Software is up to date"
-msgstr "Software je aktuální"
+msgstr "البرنامج محدث"
 
 #. Selection label
 #. No updates currently selected for installation
 #: ../solus_sc/updates_view.py:273
 msgid "0 items selected"
-msgstr "0 položek vybráno"
+msgstr "0 عنصر محدد"
 
 #: ../solus_sc/updates_view.py:287
 msgid "Check new updates"
-msgstr "Zkontrolovat nové aktualizace"
+msgstr "التحقق من التحديثات الجديدة"
 
 #. Apply the updates
 #: ../solus_sc/updates_view.py:302 ../solus_sc/updates_view.py:303
 msgid "Update Selected"
-msgstr "Aktualizovat vybrané"
+msgstr "تحديث المحدد"
 
 #. "2 of 10 updates selected"
 #: ../solus_sc/updates_view.py:538
 msgid "{} of {} updates selected"
-msgstr "Vybráno {} z {} aktualizací"
+msgstr "{} من {} تحدثيات محددة"
 
 #. "2 of 10 updates selected (20.05MB to download)"
 #: ../solus_sc/updates_view.py:545
 msgid "{} of {} updates selected ({} to download)"
-msgstr "Vybráno {} z {} aktualizací (ke stažení {})"
+msgstr "{} من {} تحديثات محددة ({} للتنزيل)"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
-msgstr "Jsou k dispozici bezpečnostní aktualizace"
+msgstr "تحديثات أمنية متاحة"
 
 #: ../solus_update/application.py:302
 msgid ""
 "Update at your earliest convenience to ensure continued security of your "
 "device"
-msgstr "Pro zajištění bezpečnosti vašeho zařízení aktualizujte co nejdříve"
+msgstr "التحديث في أقرب وقت ممكن لضمان أمن جهازك ."
 
 #: ../solus_update/application.py:306
 msgid "Software updates available"
-msgstr "Aktualizace softwaru jsou k dispozi"
+msgstr "تحديثات البرامج متاحة"
 
 #: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
-msgstr "Pro vaše zařízení jsou dostupné nové aktualizace softwaru"
+msgstr "تحديثات جديدة للبرامج متاحة اﻵن لجهازك"
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
-msgstr "Otevřít centrum softwaru"
+msgstr "فتح مركز البرامج"
