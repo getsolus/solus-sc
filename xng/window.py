@@ -11,9 +11,8 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GObject, GLib, Gdk, Gio
+from gi.repository import Gtk, GObject, Gio
 from .appsystem import AppSystem
-from xng.plugins.base import PopulationFilter
 import threading
 
 
@@ -33,18 +32,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
     # Global AppSystem instance, handed to plugins
     appsystem = None
 
-    search_idle_timeout = 0
-
     resolutions = [
         (1024, 576),
         (1156, 648),
         (1280, 760),
     ]
-
-    search_stop = None
-
-    _thread_search = None
-    _thread_cancel = None
 
     def __init__(self, app):
         Gtk.Window.__init__(self, application=app)
@@ -133,62 +125,6 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.search_button.bind_property('active', self.search_bar,
                                          'search-mode-enabled',
                                          GObject.BindingFlags.BIDIRECTIONAL)
-        self.search_entry.connect('search-changed', self.search_changed)
-
-    def add_item(self, id, item, popfilter):
-        Gdk.threads_enter()
-        item = Gtk.Label.new("{} - {}".format(id, item.get_name()))
-        self.listbox.add(item)
-        item.show_all()
-        Gdk.threads_leave()
-
-    def clear(self):
-        for child in self.listbox.get_children():
-            child.destroy()
-
-    def search_changed(self, w, udata=None):
-        """ Forcibly delay the search again """
-        txt = self.search_entry.get_text().strip()
-        if txt == "":
-            self.nuke_search()
-            return
-
-        if self.search_idle_timeout > 0:
-            GLib.source_remove(self.search_idle_timeout)
-        self.search_idle_timeout = GLib.timeout_add(1200, self.begin_search)
-
-    def nuke_search(self):
-        """ Unsearch things """
-        print("Cancelling cancellable")
-        self._thread_cancel.cancel()
-        if self._thread_search:
-            print("Setting stop condition!")
-            if not self.search_stop.is_set():
-                self.search_stop.set()
-            self._thread_search = None
-        self.clear()
-
-    def begin_search(self, udata=None):
-        self.search_idle_timeout = 0
-        self.nuke_search()
-
-        txt = self.search_entry.get_text().strip()
-        if txt == "":
-            self.clear()
-            return False
-
-        self._thread_search = threading.Thread(
-            target=self.do_search, args=(txt,))
-        self._thread_cancel.reset()
-        self.search_stop.clear()
-        self._thread_search.start()
-
-        return False
-
-    def do_search(self, txt):
-        for plugin in self.plugins:
-            plugin.populate_storage(
-                self, PopulationFilter.SEARCH, txt, self.search_stop)
 
     def init_plugins(self):
         """ Take care of setting up our plugins
