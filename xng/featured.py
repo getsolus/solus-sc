@@ -99,11 +99,13 @@ class ScFeatured(Gtk.EventBox):
         button_next.connect("clicked", self.do_next)
 
         button_back.set_valign(Gtk.Align.CENTER)
+        button_back.set_can_focus(False)
         button_back.get_style_context().add_class("image-button")
         button_back.get_style_context().add_class("osd")
         button_back.get_style_context().add_class("round-button")
 
         button_next.set_valign(Gtk.Align.CENTER)
+        button_next.set_can_focus(False)
         button_next.get_style_context().add_class("image-button")
         button_next.get_style_context().add_class("osd")
         button_next.get_style_context().add_class("round-button")
