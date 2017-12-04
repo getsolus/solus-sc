@@ -195,7 +195,7 @@ class EopkgPlugin(ProviderPlugin):
             "sayonara-player",
             "pitivi",
             "libreoffice-writer",
-            "lutris",
+            "kdeconnect",
             "polari",
             "tilix",
             "inkscape",
