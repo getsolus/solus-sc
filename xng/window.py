@@ -11,9 +11,9 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GObject, Gio
-from .appsystem import AppSystem
-import threading
+from gi.repository import Gtk, GObject
+from .context import ScContext
+from .home import ScHomeView
 
 
 class ScMainWindow(Gtk.ApplicationWindow):
@@ -29,8 +29,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     mode_open = None
 
-    # Global AppSystem instance, handed to plugins
-    appsystem = None
+    context = None
 
     resolutions = [
         (1024, 576),
@@ -50,30 +49,15 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.build_search_bar()
         self.get_style_context().add_class("solus-sc")
 
-        self.search_stop = threading.Event()
-        self._thread_cancel = Gio.Cancellable()
-
-        self.init_plugins()
+        self.context = ScContext()
 
         # TODO: Fix this for updates-view handling
         self.dummy_code()
         self.show_all()
 
-        thr = threading.Thread(target=self.build_data)
-        thr.daemon = True
-        thr.start()
-
-    def build_data(self, args=None):
-        """ Just build our plugins and appstream data before we do anything """
-        # WARNING: Slows down startup!!
-        self.appsystem = AppSystem()
-        print("defer loaded")
-
     def dummy_code(self):
-        self.listbox = Gtk.ListBox.new()
-        self.scroll = Gtk.ScrolledWindow.new(None, None)
-        self.scroll.add(self.listbox)
-        self.layout.pack_start(self.scroll, True, True, 0)
+        self.home = ScHomeView(self.context)
+        self.layout.pack_start(self.home, True, True, 0)
 
     def pick_resolution(self):
         """ Attempt to pick a good 16:9 resolution for the screen """
@@ -134,33 +118,3 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.search_button.bind_property('active', self.search_bar,
                                          'search-mode-enabled',
                                          GObject.BindingFlags.BIDIRECTIONAL)
-
-    def init_plugins(self):
-        """ Take care of setting up our plugins
-            This takes special care to wrap the initial import in case we
-            have a module level import that would fail, i.e. import of
-            the snapd-glib binding
-        """
-        self.plugins = []
-        snap = None
-        osPlugin = None
-        try:
-            from xng.plugins.snapd import SnapdPlugin
-            snap = SnapdPlugin()
-        except Exception as e:
-            print("snapd support unavailable on this system: {}".format(e))
-            snap = None
-
-        if snap is not None:
-            self.plugins.append(snap)
-
-        try:
-            from xng.plugins.native import get_native_plugin
-            osPlugin = get_native_plugin()
-        except Exception as e:
-            print("Native plugin support unavailable for this system: {}".
-                  format(e))
-        if osPlugin is not None:
-            self.plugins.insert(0, osPlugin)
-        else:
-            print("WARNING: Unsupported OS, native packaging unavailable!")
