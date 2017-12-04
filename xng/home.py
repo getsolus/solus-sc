@@ -50,7 +50,7 @@ class ScTileButton(Gtk.Button):
 
         img = Gtk.Image.new_from_icon_name(
             icon,
-            Gtk.IconSize.BUTTON)
+            Gtk.IconSize.LARGE_TOOLBAR)
         img.set_margin_end(6)
         img.set_valign(Gtk.Align.CENTER)
         box.pack_start(img, False, False, 0)
@@ -61,6 +61,7 @@ class ScTileButton(Gtk.Button):
         box.pack_start(lab, True, True, 0)
 
         self.get_style_context().add_class("group-button")
+        self.get_style_context().add_class("flat")
 
 
 class ScRecentButton(Gtk.Button):
@@ -189,7 +190,6 @@ class ScHomeView(Gtk.Box):
         scroll.add(box)
         scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
         scroll.set_kinetic_scrolling(True)
-        scroll.set_overlay_scrolling(False)
         scroll.show_all()
         self.recents_home.pack_start(scroll, False, False, 0)
         self.recents[plugin] = box
