@@ -63,13 +63,18 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def build_content(self):
         # Main UI wrap
         scroll = Gtk.ScrolledWindow(None, None)
+
         self.stack = Gtk.Stack()
+        self.stack.set_transition_type(
+            Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
+
         scroll.add(self.stack)
         scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.layout.pack_start(scroll, True, True, 0)
 
         # Build home view now
         self.home = ScHomeView(self.context)
+        self.home.connect('item-selected', self.item_selected)
         self.stack.add_named(self.home, 'home')
 
     def pick_resolution(self):
@@ -136,3 +141,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.search_button.bind_property('active', self.search_bar,
                                          'search-mode-enabled',
                                          GObject.BindingFlags.BIDIRECTIONAL)
+
+    def item_selected(self, source, item):
+        """ Handle UI selection of an individual item """
+        print("Item selected: {}".format(item.get_id()))
