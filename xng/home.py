@@ -20,4 +20,11 @@ class ScHomeView(Gtk.Box):
 
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+
+        self.context = context
+        self.context.connect('loaded', self.on_context_loaded)
+
         self.show_all()
+
+    def on_context_loaded(self, context):
+        print("Home got!")

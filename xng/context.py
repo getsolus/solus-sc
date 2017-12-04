@@ -26,7 +26,7 @@ class ScContext(GObject.Object):
     __gtype_name__ = "ScContext"
 
     __gsignals__ = {
-        'loaded': (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+        'loaded': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, ()),
     }
 
     def __init__(self):
@@ -80,7 +80,7 @@ class ScContext(GObject.Object):
         """ Emitted on the main thread to let the application know we're now
             ready and have available AppSystem data, etc. """
         print("defer loaded")
-        self.emit('loaded', None)
+        self.emit('loaded')
         return False
 
     def build_data(self, args=None):
