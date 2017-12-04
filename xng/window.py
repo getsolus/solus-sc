@@ -14,6 +14,7 @@
 from gi.repository import Gtk, GObject
 from .context import ScContext
 from .home import ScHomeView
+from .details import ScDetailsView
 
 
 class ScMainWindow(Gtk.ApplicationWindow):
@@ -30,8 +31,12 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     mode_open = None
 
+    # Tracking
     context = None
     stack = None
+    home = None
+    details = None
+    nav_stack = ['home']
 
     resolutions = [
         (1024, 576),
@@ -77,6 +82,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.home.connect('item-selected', self.item_selected)
         self.stack.add_named(self.home, 'home')
 
+        # Build Details view
+        self.details = ScDetailsView(self.context)
+        self.stack.add_named(self.details, 'details')
+
     def pick_resolution(self):
         """ Attempt to pick a good 16:9 resolution for the screen """
         scr = self.get_screen()
@@ -102,10 +111,13 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_name("system-software-install")
 
+        # Navigation control..
         self.back_button = Gtk.Button.new_from_icon_name(
             "go-previous-symbolic",
             Gtk.IconSize.SMALL_TOOLBAR)
+        self.back_button.connect('clicked', self.on_back_clicked)
         self.hbar.pack_start(self.back_button)
+        self.back_button.set_sensitive(False)
 
         self.search_button = Gtk.ToggleButton()
         img = Gtk.Image.new_from_icon_name(
@@ -145,3 +157,17 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def item_selected(self, source, item):
         """ Handle UI selection of an individual item """
         print("Item selected: {}".format(item.get_id()))
+        self.details.set_item(item)
+        self.push_nav("details")
+
+    def on_back_clicked(self, btn, udata=None):
+        """ User clicked the back button """
+        self.nav_stack.pop()
+        if len(self.nav_stack) < 2:
+            self.back_button.set_sensitive(False)
+        self.stack.set_visible_child_name(self.nav_stack[-1])
+
+    def push_nav(self, page_name):
+        self.stack.set_visible_child_name(page_name)
+        self.nav_stack.append(page_name)
+        self.back_button.set_sensitive(True)
