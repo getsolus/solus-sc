@@ -89,21 +89,17 @@ class ScHomeView(Gtk.Box):
         self.context = context
         self.context.connect('loaded', self.on_context_loaded)
 
-        # Mark the Featured view
-        lab = Gtk.Label("<big>{}</big>".format("Featured"))
-        lab.set_margin_top(12)
-        lab.set_margin_bottom(12)
-        lab.set_halign(Gtk.Align.START)
-        lab.set_use_markup(True)
-        self.pack_start(lab, False, False, 0)
-
         self.featured = ScFeatured(self.context)
         self.pack_start(self.featured, False, False, 0)
         self.featured.set_margin_bottom(24)
 
+        self.next_items = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.pack_start(self.next_items, True, True, 0)
+        self.next_items.set_border_width(40)
+
         self.categories = Gtk.FlowBox()
         self.categories.set_selection_mode(Gtk.SelectionMode.NONE)
-        self.pack_start(self.categories, False, False, 0)
+        self.next_items.pack_start(self.categories, False, False, 0)
         self.categories.set_margin_bottom(42)
 
         # Mark the Recent view
@@ -115,11 +111,11 @@ class ScHomeView(Gtk.Box):
 
         # Somewhere to stuff the Recent rows
         self.recents = dict()
-        self.pack_start(lab, False, False, 0)
+        self.next_items.pack_start(lab, False, False, 0)
         self.recents_home = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
-        self.pack_start(self.recents_home, False, False, 0)
+        self.next_items.pack_start(self.recents_home, False, False, 0)
 
-        self.set_border_width(40)
+        # self.set_border_width(40)
         self.show_all()
 
     def on_context_loaded(self, context):

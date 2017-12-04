@@ -83,9 +83,11 @@ class ScFeatured(Gtk.EventBox):
 
         self.vbox = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         self.main_layout = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.main_layout.set_margin_start(12)
+        self.main_layout.set_margin_end(12)
+        self.main_layout.set_margin_top(24)
 
         self.add(self.main_layout)
-        self.set_property("margin", 12)
 
         button_back = Gtk.Button.new_from_icon_name(
             "go-previous-symbolic", Gtk.IconSize.LARGE_TOOLBAR)
