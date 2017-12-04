@@ -59,8 +59,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.context.begin_load()
 
     def dummy_code(self):
+        scroll = Gtk.ScrolledWindow(None, None)
+        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.home = ScHomeView(self.context)
-        self.layout.pack_start(self.home, True, True, 0)
+        scroll.add(self.home)
+        self.layout.pack_start(scroll, True, True, 0)
 
     def pick_resolution(self):
         """ Attempt to pick a good 16:9 resolution for the screen """
