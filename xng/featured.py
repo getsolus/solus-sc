@@ -11,7 +11,8 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GObject
+from .plugins.base import ProviderItem
 
 
 class ScFeaturedPage(Gtk.Box):
@@ -77,6 +78,13 @@ class ScFeatured(Gtk.EventBox):
     dots = []
     idx = 0
 
+    __gtype_name__ = "ScFeatured"
+
+    __gsignals__ = {
+        'item-selected': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
+                          (ProviderItem,))
+    }
+
     def __init__(self, context):
         Gtk.EventBox.__init__(self)
         self.context = context
@@ -135,11 +143,17 @@ class ScFeatured(Gtk.EventBox):
         thumb.show_all()
 
         page = ScFeaturedPage(self.context, item)
+        page.action_callout.connect("clicked", self.on_clicked)
         self.stack.add_named(page, item.get_id())
         page.show_all()
         self.pages.append(page)
         self.dots.append(thumb)
         self.navigate(0)
+
+    def on_clicked(self, btn, data=None):
+        # Emit click for the currently selected item
+        page = self.stack.get_visible_child()
+        self.emit('item-selected', page.item)
 
     def do_next(self, btn, data=None):
         self.navigate(+1)

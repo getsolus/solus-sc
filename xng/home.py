@@ -11,8 +11,8 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
-from xng.plugins.base import PopulationFilter
+from gi.repository import Gtk, GObject
+from xng.plugins.base import PopulationFilter, ProviderItem
 from .featured import ScFeatured
 
 
@@ -103,12 +103,20 @@ class ScRecentButton(Gtk.Button):
 
 
 class ScHomeView(Gtk.Box):
+    """ Main view that the user will interact with on launch """
 
     context = None
     categories = None
     recents = None
     recents_home = None
     featured = None
+
+    __gtype_name__ = "ScHomeView"
+
+    __gsignals__ = {
+        'item-selected': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
+                          (ProviderItem,))
+    }
 
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
@@ -117,6 +125,7 @@ class ScHomeView(Gtk.Box):
         self.context.connect('loaded', self.on_context_loaded)
 
         self.featured = ScFeatured(self.context)
+        self.featured.connect('item-selected', self.feature_selected)
         self.pack_start(self.featured, False, False, 0)
         self.featured.set_margin_bottom(24)
 
@@ -153,6 +162,17 @@ class ScHomeView(Gtk.Box):
 
         # self.set_border_width(40)
         self.show_all()
+
+    def emit_selected(self, item):
+        """ Pass our item selection back up to the main window """
+        self.emit('item-selected', item)
+
+    def feature_selected(self, fview, item):
+        """ Item selected via feature view """
+        self.emit_selected(item)
+
+    def on_recent_clicked(self, btn, udata=None):
+        self.emit_selected(btn.item)
 
     def on_context_loaded(self, context):
         """ Fill the categories """
@@ -201,5 +221,6 @@ class ScHomeView(Gtk.Box):
         box = self.recents[plugin]
 
         button = ScRecentButton(self.context, item)
+        button.connect("clicked", self.on_recent_clicked)
         button.show_all()
         box.pack_start(button, False, False, 12)
