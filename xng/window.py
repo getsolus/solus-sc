@@ -53,6 +53,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.search_stop = threading.Event()
         self._thread_cancel = Gio.Cancellable()
 
+        self.init_plugins()
+
         # TODO: Fix this for updates-view handling
         self.dummy_code()
         self.show_all()
@@ -63,7 +65,6 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def build_data(self, args=None):
         """ Just build our plugins and appstream data before we do anything """
-        self.init_plugins()
         # WARNING: Slows down startup!!
         self.appsystem = AppSystem()
         print("defer loaded")
