@@ -71,7 +71,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         self.stack = Gtk.Stack()
         self.stack.set_transition_type(
-            Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
+            Gtk.StackTransitionType.CROSSFADE)
 
         scroll.add(self.stack)
         scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
