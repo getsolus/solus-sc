@@ -24,6 +24,7 @@ class PopulationFilter:
     CATEGORY = 2   # List within category
     NEW = 3        # Find new packages
     RECENT = 4     # Find recently updated packages
+    FEATURED = 5   # Basically "hot stuff"
 
 
 class ItemStatus:

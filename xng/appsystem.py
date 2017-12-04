@@ -124,13 +124,13 @@ class AppSystem:
             return str(fallback)
         return None
 
-    def get_pixbuf(self, id):
+    def _get_pixbuf_internal(self, id, size):
         """ Get the AppStream GdkPixbuf for a package """
         app = self.store.get_app_by_pkgname(id)
         if not app:
             return None
         # TODO: Incorporate HIDPI!
-        icon = app.get_icon_for_size(64, 64)
+        icon = app.get_icon_for_size(size, size)
         if not icon:
             return self.default_pixbuf_lookup(app)
         kind = icon.get_kind()
@@ -143,6 +143,12 @@ class AppSystem:
         if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
             return None
         return icon.get_pixbuf()
+
+    def get_pixbuf(self, id):
+        return self._get_pixbuf_internal(id, 64)
+
+    def get_pixbuf_massive(self, id):
+        return self._get_pixbuf_internal(id, 128)
 
     def default_pixbuf_lookup(self, app):
         """ Use our built in preloaded pixbufs """

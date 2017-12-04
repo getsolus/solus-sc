@@ -148,6 +148,8 @@ class EopkgPlugin(ProviderPlugin):
             return self.populate_recent(storage, extra)
         elif popfilter == PopulationFilter.NEW:
             return self.populate_new(storage, extra)
+        elif popfilter == PopulationFilter.FEATURED:
+            return self.populate_featured(storage, extra)
 
     def populate_recent(self, storage, appsystem):
         """ Populate home view with recently updated packages """
@@ -177,6 +179,27 @@ class EopkgPlugin(ProviderPlugin):
             "kdenlive",
             "hexchat",
             "dustrac",
+        ]
+
+        for i in news:
+            pkg = self.availDB.get_package(i)
+            item = EopkgItem(None, pkg)
+            item.parent_plugin = self
+            storage.add_item(item.get_id(), item, PopulationFilter.NEW)
+
+    def populate_featured(self, storage, appsystem):
+        """ Populate home view with "hot" packages """
+
+        # Hack for demo
+        news = [
+            "sayonara-player",
+            "pitivi",
+            "libreoffice-writer",
+            "lutris",
+            "polari",
+            "tilix",
+            "inkscape",
+            "gnome-boxes",
         ]
 
         for i in news:

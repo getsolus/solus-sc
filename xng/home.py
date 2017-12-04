@@ -13,6 +13,7 @@
 
 from gi.repository import Gtk
 from xng.plugins.base import PopulationFilter
+from .featured import ScFeatured
 
 
 class ScTileButton(Gtk.Button):
@@ -80,12 +81,25 @@ class ScHomeView(Gtk.Box):
     categories = None
     recents = None
     recents_home = None
+    featured = None
 
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self.context = context
         self.context.connect('loaded', self.on_context_loaded)
+
+        # Mark the Featured view
+        lab = Gtk.Label("<big>{}</big>".format("Featured"))
+        lab.set_margin_top(12)
+        lab.set_margin_bottom(12)
+        lab.set_halign(Gtk.Align.START)
+        lab.set_use_markup(True)
+        self.pack_start(lab, False, False, 0)
+
+        self.featured = ScFeatured(self.context)
+        self.pack_start(self.featured, False, False, 0)
+        self.featured.set_margin_bottom(24)
 
         self.categories = Gtk.FlowBox()
         self.categories.set_selection_mode(Gtk.SelectionMode.NONE)
@@ -111,8 +125,16 @@ class ScHomeView(Gtk.Box):
     def on_context_loaded(self, context):
         """ Fill the categories """
         for plugin in self.context.plugins:
+            # Build the categories
             for cat in plugin.categories():
                 self.add_category(plugin, cat)
+
+            # Build the featured view
+            plugin.populate_storage(
+                self.featured, PopulationFilter.FEATURED,
+                self.context.appsystem, None)
+
+            # Build the recently updated view
             plugin.populate_storage(self, PopulationFilter.RECENT, None, None)
 
     def add_category(self, plugin, category):
