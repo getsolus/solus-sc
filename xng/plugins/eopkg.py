@@ -156,7 +156,7 @@ class EopkgPlugin(ProviderPlugin):
         recents = [
             "lutris",
             "darktable",
-            "shotwell",
+            "tilix",
             "gnome-music",
             "gnome-maps",
         ]

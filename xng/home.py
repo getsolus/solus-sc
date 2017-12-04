@@ -146,4 +146,4 @@ class ScHomeView(Gtk.Box):
 
         button = ScRecentButton(self.context, item)
         button.show_all()
-        box.pack_start(button, False, False, 0)
+        box.pack_start(button, False, False, 12)
