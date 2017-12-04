@@ -31,6 +31,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     mode_open = None
 
     context = None
+    stack = None
 
     resolutions = [
         (1024, 576),
@@ -53,18 +54,23 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.context = ScContext()
 
         # TODO: Fix this for updates-view handling
-        self.dummy_code()
+        self.build_content()
         self.show_all()
 
         # Everything setup? Let's start loading plugins
         self.context.begin_load()
 
-    def dummy_code(self):
+    def build_content(self):
+        # Main UI wrap
         scroll = Gtk.ScrolledWindow(None, None)
+        self.stack = Gtk.Stack()
+        scroll.add(self.stack)
         scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        self.home = ScHomeView(self.context)
-        scroll.add(self.home)
         self.layout.pack_start(scroll, True, True, 0)
+
+        # Build home view now
+        self.home = ScHomeView(self.context)
+        self.stack.add_named(self.home, 'home')
 
     def pick_resolution(self):
         """ Attempt to pick a good 16:9 resolution for the screen """
