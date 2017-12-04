@@ -41,6 +41,39 @@ class ScTileButton(Gtk.Button):
             info.get_style_context().add_class("dim-label")
 
 
+class ScRecentButton(Gtk.Button):
+    """ Prettified button to show a recently updated item """
+
+    item = None
+
+    def __init__(self, context, item):
+        Gtk.Button.__init__(self)
+        self.item = item
+
+        st = self.get_style_context()
+        st.add_class("flat")
+
+        layout = Gtk.Grid()
+        self.add(layout)
+
+        id = item.get_id()
+        name = context.appsystem.get_name(id, item.get_name())
+        lab = Gtk.Label.new("<b>{}</b>".format(name))
+        lab.set_use_markup(True)
+        lab.set_halign(Gtk.Align.START)
+
+        pbuf = context.appsystem.get_pixbuf_only(id)
+        img = Gtk.Image.new_from_pixbuf(pbuf)
+        img.set_margin_end(12)
+
+        layout.attach(img, 0, 0, 1, 2)
+        layout.attach(lab, 1, 0, 1, 1)
+
+        lab2 = Gtk.Label(item.get_version())
+        lab2.set_halign(Gtk.Align.START)
+        layout.attach(lab2, 1, 1, 1, 1)
+
+
 class ScHomeView(Gtk.Box):
 
     context = None
@@ -111,6 +144,6 @@ class ScHomeView(Gtk.Box):
         self.maybe_build_row(plugin)
         box = self.recents[plugin]
 
-        button = Gtk.Button(item.get_name())
+        button = ScRecentButton(self.context, item)
         button.show_all()
         box.pack_start(button, False, False, 0)
