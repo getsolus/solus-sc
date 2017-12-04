@@ -170,8 +170,12 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.stack.set_visible_child_name(self.nav_stack[-1])
         self.stack.get_visible_child().grab_focus()
 
+        self.set_title(self.stack.get_visible_child().get_page_name())
+
     def push_nav(self, page_name):
         self.nav_stack.append(page_name)
         self.back_button.set_sensitive(True)
         self.stack.set_visible_child_name(page_name)
         self.stack.get_visible_child().grab_focus()
+
+        self.set_title(self.stack.get_visible_child().get_page_name())

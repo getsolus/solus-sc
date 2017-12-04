@@ -35,6 +35,9 @@ class ScDetailsView(Gtk.Box):
     # TODO: Make less dumb
     header_action = None
 
+    def get_page_name(self):
+        return "{} - Software Center".format(self.header_name.get_text())
+
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 

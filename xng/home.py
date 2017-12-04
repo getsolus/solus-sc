@@ -118,6 +118,9 @@ class ScHomeView(Gtk.Box):
                           (ProviderItem,))
     }
 
+    def get_page_name(self):
+        return "Software Center"
+
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
