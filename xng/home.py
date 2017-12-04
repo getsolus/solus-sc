@@ -15,6 +15,32 @@ from gi.repository import Gtk
 # from xng.plugins.base import PopulationFilter
 
 
+class ScTileButton(Gtk.Button):
+
+    category = None
+
+    def __init__(self, cat):
+        Gtk.Button.__init__(self)
+        self.category = cat
+
+        box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.add(box)
+
+        lab = Gtk.Label(self.category.get_name())
+        lab.set_halign(Gtk.Align.START)
+        box.pack_start(lab, True, True, 0)
+
+        self.get_style_context().add_class("group-button")
+
+        cats = cat.get_children()
+        if len(cats) > 0:
+            info = Gtk.Label("{} categories".format(len(cats)))
+            info.set_halign(Gtk.Align.START)
+            box.pack_start(info, False, False, 0)
+            info.set_margin_top(2)
+            info.get_style_context().add_class("dim-label")
+
+
 class ScHomeView(Gtk.Box):
 
     context = None
@@ -27,8 +53,10 @@ class ScHomeView(Gtk.Box):
         self.context.connect('loaded', self.on_context_loaded)
 
         self.categories = Gtk.FlowBox()
-        self.pack_start(self.categories, True, True, 0)
+        self.categories.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.pack_start(self.categories, False, False, 0)
 
+        self.set_border_width(40)
         self.show_all()
 
     def on_context_loaded(self, context):
@@ -38,6 +66,6 @@ class ScHomeView(Gtk.Box):
                 self.add_category(plugin, cat)
 
     def add_category(self, plugin, category):
-        button = Gtk.Button(category.get_name())
+        button = ScTileButton(category)
         button.show_all()
         self.categories.add(button)
