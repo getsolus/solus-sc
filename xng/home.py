@@ -12,11 +12,13 @@
 #
 
 from gi.repository import Gtk
+# from xng.plugins.base import PopulationFilter
 
 
 class ScHomeView(Gtk.Box):
 
     context = None
+    categories = None
 
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
@@ -24,7 +26,18 @@ class ScHomeView(Gtk.Box):
         self.context = context
         self.context.connect('loaded', self.on_context_loaded)
 
+        self.categories = Gtk.FlowBox()
+        self.pack_start(self.categories, True, True, 0)
+
         self.show_all()
 
     def on_context_loaded(self, context):
-        print("Home got!")
+        """ Fill the categories """
+        for plugin in self.context.plugins:
+            for cat in plugin.categories():
+                self.add_category(plugin, cat)
+
+    def add_category(self, plugin, category):
+        button = Gtk.Button(category.get_name())
+        button.show_all()
+        self.categories.add(button)
