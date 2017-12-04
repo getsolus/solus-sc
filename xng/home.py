@@ -24,22 +24,43 @@ class ScTileButton(Gtk.Button):
         Gtk.Button.__init__(self)
         self.category = cat
 
-        box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         self.add(box)
+
+        # Just replace the icon on the fly with something that
+        # fits better into the current theme
+        icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
+        icon_theme = icon_theme.lower().replace("-", "")
+        # Sneaky, I know.
+        if icon_theme == "arcicons" or icon_theme == "arc":
+            devIcon = "text-x-changelog"
+        else:
+            devIcon = "gnome-dev-computer"
+
+        replacements = {
+            "text-editor": "x-office-calendar",
+            "redhat-programming": devIcon,
+            "security-high": "preferences-system-privacy",
+            "network": "preferences-system-network",
+        }
+
+        icon = self.category.get_icon_name()
+        if icon in replacements:
+            icon = replacements[icon]
+
+        img = Gtk.Image.new_from_icon_name(
+            icon,
+            Gtk.IconSize.BUTTON)
+        img.set_margin_end(6)
+        img.set_valign(Gtk.Align.CENTER)
+        box.pack_start(img, False, False, 0)
 
         lab = Gtk.Label(self.category.get_name())
         lab.set_halign(Gtk.Align.START)
+        lab.set_valign(Gtk.Align.CENTER)
         box.pack_start(lab, True, True, 0)
 
         self.get_style_context().add_class("group-button")
-
-        cats = cat.get_children()
-        if len(cats) > 0:
-            info = Gtk.Label("{} categories".format(len(cats)))
-            info.set_halign(Gtk.Align.START)
-            box.pack_start(info, False, False, 0)
-            info.set_margin_top(2)
-            info.get_style_context().add_class("dim-label")
 
 
 class ScRecentButton(Gtk.Button):
