@@ -24,13 +24,13 @@ class SnapdCategory(ProviderCategory):
         ProviderCategory.__init__(self)
 
     def get_icon_name(self):
-        return "start-here-ubuntu"
+        return "software-store"
 
     def get_id(self):
-        return "ubuntu-rally"
+        return "snap-store"
 
     def get_name(self):
-        return "Ubuntu Rally Demo"
+        return "Snap Store"
 
 
 class SnapdPlugin(ProviderPlugin):
