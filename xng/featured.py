@@ -35,6 +35,7 @@ class ScFeaturedPage(Gtk.Box):
         self.image.set_halign(Gtk.Align.START)
         self.image.set_valign(Gtk.Align.START)
         self.image.set_margin_end(36)
+        self.image.set_margin_top(12)
         self.pack_start(self.image, False, False, 0)
 
         box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
@@ -44,6 +45,7 @@ class ScFeaturedPage(Gtk.Box):
         txt = self.context.appsystem.get_name(id, item.get_name())
         lab = Gtk.Label(txt)
         lab.set_margin_start(12)
+        lab.set_margin_top(12)
         lab.get_style_context().add_class("huge-label")
         lab.set_use_markup(True)
         lab.set_halign(Gtk.Align.START)

@@ -33,6 +33,9 @@
     padding: 5px;
 }
 
+.sc-big {
+    font-size: 110%;
+}
 
 .featured-box .big-thumb {
     font-size: 180%;

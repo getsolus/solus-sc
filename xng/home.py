@@ -118,13 +118,22 @@ class ScHomeView(Gtk.Box):
         self.pack_start(self.next_items, True, True, 0)
         self.next_items.set_border_width(40)
 
+        # Mark the Categories view
+        lab = Gtk.Label("Categories")
+        lab.get_style_context().add_class("sc-big")
+        lab.set_margin_bottom(12)
+        lab.set_halign(Gtk.Align.START)
+        lab.set_use_markup(True)
+        self.next_items.pack_start(lab, False, False, 0)
+
         self.categories = Gtk.FlowBox()
         self.categories.set_selection_mode(Gtk.SelectionMode.NONE)
         self.next_items.pack_start(self.categories, False, False, 0)
         self.categories.set_margin_bottom(42)
 
         # Mark the Recent view
-        lab = Gtk.Label("<big>{}</big>".format("Recently updated"))
+        lab = Gtk.Label("Recently updated")
+        lab.get_style_context().add_class("sc-big")
         lab.set_margin_top(12)
         lab.set_margin_bottom(12)
         lab.set_halign(Gtk.Align.START)
