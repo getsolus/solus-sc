@@ -91,8 +91,13 @@ class ScRecentButton(Gtk.Button):
         layout.attach(img, 0, 0, 1, 2)
         layout.attach(lab, 1, 0, 1, 1)
 
-        lab2 = Gtk.Label(item.get_version())
+        summary = context.appsystem.get_summary(id, item.get_summary())
+        lab2 = Gtk.Label(summary)
+        lab2.set_line_wrap(True)
+        lab2.set_property("xalign", 0.0)
+        lab2.set_width_chars(30)
         lab2.set_halign(Gtk.Align.START)
+        lab2.set_valign(Gtk.Align.START)
         layout.attach(lab2, 1, 1, 1, 1)
 
 
@@ -179,9 +184,12 @@ class ScHomeView(Gtk.Box):
             return
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         box.set_property("margin", 4)
+        box.set_margin_bottom(8)  # scrollbar = chunky
         scroll = Gtk.ScrolledWindow(None, None)
         scroll.add(box)
         scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+        scroll.set_kinetic_scrolling(True)
+        scroll.set_overlay_scrolling(False)
         scroll.show_all()
         self.recents_home.pack_start(scroll, False, False, 0)
         self.recents[plugin] = box
