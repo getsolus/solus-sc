@@ -21,6 +21,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     # Headerbar
     hbar = None
     search_button = None
+    back_button = None
 
     # Search bits
     search_revealer = None
@@ -89,6 +90,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.set_title("Software Center")
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_name("system-software-install")
+
+        self.back_button = Gtk.Button.new_from_icon_name(
+            "go-previous-symbolic",
+            Gtk.IconSize.SMALL_TOOLBAR)
+        self.hbar.pack_start(self.back_button)
 
         self.search_button = Gtk.ToggleButton()
         img = Gtk.Image.new_from_icon_name(
