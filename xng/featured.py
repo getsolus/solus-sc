@@ -146,6 +146,9 @@ class ScFeatured(Gtk.EventBox):
         page.action_callout.connect("clicked", self.on_clicked)
         self.stack.add_named(page, item.get_id())
         page.show_all()
+        if not page.get_realized():
+            page.realize()
+        page.set_size_request(-1, -1)
         self.pages.append(page)
         self.dots.append(thumb)
         self.navigate(0)
