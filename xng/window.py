@@ -115,6 +115,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.back_button = Gtk.Button.new_from_icon_name(
             "go-previous-symbolic",
             Gtk.IconSize.SMALL_TOOLBAR)
+        self.back_button.set_can_focus(False)
         self.back_button.connect('clicked', self.on_back_clicked)
         self.hbar.pack_start(self.back_button)
         self.back_button.set_sensitive(False)
@@ -123,6 +124,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         img = Gtk.Image.new_from_icon_name(
             "edit-find-symbolic", Gtk.IconSize.SMALL_TOOLBAR)
         self.search_button.add(img)
+        self.search_button.set_can_focus(False)
         st = self.search_button.get_style_context()
         st.add_class("image-button")
         self.hbar.pack_end(self.search_button)
@@ -166,8 +168,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         if len(self.nav_stack) < 2:
             self.back_button.set_sensitive(False)
         self.stack.set_visible_child_name(self.nav_stack[-1])
+        self.stack.get_visible_child().grab_focus()
 
     def push_nav(self, page_name):
-        self.stack.set_visible_child_name(page_name)
         self.nav_stack.append(page_name)
         self.back_button.set_sensitive(True)
+        self.stack.set_visible_child_name(page_name)
+        self.stack.get_visible_child().grab_focus()
