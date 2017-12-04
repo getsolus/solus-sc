@@ -12,7 +12,7 @@
 #
 
 from .appsystem import AppSystem
-from gi.repository import GObject
+from gi.repository import GObject, GLib
 import threading
 
 
@@ -21,11 +21,24 @@ class ScContext(GObject.Object):
 
     plugins = None
     appsystem = None
+    has_loaded = False
 
     __gtype_name__ = "ScContext"
 
+    __gsignals__ = {
+        'loaded': (GObject.SIGNAL_RUN_FIRST, None, (object,)),
+    }
+
     def __init__(self):
         GObject.Object.__init__(self)
+        self.has_loaded = False
+
+    def begin_load(self):
+        """ Request a load for the system, i.e. after all components are
+            now available for the UI """
+        if self.has_loaded:
+            return
+        self.has_loaded = True
         self.init_plugins()
 
         # Lazy load now
@@ -63,7 +76,14 @@ class ScContext(GObject.Object):
         else:
             print("WARNING: Unsupported OS, native packaging unavailable!")
 
+    def emit_loaded(self):
+        """ Emitted on the main thread to let the application know we're now
+            ready and have available AppSystem data, etc. """
+        print("defer loaded")
+        self.emit('loaded', None)
+        return False
+
     def build_data(self, args=None):
         """ Perform expensive operations """
         self.appsystem = AppSystem()
-        print("defer loaded")
+        GLib.idle_add(self.emit_loaded)

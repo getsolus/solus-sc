@@ -55,6 +55,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.dummy_code()
         self.show_all()
 
+        # Everything setup? Let's start loading plugins
+        self.context.begin_load()
+
     def dummy_code(self):
         self.home = ScHomeView(self.context)
         self.layout.pack_start(self.home, True, True, 0)
