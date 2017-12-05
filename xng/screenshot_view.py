@@ -58,7 +58,7 @@ class ScScreenshotView(Gtk.Box):
         self.box_thumbnails.set_max_children_per_line(4)
         thumb_wrap = Gtk.ScrolledWindow(None, None)
         thumb_wrap.set_halign(Gtk.Align.START)
-        thumb_wrap.set_overlay_scrolling(False)
+        # thumb_wrap.set_overlay_scrolling(False)
         thumb_wrap.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         thumb_wrap.add(self.box_thumbnails)
         thumb_wrap.set_margin_bottom(10)
