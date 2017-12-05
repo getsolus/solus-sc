@@ -143,8 +143,8 @@ class SpecialMarkdownParser:
         blank_start = True
         ignore_space = False
 
-        code_bytes = '<tt>'
-        uncode_bytes = '</tt>'
+        code_bytes = '<span background=\'#C0C0C0\'><tt>'
+        uncode_bytes = '</tt></span>'
         code_block = False
         code_one = False
 
@@ -173,11 +173,13 @@ class SpecialMarkdownParser:
                     underline = False
                 # Handle unterminated code element
                 if code_one:
-                    paragraph += uncode_bytes
+                    paragraph += ' ' + uncode_bytes
                     code_one = False
 
                 # Special case, opening code block
                 if code_block:
+                    if not blank_start:
+                        paragraph += c
                     c = self.next()
                     continue
 
@@ -253,13 +255,16 @@ class SpecialMarkdownParser:
                         paragraph += code_bytes
                     else:
                         paragraph += uncode_bytes
+                        if len(paragraph) > 0:
+                            self.consumed.append(paragraph.strip())
+                        paragraph = ''
                     continue
                 # OK it's just a normal bit of code
                 code_one = not code_one
                 if code_one:
-                    paragraph += code_bytes
+                    paragraph += code_bytes + ' '
                 else:
-                    paragraph += uncode_bytes
+                    paragraph += ' ' + uncode_bytes
                 c = self.next()
                 continue
 
