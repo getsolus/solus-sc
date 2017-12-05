@@ -12,6 +12,7 @@
 #
 
 from gi.repository import Gtk
+from .screenshot_view import ScScreenshotView
 
 
 class ScDetailsView(Gtk.Box):
@@ -37,6 +38,8 @@ class ScDetailsView(Gtk.Box):
 
     stack = None
     stack_switcher = None
+
+    screenie_view = None
 
     def get_page_name(self):
         return "{} - Software Center".format(self.header_name.get_text())
@@ -115,5 +118,14 @@ class ScDetailsView(Gtk.Box):
         self.pack_start(self.stack, True, True, 0)
 
         # Dummy pages for now
-        self.stack.add_titled(Gtk.Box(), "details", "Details")
+        self.build_details()
         self.stack.add_titled(Gtk.Box(), "changelog", "Changelog")
+
+    def build_details(self):
+        """ Build the main 'Details' view """
+        box = Gtk.Box(Gtk.Orientation.VERTICAL, 0)
+        self.stack.add_titled(box, "details", "Details")
+
+        # Allocate our screenshot view area
+        self.screenie_view = ScScreenshotView(self.context)
+        box.pack_start(self.screenie_view, False, False, 0)
