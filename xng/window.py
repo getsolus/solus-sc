@@ -70,6 +70,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         scroll = Gtk.ScrolledWindow(None, None)
 
         self.stack = Gtk.Stack()
+        self.stack.set_homogeneous(False)
         self.stack.set_transition_type(
             Gtk.StackTransitionType.CROSSFADE)
 
