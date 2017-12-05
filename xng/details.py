@@ -128,6 +128,7 @@ class ScDetailsView(Gtk.Box):
         box.pack_end(self.header_action, False, False, 0)
 
         self.stack = Gtk.Stack()
+        self.stack.set_homogeneous(False)
         self.stack_switcher = Gtk.StackSwitcher()
         self.stack_switcher.set_halign(Gtk.Align.CENTER)
         self.stack_switcher.set_stack(self.stack)
