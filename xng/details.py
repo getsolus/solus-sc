@@ -148,6 +148,7 @@ class ScDetailsView(Gtk.Box):
 
         # Allocate our screenshot view area
         self.screenie_view = ScScreenshotView(self.context)
+        self.screenie_view.set_halign(Gtk.Align.CENTER)
         box.pack_start(self.screenie_view, False, False, 0)
 
         # A place to have our description
