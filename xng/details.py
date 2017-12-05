@@ -35,6 +35,9 @@ class ScDetailsView(Gtk.Box):
     # TODO: Make less dumb
     header_action = None
 
+    stack = None
+    stack_switcher = None
+
     def get_page_name(self):
         return "{} - Software Center".format(self.header_name.get_text())
 
@@ -59,14 +62,20 @@ class ScDetailsView(Gtk.Box):
             apps.get_summary(id, item.get_summary()))
         pbuf = apps.get_pixbuf_only(id)
         self.header_image.set_from_pixbuf(pbuf)
-        print("got updated")
+        # Always re-focus to details
+        self.stack.set_visible_child_name("details")
 
     def build_header(self):
         """ Build our main header area """
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
-        box.set_border_width(20)
+        box.set_margin_top(15)
+        box.set_margin_left(15)
+        box.set_margin_right(15)
+
+        box_main_wrap = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        box_main_wrap.pack_start(box, False, False, 0)
         ebox = Gtk.EventBox()
-        ebox.add(box)
+        ebox.add(box_main_wrap)
         ebox.get_style_context().add_class("details-header")
         self.pack_start(ebox, False, False, 0)
 
@@ -89,7 +98,7 @@ class ScDetailsView(Gtk.Box):
         # summary
         self.header_summary = Gtk.Label("")
         self.header_summary.set_margin_top(6)
-        self.header_summary.set_margin_bottom(6)
+        self.header_summary.set_margin_bottom(3)
         self.header_summary.set_halign(Gtk.Align.START)
         details_box.pack_start(self.header_summary, False, False, 0)
 
@@ -97,3 +106,14 @@ class ScDetailsView(Gtk.Box):
         self.header_action = Gtk.Button("Install")
         self.header_action.set_valign(Gtk.Align.CENTER)
         box.pack_end(self.header_action, False, False, 0)
+
+        self.stack = Gtk.Stack()
+        self.stack_switcher = Gtk.StackSwitcher()
+        self.stack_switcher.set_halign(Gtk.Align.CENTER)
+        self.stack_switcher.set_stack(self.stack)
+        box_main_wrap.pack_start(self.stack_switcher, False, False, 0)
+        self.pack_start(self.stack, True, True, 0)
+
+        # Dummy pages for now
+        self.stack.add_titled(Gtk.Box(), "details", "Details")
+        self.stack.add_titled(Gtk.Box(), "changelog", "Changelog")
