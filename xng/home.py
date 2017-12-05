@@ -134,7 +134,9 @@ class ScHomeView(Gtk.Box):
 
         self.next_items = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         self.pack_start(self.next_items, True, True, 0)
-        self.next_items.set_border_width(40)
+        self.next_items.set_margin_start(40)
+        self.next_items.set_margin_top(40)
+        self.next_items.set_margin_bottom(40)
 
         # Mark the Categories view
         lab = Gtk.Label("Categories")
@@ -148,6 +150,7 @@ class ScHomeView(Gtk.Box):
         self.categories.set_selection_mode(Gtk.SelectionMode.NONE)
         self.next_items.pack_start(self.categories, False, False, 0)
         self.categories.set_margin_bottom(42)
+        self.categories.set_margin_end(40)
 
         # Mark the Recent view
         lab = Gtk.Label("Recently updated")
