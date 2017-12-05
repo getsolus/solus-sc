@@ -14,7 +14,57 @@
 from .base import ProviderPlugin, ProviderItem, ProviderSource, \
     ProviderCategory
 from .base import PopulationFilter, ItemStatus
+from gi.repository import AppStreamGlib as As
 import pisi
+import time
+
+
+def find_have_data(adb, store):
+    """ Find all packages with AppStream data """
+    ret = []
+
+    for key in adb.list_packages(None):
+        app = store.get_app_by_pkgname(key)
+        if not app:
+            continue
+        # Only want desktop apps here
+        if app.get_kind() != As.AppKind.DESKTOP:
+            continue
+        ret.append(key)
+    return ret
+
+
+def filter_packages_by_data(adb, store):
+    """ Return available packages by appdata only """
+    pkgs = find_have_data(adb, store)
+    ret = []
+    for item in pkgs:
+        pkg = adb.get_package(item)
+        ret.append(pkg)
+    return ret
+
+
+def unmangle_date(tstamp):
+    try:
+        ret = time.strptime(tstamp, "%Y-%m-%d")
+        return ret
+    except Exception:
+        # Probably because old eopkg pspec
+        pass
+    try:
+        ret = time.strptime(tstamp, "%m-%d-%Y")
+        return ret
+    except:
+        return 0
+
+
+def history_sort(pkgA, pkgB):
+    dateA = pkgA.history[0].date
+    dateB = pkgB.history[0].date
+    aa = unmangle_date(dateA)
+    ab = unmangle_date(dateB)
+
+    return cmp(aa, ab)
 
 
 class EopkgSource(ProviderSource):
@@ -154,17 +204,14 @@ class EopkgPlugin(ProviderPlugin):
     def populate_recent(self, storage, appsystem):
         """ Populate home view with recently updated packages """
 
-        # Hack for demo
-        recents = [
-            "lutris",
-            "darktable",
-            "tilix",
-            "gnome-music",
-            "gnome-maps",
-        ]
+        limit = 20  # Arbitrary right now
 
-        for i in recents:
-            pkg = self.availDB.get_package(i)
+        inp = filter_packages_by_data(self.availDB, appsystem.store)
+        inp.sort(history_sort, reverse=True)
+        if len(inp) > limit:
+            inp = inp[0:limit]
+
+        for pkg in inp:
             item = EopkgItem(None, pkg)
             item.parent_plugin = self
             storage.add_item(item.get_id(), item, PopulationFilter.RECENT)

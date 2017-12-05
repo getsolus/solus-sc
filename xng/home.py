@@ -193,7 +193,9 @@ class ScHomeView(Gtk.Box):
                 self.context.appsystem, None)
 
             # Build the recently updated view
-            plugin.populate_storage(self, PopulationFilter.RECENT, None, None)
+            plugin.populate_storage(
+                self, PopulationFilter.RECENT,
+                self.context.appsystem, None)
 
     def add_category(self, plugin, category):
         """ Add a main category to our view """
