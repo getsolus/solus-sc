@@ -37,6 +37,7 @@ class ScScreenshotView(Gtk.Box):
         # Main screenshot
         self.image_widget = ScImageWidget()
         self.image_widget.set_margin_bottom(10)
+        self.image_widget.set_margin_top(30)
         self.image_widget.show_all()
         self.image_widget.set_no_show_all(True)
         self.image_widget.hide()
@@ -62,6 +63,7 @@ class ScScreenshotView(Gtk.Box):
         thumb_wrap.add(self.box_thumbnails)
         thumb_wrap.set_margin_bottom(10)
         thumb_wrap.set_margin_start(10)
+        thumb_wrap.set_margin_top(30)
         self.pack_start(thumb_wrap, False, False, 0)
 
     def on_context_loaded(self, context):
