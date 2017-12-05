@@ -12,6 +12,7 @@
 #
 
 from .appsystem import AppSystem
+from .util.fetcher import ScMediaFetcher
 from gi.repository import GObject, GLib
 import threading
 
@@ -22,6 +23,7 @@ class ScContext(GObject.Object):
     plugins = None
     appsystem = None
     has_loaded = False
+    fetcher = None
 
     __gtype_name__ = "ScContext"
 
@@ -40,6 +42,7 @@ class ScContext(GObject.Object):
             return
         self.has_loaded = True
         self.init_plugins()
+        self.fetcher = ScMediaFetcher()
 
         # Lazy load now
         thr = threading.Thread(target=self.build_data)
