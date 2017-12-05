@@ -176,6 +176,11 @@ class SpecialMarkdownParser:
                     paragraph += uncode_bytes
                     code_one = False
 
+                # Special case, opening code block
+                if code_block:
+                    c = self.next()
+                    continue
+
                 if in_bullet:
                     ignore_space = True
 
@@ -217,10 +222,10 @@ class SpecialMarkdownParser:
                 if not code_block:
                     # Handle underline
                     underline = not underline
-                    if bold:
+                    if underline:
                         paragraph += underline_bytes
                     else:
-                        paragraph += underline_bytes
+                        paragraph += ununderline_bytes
                     c = self.next()
                     c = self.next()
                     blank_start = False
