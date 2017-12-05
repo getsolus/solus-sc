@@ -13,6 +13,8 @@
 
 from gi.repository import Gtk
 from .screenshot_view import ScScreenshotView
+from .util.markdown import SpecialMarkdownParser
+from gi.repository import AppStreamGlib as As
 
 
 class ScDetailsView(Gtk.Box):
@@ -41,6 +43,10 @@ class ScDetailsView(Gtk.Box):
 
     screenie_view = None
 
+    # We actually put lots of labels in this guy.
+    description_box = None
+    parser = None
+
     def get_page_name(self):
         return "{} - Software Center".format(self.header_name.get_text())
 
@@ -48,6 +54,7 @@ class ScDetailsView(Gtk.Box):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self.context = context
+        self.parser = SpecialMarkdownParser()
 
         self.build_header()
         self.show_all()
@@ -56,6 +63,8 @@ class ScDetailsView(Gtk.Box):
         """ Update our UI for the current item """
         if item == self.item:
             return
+
+        self.item = item
 
         # Grab the app
         apps = self.context.appsystem
@@ -70,6 +79,8 @@ class ScDetailsView(Gtk.Box):
 
         # Now set the screenshot ball in motion
         self.screenie_view.set_item(item)
+
+        self.update_description()
 
         # Always re-focus to details
         self.stack.set_visible_child_name("details")
@@ -129,9 +140,49 @@ class ScDetailsView(Gtk.Box):
 
     def build_details(self):
         """ Build the main 'Details' view """
-        box = Gtk.Box(Gtk.Orientation.VERTICAL, 0)
+        box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        box.set_margin_start(40)
+        box.set_margin_end(40)
+        box.set_margin_bottom(40)
         self.stack.add_titled(box, "details", "Details")
 
         # Allocate our screenshot view area
         self.screenie_view = ScScreenshotView(self.context)
         box.pack_start(self.screenie_view, False, False, 0)
+
+        # A place to have our description
+        self.description_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.description_box.set_margin_top(30)
+        self.description_box.set_margin_end(150)
+        self.description_box.set_margin_start(30)
+        box.pack_start(self.description_box, False, False, 0)
+
+    def update_description(self):
+        # I have become GTK - Destroyer Of Children
+        for child in self.description_box.get_children():
+            child.destroy()
+
+        id = self.item.get_id()
+        fallback = self.item.get_description()
+        desc = self.context.appsystem.get_description(id, fallback)
+
+        plain = As.markup_convert(desc, As.MarkupConvertFormat.MARKDOWN)
+        lines = []
+        try:
+            self.parser.consume(plain)
+            lines = self.parser.emit()
+        except Exception as e:
+            print("Parsing error: {}".format(e))
+            plain = As.markup_convert_simple(desc)
+            lines = plain.split("\n")
+
+        for line in lines:
+            lab = Gtk.Label(line)
+            lab.set_use_markup(True)
+            lab.set_halign(Gtk.Align.START)
+            lab.set_line_wrap(True)
+            lab.set_property("xalign", 0.0)
+            lab.set_property("margin", 2)
+            lab.set_margin_bottom(4)
+            self.description_box.pack_start(lab, False, False, 0)
+            lab.show_all()
