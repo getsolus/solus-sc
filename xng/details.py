@@ -57,14 +57,20 @@ class ScDetailsView(Gtk.Box):
         if item == self.item:
             return
 
+        # Grab the app
         apps = self.context.appsystem
         id = item.get_id()
 
+        # Update main header
         self.header_name.set_markup(apps.get_name(id, item.get_name()))
         self.header_summary.set_markup(
             apps.get_summary(id, item.get_summary()))
         pbuf = apps.get_pixbuf_only(id)
         self.header_image.set_from_pixbuf(pbuf)
+
+        # Now set the screenshot ball in motion
+        self.screenie_view.set_item(item)
+
         # Always re-focus to details
         self.stack.set_visible_child_name("details")
 

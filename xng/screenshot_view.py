@@ -107,3 +107,63 @@ class ScScreenshotView(Gtk.Box):
         self.image_widget.show_loading()
         self.image_widget.uri = thumb.alt_uri
         self.fetcher.fetch_media(thumb.alt_uri)
+
+    def set_item(self, item):
+        # Clean up old thumbnails
+        for child in self.box_thumbnails.get_children():
+            child.destroy()
+            child = None
+        keys = self.screen_map.keys()
+        for key in keys:
+            del self.screen_map[key]
+        self.screen_map = dict()
+
+        # Ask AppSystem for screenshots (AppStream only!)
+        id = item.get_id()
+        apps = self.context.appsystem
+        screens = apps.get_screenshots(id)
+        if not screens:
+            self.image_widget.hide()
+            self.image_widget.show_not_found()
+            return
+        self.image_widget.show()
+        # Update the UI immediately to show we're going to load
+        self.image_widget.show_loading()
+        default = None
+        for scr in screens:
+            if scr.default:
+                default = scr
+        if not default:
+            default = screens[0]
+        self.image_widget.uri = default.main_uri
+        # Always "fetch", fetcher knows if it exists or not.
+        self.fetcher.fetch_media(default.main_uri)
+
+        # Set up the screenshot order
+        allScreens = [default]
+        allScreens.extend([x for x in screens if x != default])
+
+        # No point showing thumbnails when only one screenshot is available
+        if len(allScreens) < 2:
+            return
+        defaultParent = None
+
+        # Set up all the screenshot thumbnails
+        for screen in allScreens:
+            preview = ScImageWidget(thumbnail=True)
+            self.box_thumbnails.add(preview)
+            preview.show_all()
+            preview.alt_uri = screen.main_uri
+            preview.uri = screen.thumb_uri
+            preview.show_loading()
+            if screen == default:
+                defaultParent = preview.get_parent()
+            preview.get_parent().set_margin_bottom(8)
+            self.screen_map[screen.thumb_uri] = preview
+
+        # Now ask the preview to fetch
+        for screen in allScreens:
+            self.fetcher.fetch_media(screen.thumb_uri)
+
+        # And now select it
+        self.box_thumbnails.select_child(defaultParent)
