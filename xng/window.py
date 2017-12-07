@@ -63,6 +63,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.build_content()
         self.show_all()
 
+        self.set_current_page("home")
+
         # Everything setup? Let's start loading plugins
         self.context.begin_load()
 
@@ -196,5 +198,5 @@ class ScMainWindow(Gtk.ApplicationWindow):
         """ Handle changing the current page """
         self.stack.set_visible_child_name(name)
         self.stack.get_visible_child().grab_focus()
-        self.set_title(self.stack.get_visible_child().get_page_name())
+        self.hbar.set_subtitle(self.stack.get_visible_child().get_page_name())
         self.home_button.set_sensitive(name != "home")
