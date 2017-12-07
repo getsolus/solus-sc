@@ -14,6 +14,7 @@
 from gi.repository import Gtk
 from .screenshot_view import ScScreenshotView
 from .util.markdown import SpecialMarkdownParser
+from .plugins.base import ItemStatus
 from gi.repository import AppStreamGlib as As
 
 
@@ -36,7 +37,9 @@ class ScDetailsView(Gtk.Box):
     header_summary = None
 
     # TODO: Make less dumb
-    header_action = None
+    header_action_remove = None
+    header_action_install = None
+    header_action_upgrade = None
 
     stack = None
     stack_switcher = None
@@ -81,6 +84,7 @@ class ScDetailsView(Gtk.Box):
         self.screenie_view.set_item(item)
 
         self.update_description()
+        self.update_actions()
 
         # Always re-focus to details
         self.stack.set_visible_child_name("details")
@@ -122,10 +126,23 @@ class ScDetailsView(Gtk.Box):
         self.header_summary.set_halign(Gtk.Align.START)
         details_box.pack_start(self.header_summary, False, False, 0)
 
-        # actions
-        self.header_action = Gtk.Button("Install")
-        self.header_action.set_valign(Gtk.Align.CENTER)
-        box.pack_end(self.header_action, False, False, 0)
+        # Install thing
+        self.header_action_install = Gtk.Button("Install")
+        self.header_action_install.set_valign(Gtk.Align.CENTER)
+        self.header_action_install.set_no_show_all(True)
+        box.pack_end(self.header_action_install, False, False, 0)
+
+        # Remove thing
+        self.header_action_remove = Gtk.Button("Remove")
+        self.header_action_remove.set_valign(Gtk.Align.CENTER)
+        self.header_action_remove.set_no_show_all(True)
+        box.pack_end(self.header_action_remove, False, False, 0)
+
+        # Upgrade thing
+        self.header_action_upgrade = Gtk.Button("Upgrade")
+        self.header_action_upgrade.set_valign(Gtk.Align.CENTER)
+        self.header_action_upgrade.set_no_show_all(True)
+        box.pack_end(self.header_action_upgrade, False, False, 0)
 
         self.stack = Gtk.Stack()
         self.stack.set_homogeneous(False)
@@ -188,3 +205,19 @@ class ScDetailsView(Gtk.Box):
             lab.set_margin_bottom(4)
             self.description_box.pack_start(lab, False, False, 0)
             lab.show_all()
+
+    def update_actions(self):
+        """ Update actions for the given item """
+        if self.item.has_status(ItemStatus.INSTALLED):
+            self.header_action_remove.show()
+            self.header_action_install.hide()
+        else:
+            self.header_action_remove.hide()
+            self.header_action_install.show()
+
+        # TODO: Disable remove button if dangerous!
+
+        if self.item.has_status(ItemStatus.UPDATE_NEEDED):
+            self.header_action_upgrade.show()
+        else:
+            self.header_action_upgrade.hide()

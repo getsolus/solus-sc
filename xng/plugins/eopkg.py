@@ -212,7 +212,10 @@ class EopkgPlugin(ProviderPlugin):
             inp = inp[0:limit]
 
         for pkg in inp:
-            item = EopkgItem(None, pkg)
+            ppkg = None
+            if self.installDB.has_package(pkg.name):
+                ppkg = self.installDB.get_package(pkg.name)
+            item = EopkgItem(ppkg, pkg)
             item.parent_plugin = self
             storage.add_item(item.get_id(), item, PopulationFilter.RECENT)
 
@@ -230,7 +233,10 @@ class EopkgPlugin(ProviderPlugin):
 
         for i in news:
             pkg = self.availDB.get_package(i)
-            item = EopkgItem(None, pkg)
+            ppkg = None
+            if self.installDB.has_package(i):
+                ppkg = self.installDB.get_package(i)
+            item = EopkgItem(ppkg, pkg)
             item.parent_plugin = self
             storage.add_item(item.get_id(), item, PopulationFilter.NEW)
 
@@ -251,7 +257,10 @@ class EopkgPlugin(ProviderPlugin):
 
         for i in news:
             pkg = self.availDB.get_package(i)
-            item = EopkgItem(None, pkg)
+            ppkg = None
+            if self.installDB.has_package(i):
+                ppkg = self.installDB.get_package(i)
+            item = EopkgItem(ppkg, pkg)
             item.parent_plugin = self
             storage.add_item(item.get_id(), item, PopulationFilter.NEW)
 

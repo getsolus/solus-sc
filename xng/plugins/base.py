@@ -165,8 +165,8 @@ class ProviderItem(GObject.Object):
 
     def __init__(self):
         GObject.Object.__init__(self)
-        # Default to installed status
-        self.status = ItemStatus.INSTALLED
+        # Default to no status
+        self.status = 0
 
     def get_status(self):
         """ Return the current status for this item """
