@@ -314,6 +314,11 @@ class EopkgItem(ProviderItem):
 
         if self.installed is not None:
             self.displayCandidate = self.installed
+            self.add_status(ItemStatus.INSTALLED)
+            relNew = self.available.history[0].release
+            relOld = self.installed.history[0].release
+            if relNew > relOld:
+                self.add_status(ItemStatus.UPDATE_NEEDED)
         else:
             self.displayCandidate = self.available
 
