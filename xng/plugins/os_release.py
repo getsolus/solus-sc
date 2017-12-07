@@ -62,6 +62,18 @@ class OsRelease:
         """ Return the main os-family """
         return self._keyval("id", "<unknown OS type>")
 
+    def id_like(self):
+        """ Return the ID_LIKE field """
+        return self._keyval("id_like", "<unknown OS type>")
+
+    def from_family(self, family):
+        """ Return True if the OS is from the given family """
+        if self.id() == family:
+            return True
+        if self.id_like() == family:
+            return True
+        return False
+
     def pretty_name(self):
         return self._keyval("pretty_name", "<unknown OS>")
 
