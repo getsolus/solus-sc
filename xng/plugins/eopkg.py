@@ -16,6 +16,7 @@ from .base import ProviderPlugin, ProviderItem, ProviderSource, \
 from .base import PopulationFilter, ItemStatus
 from gi.repository import AppStreamGlib as As
 import pisi
+from pisi.operations.install import plan_install_pkg_names
 import time
 
 
@@ -328,6 +329,27 @@ class EopkgPlugin(ProviderPlugin):
             pkg = EopkgItem(pkgObject, pkgObject)
             pkg.parent_plugin = self
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.INSTALLED)
+
+    def build_item(self, name):
+        """ Build a complete item definition """
+        avail = None
+        installed = None
+        if self.availDB.has_package(name):
+            avail = self.availDB.get_package(name)
+        if self.installDB.has_package(name):
+            installed = self.installDB.get_package(name)
+        item = EopkgItem(installed, avail)
+        item.parent_plugin = self
+        return item
+
+    def plan_install_item(self, item):
+        """ Plan the installation of a given item """
+        (pg, pkgs) = plan_install_pkg_names([item.get_id()])
+        # We only want the package set, not the graph
+        ret = []
+        for name in pkgs:
+            ret.append(self.build_item(name))
+        return ret
 
 
 class EopkgItem(ProviderItem):
