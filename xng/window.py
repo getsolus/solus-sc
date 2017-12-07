@@ -11,10 +11,62 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GObject, GLib
 from .context import ScContext
 from .home import ScHomeView
 from .details import ScDetailsView
+
+
+class ScUpdatesButton(Gtk.Button):
+    """ ScUpdatesButton is a simple button wrapper to allow hiding the
+        updates text until such point as the button is needed fully
+
+        When updates are available, the button style class is updated
+        and we expand the text out to the left of the button, to
+        provide a visual cue to the user that there has been an internal
+        state change.
+    """
+
+    revealer = None
+    label = None
+    img = None
+
+    def __init__(self):
+        Gtk.Button.__init__(self)
+
+        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.add(box)
+
+        # Image is anchored on the left
+        self.img = Gtk.Image.new_from_icon_name(
+            "software-update-available-symbolic",
+            Gtk.IconSize.SMALL_TOOLBAR)
+        box.pack_start(self.img, True, True, 0)
+
+        # Revealer will slide the label out
+        self.revealer = Gtk.Revealer()
+        self.label = Gtk.Label.new("Updates available")
+        self.label.get_style_context().add_class("small-title")
+        self.revealer.add(self.label)
+        self.revealer.set_transition_type(
+            Gtk.RevealerTransitionType.SLIDE_LEFT)
+        self.revealer.set_reveal_child(False)
+        box.pack_start(self.revealer, False, False, 0)
+
+    def set_updates_available(self, available):
+        """ Alter our state to indicate update availability """
+        stclass = "suggested-action"
+        if available:
+            self.get_style_context().add_class(stclass)
+            self.label.set_margin_start(6)
+        else:
+            self.label.set_margin_start(0)
+            self.get_style_context().remove_class(stclass)
+
+        self.revealer.set_reveal_child(available)
+
+        # Just helps with idle loops
+        return False
 
 
 class ScMainWindow(Gtk.ApplicationWindow):
@@ -24,6 +76,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     search_button = None
     back_button = None
     home_button = None
+    updates_button = None
 
     # Search bits
     search_revealer = None
@@ -67,6 +120,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         # Everything setup? Let's start loading plugins
         self.context.begin_load()
+
+        GLib.timeout_add(
+            3000, lambda: self.updates_button.set_updates_available(True))
 
     def build_content(self):
         # Main UI wrap
@@ -141,6 +197,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         st = self.search_button.get_style_context()
         st.add_class("image-button")
         self.hbar.pack_end(self.search_button)
+
+        # Update button position won't affect search button placement
+        self.updates_button = ScUpdatesButton()
+        self.hbar.pack_end(self.updates_button)
 
     def handle_key_event(self, w, e=None, d=None):
         """ Proxy window navigation events to the searchbar """
