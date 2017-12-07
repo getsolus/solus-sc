@@ -12,6 +12,7 @@
 #
 
 from .appsystem import AppSystem
+from .executor import Executor
 from .util.fetcher import ScMediaFetcher
 from gi.repository import GObject, GLib
 
@@ -23,6 +24,7 @@ class ScContext(GObject.Object):
     appsystem = None
     has_loaded = False
     fetcher = None
+    executor = None
 
     __gtype_name__ = "ScContext"
 
@@ -85,4 +87,5 @@ class ScContext(GObject.Object):
     def build_data(self, args=None):
         """ Perform expensive operations """
         self.appsystem = AppSystem()
+        self.executor = Executor()
         GLib.idle_add(self.emit_loaded)
