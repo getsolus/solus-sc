@@ -89,3 +89,11 @@ class ScContext(GObject.Object):
         self.appsystem = AppSystem()
         self.executor = Executor()
         GLib.idle_add(self.emit_loaded)
+
+    def begin_install(self, item):
+        """ Begin the work necessary to install a package """
+        print("begin_install: {}".format(item.get_id()))
+
+    def begin_remove(self, item):
+        """ Begin the work necessary to remove a package """
+        print("begin_remove: {}".format(item.get_id()))

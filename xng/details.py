@@ -231,8 +231,9 @@ class ScDetailsView(Gtk.Box):
             self.header_action_upgrade.hide()
 
     def on_install_clicked(self, btn, udata=None):
-        """ User clicked install, go do a thing ! """
-        print("Install: {}".format(self.item.get_name()))
+        """ User clicked install """
+        self.context.begin_install(self.item)
 
     def on_remove_clicked(self, btn, udata=None):
-        print("Remove: {}".format(self.item.get_name()))
+        """ User clicked remove """
+        self.context.begin_remove(self.item)
