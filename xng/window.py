@@ -23,6 +23,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     hbar = None
     search_button = None
     back_button = None
+    home_button = None
 
     # Search bits
     search_revealer = None
@@ -121,6 +122,15 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.hbar.pack_start(self.back_button)
         self.back_button.set_sensitive(False)
 
+        # Go home, instead of requiring a tabbed view
+        self.home_button = Gtk.Button.new_from_icon_name(
+            "go-home-symbolic",
+            Gtk.IconSize.SMALL_TOOLBAR)
+        self.home_button.set_can_focus(False)
+        self.home_button.connect('clicked', self.on_home_clicked)
+        self.hbar.pack_start(self.home_button)
+        self.home_button.set_sensitive(False)
+
         self.search_button = Gtk.ToggleButton()
         img = Gtk.Image.new_from_icon_name(
             "edit-find-symbolic", Gtk.IconSize.SMALL_TOOLBAR)
@@ -168,15 +178,23 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.nav_stack.pop()
         if len(self.nav_stack) < 2:
             self.back_button.set_sensitive(False)
-        self.stack.set_visible_child_name(self.nav_stack[-1])
-        self.stack.get_visible_child().grab_focus()
+        self.set_current_page(self.nav_stack[-1])
 
-        self.set_title(self.stack.get_visible_child().get_page_name())
+    def on_home_clicked(self, btn, udata=None):
+        """ Clicked home, reset nav stack, set page to home """
+        self.nav_stack = ["home"]
+        self.back_button.set_sensitive(False)
+        self.set_current_page("home")
 
     def push_nav(self, page_name):
+        """ Push a new page in the nav stack """
         self.nav_stack.append(page_name)
         self.back_button.set_sensitive(True)
-        self.stack.set_visible_child_name(page_name)
-        self.stack.get_visible_child().grab_focus()
+        self.set_current_page(page_name)
 
+    def set_current_page(self, name):
+        """ Handle changing the current page """
+        self.stack.set_visible_child_name(name)
+        self.stack.get_visible_child().grab_focus()
         self.set_title(self.stack.get_visible_child().get_page_name())
+        self.home_button.set_sensitive(name != "home")
