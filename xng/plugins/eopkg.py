@@ -238,11 +238,7 @@ class EopkgPlugin(ProviderPlugin):
             inp = inp[0:limit]
 
         for pkg in inp:
-            ppkg = None
-            if self.installDB.has_package(pkg.name):
-                ppkg = self.installDB.get_package(pkg.name)
-            item = EopkgItem(ppkg, pkg)
-            item.parent_plugin = self
+            item = self.build_item(pkg.name)
             storage.add_item(item.get_id(), item, PopulationFilter.RECENT)
 
     def populate_new(self, storage, appsystem):
@@ -258,12 +254,7 @@ class EopkgPlugin(ProviderPlugin):
         ]
 
         for i in news:
-            pkg = self.availDB.get_package(i)
-            ppkg = None
-            if self.installDB.has_package(i):
-                ppkg = self.installDB.get_package(i)
-            item = EopkgItem(ppkg, pkg)
-            item.parent_plugin = self
+            item = self.build_item(i)
             storage.add_item(item.get_id(), item, PopulationFilter.NEW)
 
     def populate_featured(self, storage, appsystem):
@@ -282,12 +273,7 @@ class EopkgPlugin(ProviderPlugin):
         ]
 
         for i in news:
-            pkg = self.availDB.get_package(i)
-            ppkg = None
-            if self.installDB.has_package(i):
-                ppkg = self.installDB.get_package(i)
-            item = EopkgItem(ppkg, pkg)
-            item.parent_plugin = self
+            item = self.build_item(i)
             storage.add_item(item.get_id(), item, PopulationFilter.NEW)
 
     def populate_search(self, storage, term, cancel):
@@ -304,30 +290,19 @@ class EopkgPlugin(ProviderPlugin):
             return
 
         for item in srslt:
-            available = None
-            installed = None
-
             # Check on each item if we need to bail NOW
             if cancel.is_set():
                 print("Cancelled?!?")
                 return
 
-            if self.installDB.has_package(item):
-                installed = self.installDB.get_package(item)
-            if self.availDB.has_package(item):
-                available = self.availDB.get_package(item)
-
-            pkg = EopkgItem(installed, available)
-            pkg.parent_plugin = self
+            pkg = self.build_item(item)
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.SEARCH)
         print("eopkg done!")
 
     def populate_installed(self, storage):
         """ Populate from the installed filter """
         for pkgID in self.installDB.list_installed():
-            pkgObject = self.installDB.get_package(pkgID)
-            pkg = EopkgItem(pkgObject, pkgObject)
-            pkg.parent_plugin = self
+            pkg = self.build_item(pkgID)
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.INSTALLED)
 
     def build_item(self, name):
@@ -379,7 +354,7 @@ class EopkgItem(ProviderItem):
             self.displayCandidate = self.available
 
         # Is this an essential item?
-        if is_essential_package(self.available):
+        if self.available and is_essential_package(self.available):
             self.add_status(ItemStatus.META_ESSENTIAL)
 
         name = self.get_name()
