@@ -12,4 +12,7 @@
 #
 
 import gi
-gi.require_version('Snapd', '1')
+try:
+    gi.require_version('Snapd', '1')
+except:
+    pass
