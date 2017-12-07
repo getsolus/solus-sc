@@ -153,6 +153,22 @@ class ProviderPlugin(GObject.Object):
     def upgrade_item(self, item):
         raise RuntimeError("implement upgrade_item")
 
+    def plan_install_item(self, item):
+        """ Implementation needs to return a list of all items to be installed
+            to satisfy the installation of this item
+
+            Returning an item that IS installed will mark it for removal
+        """
+        raise RuntimeError("implement plan_install_item")
+
+    def plan_remove_item(self, item):
+        """ Implementation needs to return a list of all items to be removed
+            to satisfy the removal of this item
+
+            Returning an item that is NOT installed will mark it for install
+        """
+        raise RuntimeError("implement plan_remove_item")
+
 
 class ProviderItem(GObject.Object):
     """ A ProviderItem is addded to the ProviderStorage by each ProviderPlugin

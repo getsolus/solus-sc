@@ -92,8 +92,10 @@ class ScContext(GObject.Object):
 
     def begin_install(self, item):
         """ Begin the work necessary to install a package """
-        print("begin_install: {}".format(item.get_id()))
+        packages = item.get_plugin().plan_install_item(item)
+        print("begin_install: {}".format(packages))
 
     def begin_remove(self, item):
         """ Begin the work necessary to remove a package """
-        print("begin_remove: {}".format(item.get_id()))
+        packages = item.get_plugin().plan_remove_item(item)
+        print("begin_remove: {}".format(packages))
