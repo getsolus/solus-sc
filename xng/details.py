@@ -128,12 +128,16 @@ class ScDetailsView(Gtk.Box):
 
         # Install thing
         self.header_action_install = Gtk.Button("Install")
+        self.header_action_install.connect('clicked',
+                                           self.on_install_clicked)
         self.header_action_install.set_valign(Gtk.Align.CENTER)
         self.header_action_install.set_no_show_all(True)
         box.pack_end(self.header_action_install, False, False, 0)
 
         # Remove thing
         self.header_action_remove = Gtk.Button("Remove")
+        self.header_action_remove.connect('clicked',
+                                          self.on_remove_clicked)
         self.header_action_remove.set_valign(Gtk.Align.CENTER)
         self.header_action_remove.set_no_show_all(True)
         box.pack_end(self.header_action_remove, False, False, 0)
@@ -225,3 +229,10 @@ class ScDetailsView(Gtk.Box):
             self.header_action_upgrade.show()
         else:
             self.header_action_upgrade.hide()
+
+    def on_install_clicked(self, btn, udata=None):
+        """ User clicked install, go do a thing ! """
+        print("Install: {}".format(self.item.get_name()))
+
+    def on_remove_clicked(self, btn, udata=None):
+        print("Remove: {}".format(self.item.get_name()))
