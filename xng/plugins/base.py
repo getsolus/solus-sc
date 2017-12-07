@@ -41,6 +41,7 @@ class ItemStatus:
     UPDATE_BUGFIX = 1 << 6    # Bugfix update available
     META_DEVEL = 1 << 7       # Is a development type of package
     META_CHANGELOG = 1 << 8   # Supports changelog functionality
+    META_ESSENTIAL = 1 << 9   # Essential component. Do NOT remove!
 
 
 class ProviderCategory(GObject.Object):

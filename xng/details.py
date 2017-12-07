@@ -215,7 +215,11 @@ class ScDetailsView(Gtk.Box):
             self.header_action_remove.hide()
             self.header_action_install.show()
 
-        # TODO: Disable remove button if dangerous!
+        # Disable remove button if dangerous!
+        if self.item.has_status(ItemStatus.META_ESSENTIAL):
+            self.header_action_remove.set_sensitive(False)
+        else:
+            self.header_action_remove.set_sensitive(True)
 
         if self.item.has_status(ItemStatus.UPDATE_NEEDED):
             self.header_action_upgrade.show()

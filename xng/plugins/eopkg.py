@@ -67,6 +67,31 @@ def history_sort(pkgA, pkgB):
     return cmp(aa, ab)
 
 
+# Mandatory components, removing will cause imminent death
+essential_components = [
+    "system.base",
+]
+
+
+# Essential packages, removing will upset and lead to imminent death.
+essential_packages = [
+    "mesalib",
+    "xorg-server",
+    "dhcpcd",
+    "network-manager",
+    "wpa_supplicant",
+]
+
+
+def is_essential_package(pkg):
+    """ Essential packages should NEVER be removed by the user. """
+    if pkg.partOf in essential_components:
+        return True
+    if pkg.name in essential_packages:
+        return True
+    return False
+
+
 class EopkgSource(ProviderSource):
     """ EopkgSource wraps a repository object """
 
@@ -330,6 +355,10 @@ class EopkgItem(ProviderItem):
                 self.add_status(ItemStatus.UPDATE_NEEDED)
         else:
             self.displayCandidate = self.available
+
+        # Is this an essential item?
+        if is_essential_package(self.available):
+            self.add_status(ItemStatus.META_ESSENTIAL)
 
         name = self.get_name()
         if name.endswith("-dbginfo") or name.endswith("-devel"):
