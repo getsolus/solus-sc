@@ -18,6 +18,7 @@ from gi.repository import AppStreamGlib as As
 import pisi
 from pisi.operations.install import plan_install_pkg_names
 import time
+import comar
 
 
 def find_have_data(adb, store):
@@ -174,6 +175,10 @@ class EopkgPlugin(ProviderPlugin):
 
     repos = None
 
+    # pisi crap
+    link = None
+    pmanager = None
+
     __gtype_name__ = "NxEopkgPlugin"
 
     def __init__(self):
@@ -183,6 +188,11 @@ class EopkgPlugin(ProviderPlugin):
         self.repoDB = pisi.db.repodb.RepoDB()
         self.groupDB = pisi.db.groupdb.GroupDB()
         self.compDB = pisi.db.componentdb.ComponentDB()
+
+        # Talk to eopkg/pisi over dbus
+        self.link = comar.Link()
+        self.pmanager = self.link.System.Manager['pisi']
+        self.link.listenSignals("System.Manager", self.dbus_callback)
 
         self.build_categories()
 
@@ -325,6 +335,15 @@ class EopkgPlugin(ProviderPlugin):
         for name in pkgs:
             ret.append(self.build_item(name))
         return ret
+
+    def dbus_callback(self, package, signal, args):
+        """ eopkg/pisi talked to us via COMAR """
+        print("signal: {} (args: {})".format(signal, args))
+
+    def install_item(self, items):
+        names = [x.get_id() for x in items]
+        print("installing: {}".format(names))
+        self.pmanager.installPackage(",".join(names), async=self.dbus_callback)
 
 
 class EopkgItem(ProviderItem):
