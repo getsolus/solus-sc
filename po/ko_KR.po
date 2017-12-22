@@ -3,823 +3,819 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Ademar Nowasky Junior <nowasky.jr@gmail.com>, 2016
-# Fábio Nogueira <deb.user.ba@gmail.com>, 2017
-# Marcelo Ferreira <marceloffdeoliveira@gmail.com>, 2016-2017
-# Nicolas Abril <nicolas.abril@gmail.com>, 2017
-# Renato Santos <renatosng5@gmail.com>, 2017
+# jemin_jeon, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-12-17 21:26+0000\n"
-"Last-Translator: Nicolas Abril <nicolas.abril@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/solus-project/solus-sc/language/pt_BR/)\n"
+"PO-Revision-Date: 2017-12-19 08:18+0000\n"
+"Last-Translator: jemin_jeon\n"
+"Language-Team: Korean (Korea) (http://www.transifex.com/solus-project/solus-sc/language/ko_KR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: ko_KR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../repo_data/components.xml.in.h:1
 msgid "System Base"
-msgstr "Sistema base"
+msgstr "시스템 기본"
 
 #: ../repo_data/components.xml.in.h:2
 msgid "Base Components"
-msgstr "Componentes base"
+msgstr "기본 구성 요소"
 
 #: ../repo_data/components.xml.in.h:3
 msgid "Base components of Solus"
-msgstr "Componentes base do Solus"
+msgstr "솔루스 기본 구성 요소"
 
 #: ../repo_data/components.xml.in.h:4
 msgid "Boot utilities"
-msgstr "Utilitários de inicialização"
+msgstr "부팅 유틸리티"
 
 #: ../repo_data/components.xml.in.h:5
 msgid "Tools and daemons required early in the boot process"
-msgstr "Ferramentas e daemons necessários no início do processo de inicialização"
+msgstr "부팅 초기단계에서 필요한 도구와 데몬"
 
 #: ../repo_data/components.xml.in.h:6
 msgid "System utilities"
-msgstr "Utilitários do sistema"
+msgstr "시스템 유틸리티"
 
 #: ../repo_data/components.xml.in.h:7
 msgid ""
 "Commonly used components for a full installation, not used in minimal "
 "environments"
-msgstr "Componentes comumente usados para uma instalação completa, não usados em ambientes mínimos"
+msgstr "최소 설치 환경이 아닌 전체 설치를 위한 공통 요소들"
 
 #: ../repo_data/components.xml.in.h:8
 msgid "Base development tools"
-msgstr "Ferramentas de desenvolvimento base"
+msgstr "개발 도구 기본"
 
 #: ../repo_data/components.xml.in.h:9
 msgid "Development utilities - base system"
-msgstr "Utilitários de desenvolvimento - sistema base"
+msgstr "개발 유틸리티 - 기본 시스템"
 
 #: ../repo_data/components.xml.in.h:10
 msgid "X.Org Base Components"
-msgstr "Componentes base do X.Org"
+msgstr "X.Org 기본 구성 요소"
 
 #: ../repo_data/components.xml.in.h:11
 msgid "Base components required for the X.Org System"
-msgstr "Componentes base necessários para o Sistema X.Org"
+msgstr "X.Org 시스템을 위한 기본 구성 요소"
 
 #: ../repo_data/components.xml.in.h:12
 msgid "X.Org Protocol Headers"
-msgstr "Cabeçalhos do protocolo X.Org"
+msgstr "X.Org 프로토콜 헤더"
 
 #: ../repo_data/components.xml.in.h:13
 msgid "Protocol headers required for building X.Org Libraries"
-msgstr "Cabeçalhos de protocolo necessários para a construção de bibliotecas X.Org"
+msgstr "X.Org 라이브러리에 필요한 프로토콜 헤더"
 
 #: ../repo_data/components.xml.in.h:14
 msgid "X.Org Core Libraries"
-msgstr "Bibliotecas principais X.Org"
+msgstr "X.Org 핵심 라이브러리"
 
 #: ../repo_data/components.xml.in.h:15
 msgid "Core libraries required by X.Org"
-msgstr "Bibliotecas principais exigidas pelo X.Org"
+msgstr "X.Org에 필요한 핵심 라이브러리"
 
 #: ../repo_data/components.xml.in.h:16
 msgid "X.Org Core Fonts"
-msgstr "Fontes principais do X.Org"
+msgstr "X.Org 핵심 글꼴"
 
 #: ../repo_data/components.xml.in.h:17
 msgid "Core fonts required by X.Org"
-msgstr "Fontes principais exigidas pelo X.Org"
+msgstr "X.Org에 필요한 핵심 글꼴"
 
 #: ../repo_data/components.xml.in.h:18
 msgid "X.Org Core Applications"
-msgstr "Aplicações principais do X.Org"
+msgstr "X.Org 핵심 응용프로그램"
 
 #: ../repo_data/components.xml.in.h:19
 msgid "Collection of simple applications for X.Org"
-msgstr "Coleção de aplicações simples para o X.Org"
+msgstr "X.Org용 간단한 응용프로그램 모음"
 
 #: ../repo_data/components.xml.in.h:20
 msgid "X.Org Display"
-msgstr "Tela X.Org"
+msgstr "X.Org 화면"
 
 #: ../repo_data/components.xml.in.h:21
 msgid "Software required to run an X.Org Display"
-msgstr "Programa necessário para executar uma tela X.Org"
+msgstr "X.Org 화면에 필요한 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:22
 msgid "X.Org Server"
-msgstr "Servidor X.Org"
+msgstr "X.Org 서버"
 
 #: ../repo_data/components.xml.in.h:23
 msgid "Core server of the X Window System"
-msgstr "Servidor principal do sistema de janelas X"
+msgstr "X Window System에 필요한 핵심 서버"
 
 #: ../repo_data/components.xml.in.h:24
 msgid "X.Org Drivers"
-msgstr "Drivers X.Org"
+msgstr "X.Org 드라이버"
 
 #: ../repo_data/components.xml.in.h:25
 msgid "Drivers required to use the X Window System"
-msgstr "Drivers necessários para usar o sistema de janelas X"
+msgstr "X Window System에 필요한 드라이버"
 
 #: ../repo_data/components.xml.in.h:26
 msgid "Networking Base"
-msgstr "Rede base"
+msgstr "네트워킹 기본"
 
 #: ../repo_data/components.xml.in.h:27
 msgid "Email clients"
-msgstr "Clientes de e-mail"
+msgstr "이메일 클라이언트"
 
 #: ../repo_data/components.xml.in.h:28
 msgid "IRC clients"
-msgstr "Clientes de IRC"
+msgstr "IRC 클라이언트"
 
 #: ../repo_data/components.xml.in.h:29
 msgid "Instant messaging"
-msgstr "Mensagens instantâneas"
+msgstr "채팅"
 
 #: ../repo_data/components.xml.in.h:30
 msgid "News and RSS readers"
-msgstr "Leitores de notícias e RSS"
+msgstr "뉴스 및 RSS 읽기도구"
 
 #: ../repo_data/components.xml.in.h:31
 msgid "Remote management software"
-msgstr "Programas de gerenciamento remoto"
+msgstr "원격 관리 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:32
 msgid "Web applications"
-msgstr "Aplicações web"
+msgstr "웹 응용프로그램"
 
 #: ../repo_data/components.xml.in.h:33
 msgid "Web browsers"
-msgstr "Navegadores web"
+msgstr "웹 브라우저"
 
 #: ../repo_data/components.xml.in.h:34
 msgid "Networking utilities"
-msgstr "Utilitários de rede"
+msgstr "네트워킹 유틸리티"
 
 #: ../repo_data/components.xml.in.h:35
 msgid "Download managers"
-msgstr "Gerenciadores de downloads"
+msgstr "다운로드 관리자"
 
 #: ../repo_data/components.xml.in.h:36
 msgid "Networking CLI Clients"
-msgstr "Clientes de rede CLI"
+msgstr "네트워킹 CLI 클라이언트"
 
 #: ../repo_data/components.xml.in.h:37
 msgid "Kernel Images"
-msgstr "Imagens de Kernel"
+msgstr "커널 이미지"
 
 #: ../repo_data/components.xml.in.h:38
 msgid "Kernel Development"
-msgstr "Desenvolvimento de Kernel"
+msgstr "커널 개발"
 
 #: ../repo_data/components.xml.in.h:39
 msgid "Text Editors"
-msgstr "Editores de texto"
+msgstr "문서 편집기"
 
 #: ../repo_data/components.xml.in.h:40
 msgid "Simple and advanced text editors"
-msgstr "Editores de texto simples e avançados"
+msgstr "간단한 고급 문서 편집기"
 
 #: ../repo_data/components.xml.in.h:41 ../repo_data/groups.xml.in.h:5
 msgid "Office Software"
-msgstr "Programas de escritório"
+msgstr "사무용 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:42
 msgid "Office software"
-msgstr "Programas de escritório"
+msgstr "사무용 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:43
 msgid "Financial Software"
-msgstr "Programas financeiros"
+msgstr "재무 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:44
 msgid "Mathematics-Oriented Software"
-msgstr "Programas para cálculos matemáticos"
+msgstr "수학 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:45
 msgid "Note-Taking Software"
-msgstr "Programas para tomar notas"
+msgstr "필기용 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:46
 msgid "Scientific Software"
-msgstr "Programas científicos"
+msgstr "과학 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:47
 msgid "Software aimed at various scientific fields."
-msgstr "Programa voltado para vários campos científicos."
+msgstr "여러 과학 분야에서 사용 가능한 소프트웨어입니다."
 
 #: ../repo_data/components.xml.in.h:48
 msgid "E-book and PDF Viewing Software"
-msgstr "Programas para visualização de E-book e PDF"
+msgstr "전자책, PDF 읽기도구 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:49
 msgid "Programming"
-msgstr "Programação"
+msgstr "프로그래밍"
 
 #: ../repo_data/components.xml.in.h:50
 msgid "Software related to programming"
-msgstr "Programa relacionado à programação"
+msgstr "프로그래밍 관련 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:51
 msgid "Development files"
-msgstr "Arquivos de desenvolvimento"
+msgstr "개발 파일"
 
 #: ../repo_data/components.xml.in.h:52
 msgid "Integrated Developer Environments"
-msgstr "Ambientes de Desenvolvimento Integrado"
+msgstr "통합 개발 환경 (IDE)"
 
 #: ../repo_data/components.xml.in.h:53
 msgid "Development tools"
-msgstr "Ferramentas de desenvolvimento"
+msgstr "개발 도구"
 
 #: ../repo_data/components.xml.in.h:54
 msgid "Haskell libraries"
-msgstr "Bibliotecas Haskell"
+msgstr "하스켈(Haskell) 라이브러리"
 
 #: ../repo_data/components.xml.in.h:55
 msgid "Python modules"
-msgstr "Módulos Python"
+msgstr "파이썬(Python) 모듈"
 
 #: ../repo_data/components.xml.in.h:56
 msgid "Perl modules"
-msgstr "Módulos Perl"
+msgstr "펄(Perl) 모듈"
 
 #: ../repo_data/components.xml.in.h:57
 msgid "Java modules and libraries"
-msgstr "Módulos e bibliotecas Java"
+msgstr "자바(Java) 모듈과 라이브러리"
 
 #: ../repo_data/components.xml.in.h:58
 msgid "Programming libraries"
-msgstr "Bibliotecas de Programação"
+msgstr "프로그래밍 라이브러리"
 
 #: ../repo_data/components.xml.in.h:59
 msgid "Database clients and servers"
-msgstr "Clientes e servidores de banco de dados"
+msgstr "데이터베이스 클라이언트 및 서버"
 
 #: ../repo_data/components.xml.in.h:60
 msgid "Desktop Software"
-msgstr "Programas para Área de trabalho"
+msgstr "사용자 환경 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:61
 msgid "Desktop specific software"
-msgstr "Programas específicos para Área de trabalho"
+msgstr "사용자 환경 전용 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:62
 msgid "General Multimedia Software"
-msgstr "Programas gerais de multimídia"
+msgstr "일반 멀티미디어 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:63
 msgid "Graphics"
-msgstr "Gráficos"
+msgstr "그래픽"
 
 #: ../repo_data/components.xml.in.h:64
 msgid "Graphics Manipulation Software"
-msgstr "Programa de manipulação de gráficos"
+msgstr "그래픽 편집 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:65
 msgid "Multimedia Codecs"
-msgstr "Codecs multimídia"
+msgstr "멀티미디어 코덱"
 
 #: ../repo_data/components.xml.in.h:66
 msgid "Multimedia Codecs and Format Support"
-msgstr "Codecs multimídia e suporte a formatos"
+msgstr "멀티미디어 코덱과 파일형식 지원"
 
 #: ../repo_data/components.xml.in.h:67
 msgid "Video Software"
-msgstr "Programas de vídeo"
+msgstr "영상편집 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:68
 msgid "Audio Software"
-msgstr "Programas de áudio"
+msgstr "음향 소프트웨어"
 
 #: ../repo_data/components.xml.in.h:69
 msgid "Multimedia Libraries"
-msgstr "Bibliotecas multimídia"
+msgstr "멀티미디어 라이브러리"
 
 #: ../repo_data/components.xml.in.h:70
 msgid "GStreamer Runtime"
-msgstr "Tempo de execução do GStreamer"
+msgstr "GStreamer 런타임"
 
 #: ../repo_data/components.xml.in.h:71
 msgid "GStreamer Runtime &amp; Support Libraries"
-msgstr "Tempo de execução do GStreamer e Bibliotecas de suporte"
+msgstr "Gstreamer 런타임과 지원 라이브러리"
 
 #: ../repo_data/components.xml.in.h:72
 msgid "Desktop Libraries"
-msgstr "Bibliotecas da Área de trabalho"
+msgstr "사용자 환경 라이브러리"
 
 #: ../repo_data/components.xml.in.h:73
 msgid "Common libraries required for a desktop"
-msgstr "Bibliotecas comuns necessárias para uma área de trabalho"
+msgstr "사용자 환경에 필요한 공통 라이브러리"
 
 #: ../repo_data/components.xml.in.h:74
 msgid "Desktop Theming"
-msgstr "Personalização da Área de trabalho"
+msgstr "사용자 환경 꾸미기"
 
 #: ../repo_data/components.xml.in.h:75
 msgid "Themes to enhance the desktop"
-msgstr "Temas para melhorar a área de trabalho"
+msgstr "사용자 환경 향상을 위한 테마"
 
 #: ../repo_data/components.xml.in.h:76
 msgid "Desktop Fonts"
-msgstr "Fontes para Área de trabalho"
+msgstr "사용자 환경 글꼴"
 
 #: ../repo_data/components.xml.in.h:77
 msgid "Fonts to enhance the desktop"
-msgstr "Fontes para melhorar a área de trabalho"
+msgstr "사용자 환경 향상을 위한 글꼴"
 
 #: ../repo_data/components.xml.in.h:78
 msgid "Qt Runtime Libraries"
-msgstr "Bibliotecas tempo de execução do Qt "
+msgstr "Qt 런타임 라이브러리"
 
 #: ../repo_data/components.xml.in.h:79
 msgid "GTK Runtime Libraries"
-msgstr "Bibliotecas tempo de execução do GTK "
+msgstr "GTK 런타임 라이브러리"
 
 #: ../repo_data/components.xml.in.h:80
 msgid "Budgie Desktop"
-msgstr "Área de trabalho Budgie"
+msgstr "Budgie Desktop"
 
 #: ../repo_data/components.xml.in.h:81
 msgid "Elements of the Solus Budgie Experience"
-msgstr "Elementos da experiência Solus Budgie"
+msgstr "솔루스 Budgie 경험 요소"
 
 #: ../repo_data/components.xml.in.h:82
 msgid "GNOME Desktop"
-msgstr "Área de trabalho GNOME"
+msgstr "GNOME 사용자 환경"
 
 #: ../repo_data/components.xml.in.h:83
 msgid "MATE Desktop"
-msgstr "Área de trabalho MATE "
+msgstr "MATE 사용자 환경"
 
 #: ../repo_data/components.xml.in.h:84
 msgid "i3 Desktop"
-msgstr "Área de trabalho i3 "
+msgstr "i3 사용자 환경"
 
 #: ../repo_data/components.xml.in.h:85
 msgid "GNOME Desktop - Core System"
-msgstr "Área de trabalho GNOME - Sistema central"
+msgstr "GNOME 사용자 환경 - 핵심 시스템"
 
 #: ../repo_data/components.xml.in.h:86
 msgid "GNOME Documentation Tools"
-msgstr "Ferramentas de documentação do GNOME"
+msgstr "GNOME 문서화 도구"
 
 #: ../repo_data/components.xml.in.h:87
 msgid "Documentation tools for GNOME"
-msgstr "Ferramentas de documentação para o GNOME"
+msgstr "GNOME 문서화 도구"
 
 #: ../repo_data/components.xml.in.h:88
 msgid "KDE Desktop"
-msgstr "Área de trabalho KDE"
+msgstr "KDE 사용자 환경"
 
 #: ../repo_data/components.xml.in.h:89
 msgid "KDE Desktop - Core System"
-msgstr "Área de trabalho KDE - Sistema central"
+msgstr "KDE 사용자 환경 - 핵심 시스템"
 
 #: ../repo_data/components.xml.in.h:90
 msgid "Desktop Core Components"
-msgstr "Componentes principais da Área de trabalho"
+msgstr "사용자 환경 핵심 요소"
 
 #: ../repo_data/components.xml.in.h:91
 msgid "Core components for desktop systems"
-msgstr "Componentes principais para sistemas de Área de trabalho"
+msgstr "사용자 환경 시스템 핵심 요소"
 
 #: ../repo_data/components.xml.in.h:92
 msgid "Security applications"
-msgstr "Aplicações de segurança"
+msgstr "보안 응용프로그램"
 
 #: ../repo_data/components.xml.in.h:93
 msgid "Cryptographic utilities"
-msgstr "Utilitários de criptografia"
+msgstr "암호화 유틸리티"
 
 #: ../repo_data/components.xml.in.h:94
 msgid "Cryptographic utilities and runtimes"
-msgstr "Utilitários criptográficos e tempos de execução"
+msgstr "암호화 유틸리티와 런타임"
 
 #: ../repo_data/components.xml.in.h:95
 msgid "Security-oriented libraries"
-msgstr "Bibliotecas orientadas à segurança"
+msgstr "보안 라이브러리"
 
 #: ../repo_data/components.xml.in.h:96
 msgid "Main games collection"
-msgstr "Coleção principal de jogos"
+msgstr "주요 게임 모음"
 
 #: ../repo_data/components.xml.in.h:97
 msgid "Main games"
-msgstr "Jogos principais"
+msgstr "주요 게임"
 
 #: ../repo_data/components.xml.in.h:98
 msgid "Action Games"
-msgstr "Jogos de ação"
+msgstr "액션 게임"
 
 #: ../repo_data/components.xml.in.h:99
 msgid "Arcade Games"
-msgstr "Jogos de arcade"
+msgstr "아케이드 게임"
 
 #: ../repo_data/components.xml.in.h:100
 msgid "Card Games"
-msgstr "Jogos de carta"
+msgstr "카드 게임"
 
 #: ../repo_data/components.xml.in.h:101
 msgid "Console Emulators"
-msgstr "Emuladores de console"
+msgstr "콘솔 에뮬레이터"
 
 #: ../repo_data/components.xml.in.h:102
 msgid "Massive Multiplayer Online Games"
-msgstr "Jogos on-line de multiplayer massivo"
+msgstr "대규모 다중접속 온라인 게임"
 
 #: ../repo_data/components.xml.in.h:103
 msgid "Platformer Games"
-msgstr "Jogos de plataforma"
+msgstr "플랫폼 게임"
 
 #: ../repo_data/components.xml.in.h:104
 msgid "Puzzle Games"
-msgstr "Jogos de quebra-cabeças"
+msgstr "퍼즐게임"
 
 #: ../repo_data/components.xml.in.h:105
 msgid "Role-playing Games"
-msgstr "Jogos de RPG"
+msgstr "롤플레잉 게임"
 
 #: ../repo_data/components.xml.in.h:106
 msgid "Strategy Games"
-msgstr "Jogos de Estratégia"
+msgstr "전략 게임"
 
 #: ../repo_data/distribution.xml.in.h:1
 msgid "Solus Repository"
-msgstr "Repositório do Solus"
+msgstr "솔루스 저장소"
 
 #: ../repo_data/groups.xml.in.h:1
 msgid "System Software"
-msgstr "Programas de sistema"
+msgstr "시스템 소프트웨어"
 
 #: ../repo_data/groups.xml.in.h:2
 msgid "Internet Software"
-msgstr "Programas de internet"
+msgstr "인터넷 소프트웨어"
 
 #: ../repo_data/groups.xml.in.h:3
 msgid "Multimedia &amp; Graphics"
-msgstr "Gráficos e Multimídia"
+msgstr "멀티미디어와 그래픽"
 
 #: ../repo_data/groups.xml.in.h:4
 msgid "Gaming on Solus"
-msgstr "Jogos no Solus"
+msgstr "솔루스에서의 게이밍"
 
 #: ../repo_data/groups.xml.in.h:6
 msgid "Programming Languages &amp; Tools"
-msgstr "Linguagens de programação e Ferramentas"
+msgstr "프로그래밍 언어와 도구"
 
 #: ../repo_data/groups.xml.in.h:7
 msgid "Desktop Software &amp; Theming"
-msgstr "Programas da Área de trabalho e Personalização"
+msgstr "사용자 환경 소프트웨어와 테마"
 
 #: ../repo_data/groups.xml.in.h:8
 msgid "Security Software"
-msgstr "Programas de segurança"
+msgstr "보안 소프트웨어"
 
 #: ../solus_sc/application.py:84
 msgid "Open up the updates view of the application"
-msgstr "Abrir a visualização de atualizações do aplicativo"
+msgstr "응용프로그램의 업데이트 현황 열기"
 
 #. Quirky loading message
 #: ../solus_sc/available_view.py:38
 msgid "Switching to the B-side of the cassette…"
-msgstr "Trocando para do lado B da fita cassete..."
+msgstr "카세트의 B쪽으로 전환합니다.."
 
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
 msgid "{} operations pending"
-msgstr "{} operações pendentes"
+msgstr "작업 {}개 대기 중"
 
 #: ../solus_sc/basket.py:153
 msgid " - This may take <b>some time!</b>"
-msgstr "- Isso pode demorar <b>um pouco!</b>"
+msgstr "<b>다소</b> 시간이 걸릴 수 있으니 잠시 기다려주세요!"
 
 #. Only one package operation to be performed
 #: ../solus_sc/basket.py:158
 msgid "One operation pending"
-msgstr "Uma operação pendente"
+msgstr "작업 1개 대기 중"
 
 #. "Updating Solus repository" (named repo)
 #: ../solus_sc/basket.py:203
 #, python-format
 msgid "Updating %s repository"
-msgstr "Atualizando repositório %s"
+msgstr "%s 저장소 업데이트 중"
 
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
 msgid "Extracting {} of {}: {}"
-msgstr "Extraindo {} de {}: {}"
+msgstr "{} 중 {} 압축 해제 중: {}"
 
 #. "Configuring 1 of 10: bash"
 #: ../solus_sc/basket.py:213
 msgid "Configuring {} of {}: {}"
-msgstr "Configurando {} de {}: {}"
+msgstr "{} 중 {} 설정 중: {}"
 
 #. "Installing 1 of 10: bash"
 #: ../solus_sc/basket.py:219
 msgid "Installing {} of {}: {}"
-msgstr "Instalando {} de {}: {}"
+msgstr "{} 중 {} 설치 중: {}"
 
 #. "Removing (1 of 10): bash"
 #: ../solus_sc/basket.py:222
 msgid "Removing {} of {}: {}"
-msgstr "Removendo {} de {}: {}"
+msgstr "{} 중 {} 삭제 중: {}"
 
 #. "Upgraded 1 of 10: bash"
 #: ../solus_sc/basket.py:231
 msgid "Upgraded {} of {}: {}"
-msgstr "Atualizado {} de {}: {}"
+msgstr "{} 중 {} 업그레이드 완료: {}"
 
 #. "Removed 1 of 10: bash"
 #. "Installed 1 of 10: bash"
 #: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
 msgid "Removed {} of {}: {}"
-msgstr "Removido {} de {}: {}"
+msgstr "{} 중 {} 삭제 완료: {}"
 
 #. "Downloading eopkg-index.xml.xz (10kb/s)
 #: ../solus_sc/basket.py:264
 msgid "Downloading {} ({})"
-msgstr "Baixando {} ({})"
+msgstr "{} 내려받는 중 ({})"
 
 #. "Downloading 1 of 10: bash (10kb/s)
 #: ../solus_sc/basket.py:268
 msgid "Downloading {} of {}: {} ({})"
-msgstr "Baixando {} de {}: {} ({})"
+msgstr "{} 중 {} 내려받는 중: {} ({})"
 
 #. print args
 #. Downloading eopkg-index.xml.sha1sum
 #: ../solus_sc/basket.py:278
 msgid "Downloading {}"
-msgstr "Baixando {}"
+msgstr "{} 내려받는 중"
 
 #: ../solus_sc/basket.py:323
 msgid "The following dependencies need to be installed to continue"
-msgstr "As seguintes dependências precisam ser instaladas para continuar"
+msgstr "아래 의존성을 설치해야 계속 할 수 있습니다"
 
 #: ../solus_sc/basket.py:333
 msgid "Installation confirmation"
-msgstr "Confirmação de instalação"
+msgstr "설치 확인"
 
 #: ../solus_sc/basket.py:336
 msgid "The following dependencies need to be removed to continue"
-msgstr "As seguintes dependências precisam ser removidas para continuar"
+msgstr "아래 의존성을 삭제해야 계속 할 수 있습니다"
 
 #: ../solus_sc/basket.py:337
 msgid "Removal confirmation"
-msgstr "Confirmação de remoção"
+msgstr "삭제 확인"
 
 #: ../solus_sc/basket.py:340
 msgid "The following dependencies need to be updated to continue"
-msgstr "As seguintes dependências precisam ser atualizadas para continuar"
+msgstr "아래 의존성이 업데이트돼야 계속 할 수 있습니다"
 
 #: ../solus_sc/basket.py:341
 msgid "Update confirmation"
-msgstr "Confirmação de atualização"
+msgstr "업데이트 동의"
 
 #: ../solus_sc/basket.py:368
 msgid "Cancel"
-msgstr "Cancelar"
+msgstr "취소"
 
 #. Main action buttons
 #: ../solus_sc/basket.py:370 ../solus_sc/details.py:224
 #: ../solus_sc/thirdparty.py:186
 msgid "Install"
-msgstr "Instalar"
+msgstr "설치"
 
 #: ../solus_sc/basket.py:372
 msgid "Update"
-msgstr "Atualizar"
+msgstr "업데이트"
 
 #. Remove button
 #: ../solus_sc/basket.py:377 ../solus_sc/details.py:234
 msgid "Remove"
-msgstr "Remover"
+msgstr "삭제"
 
 #: ../solus_sc/changelog.py:119
 msgid "Standard Update"
-msgstr "Atualização padrão"
+msgstr "표준 업데이트"
 
 #: ../solus_sc/changelog.py:122
 msgid "Security Update"
-msgstr "Atualização de segurança"
+msgstr "보안 업데이트"
 
 #: ../solus_sc/details.py:209
 msgid "Report issues"
-msgstr "Reportar problemas"
+msgstr "문제 신고하기"
 
 #: ../solus_sc/details.py:217
 msgid "Visit Website"
-msgstr "Visitar website"
+msgstr "웹사이트 방문하기"
 
 #: ../solus_sc/details.py:314 ../solus_sc/updates_view.py:296
 msgid "Details"
-msgstr "Detalhes"
+msgstr "세부사항"
 
 #: ../solus_sc/details.py:382
 msgid "Developers"
-msgstr "Desenvolvedores"
+msgstr "개발자"
 
 #: ../solus_sc/details.py:397
 msgid "Version"
-msgstr "Versão"
+msgstr "버전"
 
 #. Size of the package when installed locally
 #: ../solus_sc/details.py:409
 msgid "Installed size"
-msgstr "Tamanho instalado"
+msgstr "설치에 사용된 용량"
 
 #. Donation button launches website to donate to authors
 #: ../solus_sc/details.py:421
 msgid "Donate"
-msgstr "Doar"
+msgstr "기부"
 
 #: ../solus_sc/details.py:435
 msgid "Changelog"
-msgstr "Registro de alterações"
+msgstr "업데이트 내역"
 
 #: ../solus_sc/details.py:443
 msgid "License"
-msgstr "Licença"
+msgstr "허가서"
 
 #: ../solus_sc/details.py:448
 msgid "Report an invalid or missing license"
-msgstr "Reportar uma licença inválida ou faltando"
+msgstr "유효하지 않거나 누락된 허가서 신고하기"
 
 #: ../solus_sc/details.py:450
 msgid ""
 "This selection is available in accordance with the terms set in the "
 "following license(s):"
-msgstr "Esta seleção está disponível de acordo com os termos definidos na(s) seguinte(s) licença(s):"
+msgstr "선택하신 항목은 아래 (여러) 허가서 규정 하에 이용 가능합니다:"
 
 #: ../solus_sc/details.py:518
 msgid "Cannot remove core system software"
-msgstr "Não é possível remover o programa principal do sistema "
+msgstr "핵심 시스템 소프트웨어 삭제 불가"
 
 #. "5 categories" - the number of categories within each group
 #: ../solus_sc/groups.py:72
 msgid "{} categories"
-msgstr "{} categorias"
+msgstr "{}개의 분류"
 
 #: ../solus_sc/imagewidget.py:86
 msgid "No screenshots available"
-msgstr "Não há capturas de tela disponíveis"
+msgstr "스크린샷이 존재하지 않습니다"
 
 #. Window title
 #: ../solus_sc/main_window.py:162
 msgid "Software Center"
-msgstr "Central de programas"
+msgstr "소프트웨어 센터"
 
 #. Main view, primary view, when opening the software center
 #: ../solus_sc/main_window.py:207 ../solus_sc/sidebar.py:65
 msgid "Home"
-msgstr "Pág. principal"
+msgstr "홈"
 
 #. The page where updates are display
 #: ../solus_sc/main_window.py:210 ../solus_sc/sidebar.py:66
 msgid "Updates"
-msgstr "Atualizações"
+msgstr "업데이트"
 
 #. This page shows the locally instaleld items
 #: ../solus_sc/main_window.py:216 ../solus_sc/sidebar.py:67
 msgid "Installed"
-msgstr "Instalados"
+msgstr "설치됨"
 
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:220 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Terceiros"
+msgstr "써드 파티"
 
 #. The search page
 #: ../solus_sc/main_window.py:225 ../solus_sc/sidebar.py:69
 msgid "Search"
-msgstr "Busca"
+msgstr "검색"
 
 #. The settings page
 #: ../solus_sc/main_window.py:229 ../solus_sc/sidebar.py:70
 msgid "Settings"
-msgstr "Configurações"
+msgstr "설정"
 
 #: ../solus_sc/package_view.py:41
 msgid "Solving the Paradox Of Choice"
-msgstr "Resolvendo o paradoxo da escolha"
+msgstr "선택의 모순을 해결 중입니다"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
 #: ../solus_sc/search_results.py:41
 msgid "Concentrating really hard"
-msgstr "Se concentrando muito"
+msgstr "정말 열심히 찾고 있습니다"
 
 #: ../solus_sc/search_results.py:62
 msgid "Type a query to get started"
-msgstr "Digite uma palavra para começar"
+msgstr "검색어를 입력하세요"
 
 #: ../solus_sc/search_results.py:81
 msgid "No results found"
-msgstr "Nenhum resultado encontrado"
+msgstr "결과가 없습니다"
 
 #. Check for updates every hour
 #: ../solus_sc/settings_view.py:75
 msgid "Every hour"
-msgstr "A cada hora"
+msgstr "매 시간마다"
 
 #. Check for updates once per day
 #: ../solus_sc/settings_view.py:77
 msgid "Daily"
-msgstr "Diariamente"
+msgstr "매일"
 
 #. Check for updates once a week
 #: ../solus_sc/settings_view.py:79
 msgid "Weekly"
-msgstr "Semanalmente"
+msgstr "매주"
 
 #. Notify of all updates
 #: ../solus_sc/settings_view.py:94
 msgid "All updates"
-msgstr "Todas as atualizações"
+msgstr "모든 업데이트"
 
 #. Notify only of security updates
 #: ../solus_sc/settings_view.py:96
 msgid "Security updates only"
-msgstr "Somente atualizações de segurança"
+msgstr "보안 소프트웨어만 보기"
 
 #. Notify of security and core system updates ("mandatory")
 #: ../solus_sc/settings_view.py:98
 msgid "Security & core updates"
-msgstr "Atualizações principais e de segurança"
+msgstr "보안 & 중요 업데이트"
 
 #: ../solus_sc/thirdparty.py:184 ../solus_sc/updates_view.py:192
 #: ../solus_sc/updates_view.py:194 ../solus_sc/updates_view.py:288
 msgid "Check for updates"
-msgstr "Verificar atualizações"
+msgstr "업데이트 확인하기"
 
 #. Title of dialog displaying the details of a given update
 #: ../solus_sc/updates_view.py:33
 msgid "Update Details"
-msgstr "Detalhes da atualização"
+msgstr "업데이트 세부사항"
 
 #: ../solus_sc/updates_view.py:47
 msgid "Not installed"
-msgstr "Não instalado"
+msgstr "설치안됨"
 
 #: ../solus_sc/updates_view.py:87
 msgid "Discombobulating update matrix"
-msgstr "Desconcertando a matrix de atualização"
+msgstr "업데이트 찾는 중"
 
 #: ../solus_sc/updates_view.py:110
 msgid "Please check back later, updates are now applying"
-msgstr "Verifique mais tarde, as atualizações estão sendo aplicadas"
+msgstr "현재 업데이트 중입니다. 나중에 다시 확인해주세요."
 
 #: ../solus_sc/updates_view.py:207
 msgid "Software is up to date"
-msgstr "O programa está atualizado"
+msgstr "최신 버전의 소프트웨어를 사용 중입니다"
 
 #. Selection label
 #. No updates currently selected for installation
 #: ../solus_sc/updates_view.py:273
 msgid "0 items selected"
-msgstr "0 itens selecionados"
+msgstr "0 항목 선택됨"
 
 #: ../solus_sc/updates_view.py:287
 msgid "Check new updates"
-msgstr "Verificar novas atualizações"
+msgstr "새 업데이트 확인하기"
 
 #. Apply the updates
 #: ../solus_sc/updates_view.py:302 ../solus_sc/updates_view.py:303
 msgid "Update Selected"
-msgstr "Atualizar selecionados"
+msgstr "선택된 업데이트"
 
 #. "2 of 10 updates selected"
 #: ../solus_sc/updates_view.py:538
 msgid "{} of {} updates selected"
-msgstr "{} de {} atualizações selecionadas"
+msgstr "{} 중 {} 업데이트 선택됨"
 
 #. "2 of 10 updates selected (20.05MB to download)"
 #: ../solus_sc/updates_view.py:545
 msgid "{} of {} updates selected ({} to download)"
-msgstr "{} de {} atualizações selecionadas ({} baixando)"
+msgstr "{} 중 {} 업데이트 선택됨 ({}개 내려받을 예정)"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
-msgstr "Atualizações de segurança disponíveis"
+msgstr "보안 업데이트가 있습니다"
 
 #: ../solus_update/application.py:302
 msgid ""
 "Update at your earliest convenience to ensure continued security of your "
 "device"
-msgstr "Atualize o mais rapidamente possível para garantir a segurança contínua do seu dispositivo"
+msgstr "사용하시는 장치의 지속적인 보안 유지를 위해 가능한 한 빨리 업데이트 하세요"
 
 #: ../solus_update/application.py:306
 msgid "Software updates available"
-msgstr "Atualizações de programas disponíveis"
+msgstr "업데이트가 있습니다"
 
 #: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
-msgstr "Novas atualizações de programas estão disponíveis para o seu dispositivo"
+msgstr "사용하시는 장치에 이용 가능한 새 업데이트가 있습니다"
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
-msgstr "Abrir a Central de programas"
+msgstr "소프트웨어 센터 열기"
