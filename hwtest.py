@@ -59,14 +59,14 @@ def accumulate_official_kernels(idb):
             continue
 
         # Only interested in properly installed kernels
-        linkBase = os.path.basename(link)
-        curVariant = i.split("default-")[1]
-        pkgname = "linux-{}".format(curVariant)
+        link_base = os.path.basename(link)
+        cur_variant = i.split("default-")[1]
+        pkgname = "linux-{}".format(cur_variant)
         if not idb.has_package(pkgname):
             continue
 
         ipkg = idb.get_package(pkgname)
-        kernel = Kernel(ipkg, curVariant, linkBase)
+        kernel = Kernel(ipkg, cur_variant, link_base)
         if kernel.fpath.endswith(ttype):
             kernel.running = True
         avail_kernels.add(kernel)
