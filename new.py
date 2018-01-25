@@ -30,8 +30,9 @@ def main():
     try:
         from setproctitle import setproctitle
         setproctitle("solus-sc")
-    except:
+    except Exception as ex:
         print("Unable to set proc title - cosmetic, not fatal.")
+        print(ex)
 
     gettext.install("solus-sc", "/usr/share/locale")
     DBusGMainLoop(set_as_default=True)

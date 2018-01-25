@@ -56,7 +56,7 @@ def unmangle_date(tstamp):
     try:
         ret = time.strptime(tstamp, "%m-%d-%Y")
         return ret
-    except:
+    except Exception:
         return 0
 
 
