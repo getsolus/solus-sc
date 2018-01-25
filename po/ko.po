@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# jemin_jeon, 2017
+# jemin_jeon, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-12-19 08:19+0000\n"
+"PO-Revision-Date: 2018-01-24 12:37+0000\n"
 "Last-Translator: jemin_jeon\n"
 "Language-Team: Korean (http://www.transifex.com/solus-project/solus-sc/language/ko/)\n"
 "MIME-Version: 1.0\n"
@@ -814,7 +814,7 @@ msgstr "업데이트가 있습니다"
 
 #: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
-msgstr "사용하시는 장치에 이용 가능한 새 업데이트가 있습니다"
+msgstr "사용하시는 장치를 위한 새 업데이트가 있습니다"
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
