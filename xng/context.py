@@ -14,7 +14,7 @@
 from .appsystem import AppSystem
 from .executor import Executor
 from .util.fetcher import ScMediaFetcher
-from gi.repository import GObject, GLib
+from gi.repository import GObject, GLib, Ldm
 
 
 class ScContext(GObject.Object):
@@ -25,6 +25,7 @@ class ScContext(GObject.Object):
     has_loaded = False
     fetcher = None
     executor = None
+    manager = None
 
     __gtype_name__ = "ScContext"
 
@@ -42,10 +43,16 @@ class ScContext(GObject.Object):
         if self.has_loaded:
             return
         self.has_loaded = True
+        self.init_ldm()
         self.init_plugins()
         self.fetcher = ScMediaFetcher()
 
         self.build_data()
+
+    def init_ldm(self):
+        """ Initialise Linux Driver Management if available. """
+        self.manager = Ldm.Manager.new(Ldm.ManagerFlags.NO_MONITOR)
+        self.manager.add_system_modalias_plugins()
 
     def init_plugins(self):
         """ Take care of setting up our plugins
