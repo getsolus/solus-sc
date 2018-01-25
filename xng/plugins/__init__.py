@@ -14,5 +14,11 @@
 import gi
 try:
     gi.require_version('Snapd', '1')
-except:
+except Exception as ex:
+    print("Could not import Snapd: {}".format(ex))
     pass
+
+try:
+    gi.require_version('Ldm', '1.0')
+except Exception as ex:
+    print("Could not import Ldm: {}".format(ex))

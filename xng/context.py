@@ -14,7 +14,7 @@
 from .appsystem import AppSystem
 from .executor import Executor
 from .util.fetcher import ScMediaFetcher
-from gi.repository import GObject, GLib, Ldm
+from gi.repository import GObject, GLib
 
 
 class ScContext(GObject.Object):
@@ -25,7 +25,7 @@ class ScContext(GObject.Object):
     has_loaded = False
     fetcher = None
     executor = None
-    manager = None
+    driver_manager = None
 
     __gtype_name__ = "ScContext"
 
@@ -51,8 +51,13 @@ class ScContext(GObject.Object):
 
     def init_ldm(self):
         """ Initialise Linux Driver Management if available. """
-        self.manager = Ldm.Manager.new(Ldm.ManagerFlags.NO_MONITOR)
-        self.manager.add_system_modalias_plugins()
+        try:
+            from xng.plugins.drivers import DriverManager
+            self.driver_manager = DriverManager()
+        except Exception as e:
+            print("LDM support unavailable on this system: {}".format(e))
+            return
+        self.driver_manager.reload()
 
     def init_plugins(self):
         """ Take care of setting up our plugins
