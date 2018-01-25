@@ -553,7 +553,7 @@ class PackageDetailsView(Gtk.VBox):
     def render_plain(self, input_string):
         """ Render a plain version of the description, no markdown """
         plain = As.markup_convert_simple(input_string)
-        plain = plain.replace("&quot;", "\"").replace("&apos;", "'")
+        plain = plain.replace("&quot;", "\"").replace("&apos;", "'").replace("&amp;", "&")
         return plain
 
     def render_marked(self, input_string):
