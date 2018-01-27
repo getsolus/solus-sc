@@ -171,6 +171,8 @@
 
         <!-- DOA upstream //-->
         <Package>arc-firefox-theme</Package>
+        <Package>captiva-icon-theme</Package>
+        <Package>pacifica-icon-theme</Package>
 
         <!-- Replaced with autogen-libs //-->
         <Package>libautogen</Package>
