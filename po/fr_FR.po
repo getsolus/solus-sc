@@ -3,10 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Aestan <anthony.margerand@gmail.com>, 2018
 # Arnaud Fournier <arnaud-fournier@outlook.fr>, 2017
 # Benoit Bouyé <benoit.bouye@gmail.com>, 2016
 # Bridouzz <justin.berthault@gmail.com>, 2016
 # Fred Tempez <ftempez@gmail.com>, 2017
+# Hang Man <Hangman@hotmail.fr>, 2017
 # Bridouzz <justin.berthault@gmail.com>, 2016
 # Laurent Tréguier <laurent@treguier.org>, 2016
 # Michael Meinertzhagen <michael.meinertzhagen@gmail.com>, 2017
@@ -14,8 +16,8 @@
 # pizux <pizuxmepis@gmail.com>, 2017
 # Serge <vanmechelen.serge@gmail.com>, 2017
 # Sheldon Wayne <jwcapricieuse@gmail.com>, 2017
-# thauti <thom0294@gmail.com>, 2017
-# thauti <thom0294@gmail.com>, 2017
+# Thomas Hautier <thom0294@gmail.com>, 2017
+# Thomas Hautier <thom0294@gmail.com>, 2017
 # Tom Moo <p1461601@mvrht.com>, 2017
 # Xytrios Xytrios <xytrios@gmail.com>, 2017
 # yoann <yoann.p@laposte.net>, 2016
@@ -24,8 +26,8 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-09-15 08:44+0000\n"
-"Last-Translator: Serge <vanmechelen.serge@gmail.com>\n"
+"PO-Revision-Date: 2018-02-04 21:23+0000\n"
+"Last-Translator: Aestan <anthony.margerand@gmail.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/solus-project/solus-sc/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +53,7 @@ msgstr "Utilitaires de démarrage"
 
 #: ../repo_data/components.xml.in.h:5
 msgid "Tools and daemons required early in the boot process"
-msgstr "Outils et démons requis au début du processus pour le démarrage"
+msgstr "Outils et processus requis au début du démarrage"
 
 #: ../repo_data/components.xml.in.h:6
 msgid "System utilities"
@@ -489,14 +491,14 @@ msgstr "Logiciels de bureau et thèmes"
 
 #: ../repo_data/groups.xml.in.h:8
 msgid "Security Software"
-msgstr "Logiciels de décurité"
+msgstr "Logiciels de sécurité"
 
 #: ../solus_sc/application.py:84
 msgid "Open up the updates view of the application"
 msgstr "Détails des mises à jour de l'application"
 
 #. Quirky loading message
-#: ../solus_sc/available_view.py:24
+#: ../solus_sc/available_view.py:38
 msgid "Switching to the B-side of the cassette…"
 msgstr "Passage à la face B de la cassette..."
 
@@ -714,13 +716,13 @@ msgstr "Rechercher"
 msgid "Settings"
 msgstr "Paramètres"
 
-#: ../solus_sc/installed_view.py:30
+#: ../solus_sc/package_view.py:41
 msgid "Solving the Paradox Of Choice"
 msgstr "Résoudre le paradoxe du choix"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
-#: ../solus_sc/search_results.py:65
+#: ../solus_sc/search_results.py:41
 msgid "Concentrating really hard"
 msgstr "La concentration est maximale"
 
