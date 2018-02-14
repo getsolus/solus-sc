@@ -59,15 +59,9 @@ class ScContext(GObject.Object):
             return
         self.driver_manager.reload()
 
-    def init_plugins(self):
-        """ Take care of setting up our plugins
-            This takes special care to wrap the initial import in case we
-            have a module level import that would fail, i.e. import of
-            the snapd-glib binding
-        """
-        self.plugins = []
+    def init_snap_plugin(self):
+        """ Eventually will load snapd plugin, currently disabled """
         snap = None
-        osPlugin = None
         try:
             from xng.plugins.snapd import SnapdPlugin
             snap = SnapdPlugin()
@@ -77,6 +71,10 @@ class ScContext(GObject.Object):
 
         if snap is not None:
             self.plugins.append(snap)
+
+    def init_native_plugin(self):
+        """ Init the native plugin """
+        osPlugin = None
 
         try:
             from xng.plugins.native import get_native_plugin
@@ -88,6 +86,17 @@ class ScContext(GObject.Object):
             self.plugins.insert(0, osPlugin)
         else:
             print("WARNING: Unsupported OS, native packaging unavailable!")
+
+    def init_plugins(self):
+        """ Take care of setting up our plugins
+            This takes special care to wrap the initial import in case we
+            have a module level import that would fail, i.e. import of
+            the snapd-glib binding
+        """
+        self.plugins = []
+
+        # self.init_snap_plugin()
+        self.init_native_plugin()
 
     def emit_loaded(self):
         """ Emitted on the main thread to let the application know we're now
