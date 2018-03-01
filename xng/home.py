@@ -27,26 +27,7 @@ class ScTileButton(Gtk.Button):
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         self.add(box)
 
-        # Just replace the icon on the fly with something that
-        # fits better into the current theme
-        icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
-        icon_theme = icon_theme.lower().replace("-", "")
-        # Sneaky, I know.
-        if icon_theme == "arcicons" or icon_theme == "arc":
-            devIcon = "text-x-changelog"
-        else:
-            devIcon = "gnome-dev-computer"
-
-        replacements = {
-            "text-editor": "x-office-calendar",
-            "redhat-programming": devIcon,
-            "security-high": "preferences-system-privacy",
-            "network": "preferences-system-network",
-        }
-
         icon = self.category.get_icon_name()
-        if icon in replacements:
-            icon = replacements[icon]
 
         img = Gtk.Image.new_from_icon_name(
             icon,

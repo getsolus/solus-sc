@@ -15,6 +15,7 @@ from .base import ProviderPlugin, ProviderItem, ProviderSource, \
     ProviderCategory
 from .base import PopulationFilter, ItemStatus
 from gi.repository import AppStreamGlib as As
+from gi.repository import Gtk
 import pisi
 from pisi.operations.install import plan_install_pkg_names
 import time
@@ -181,6 +182,30 @@ class EopkgGroup(ProviderCategory):
         self.group = group
         self.children = []
 
+        # Just replace the icon on the fly with something that
+        # fits better into the current theme
+        settings = Gtk.Settings.get_default()
+        icon_theme = settings.get_property("gtk-icon-theme-name")
+        icon_theme = icon_theme.lower().replace("-", "")
+        # Sneaky, I know.
+        if icon_theme == "arcicons" or icon_theme == "arc":
+            devIcon = "text-x-changelog"
+        else:
+            devIcon = "gnome-dev-computer"
+
+        replacements = {
+            "text-editor": "x-office-calendar",
+            "redhat-programming": devIcon,
+            "security-high": "preferences-system-privacy",
+            "network": "preferences-system-network",
+        }
+
+        icon = str(self.group.icon)
+        if icon in replacements:
+            self.icon = replacements[icon]
+        else:
+            self.icon = icon
+
     def get_children(self):
         return self.children
 
@@ -192,7 +217,7 @@ class EopkgGroup(ProviderCategory):
 
     def get_icon_name(self):
         """ Return internal eopkg group icon name """
-        return str(self.group.icon)
+        return self.icon
 
 
 class EopkgComponent(ProviderCategory):
