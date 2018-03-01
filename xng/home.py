@@ -12,7 +12,7 @@
 #
 
 from gi.repository import Gtk, GObject
-from xng.plugins.base import PopulationFilter, ProviderItem
+from xng.plugins.base import PopulationFilter, ProviderItem, ProviderCategory
 from .featured import ScFeatured
 
 
@@ -115,7 +115,9 @@ class ScHomeView(Gtk.Box):
 
     __gsignals__ = {
         'item-selected': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
-                          (ProviderItem,))
+                          (ProviderItem,)),
+        'category-selected': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
+                              (ProviderCategory,))
     }
 
     def get_page_name(self):
@@ -169,16 +171,20 @@ class ScHomeView(Gtk.Box):
         # self.set_border_width(40)
         self.show_all()
 
-    def emit_selected(self, item):
+    def emit_selected_item(self, item):
         """ Pass our item selection back up to the main window """
         self.emit('item-selected', item)
 
+    def emit_selected_category(self, category):
+        """ Pass category selection back up to the main window """
+        self.emit('category-selected', category)
+
     def feature_selected(self, fview, item):
         """ Item selected via feature view """
-        self.emit_selected(item)
+        self.emit_selected_item(item)
 
     def on_recent_clicked(self, btn, udata=None):
-        self.emit_selected(btn.item)
+        self.emit_selected_item(btn.item)
 
     def on_context_loaded(self, context):
         """ Fill the categories """
@@ -206,10 +212,7 @@ class ScHomeView(Gtk.Box):
 
     def on_category_clicked(self, btn, udata=None):
         """ One of our main categories has been clicked """
-        cat = btn.category
-        print(btn.category.get_id())
-        for child in cat.get_children():
-            print("-> " + child.get_id() + " - " + child.get_name())
+        self.emit_selected_category(btn.category)
 
     def add_item(self, id, item, popfilter):
         if popfilter == PopulationFilter.RECENT:

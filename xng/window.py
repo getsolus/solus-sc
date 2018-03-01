@@ -142,6 +142,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         # Build home view now
         self.home = ScHomeView(self.context)
         self.home.connect('item-selected', self.item_selected)
+        self.home.connect('category-selected', self.category_selected)
         self.stack.add_named(self.home, 'home')
 
         # Categories view
@@ -240,6 +241,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
         print("Item selected: {}".format(item.get_id()))
         self.details.set_item(item)
         self.push_nav("details")
+
+    def category_selected(self, source, category):
+        """ Handle UI selection of a root-level category """
+        print("Category selected: {}".format(category.get_id()))
+        self.push_nav("categories")
 
     def on_back_clicked(self, btn, udata=None):
         """ User clicked the back button """
