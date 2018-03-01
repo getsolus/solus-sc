@@ -200,8 +200,16 @@ class ScHomeView(Gtk.Box):
     def add_category(self, plugin, category):
         """ Add a main category to our view """
         button = ScTileButton(category)
+        button.connect("clicked", self.on_category_clicked)
         button.show_all()
         self.categories.add(button)
+
+    def on_category_clicked(self, btn, udata=None):
+        """ One of our main categories has been clicked """
+        cat = btn.category
+        print(btn.category.get_id())
+        for child in cat.get_children():
+            print("-> " + child.get_id() + " - " + child.get_name())
 
     def add_item(self, id, item, popfilter):
         if popfilter == PopulationFilter.RECENT:
