@@ -31,8 +31,37 @@ class ScCategoriesView(Gtk.Box):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self.context = context
+
+        self.layout_constraint = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.pack_start(self.layout_constraint, True, True, 0)
+        self.layout_constraint.set_margin_start(40)
+        self.layout_constraint.set_margin_top(40)
+        self.layout_constraint.set_margin_bottom(40)
+
+        self.components = Gtk.FlowBox()
+        self.components.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.layout_constraint.pack_start(self.components, False, False, 0)
+        self.components.set_margin_bottom(42)
+        self.components.set_margin_end(40)
+
         self.show_all()
 
     def set_category(self, category):
         """ Set the root level category """
+        if category == self.category:
+            return
         self.category = category
+
+        # Clear out the old categories
+        for sproglet in self.components.get_children():
+            self.components.remove(sproglet)
+
+        # Add all the new components
+        for component in self.category.get_children():
+            self.add_component(component)
+
+    def add_component(self, component):
+        """ Add a new component to the view for the toplevel parent """
+        button = Gtk.Button.new_with_label(component.get_name())
+        button.show_all()
+        self.components.add(button)
