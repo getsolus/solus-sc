@@ -14,6 +14,36 @@
 from gi.repository import Gtk
 
 
+class ScComponentButton(Gtk.Button):
+    """ Represent components in a category """
+
+    component = None
+
+    def __init__(self, cat):
+        Gtk.Button.__init__(self)
+        self.component = cat
+
+        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.add(box)
+
+        icon = self.component.get_icon_name()
+
+        img = Gtk.Image.new_from_icon_name(
+            icon,
+            Gtk.IconSize.LARGE_TOOLBAR)
+        img.set_margin_end(6)
+        img.set_valign(Gtk.Align.CENTER)
+        box.pack_start(img, False, False, 0)
+
+        lab = Gtk.Label(self.component.get_name())
+        lab.set_halign(Gtk.Align.START)
+        lab.set_valign(Gtk.Align.CENTER)
+        box.pack_start(lab, True, True, 0)
+
+        self.get_style_context().add_class("group-button")
+        self.get_style_context().add_class("flat")
+
+
 class ScCategoriesView(Gtk.Box):
     """ Transitioned from Home view to show a category """
 
@@ -70,6 +100,6 @@ class ScCategoriesView(Gtk.Box):
 
     def add_component(self, component):
         """ Add a new component to the view for the toplevel parent """
-        button = Gtk.Button.new_with_label(component.get_name())
+        button = ScComponentButton(component)
         button.show_all()
         self.components.add(button)
