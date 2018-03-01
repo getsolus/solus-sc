@@ -123,7 +123,7 @@ class ScCategoriesView(Gtk.Box):
         self.components = Gtk.FlowBox()
         self.components.set_selection_mode(Gtk.SelectionMode.NONE)
         self.layout_constraint.pack_start(self.components, False, False, 0)
-        self.components.set_margin_bottom(42)
+        self.components.set_margin_bottom(22)
         self.components.set_margin_end(40)
 
         # Mark the Categories view
