@@ -11,8 +11,8 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
-from xng.plugins.base import PopulationFilter, ItemStatus
+from gi.repository import GObject, Gtk
+from xng.plugins.base import PopulationFilter, ItemStatus, ProviderItem
 
 
 class ScItemButton(Gtk.Box):
@@ -105,6 +105,11 @@ class ScCategoriesView(Gtk.Box):
 
     __gtype_name__ = "ScCategoriesView"
 
+    __gsignals__ = {
+        'item-selected': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
+                          (ProviderItem,))
+    }
+
     context = None
     category = None
 
@@ -159,6 +164,10 @@ class ScCategoriesView(Gtk.Box):
 
         self.show_all()
 
+    def emit_selected_item(self, item):
+        """ Pass our item selection back up to the main window """
+        self.emit('item-selected', item)
+
     def set_category(self, category):
         """ Set the root level category """
         if category == self.category:
@@ -183,6 +192,10 @@ class ScCategoriesView(Gtk.Box):
     def component_clicked(self, btn, udata=None):
         """ A component has been selected, so transition to it """
         self.select_component(btn.component)
+
+    def item_clicked(self, btn, udata=None):
+        """ An item has been selected, ask main view to show it """
+        self.emit_selected_item(btn.item)
 
     def select_component(self, component):
         """ Activate the current component """

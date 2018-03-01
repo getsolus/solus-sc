@@ -147,6 +147,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         # Categories view
         self.categories = ScCategoriesView(self.context)
+        self.categories.connect('item-selected', self.item_selected)
         self.stack.add_named(self.categories, 'categories')
 
         # Build Details view
