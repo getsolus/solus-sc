@@ -17,19 +17,22 @@ from gi.repository import Gtk
 class ScCategoriesView(Gtk.Box):
     """ Transitioned from Home view to show a category """
 
-    context = None
-    categories = None
-    recents = None
-    recents_home = None
-    featured = None
-
     __gtype_name__ = "ScCategoriesView"
 
+    context = None
+    category = None
+
     def get_page_name(self):
-        return "Categories"
+        if not self.category:
+            return "Categories"
+        return self.category.get_name()
 
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self.context = context
         self.show_all()
+
+    def set_category(self, category):
+        """ Set the root level category """
+        self.category = category

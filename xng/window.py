@@ -245,6 +245,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def category_selected(self, source, category):
         """ Handle UI selection of a root-level category """
         print("Category selected: {}".format(category.get_id()))
+        self.categories.set_category(category)
         self.push_nav("categories")
 
     def on_back_clicked(self, btn, udata=None):
