@@ -98,7 +98,9 @@ class ScCategoriesView(Gtk.Box):
         self.item_scroller.set_policy(
             Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.item_list = Gtk.ListBox.new()
+        self.item_list.set_selection_mode(Gtk.SelectionMode.NONE)
         self.item_scroller.add(self.item_list)
+        self.layout_constraint.pack_start(self.item_scroller, True, True, 0)
 
         self.show_all()
 
@@ -131,6 +133,10 @@ class ScCategoriesView(Gtk.Box):
         """ Activate the current component """
         print("Component: {}".format(component.get_id()))
 
+        # Clear out the old items
+        for sproglet in self.item_list.get_children():
+            self.item_list.remove(sproglet)
+
         for plugin in self.context.plugins:
             plugin.populate_storage(self,
                                     PopulationFilter.CATEGORY,
@@ -138,5 +144,7 @@ class ScCategoriesView(Gtk.Box):
                                     None)
 
     def add_item(self, id, item, popfilter):
-        # print("Item: {}".format(id))
-        pass
+        """ Adding new item.. """
+        label = Gtk.Label.new(item.get_name())
+        label.show_all()
+        self.item_list.add(label)
