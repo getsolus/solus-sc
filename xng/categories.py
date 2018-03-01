@@ -12,7 +12,7 @@
 #
 
 from gi.repository import Gtk
-from xng.plugins.base import PopulationFilter
+from xng.plugins.base import PopulationFilter, ItemStatus
 
 
 class ScItemButton(Gtk.Box):
@@ -21,6 +21,7 @@ class ScItemButton(Gtk.Box):
     __gtype_name__ = "ScItemButton"
 
     item = None
+    action_button = None
 
     def __init__(self, appsystem, item):
         Gtk.Box.__init__(self)
@@ -53,6 +54,20 @@ class ScItemButton(Gtk.Box):
         summary.set_property("xalign", 0.0)
         summary.set_halign(Gtk.Align.START)
         stride_box.pack_start(summary, False, False, 0)
+
+        action_name = "Install"
+        action_style = "suggested-action"
+        if item.has_status(ItemStatus.INSTALLED):
+            action_name = "Remove"
+            action_style = "destructive-action"
+        elif item.has_status(ItemStatus.UPDATE_NEEDED):
+            action_name = "Update"
+
+        self.action_button = Gtk.Button.new_with_label(action_name)
+        self.action_button.set_halign(Gtk.Align.END)
+        self.action_button.set_valign(Gtk.Align.CENTER)
+        self.action_button.get_style_context().add_class(action_style)
+        self.pack_end(self.action_button, False, False, 0)
 
 
 class ScComponentButton(Gtk.Button):
