@@ -234,7 +234,7 @@ class BasketView(Gtk.Revealer):
                     lab = _("Removed {} of {}: {}")
                 elif cmd == 'installed':
                     # "Installed 1 of 10: bash"
-                    lab = _("Removed {} of {}: {}")
+                    lab = _("Installed {} of {}: {}")
                 ffmt = lab.format(self.current_package, self.total_packages,
                                   what)
                 self.set_progress(prog, ffmt)
