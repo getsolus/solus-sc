@@ -168,6 +168,7 @@ class ScCategoriesView(Gtk.Box):
         self.item_scroller = Gtk.ScrolledWindow.new(None, None)
         self.item_scroller.set_policy(
             Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        self.item_scroller.set_overlay_scrolling(False)
         self.item_list = Gtk.FlowBox.new()
         self.item_list.set_row_spacing(12)
         self.item_list.set_column_spacing(12)
