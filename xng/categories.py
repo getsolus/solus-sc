@@ -15,6 +15,46 @@ from gi.repository import Gtk
 from xng.plugins.base import PopulationFilter
 
 
+class ScItemButton(Gtk.Box):
+    """ Display an item in a pretty view """
+
+    __gtype_name__ = "ScItemButton"
+
+    item = None
+
+    def __init__(self, appsystem, item):
+        Gtk.Box.__init__(self)
+        self.item = item
+        item_id = item.get_id()
+        self.set_border_width(6)
+
+        # Pack the image first
+        img = Gtk.Image.new()
+        self.pack_start(img, False, False, 0)
+        icon = appsystem.get_pixbuf_only(item_id)
+        img.set_from_pixbuf(icon)
+
+        stride_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        img.set_margin_end(12)
+        self.pack_start(stride_box, True, True, 0)
+
+        # Get the title
+        name = appsystem.get_name(item_id, item.get_name())
+        label = Gtk.Label("<big>{}</big> - {}".format(
+            name, item.get_version()))
+        label.set_use_markup(True)
+        label.set_property("xalign", 0.0)
+        label.set_halign(Gtk.Align.START)
+        stride_box.pack_start(label, False, False, 0)
+
+        # Get the summary
+        summary = Gtk.Label(appsystem.get_summary(item_id, item.get_summary()))
+        summary.set_use_markup(True)
+        summary.set_property("xalign", 0.0)
+        summary.set_halign(Gtk.Align.START)
+        stride_box.pack_start(summary, False, False, 0)
+
+
 class ScComponentButton(Gtk.Button):
     """ Represent components in a category """
 
@@ -145,6 +185,6 @@ class ScCategoriesView(Gtk.Box):
 
     def add_item(self, id, item, popfilter):
         """ Adding new item.. """
-        label = Gtk.Label.new(item.get_name())
-        label.show_all()
-        self.item_list.add(label)
+        wid = ScItemButton(self.context.appsystem, item)
+        wid.show_all()
+        self.item_list.add(wid)
