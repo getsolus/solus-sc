@@ -37,6 +37,10 @@
     font-size: 110%;
 }
 
+.sc-bold {
+    font-weight: bold;
+}
+
 .featured-box .big-thumb {
     font-size: 180%;
     padding: 4px;

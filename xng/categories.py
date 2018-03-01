@@ -43,7 +43,8 @@ class ScItemButton(Gtk.FlowBoxChild):
 
         # Get the title
         name = appsystem.get_name(item_id, item.get_name())
-        label = Gtk.Label("<big>{}</big>".format(name))
+        label = Gtk.Label(name)
+        label.get_style_context().add_class("sc-bold")
         label.set_use_markup(True)
         label.set_margin_bottom(3)
         label.set_property("xalign", 0.0)
