@@ -12,6 +12,7 @@
 #
 
 from gi.repository import Gtk
+from xng.plugins.base import PopulationFilter
 
 
 class ScComponentButton(Gtk.Button):
@@ -52,6 +53,9 @@ class ScCategoriesView(Gtk.Box):
     context = None
     category = None
 
+    item_scroller = None
+    item_list = None
+
     def get_page_name(self):
         if not self.category:
             return "Categories"
@@ -82,6 +86,20 @@ class ScCategoriesView(Gtk.Box):
         self.components.set_margin_bottom(42)
         self.components.set_margin_end(40)
 
+        # Mark the Categories view
+        lab = Gtk.Label("Software")
+        lab.get_style_context().add_class("sc-big")
+        lab.set_margin_bottom(12)
+        lab.set_halign(Gtk.Align.START)
+        lab.set_use_markup(True)
+        self.layout_constraint.pack_start(lab, False, False, 0)
+
+        self.item_scroller = Gtk.ScrolledWindow.new(None, None)
+        self.item_scroller.set_policy(
+            Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        self.item_list = Gtk.ListBox.new()
+        self.item_scroller.add(self.item_list)
+
         self.show_all()
 
     def set_category(self, category):
@@ -102,4 +120,23 @@ class ScCategoriesView(Gtk.Box):
         """ Add a new component to the view for the toplevel parent """
         button = ScComponentButton(component)
         button.show_all()
+        button.connect('clicked', self.component_clicked)
         self.components.add(button)
+
+    def component_clicked(self, btn, udata=None):
+        """ A component has been selected, so transition to it """
+        self.select_component(btn.component)
+
+    def select_component(self, component):
+        """ Activate the current component """
+        print("Component: {}".format(component.get_id()))
+
+        for plugin in self.context.plugins:
+            plugin.populate_storage(self,
+                                    PopulationFilter.CATEGORY,
+                                    component,
+                                    None)
+
+    def add_item(self, id, item, popfilter):
+        # print("Item: {}".format(id))
+        pass

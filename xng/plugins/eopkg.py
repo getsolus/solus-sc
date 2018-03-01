@@ -315,6 +315,8 @@ class EopkgPlugin(ProviderPlugin):
             return self.populate_new(storage, extra)
         elif popfilter == PopulationFilter.FEATURED:
             return self.populate_featured(storage, extra)
+        elif popfilter == PopulationFilter.CATEGORY:
+            return self.populate_category(storage, extra)
 
     def populate_recent(self, storage, appsystem):
         """ Populate home view with recently updated packages """
@@ -393,6 +395,13 @@ class EopkgPlugin(ProviderPlugin):
         for pkgID in self.installDB.list_installed():
             pkg = self.build_item(pkgID)
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.INSTALLED)
+
+    def populate_category(self, storage, category):
+        """ Ask componentDB for all packages in the given component """
+        pkgs = self.compDB.get_packages(category.get_id(), None, False)
+        for pkgID in pkgs:
+            pkg = self.build_item(pkgID)
+            storage.add_item(pkg.get_id(), pkg, PopulationFilter.CATEGORY)
 
     def build_item(self, name):
         """ Build a complete item definition """
