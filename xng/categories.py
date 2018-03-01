@@ -170,6 +170,8 @@ class ScCategoriesView(Gtk.Box):
             Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.item_scroller.set_overlay_scrolling(False)
         self.item_list = Gtk.FlowBox.new()
+        self.item_list.set_activate_on_single_click(True)
+        self.item_list.connect('child-activated', self.item_activated)
         self.item_list.set_row_spacing(12)
         self.item_list.set_column_spacing(12)
         self.item_list.set_homogeneous(True)
@@ -180,6 +182,12 @@ class ScCategoriesView(Gtk.Box):
         self.layout_constraint.pack_start(self.item_scroller, True, True, 0)
 
         self.show_all()
+
+    def item_activated(self, box, child, udata=None):
+        """ An item in the component listing is being interacted with """
+        if not child:
+            return
+        self.emit_selected_item(child.item)
 
     def emit_selected_item(self, item):
         """ Pass our item selection back up to the main window """
