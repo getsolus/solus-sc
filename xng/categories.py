@@ -38,6 +38,14 @@ class ScCategoriesView(Gtk.Box):
         self.layout_constraint.set_margin_top(40)
         self.layout_constraint.set_margin_bottom(40)
 
+        # Mark the Categories view
+        lab = Gtk.Label("Components")
+        lab.get_style_context().add_class("sc-big")
+        lab.set_margin_bottom(12)
+        lab.set_halign(Gtk.Align.START)
+        lab.set_use_markup(True)
+        self.layout_constraint.pack_start(lab, False, False, 0)
+
         self.components = Gtk.FlowBox()
         self.components.set_selection_mode(Gtk.SelectionMode.NONE)
         self.layout_constraint.pack_start(self.components, False, False, 0)
