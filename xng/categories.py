@@ -78,7 +78,7 @@ class ScItemButton(Gtk.Box):
         self.action_button.set_halign(Gtk.Align.END)
         self.action_button.set_valign(Gtk.Align.CENTER)
         self.action_button.get_style_context().add_class(action_style)
-        self.pack_end(self.action_button, False, False, 0)
+        # self.pack_end(self.action_button, False, False, 0)
 
 
 class ScComponentButton(Gtk.Button):
