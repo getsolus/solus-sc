@@ -83,13 +83,13 @@ class ScItemButton(Gtk.Box):
         self.get_style_context().add_class("category-item-button")
 
 
-class ScComponentButton(Gtk.Button):
+class ScComponentButton(Gtk.ToggleButton):
     """ Represent components in a category """
 
     component = None
 
     def __init__(self, cat):
-        Gtk.Button.__init__(self)
+        Gtk.ToggleButton.__init__(self)
         self.component = cat
 
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
@@ -209,7 +209,15 @@ class ScCategoriesView(Gtk.Box):
 
     def component_clicked(self, btn, udata=None):
         """ A component has been selected, so transition to it """
+        if not btn.get_active():
+            return
         self.select_component(btn.component)
+        for sproglet in self.components.get_children():
+            child = sproglet.get_child()
+            if child == btn:
+                continue
+            child.set_active(False)
+        btn.set_active(True)
 
     def item_clicked(self, btn, udata=None):
         """ An item has been selected, ask main view to show it """
