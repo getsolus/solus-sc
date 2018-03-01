@@ -27,7 +27,6 @@ class ScItemButton(Gtk.Box):
         Gtk.Box.__init__(self)
         self.item = item
         item_id = item.get_id()
-        self.set_border_width(6)
 
         self.set_hexpand(False)
         self.set_vexpand(False)
@@ -46,17 +45,17 @@ class ScItemButton(Gtk.Box):
 
         # Get the title
         name = appsystem.get_name(item_id, item.get_name())
-        label = Gtk.Label("<big>{}</big> - {}".format(
-            name, item.get_version()))
+        label = Gtk.Label("<big>{}</big>".format(name))
         label.set_use_markup(True)
+        label.set_margin_bottom(3)
         label.set_property("xalign", 0.0)
         label.set_halign(Gtk.Align.START)
         stride_box.pack_start(label, False, False, 0)
 
         # Get the summary
         summ = appsystem.get_summary(item_id, item.get_summary())
-        if len(summ) > 200:
-            summ = "%s…" % summ[0:200]
+        if len(summ) > 120:
+            summ = "%s…" % summ[0:120]
         summary = Gtk.Label(summ)
         summary.set_use_markup(True)
         summary.set_property("xalign", 0.0)
@@ -78,7 +77,10 @@ class ScItemButton(Gtk.Box):
         self.action_button.set_halign(Gtk.Align.END)
         self.action_button.set_valign(Gtk.Align.CENTER)
         self.action_button.get_style_context().add_class(action_style)
-        # self.pack_end(self.action_button, False, False, 0)
+        self.pack_end(self.action_button, False, False, 0)
+        self.action_button.get_style_context().add_class("flat")
+
+        self.get_style_context().add_class("category-item-button")
 
 
 class ScComponentButton(Gtk.Button):
@@ -169,9 +171,13 @@ class ScCategoriesView(Gtk.Box):
         self.item_scroller.set_policy(
             Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.item_list = Gtk.FlowBox.new()
+        self.item_list.set_row_spacing(0)
+        self.item_list.set_column_spacing(0)
         self.item_list.set_homogeneous(True)
         self.item_list.set_selection_mode(Gtk.SelectionMode.SINGLE)
         self.item_scroller.add(self.item_list)
+        self.item_list.set_margin_end(20)
+        self.item_list.set_valign(Gtk.Align.START)
         self.layout_constraint.pack_start(self.item_scroller, True, True, 0)
 
         self.show_all()

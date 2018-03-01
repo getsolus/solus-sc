@@ -82,3 +82,10 @@ list.sc-changelog .changelog-header {
 .group-button:hover {
     -gtk-icon-effect: none;
 }
+
+.solus-sc .category-item-button {
+    border: 1px solid @borders;
+    background-color: lighter(@theme_bg_color);
+    padding: 5px;
+    border-radius: 2px;
+}
