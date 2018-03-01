@@ -14,6 +14,7 @@
 from gi.repository import Gtk, GObject, GLib
 from .context import ScContext
 from .home import ScHomeView
+from .categories import ScCategoriesView
 from .details import ScDetailsView
 
 
@@ -90,6 +91,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     stack = None
     home = None
     details = None
+    categories = None
     nav_stack = ['home']
 
     resolutions = [
@@ -141,6 +143,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.home = ScHomeView(self.context)
         self.home.connect('item-selected', self.item_selected)
         self.stack.add_named(self.home, 'home')
+
+        # Categories view
+        self.categories = ScCategoriesView(self.context)
+        self.stack.add_named(self.categories, 'categories')
 
         # Build Details view
         self.details = ScDetailsView(self.context)
