@@ -83,9 +83,11 @@ list.sc-changelog .changelog-header {
     -gtk-icon-effect: none;
 }
 
-.solus-sc .category-item-button {
+.solus-sc .category-item-row,
+.solus-sc .category-item-row:active {
     border: 1px solid @borders;
     background-color: lighter(@theme_bg_color);
+    color: @theme_fg_color;
     padding: 5px;
     border-radius: 2px;
 }

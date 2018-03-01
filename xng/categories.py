@@ -15,7 +15,7 @@ from gi.repository import GObject, Gtk, Pango
 from xng.plugins.base import PopulationFilter, ItemStatus, ProviderItem
 
 
-class ScItemButton(Gtk.Box):
+class ScItemButton(Gtk.FlowBoxChild):
     """ Display an item in a pretty view """
 
     __gtype_name__ = "ScItemButton"
@@ -24,24 +24,22 @@ class ScItemButton(Gtk.Box):
     action_button = None
 
     def __init__(self, appsystem, item):
-        Gtk.Box.__init__(self)
+        Gtk.FlowBoxChild.__init__(self)
         self.item = item
         item_id = item.get_id()
 
-        self.set_hexpand(False)
-        self.set_vexpand(False)
-        self.set_valign(Gtk.Align.START)
-        self.set_halign(Gtk.Align.FILL)
+        main_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.add(main_box)
 
         # Pack the image first
         img = Gtk.Image.new()
-        self.pack_start(img, False, False, 0)
+        main_box.pack_start(img, False, False, 0)
         icon = appsystem.get_pixbuf_only(item_id)
         img.set_from_pixbuf(icon)
 
         stride_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         img.set_margin_end(12)
-        self.pack_start(stride_box, True, True, 0)
+        main_box.pack_start(stride_box, True, True, 0)
 
         # Get the title
         name = appsystem.get_name(item_id, item.get_name())
@@ -54,8 +52,8 @@ class ScItemButton(Gtk.Box):
 
         # Get the summary
         summ = appsystem.get_summary(item_id, item.get_summary())
-        if len(summ) > 120:
-            summ = "%s…" % summ[0:120]
+        if len(summ) > 100:
+            summ = "%s…" % summ[0:100]
         summary = Gtk.Label(summ)
         summary.set_use_markup(True)
         summary.set_property("xalign", 0.0)
@@ -77,10 +75,10 @@ class ScItemButton(Gtk.Box):
         self.action_button.set_halign(Gtk.Align.END)
         self.action_button.set_valign(Gtk.Align.CENTER)
         self.action_button.get_style_context().add_class(action_style)
-        self.pack_end(self.action_button, False, False, 0)
+        main_box.pack_end(self.action_button, False, False, 0)
         self.action_button.get_style_context().add_class("flat")
 
-        self.get_style_context().add_class("category-item-button")
+        self.get_style_context().add_class("category-item-row")
 
 
 class ScComponentButton(Gtk.ToggleButton):
@@ -171,8 +169,8 @@ class ScCategoriesView(Gtk.Box):
         self.item_scroller.set_policy(
             Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.item_list = Gtk.FlowBox.new()
-        self.item_list.set_row_spacing(0)
-        self.item_list.set_column_spacing(0)
+        self.item_list.set_row_spacing(12)
+        self.item_list.set_column_spacing(12)
         self.item_list.set_homogeneous(True)
         self.item_list.set_selection_mode(Gtk.SelectionMode.SINGLE)
         self.item_scroller.add(self.item_list)
@@ -240,5 +238,5 @@ class ScCategoriesView(Gtk.Box):
     def add_item(self, id, item, popfilter):
         """ Adding new item.. """
         wid = ScItemButton(self.context.appsystem, item)
-        wid.show_all()
         self.item_list.add(wid)
+        wid.show_all()
