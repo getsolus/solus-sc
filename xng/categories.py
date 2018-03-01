@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import GObject, Gtk
+from gi.repository import GObject, Gtk, Pango
 from xng.plugins.base import PopulationFilter, ItemStatus, ProviderItem
 
 
@@ -28,6 +28,11 @@ class ScItemButton(Gtk.Box):
         self.item = item
         item_id = item.get_id()
         self.set_border_width(6)
+
+        self.set_hexpand(False)
+        self.set_vexpand(False)
+        self.set_valign(Gtk.Align.START)
+        self.set_halign(Gtk.Align.FILL)
 
         # Pack the image first
         img = Gtk.Image.new()
@@ -49,10 +54,16 @@ class ScItemButton(Gtk.Box):
         stride_box.pack_start(label, False, False, 0)
 
         # Get the summary
-        summary = Gtk.Label(appsystem.get_summary(item_id, item.get_summary()))
+        summ = appsystem.get_summary(item_id, item.get_summary())
+        if len(summ) > 200:
+            summ = "%s…" % summ[0:200]
+        summary = Gtk.Label(summ)
         summary.set_use_markup(True)
         summary.set_property("xalign", 0.0)
+        summary.set_line_wrap(True)
+        summary.set_line_wrap_mode(Pango.WrapMode.WORD)
         summary.set_halign(Gtk.Align.START)
+        summary.set_max_width_chars(50)
         stride_box.pack_start(summary, False, False, 0)
 
         action_name = "Install"
@@ -157,8 +168,9 @@ class ScCategoriesView(Gtk.Box):
         self.item_scroller = Gtk.ScrolledWindow.new(None, None)
         self.item_scroller.set_policy(
             Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-        self.item_list = Gtk.ListBox.new()
-        self.item_list.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.item_list = Gtk.FlowBox.new()
+        self.item_list.set_homogeneous(True)
+        self.item_list.set_selection_mode(Gtk.SelectionMode.SINGLE)
         self.item_scroller.add(self.item_list)
         self.layout_constraint.pack_start(self.item_scroller, True, True, 0)
 
