@@ -16,6 +16,7 @@ from .context import ScContext
 from .home import ScHomeView
 from .categories import ScCategoriesView
 from .details import ScDetailsView
+from .featured import ScFeaturedEmbed
 
 
 class ScUpdatesButton(Gtk.Button):
@@ -86,6 +87,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     mode_open = None
 
+    featured = None
+
     # Tracking
     context = None
     stack = None
@@ -115,6 +118,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.context = ScContext()
 
         # TODO: Fix this for updates-view handling
+        self.build_featured()
         self.build_content()
         self.show_all()
 
@@ -123,8 +127,15 @@ class ScMainWindow(Gtk.ApplicationWindow):
         # Everything setup? Let's start loading plugins
         self.context.begin_load()
 
+        # Stupid hack
         GLib.timeout_add(
             3000, lambda: self.updates_button.set_updates_available(True))
+
+    def build_featured(self):
+        """ Build the featured-items header """
+        self.featured = ScFeaturedEmbed(self.context)
+        self.featured.widget.connect('item-selected', self.item_selected)
+        self.layout.pack_start(self.featured, False, False, 0)
 
     def build_content(self):
         # Main UI wrap
@@ -274,3 +285,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.stack.get_visible_child().grab_focus()
         self.hbar.set_subtitle(self.stack.get_visible_child().get_page_name())
         self.home_button.set_sensitive(name != "home")
+
+        if name == "home":
+            self.featured.slide_down_show()
+        else:
+            self.featured.slide_up_hide()

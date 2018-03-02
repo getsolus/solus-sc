@@ -12,7 +12,7 @@
 #
 
 from gi.repository import Gtk, GObject
-from .plugins.base import ProviderItem
+from .plugins.base import PopulationFilter, ProviderItem
 
 
 class ScFeaturedPage(Gtk.Box):
@@ -174,15 +174,48 @@ class ScFeatured(Gtk.EventBox):
 
 
 class ScFeaturedEmbed(Gtk.Revealer):
-    """ Just allows wrapping the entire ScFeatured as a GtkRevealer """
+    """ Just allows wrapping the entire ScFeatured as a GtkRevealer
+        Will also handle the initial transition view for showing the
+        revealer contents once loading has completed """
 
     widget = None
+    loaded = None
 
     def __init__(self, context):
         Gtk.Revealer.__init__(self)
         self.context = context
+        self.loaded = False
+        self.context.connect('loaded', self.on_context_loaded)
         self.widget = ScFeatured(context)
 
         self.add(self.widget)
         self.set_reveal_child(False)
         self.set_transition_type(Gtk.RevealerTransitionType.SLIDE_DOWN)
+
+    def on_context_loaded(self, context):
+        """ Fill the featured view in  """
+        for plugin in self.context.plugins:
+            # Build the featured view
+            plugin.populate_storage(
+                self.widget, PopulationFilter.FEATURED,
+                self.context.appsystem, None)
+        self.loaded = True
+        self.slide_down_show()
+
+    def slide_up_hide(self):
+        """ Slide up out of view """
+        if not self.get_visible() or not self.get_child_visible():
+            return
+        if not self.loaded:
+            return
+        self.set_transition_type(Gtk.RevealerTransitionType.SLIDE_UP)
+        self.set_reveal_child(False)
+
+    def slide_down_show(self):
+        """ Slide into view """
+        if not self.get_visible() or not self.get_child_visible():
+            return
+        if not self.loaded:
+            return
+        self.set_transition_type(Gtk.RevealerTransitionType.SLIDE_UP)
+        self.set_reveal_child(True)
