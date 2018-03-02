@@ -13,7 +13,7 @@
 
 from gi.repository import Gtk, GObject
 from xng.plugins.base import PopulationFilter, ProviderItem, ProviderCategory
-from .featured import ScFeatured
+from .featured import ScFeaturedEmbed
 
 
 class ScTileButton(Gtk.Button):
@@ -110,8 +110,8 @@ class ScHomeView(Gtk.Box):
         self.context = context
         self.context.connect('loaded', self.on_context_loaded)
 
-        self.featured = ScFeatured(self.context)
-        self.featured.connect('item-selected', self.feature_selected)
+        self.featured = ScFeaturedEmbed(self.context)
+        self.featured.widget.connect('item-selected', self.feature_selected)
         self.pack_start(self.featured, False, False, 0)
         self.featured.set_margin_bottom(24)
 
@@ -176,13 +176,15 @@ class ScHomeView(Gtk.Box):
 
             # Build the featured view
             plugin.populate_storage(
-                self.featured, PopulationFilter.FEATURED,
+                self.featured.widget, PopulationFilter.FEATURED,
                 self.context.appsystem, None)
 
             # Build the recently updated view
             plugin.populate_storage(
                 self, PopulationFilter.RECENT,
                 self.context.appsystem, None)
+
+        self.featured.set_reveal_child(True)
 
     def add_category(self, plugin, category):
         """ Add a main category to our view """

@@ -171,3 +171,18 @@ class ScFeatured(Gtk.EventBox):
         self.dots[idx].get_style_context().remove_class("dim")
         self.stack.set_visible_child(self.pages[idx])
         self.idx = idx
+
+
+class ScFeaturedEmbed(Gtk.Revealer):
+    """ Just allows wrapping the entire ScFeatured as a GtkRevealer """
+
+    widget = None
+
+    def __init__(self, context):
+        Gtk.Revealer.__init__(self)
+        self.context = context
+        self.widget = ScFeatured(context)
+
+        self.add(self.widget)
+        self.set_reveal_child(False)
+        self.set_transition_type(Gtk.RevealerTransitionType.SLIDE_DOWN)
