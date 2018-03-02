@@ -19,6 +19,32 @@ from .details import ScDetailsView
 from .featured import ScFeaturedEmbed
 
 
+class LoadingPage(Gtk.VBox):
+    """ Simple loading page, nothing fancy. """
+
+    spinner = None
+
+    def get_page_name(self):
+        return _("Loading")
+
+    def __init__(self):
+        Gtk.VBox.__init__(self)
+
+        self.set_valign(Gtk.Align.CENTER)
+        self.set_halign(Gtk.Align.CENTER)
+        self.spinner = Gtk.Spinner()
+        self.spinner.set_size_request(-1, 64)
+        self.spinner.start()
+        # "Witty" loading message. Refreshing update list
+        self.label = Gtk.Label(u"<big>{}…</big>".format(
+            _("Waking up with a smile")))
+        self.label.set_use_markup(True)
+
+        self.pack_start(self.spinner, True, True, 0)
+        self.pack_start(self.label, False, False, 0)
+        self.label.set_property("margin", 20)
+
+
 class ScUpdatesButton(Gtk.Button):
     """ ScUpdatesButton is a simple button wrapper to allow hiding the
         updates text until such point as the button is needed fully
@@ -116,13 +142,14 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.get_style_context().add_class("solus-sc")
 
         self.context = ScContext()
+        self.context.connect('loaded', self.on_context_loaded)
 
         # TODO: Fix this for updates-view handling
         self.build_featured()
         self.build_content()
         self.show_all()
 
-        self.set_current_page("home")
+        self.set_current_page("loading")
 
         # Everything setup? Let's start loading plugins
         self.context.begin_load()
@@ -130,6 +157,15 @@ class ScMainWindow(Gtk.ApplicationWindow):
         # Stupid hack
         GLib.timeout_add(
             3000, lambda: self.updates_button.set_updates_available(True))
+
+    def on_context_loaded(self, context):
+        """ Initial load completed """
+        GLib.idle_add(self.end_load)
+
+    def end_load(self):
+        self.set_current_page("home")
+        self.loading.spinner.stop()
+        return False
 
     def build_featured(self):
         """ Build the featured-items header """
@@ -149,6 +185,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         scroll.add(self.stack)
         scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         self.layout.pack_start(scroll, True, True, 0)
+
+        # We need loading view first.
+        self.loading = LoadingPage()
+        self.stack.add_named(self.loading, 'loading')
 
         # Build home view now
         self.home = ScHomeView(self.context)
