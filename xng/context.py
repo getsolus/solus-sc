@@ -15,6 +15,7 @@ from .appsystem import AppSystem
 from .executor import Executor
 from .util.fetcher import ScMediaFetcher
 from gi.repository import GObject, GLib
+import threading
 
 
 class ScContext(GObject.Object):
@@ -47,7 +48,10 @@ class ScContext(GObject.Object):
         self.init_plugins()
         self.fetcher = ScMediaFetcher()
 
-        self.build_data()
+        # Lazy load now
+        thr = threading.Thread(target=self.build_data)
+        thr.daemon = True
+        thr.start()
 
     def init_ldm(self):
         """ Initialise Linux Driver Management if available. """
