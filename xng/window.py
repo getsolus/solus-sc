@@ -120,6 +120,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
             self.home,
             self.details,
             self.categories,
+            self.loading,
         ]
 
         self.loading.start()
