@@ -11,8 +11,9 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GObject, Pango
+from gi.repository import Gtk, GObject, Pango, Gdk
 from xng.plugins.base import PopulationFilter, ProviderItem, ProviderCategory
+import threading
 
 
 class ScTileButton(Gtk.Button):
@@ -163,6 +164,11 @@ class ScHomeView(Gtk.Box):
 
     def on_context_loaded(self, context):
         """ Fill the categories """
+        thr = threading.Thread(target=self.build_view)
+        thr.daemon = True
+        thr.start()
+
+    def build_view(self):
         for plugin in self.context.plugins:
             # Build the categories
             for cat in plugin.categories():
@@ -173,20 +179,28 @@ class ScHomeView(Gtk.Box):
                 self, PopulationFilter.RECENT,
                 self.context.appsystem, None)
 
+        # Allow the window to become "fully loaded" now
+        GObject.idle_add(self.context.window_done)
+
     def add_category(self, plugin, category):
         """ Add a main category to our view """
+        Gdk.threads_enter()
         button = ScTileButton(category)
         button.connect("clicked", self.on_category_clicked)
         button.show_all()
         self.categories.add(button)
+        Gdk.threads_leave()
 
     def on_category_clicked(self, btn, udata=None):
         """ One of our main categories has been clicked """
         self.emit_selected_category(btn.category)
 
     def add_item(self, id, item, popfilter):
-        if popfilter == PopulationFilter.RECENT:
-            self.add_recent(item)
+        if popfilter != PopulationFilter.RECENT:
+            return
+        Gdk.threads_enter()
+        self.add_recent(item)
+        Gdk.threads_leave()
 
     def maybe_build_row(self, plugin):
         """ Find an appropriate Recent row for the plugin """

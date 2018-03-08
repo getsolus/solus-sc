@@ -108,7 +108,6 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.get_style_context().add_class("solus-sc")
 
         self.context = ScContext(self)
-        self.context.connect('loaded', self.on_context_loaded)
 
         # TODO: Fix this for updates-view handling
         self.build_featured()
@@ -141,11 +140,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.back_button.set_sensitive(not busy)
         self.home_button.set_sensitive(not busy)
 
-    def on_context_loaded(self, context):
-        """ Initial load completed """
-        GLib.idle_add(self.end_load)
-
-    def end_load(self):
+    def done(self):
+        """ All loading completed """
         self.set_current_page("home")
         self.loading.stop()
         self.set_busy(False)

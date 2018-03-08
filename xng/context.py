@@ -137,3 +137,9 @@ class ScContext(GObject.Object):
         if not self.window:
             return
         self.window.set_busy(busy)
+
+    def window_done(self):
+        """ Let the window know all loading has completed """
+        if not self.window:
+            return False
+        return self.window.done()
