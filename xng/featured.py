@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GObject, Gdk
 from .plugins.base import PopulationFilter, ProviderItem
 
 
@@ -68,6 +68,34 @@ class ScFeaturedPage(Gtk.Box):
         self.action_callout.set_margin_top(12)
         self.action_callout.get_style_context().add_class("flat")
         box.pack_start(self.action_callout, False, False, 0)
+
+
+class ScFeaturedThumb(Gtk.EventBox):
+    """ The dot thumb shown for navigation """
+
+    __gtype_name__ = "ScFeaturedThumb"
+
+    # Related page
+    thumb_id = None
+    thumb = None
+
+    def __init__(self, thumb_id):
+        Gtk.EventBox.__init__(self)
+        self.set_property("margin", 0)
+        self.set_border_width(0)
+        self.thumb_id = thumb_id
+
+        self.thumb = Gtk.Label("•")
+        self.thumb.get_style_context().add_class("big-thumb")
+        self.thumb.get_style_context().add_class("dim")
+        self.add(self.thumb)
+
+    def set_dim(self, dim):
+        """ Mark as dim or not """
+        if dim:
+            self.thumb.get_style_context().add_class("dim")
+        else:
+            self.thumb.get_style_context().remove_class("dim")
 
 
 class ScFeatured(Gtk.EventBox):
@@ -136,11 +164,11 @@ class ScFeatured(Gtk.EventBox):
 
     def add_item(self, id, item, popfilter):
         """ Implement the population storage API """
-        thumb = Gtk.Label("•")
-        thumb.get_style_context().add_class("big-thumb")
-        thumb.get_style_context().add_class("dim")
+
+        thumb = ScFeaturedThumb(len(self.pages))
         self.thumbs.pack_start(thumb, False, False, 0)
         thumb.show_all()
+        thumb.connect("button-press-event", self.on_button_press_event)
 
         page = ScFeaturedPage(self.context, item)
         page.action_callout.connect("clicked", self.on_clicked)
@@ -152,6 +180,11 @@ class ScFeatured(Gtk.EventBox):
         self.pages.append(page)
         self.dots.append(thumb)
         self.navigate(0)
+
+    def on_button_press_event(self, widget, udata=None):
+        """ Handle pressing of the dot """
+        self.navigate(widget.thumb_id - self.idx)
+        return Gdk.EVENT_PROPAGATE
 
     def on_clicked(self, btn, data=None):
         # Emit click for the currently selected item
@@ -167,8 +200,8 @@ class ScFeatured(Gtk.EventBox):
     def navigate(self, incr):
         """ Wrap any navigation as necessary """
         idx = (self.idx + incr) % (len(self.pages))
-        self.dots[self.idx].get_style_context().add_class("dim")
-        self.dots[idx].get_style_context().remove_class("dim")
+        self.dots[self.idx].set_dim(True)
+        self.dots[idx].set_dim(False)
         self.stack.set_visible_child(self.pages[idx])
         self.idx = idx
 
