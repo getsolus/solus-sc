@@ -108,6 +108,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.get_style_context().add_class("solus-sc")
 
         self.context = ScContext(self)
+        self.context.connect('loaded', self.on_context_loaded)
 
         # TODO: Fix this for updates-view handling
         self.build_featured()
@@ -139,6 +140,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         """ Mark the window as busy and prevent further navigation """
         self.back_button.set_sensitive(not busy)
         self.home_button.set_sensitive(not busy)
+
+    def on_context_loaded(self, context):
+        """ We now have featured, so we're half way through initial loading """
+        self.loading.set_message()
 
     def done(self):
         """ All loading completed """
