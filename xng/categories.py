@@ -247,9 +247,9 @@ class ScCategoriesView(Gtk.Box):
         """ Activate the current component """
         print("Component: {}".format(component.get_id()))
 
-        # Clear out the old items
-        for sproglet in self.item_list.get_children():
-            self.item_list.remove(sproglet)
+        # Force UI to update itself before loading.
+        while (Gtk.events_pending()):
+            Gtk.main_iteration()
 
         # Populate storage in a thread now
         thre = threading.Thread(target=self.build_component, args=(component,))
@@ -257,6 +257,13 @@ class ScCategoriesView(Gtk.Box):
 
     def build_component(self, component):
         """ Begin building the component in a thread """
+
+        # Clear out the old items
+        Gdk.threads_enter()
+        for sproglet in self.item_list.get_children():
+            self.item_list.remove(sproglet)
+        Gdk.threads_leave()
+
         for plugin in self.context.plugins:
             plugin.populate_storage(self,
                                     PopulationFilter.CATEGORY,
