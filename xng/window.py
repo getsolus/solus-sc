@@ -30,8 +30,6 @@ class ScUpdatesButton(Gtk.Button):
         state change.
     """
 
-    revealer = None
-    label = None
     img = None
 
     def __init__(self):
@@ -46,27 +44,15 @@ class ScUpdatesButton(Gtk.Button):
             Gtk.IconSize.SMALL_TOOLBAR)
         box.pack_start(self.img, True, True, 0)
 
-        # Revealer will slide the label out
-        self.revealer = Gtk.Revealer()
-        self.label = Gtk.Label.new("Updates available")
-        self.label.get_style_context().add_class("small-title")
-        self.revealer.add(self.label)
-        self.revealer.set_transition_type(
-            Gtk.RevealerTransitionType.SLIDE_LEFT)
-        self.revealer.set_reveal_child(False)
-        box.pack_start(self.revealer, False, False, 0)
-
     def set_updates_available(self, available):
         """ Alter our state to indicate update availability """
         stclass = "suggested-action"
         if available:
+            self.set_tooltip_text(_("Updates available"))
             self.get_style_context().add_class(stclass)
-            self.label.set_margin_start(6)
         else:
-            self.label.set_margin_start(0)
+            self.set_tooltip_text(_("Check for updates"))
             self.get_style_context().remove_class(stclass)
-
-        self.revealer.set_reveal_child(available)
 
         # Just helps with idle loops
         return False
