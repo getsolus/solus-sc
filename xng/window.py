@@ -78,6 +78,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     # Tracking
     context = None
+    scroll = None
     stack = None
     home = None
     details = None
@@ -158,16 +159,16 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def build_content(self):
         # Main UI wrap
-        scroll = Gtk.ScrolledWindow(None, None)
+        self.scroll = Gtk.ScrolledWindow(None, None)
 
         self.stack = Gtk.Stack()
         self.stack.set_homogeneous(False)
         self.stack.set_transition_type(
             Gtk.StackTransitionType.CROSSFADE)
 
-        scroll.add(self.stack)
-        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        self.layout.pack_start(scroll, True, True, 0)
+        self.scroll.add(self.stack)
+        self.scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        self.layout.pack_start(self.scroll, True, True, 0)
 
         # We need loading view first.
         self.loading = ScLoadingPage()
@@ -331,6 +332,12 @@ class ScMainWindow(Gtk.ApplicationWindow):
             self.featured.slide_down_show()
         else:
             self.featured.slide_up_hide()
+
+        # Reset scroll when tweening views
+        policy = self.scroll.get_vadjustment()
+        policy.set_value(0)
+        policy = self.scroll.get_hadjustment()
+        policy.set_value(0)
 
     def on_button_release_event(self, widget, event=None):
         """ Handle "back button" on mouse """
