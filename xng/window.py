@@ -129,9 +129,13 @@ class ScMainWindow(Gtk.ApplicationWindow):
         (1280, 760),
     ]
 
+    # Allow tracking all pages.
+    pages = None
+
     def __init__(self, app):
         Gtk.Window.__init__(self, application=app)
         self.pick_resolution()
+
         self.build_headerbar()
 
         # Get main layout sorted
@@ -148,6 +152,13 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.build_featured()
         self.build_content()
         self.show_all()
+
+        # Keep this tracked.
+        self.pages = [
+            self.home,
+            self.details,
+            self.categories,
+        ]
 
         self.set_current_page("loading")
 
@@ -321,6 +332,23 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def set_current_page(self, name):
         """ Handle changing the current page """
+        cur = self.stack.get_visible_child_name()
+
+        # Return child name.
+        def child_nom(o):
+            return o.get_parent().child_get_property(o, "name")
+
+        # Find all children not in our current transition set
+        pg = [x for x in self.pages if child_nom(x) != cur and
+              child_nom(x) != name]
+
+        # Hide all pages not part of the transition to unbugger the UI
+        for page in self.pages:
+            if page in pg:
+                page.hide()
+            else:
+                page.show_all()
+
         self.stack.set_visible_child_name(name)
         self.stack.get_visible_child().grab_focus()
         self.hbar.set_subtitle(self.stack.get_visible_child().get_page_name())
