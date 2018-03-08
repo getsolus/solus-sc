@@ -255,6 +255,11 @@ class ScCategoriesView(Gtk.Box):
                                     PopulationFilter.CATEGORY,
                                     component,
                                     None)
+        # Reset scroll policy now
+        policy = self.item_scroller.get_vadjustment()
+        policy.set_value(0)
+        policy = self.item_scroller.get_hadjustment()
+        policy.set_value(0)
 
     def add_item(self, id, item, popfilter):
         """ Adding new item.. """
