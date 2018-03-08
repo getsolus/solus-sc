@@ -11,8 +11,9 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import GObject, Gtk, Pango
+from gi.repository import GObject, Gtk, Pango, Gdk
 from xng.plugins.base import PopulationFilter, ItemStatus, ProviderItem
+import threading
 
 
 class ScItemButton(Gtk.FlowBoxChild):
@@ -250,19 +251,34 @@ class ScCategoriesView(Gtk.Box):
         for sproglet in self.item_list.get_children():
             self.item_list.remove(sproglet)
 
+        # Populate storage in a thread now
+        thre = threading.Thread(target=self.build_component, args=(component,))
+        thre.start()
+
+    def build_component(self, component):
+        """ Begin building the component in a thread """
         for plugin in self.context.plugins:
             plugin.populate_storage(self,
                                     PopulationFilter.CATEGORY,
                                     component,
                                     None)
+
+        GObject.idle_add(self.reset_scroller)
+
+    def reset_scroller(self):
+        """ Called back on idle loop to reset scroll position """
         # Reset scroll policy now
         policy = self.item_scroller.get_vadjustment()
         policy.set_value(0)
         policy = self.item_scroller.get_hadjustment()
         policy.set_value(0)
 
+        return False
+
     def add_item(self, id, item, popfilter):
         """ Adding new item.. """
+        Gdk.threads_enter()
         wid = ScItemButton(self.context.appsystem, item)
         self.item_list.add(wid)
         wid.show_all()
+        Gdk.threads_leave()
