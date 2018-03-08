@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GObject, GLib
+from gi.repository import Gtk, GObject, GLib, Gdk
 from .context import ScContext
 from .home import ScHomeView
 from .categories import ScCategoriesView
@@ -127,6 +127,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         # Everything setup? Let's start loading plugins
         self.context.begin_load()
+
+        # Handle events
+        self.connect("button-release-event", self.on_button_release_event)
 
         # Stupid hack
         GLib.timeout_add(
@@ -328,3 +331,12 @@ class ScMainWindow(Gtk.ApplicationWindow):
             self.featured.slide_down_show()
         else:
             self.featured.slide_up_hide()
+
+    def on_button_release_event(self, widget, event=None):
+        """ Handle "back button" on mouse """
+        if not self.back_button.get_sensitive():
+            return
+        if event.button == 8:  # Back button
+            self.on_back_clicked(self.back_button, event)
+            return Gdk.EVENT_STOP
+        return Gdk.EVENT_PROPAGATE
