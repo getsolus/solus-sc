@@ -13,6 +13,7 @@
 
 from gi.repository import GObject, Gtk, Pango, Gdk
 from xng.plugins.base import PopulationFilter, ItemStatus, ProviderItem
+from .loadpage import ScLoadingPage
 import threading
 
 
@@ -130,6 +131,7 @@ class ScCategoriesView(Gtk.Box):
     item_list = None
 
     item_first = None
+    load_page = None
 
     def get_page_name(self):
         if not self.category:
@@ -170,6 +172,18 @@ class ScCategoriesView(Gtk.Box):
         lab.set_use_markup(True)
         self.layout_constraint.pack_start(lab, False, False, 0)
 
+        # Allow switching to inline loading view
+        self.stack = Gtk.Stack.new()
+        self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
+        self.stack.set_homogeneous(False)
+        self.layout_constraint.pack_start(self.stack, True, True, 0)
+        self.loading = ScLoadingPage()
+        self.stack.add_named(self.loading, "loading")
+
+        # Build main item view
+        self.item_view = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.stack.add_named(self.item_view, "items")
+
         self.item_scroller = Gtk.ScrolledWindow.new(None, None)
         self.item_scroller.set_policy(
             Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -184,7 +198,7 @@ class ScCategoriesView(Gtk.Box):
         self.item_scroller.add(self.item_list)
         self.item_list.set_margin_end(20)
         self.item_list.set_valign(Gtk.Align.START)
-        self.layout_constraint.pack_start(self.item_scroller, True, True, 0)
+        self.item_view.pack_start(self.item_scroller, True, True, 0)
 
         self.show_all()
 
@@ -262,11 +276,14 @@ class ScCategoriesView(Gtk.Box):
         """ This view is now busy """
         self.context.set_window_busy(True)
         self.components.set_sensitive(False)
+        self.loading.set_message()  # Randomise the message
+        self.stack.set_visible_child_name("loading")
 
     def end_busy(self):
         """ This view is now ready """
         self.context.set_window_busy(False)
         self.components.set_sensitive(True)
+        self.stack.set_visible_child_name("items")
 
     def build_component(self, component):
         """ Begin building the component in a thread """

@@ -12,15 +12,23 @@
 #
 
 from gi.repository import Gtk
+from random import randint
 
 
 class ScLoadingPage(Gtk.VBox):
     """ Simple loading page, nothing fancy. """
 
     spinner = None
+    messages = None
 
-    def __init__(self, message=""):
+    def __init__(self, message=None):
         Gtk.VBox.__init__(self)
+
+        # Random messages
+        self.messages = [
+            _("Switching to the B-side of the cassette"),
+            _("Solving the Paradox Of Choice"),
+        ]
 
         self.set_valign(Gtk.Align.CENTER)
         self.set_halign(Gtk.Align.CENTER)
@@ -35,8 +43,17 @@ class ScLoadingPage(Gtk.VBox):
         self.pack_start(self.label, False, False, 0)
         self.label.set_property("margin", 20)
 
-    def set_message(self, message):
+        # Ensure some kind of message is set initially
+        self.set_message(message)
+
+    def set_message(self, message=None):
+        if not message:
+            message = self.random_message()
         self.label.set_markup(u"<big>{}…</big>".format(message))
+
+    def random_message(self):
+        i = randint(0, len(self.messages) - 1)
+        return self.messages[i]
 
     def start(self):
         """ Start the idle spinner """

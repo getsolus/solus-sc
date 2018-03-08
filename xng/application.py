@@ -14,6 +14,8 @@
 from .window import ScMainWindow
 from gi.repository import Gio, Gtk, Gdk, GLib
 from . import join_resource_path
+import random
+import time
 
 
 SC_APP_ID = "com.solus_project.SoftwareCenter"
@@ -85,6 +87,9 @@ class ScApplication(Gtk.Application):
         description = _("Open up the updates view of the application")
         option.description = description
         self.add_main_option_entries([option])
+
+        # Make sure random is moar betterer
+        random.seed(time.time())
 
     def on_activate(self, app):
         """ Activate the primary view """
