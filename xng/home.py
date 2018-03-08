@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GObject, Pango
 from xng.plugins.base import PopulationFilter, ProviderItem, ProviderCategory
 
 
@@ -72,14 +72,18 @@ class ScRecentButton(Gtk.Button):
         layout.attach(img, 0, 0, 1, 2)
         layout.attach(lab, 1, 0, 1, 1)
 
-        summary = context.appsystem.get_summary(id, item.get_summary())
-        lab2 = Gtk.Label(summary)
-        lab2.set_line_wrap(True)
-        lab2.set_property("xalign", 0.0)
-        lab2.set_width_chars(30)
-        lab2.set_halign(Gtk.Align.START)
-        lab2.set_valign(Gtk.Align.START)
-        layout.attach(lab2, 1, 1, 1, 1)
+        # Get the summary
+        summ = context.appsystem.get_summary(id, item.get_summary())
+        if len(summ) > 100:
+            summ = "%s…" % summ[0:100]
+        summary = Gtk.Label(summ)
+        summary.set_use_markup(True)
+        summary.set_property("xalign", 0.0)
+        summary.set_line_wrap(True)
+        summary.set_line_wrap_mode(Pango.WrapMode.WORD)
+        summary.set_halign(Gtk.Align.START)
+        summary.set_max_width_chars(50)
+        layout.attach(summary, 1, 1, 1, 1)
 
 
 class ScHomeView(Gtk.Box):
@@ -188,15 +192,12 @@ class ScHomeView(Gtk.Box):
         """ Find an appropriate Recent row for the plugin """
         if plugin in self.recents:
             return
-        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        box = Gtk.FlowBox.new()
         box.set_property("margin", 4)
         box.set_margin_bottom(8)  # scrollbar = chunky
-        scroll = Gtk.ScrolledWindow(None, None)
-        scroll.add(box)
-        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
-        scroll.set_kinetic_scrolling(True)
-        scroll.show_all()
-        self.recents_home.pack_start(scroll, False, False, 0)
+        box.show_all()
+        box.set_margin_end(12)
+        self.recents_home.pack_start(box, True, True, 0)
         self.recents[plugin] = box
 
     def add_recent(self, item):
@@ -208,4 +209,4 @@ class ScHomeView(Gtk.Box):
         button = ScRecentButton(self.context, item)
         button.connect("clicked", self.on_recent_clicked)
         button.show_all()
-        box.pack_start(button, False, False, 12)
+        box.add(button)
