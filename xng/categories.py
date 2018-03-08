@@ -128,6 +128,8 @@ class ScCategoriesView(Gtk.Box):
     item_scroller = None
     item_list = None
 
+    item_first = None
+
     def get_page_name(self):
         if not self.category:
             return "Categories"
@@ -137,6 +139,7 @@ class ScCategoriesView(Gtk.Box):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self.context = context
+        self.item_first = None
 
         self.layout_constraint = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         self.pack_start(self.layout_constraint, True, True, 0)
@@ -201,6 +204,7 @@ class ScCategoriesView(Gtk.Box):
         self.category = category
 
         # Clear out the old categories
+        self.item_first = None
         for sproglet in self.components.get_children():
             self.components.remove(sproglet)
 
@@ -208,12 +212,19 @@ class ScCategoriesView(Gtk.Box):
         for component in self.category.get_children():
             self.add_component(component)
 
+        # Begin selection of the first item
+        if not self.item_first:
+            return
+        self.item_first.set_active(True)
+
     def add_component(self, component):
         """ Add a new component to the view for the toplevel parent """
         button = ScComponentButton(component)
         button.show_all()
         button.connect('clicked', self.component_clicked)
         self.components.add(button)
+        if not self.item_first:
+            self.item_first = button
 
     def component_clicked(self, btn, udata=None):
         """ A component has been selected, so transition to it """
