@@ -49,6 +49,7 @@ class ScLoadingPage(Gtk.VBox):
     def set_message(self, message=None):
         if not message:
             message = self.random_message()
+        message = message.decode('utf-8')
         self.label.set_markup(u"<big>{}…</big>".format(message))
 
     def random_message(self):
