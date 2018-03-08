@@ -17,32 +17,7 @@ from .home import ScHomeView
 from .categories import ScCategoriesView
 from .details import ScDetailsView
 from .featured import ScFeaturedEmbed
-
-
-class LoadingPage(Gtk.VBox):
-    """ Simple loading page, nothing fancy. """
-
-    spinner = None
-
-    def get_page_name(self):
-        return _("Loading")
-
-    def __init__(self):
-        Gtk.VBox.__init__(self)
-
-        self.set_valign(Gtk.Align.CENTER)
-        self.set_halign(Gtk.Align.CENTER)
-        self.spinner = Gtk.Spinner()
-        self.spinner.set_size_request(-1, 64)
-        self.spinner.start()
-        # "Witty" loading message. Refreshing update list
-        self.label = Gtk.Label(u"<big>{}…</big>".format(
-            _("Waking up with a smile")))
-        self.label.set_use_markup(True)
-
-        self.pack_start(self.spinner, True, True, 0)
-        self.pack_start(self.label, False, False, 0)
-        self.label.set_property("margin", 20)
+from .loadpage import ScLoadingPage
 
 
 class ScUpdatesButton(Gtk.Button):
@@ -160,6 +135,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
             self.categories,
         ]
 
+        self.loading.start()
         self.set_current_page("loading")
         self.set_busy(True)
 
@@ -181,7 +157,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def end_load(self):
         self.set_current_page("home")
-        self.loading.spinner.stop()
+        self.loading.stop()
         self.set_busy(False)
         return False
 
@@ -205,7 +181,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.layout.pack_start(scroll, True, True, 0)
 
         # We need loading view first.
-        self.loading = LoadingPage()
+        self.loading = ScLoadingPage()
+        self.loading.set_message(_("Waking up with a smile"))
         self.stack.add_named(self.loading, 'loading')
 
         # Build home view now
