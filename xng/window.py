@@ -145,7 +145,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.build_search_bar()
         self.get_style_context().add_class("solus-sc")
 
-        self.context = ScContext()
+        self.context = ScContext(self)
         self.context.connect('loaded', self.on_context_loaded)
 
         # TODO: Fix this for updates-view handling
@@ -161,6 +161,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         ]
 
         self.set_current_page("loading")
+        self.set_busy(True)
 
         # Everything setup? Let's start loading plugins
         self.context.begin_load()
@@ -169,6 +170,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
         GLib.timeout_add(
             3000, lambda: self.updates_button.set_updates_available(True))
 
+    def set_busy(self, busy):
+        """ Mark the window as busy and prevent further navigation """
+        self.back_button.set_sensitive(not busy)
+        self.home_button.set_sensitive(not busy)
+
     def on_context_loaded(self, context):
         """ Initial load completed """
         GLib.idle_add(self.end_load)
@@ -176,6 +182,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def end_load(self):
         self.set_current_page("home")
         self.loading.spinner.stop()
+        self.set_busy(False)
         return False
 
     def build_featured(self):

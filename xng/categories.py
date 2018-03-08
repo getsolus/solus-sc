@@ -251,9 +251,22 @@ class ScCategoriesView(Gtk.Box):
         while (Gtk.events_pending()):
             Gtk.main_iteration()
 
+        # Move into busy state
+        self.begin_busy()
+
         # Populate storage in a thread now
         thre = threading.Thread(target=self.build_component, args=(component,))
         thre.start()
+
+    def begin_busy(self):
+        """ This view is now busy """
+        self.context.set_window_busy(True)
+        self.components.set_sensitive(False)
+
+    def end_busy(self):
+        """ This view is now ready """
+        self.context.set_window_busy(False)
+        self.components.set_sensitive(True)
 
     def build_component(self, component):
         """ Begin building the component in a thread """
@@ -280,6 +293,7 @@ class ScCategoriesView(Gtk.Box):
         policy = self.item_scroller.get_hadjustment()
         policy.set_value(0)
 
+        self.end_busy()
         return False
 
     def add_item(self, id, item, popfilter):

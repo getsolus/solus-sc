@@ -27,6 +27,7 @@ class ScContext(GObject.Object):
     fetcher = None
     executor = None
     driver_manager = None
+    window = None
 
     __gtype_name__ = "ScContext"
 
@@ -34,9 +35,10 @@ class ScContext(GObject.Object):
         'loaded': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, ()),
     }
 
-    def __init__(self):
+    def __init__(self, window=None):
         GObject.Object.__init__(self)
         self.has_loaded = False
+        self.window = window
 
     def begin_load(self):
         """ Request a load for the system, i.e. after all components are
@@ -130,3 +132,8 @@ class ScContext(GObject.Object):
         """ Begin the work necessary to remove a package """
         packages = item.get_plugin().plan_remove_item(item)
         print("begin_remove: {}".format(packages))
+
+    def set_window_busy(self, busy):
+        if not self.window:
+            return
+        self.window.set_busy(busy)
