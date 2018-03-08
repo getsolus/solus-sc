@@ -18,6 +18,7 @@ from .categories import ScCategoriesView
 from .details import ScDetailsView
 from .featured import ScFeaturedEmbed
 from .loadpage import ScLoadingPage
+from .updates import ScUpdatesView
 
 
 class ScUpdatesButton(Gtk.Button):
@@ -82,6 +83,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     stack = None
     home = None
     details = None
+    updates = None
     categories = None
     nav_stack = ['home']
 
@@ -121,6 +123,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
             self.details,
             self.categories,
             self.loading,
+            self.updates,
         ]
 
         self.loading.start()
@@ -192,6 +195,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.details = ScDetailsView(self.context)
         self.stack.add_named(self.details, 'details')
 
+        # Build updates view
+        self.updates = ScUpdatesView(self.context)
+        self.stack.add_named(self.updates, 'updates')
+
     def pick_resolution(self):
         """ Attempt to pick a good 16:9 resolution for the screen """
         scr = self.get_screen()
@@ -246,7 +253,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         # Update button position won't affect search button placement
         self.updates_button = ScUpdatesButton()
+        self.updates_button.connect("clicked", self.on_updates_clicked)
         self.hbar.pack_end(self.updates_button)
+
+    def on_updates_clicked(self, widget, udata=None):
+        self.push_nav("updates")
 
     def handle_key_event(self, w, e=None, d=None):
         """ Proxy window navigation events to the searchbar """
