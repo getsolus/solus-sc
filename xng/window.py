@@ -334,11 +334,15 @@ class ScMainWindow(Gtk.ApplicationWindow):
         else:
             self.featured.slide_up_hide()
 
-        # Reset scroll when tweening views
+        GObject.idle_add(self.reset_scroller)
+
+    def reset_scroller(self):
+        """ Reset scroll when tweening views """
         policy = self.scroll.get_vadjustment()
         policy.set_value(0)
         policy = self.scroll.get_hadjustment()
         policy.set_value(0)
+        return False
 
     def on_button_release_event(self, widget, event=None):
         """ Handle "back button" on mouse """
