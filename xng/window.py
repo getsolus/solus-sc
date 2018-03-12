@@ -19,6 +19,7 @@ from .details import ScDetailsView
 from .featured import ScFeaturedEmbed
 from .loadpage import ScLoadingPage
 from .updates import ScUpdatesView
+from .search import ScSearchView
 
 
 class ScUpdatesButton(Gtk.Button):
@@ -84,6 +85,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     home = None
     details = None
     updates = None
+    search = None
     categories = None
     nav_stack = ['home']
 
@@ -124,6 +126,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
             self.categories,
             self.loading,
             self.updates,
+            self.search,
         ]
 
         self.loading.start()
@@ -198,6 +201,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         # Build updates view
         self.updates = ScUpdatesView(self.context)
         self.stack.add_named(self.updates, 'updates')
+
+        # Build search view
+        self.search = ScSearchView(self.context)
+        self.stack.add_named(self.search, 'search')
 
     def pick_resolution(self):
         """ Attempt to pick a good 16:9 resolution for the screen """
@@ -281,10 +288,15 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.search_entry.set_hexpand(True)
         self.search_bar.set_show_close_button(True)
         self.connect('key-press-event', self.handle_key_event)
+        self.search_entry.connect('activate', self.on_search_activate)
 
         self.search_button.bind_property('active', self.search_bar,
                                          'search-mode-enabled',
                                          GObject.BindingFlags.BIDIRECTIONAL)
+
+    def on_search_activate(self, widget, udata=None):
+        """ User activated a search """
+        self.push_nav("search")
 
     def item_selected(self, source, item):
         """ Handle UI selection of an individual item """
