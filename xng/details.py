@@ -70,6 +70,7 @@ class ScDetailsView(Gtk.Box):
         if item == self.item:
             return
 
+        self.launch_info = None
         self.item = item
 
         # Grab the app
@@ -253,6 +254,10 @@ class ScDetailsView(Gtk.Box):
             self.header_action_upgrade.show()
         else:
             self.header_action_upgrade.hide()
+
+        # Hide launch info once more
+        if not self.launch_info:
+            self.header_action_launch.hide()
 
     def on_install_clicked(self, btn, udata=None):
         """ User clicked install """
