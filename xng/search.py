@@ -13,6 +13,8 @@
 
 from gi.repository import Gtk
 
+from .loadpage import ScLoadingPage
+
 
 class ScSearchView(Gtk.Box):
     """ Provide search functionality
@@ -23,6 +25,7 @@ class ScSearchView(Gtk.Box):
     __gtype_name__ = "ScSearchView"
 
     context = None
+    load = None
 
     def get_page_name(self):
         return _("Search")
@@ -32,6 +35,15 @@ class ScSearchView(Gtk.Box):
 
         self.context = context
 
-        lab = Gtk.Label.new("Not yet implemented")
-        self.pack_start(lab, True, True, 0)
-        self.show_all()
+        # Main swap stack
+        self.stack = Gtk.Stack.new()
+        self.stack.set_homogeneous(False)
+        self.stack.set_transition_type(
+            Gtk.StackTransitionType.CROSSFADE)
+
+        self.pack_start(self.stack, True, True, 0)
+
+        # Hook up our load page
+        self.load = ScLoadingPage()
+        self.load.set_message(_("Concentrating really hard"))
+        self.stack.add_named(self.load, 'loading')
