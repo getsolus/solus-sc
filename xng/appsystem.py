@@ -276,3 +276,14 @@ class AppSystem:
             except Exception as e:
                 print("Unable to load screen: {}".format(e))
         return ret
+
+    def get_launchable_id(self, id):
+        """ Return the desktop file id for the given package """
+        app = self.store.get_app_by_pkgname(id)
+        if not app:
+            return None
+        launch = app.get_launchable_by_kind(As.LaunchableKind.DESKTOP_ID)
+        if launch is None:
+            return None
+
+        return launch.get_value()
