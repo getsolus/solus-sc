@@ -11,7 +11,8 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GObject
+import threading
 
 from .loadpage import ScLoadingPage
 
@@ -48,5 +49,26 @@ class ScSearchView(Gtk.Box):
         self.load.set_message(_("Concentrating really hard"))
         self.stack.add_named(self.load, 'loading')
 
+        # Results page
+        self.results = Gtk.Label("IDK BOSS")
+        self.stack.add_named(self.results, 'results')
+
     def set_search_term(self, term):
-        print("Search term is '{}'".format(term))
+        self.begin_busy()
+        thr = threading.Thread(target=self.do_search, args=(term,))
+        thr.daemon = True
+        thr.start()
+
+    def do_search(self, term):
+        print("Searching for term: {}".format(term))
+        GObject.idle_add(self.end_busy)
+
+    def begin_busy(self):
+        """" We're about to start searching """
+        self.context.set_window_busy(True)
+
+    def end_busy(self):
+        """ Move from the busy view now on idle thread-safe loop"""
+        self.context.set_window_busy(False)
+        self.stack.set_visible_child_name('results')
+        return False
