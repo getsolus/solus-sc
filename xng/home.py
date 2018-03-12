@@ -207,6 +207,7 @@ class ScHomeView(Gtk.Box):
         if plugin in self.recents:
             return
         box = Gtk.FlowBox.new()
+        box.set_selection_mode(Gtk.SelectionMode.NONE)
         box.set_property("margin", 4)
         box.set_margin_bottom(8)  # scrollbar = chunky
         box.show_all()
