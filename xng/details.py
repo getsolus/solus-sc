@@ -176,6 +176,8 @@ class ScDetailsView(Gtk.Box):
         self.stack_switcher = Gtk.StackSwitcher()
         self.stack_switcher.set_halign(Gtk.Align.CENTER)
         self.stack_switcher.set_stack(self.stack)
+        self.stack.set_transition_type(
+            Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
         box_main_wrap.pack_start(self.stack_switcher, False, False, 0)
         self.pack_start(self.stack, True, True, 0)
 
