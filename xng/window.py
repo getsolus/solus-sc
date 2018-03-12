@@ -296,7 +296,17 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def on_search_activate(self, widget, udata=None):
         """ User activated a search """
+        text = self.search_entry.get_text().strip()
+        if len(text) < 1:
+            return
+
+        # Allow moving to the search now
         self.push_nav("search")
+        print("Should search: {}".format(text))
+
+        # Hide the search now
+        widget.set_text('')
+        self.search_button.set_active(False)
 
     def item_selected(self, source, item):
         """ Handle UI selection of an individual item """
