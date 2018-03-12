@@ -177,7 +177,7 @@ class ScHomeView(Gtk.Box):
             # Build the recently updated view
             plugin.populate_storage(
                 self, PopulationFilter.RECENT,
-                self.context.appsystem, None)
+                self.context.appsystem)
 
         # Allow the window to become "fully loaded" now
         GObject.idle_add(self.context.window_done)

@@ -15,6 +15,7 @@ from gi.repository import Gtk, GObject
 import threading
 
 from .loadpage import ScLoadingPage
+from xng.plugins.base import PopulationFilter
 
 
 class NotFoundPlaceholder(Gtk.Label):
@@ -80,7 +81,15 @@ class ScSearchView(Gtk.Box):
         thr.start()
 
     def do_search(self, term):
+        """ Begin performing the search in a threaded fashion """
         print("Searching for term: {}".format(term))
+
+        for plugin in self.context.plugins:
+            plugin.populate_storage(
+                self,
+                PopulationFilter.SEARCH,
+                term)
+
         GObject.idle_add(self.end_busy)
 
     def begin_busy(self):
@@ -92,3 +101,13 @@ class ScSearchView(Gtk.Box):
         self.context.set_window_busy(False)
         self.stack.set_visible_child_name('results')
         return False
+
+    def add_item(self, id, item, popfilter):
+        """ Storage API """
+        if popfilter != PopulationFilter.SEARCH:
+            return
+        self.add_search_result(item)
+
+    def add_search_result(self, item):
+        """ Add a new search result to the view """
+        print(item.get_name())

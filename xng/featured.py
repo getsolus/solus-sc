@@ -231,7 +231,7 @@ class ScFeaturedEmbed(Gtk.Revealer):
             # Build the featured view
             plugin.populate_storage(
                 self.widget, PopulationFilter.FEATURED,
-                self.context.appsystem, None)
+                self.context.appsystem)
         self.loaded = True
         self.slide_down_show()
 

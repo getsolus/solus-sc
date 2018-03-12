@@ -304,11 +304,11 @@ class EopkgPlugin(ProviderPlugin):
             repos.append(EopkgSource(self.repoDB, x))
         return repos
 
-    def populate_storage(self, storage, popfilter, extra, cancel):
+    def populate_storage(self, storage, popfilter, extra):
         if popfilter == PopulationFilter.INSTALLED:
             return self.populate_installed(storage)
         elif popfilter == PopulationFilter.SEARCH:
-            return self.populate_search(storage, extra, cancel)
+            return self.populate_search(storage, extra)
         elif popfilter == PopulationFilter.RECENT:
             return self.populate_recent(storage, extra)
         elif popfilter == PopulationFilter.NEW:
@@ -367,7 +367,7 @@ class EopkgPlugin(ProviderPlugin):
             item = self.build_item(i)
             storage.add_item(item.get_id(), item, PopulationFilter.NEW)
 
-    def populate_search(self, storage, term, cancel):
+    def populate_search(self, storage, term):
         """ Attempt to search for a given term in the DB """
         # Trick eopkg into searching through spaces and hyphens
         term = term.replace(" ", "[-_ ]")
@@ -381,11 +381,6 @@ class EopkgPlugin(ProviderPlugin):
             return
 
         for item in srslt:
-            # Check on each item if we need to bail NOW
-            if cancel.is_set():
-                print("Cancelled?!?")
-                return
-
             pkg = self.build_item(item)
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.SEARCH)
         print("eopkg done!")

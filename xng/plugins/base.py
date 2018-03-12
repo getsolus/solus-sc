@@ -128,7 +128,7 @@ class ProviderPlugin(GObject.Object):
     def __init__(self):
         GObject.Object.__init__(self)
 
-    def populate_storage(self, storage, popfilter, extra, cancel):
+    def populate_storage(self, storage, popfilter, extra):
         """ Populate storage using the given filter """
         raise RuntimeError("implement populate_storage")
 

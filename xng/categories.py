@@ -297,8 +297,7 @@ class ScCategoriesView(Gtk.Box):
         for plugin in self.context.plugins:
             plugin.populate_storage(self,
                                     PopulationFilter.CATEGORY,
-                                    component,
-                                    None)
+                                    component)
 
         GObject.idle_add(self.reset_scroller)
 
