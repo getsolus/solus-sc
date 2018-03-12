@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GObject, Gdk
 import threading
 
 from .loadpage import ScLoadingPage
@@ -45,6 +45,7 @@ class ScSearchView(Gtk.Box):
     context = None
     load = None
     listbox_results = None
+    holder = None
 
     def get_page_name(self):
         return _("Search")
@@ -70,12 +71,19 @@ class ScSearchView(Gtk.Box):
         # Results page
         self.listbox_results = Gtk.ListBox.new()
         self.stack.add_named(self.listbox_results, 'results')
-        holder = NotFoundPlaceholder()
-        holder.show_all()
-        self.listbox_results.set_placeholder(holder)
+
+        # Placeholder
+        self.holder = NotFoundPlaceholder()
+        self.holder.show_all()
+        self.listbox_results.set_placeholder(self.holder)
 
     def set_search_term(self, term):
         self.begin_busy()
+
+        # Force UI to update itself before loading.
+        while (Gtk.events_pending()):
+            Gtk.main_iteration()
+
         thr = threading.Thread(target=self.do_search, args=(term,))
         thr.daemon = True
         thr.start()
@@ -99,11 +107,14 @@ class ScSearchView(Gtk.Box):
     def begin_busy(self):
         """" We're about to start searching """
         self.context.set_window_busy(True)
+        self.holder.set_visible(False)
+        self.stack.set_visible_child_name("loading")
 
     def end_busy(self):
         """ Move from the busy view now on idle thread-safe loop"""
         self.context.set_window_busy(False)
         self.stack.set_visible_child_name('results')
+        self.holder.set_visible(True)
         return False
 
     def add_item(self, id, item, popfilter):
@@ -114,4 +125,10 @@ class ScSearchView(Gtk.Box):
 
     def add_search_result(self, item):
         """ Add a new search result to the view """
-        print(item.get_name())
+        Gdk.threads_enter()
+
+        wid = Gtk.Label(item.get_name())
+        wid.show_all()
+        self.listbox_results.add(wid)
+
+        Gdk.threads_leave()
