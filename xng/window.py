@@ -88,6 +88,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     search = None
     categories = None
     nav_stack = ['home']
+    busy = False
 
     resolutions = [
         (1024, 576),
@@ -145,8 +146,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def set_busy(self, busy):
         """ Mark the window as busy and prevent further navigation """
+        self.busy = busy
         self.back_button.set_sensitive(not busy)
         self.home_button.set_sensitive(not busy)
+        self.search_button.set_sensitive(not busy)
+        self.updates_button.set_sensitive(not busy)
 
     def on_context_loaded(self, context):
         """ We now have featured, so we're half way through initial loading """
@@ -268,6 +272,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def handle_key_event(self, w, e=None, d=None):
         """ Proxy window navigation events to the searchbar """
+        if self.busy:
+            return Gdk.EVENT_PROPAGATE
         return self.search_bar.handle_event(e)
 
     def build_search_bar(self):
