@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
+from gi.repository import Gio, Gtk
 from .screenshot_view import ScScreenshotView
 from .util.markdown import SpecialMarkdownParser
 from .plugins.base import ItemStatus
@@ -40,6 +40,9 @@ class ScDetailsView(Gtk.Box):
     header_action_remove = None
     header_action_install = None
     header_action_upgrade = None
+    header_action_launch = None
+
+    launch_info = None
 
     stack = None
     stack_switcher = None
@@ -79,6 +82,11 @@ class ScDetailsView(Gtk.Box):
             apps.get_summary(id, item.get_summary()))
         pbuf = apps.get_pixbuf_only(id)
         self.header_image.set_from_pixbuf(pbuf)
+
+        if self.item.has_status(ItemStatus.INSTALLED):
+            launch_id = apps.get_launchable_id(id)
+            if launch_id is not None:
+                self.launch_info = Gio.DesktopAppInfo.new(launch_id)
 
         # Now set the screenshot ball in motion
         self.screenie_view.set_item(item)
@@ -154,6 +162,14 @@ class ScDetailsView(Gtk.Box):
             "suggested-action")
         box.pack_end(self.header_action_upgrade, False, False, 0)
 
+        self.header_action_launch = Gtk.Button("Launch")
+        self.header_action_launch.connect('clicked',
+                                    self.on_launch_clicked)
+        self.header_action_launch.set_valign(Gtk.Align.CENTER)
+        self.header_action_launch.set_no_show_all(True)
+        self.header_action_launch.set_relief(Gtk.ReliefStyle.NONE)
+        box.pack_end(self.header_action_launch, False, False, 0)
+
         self.stack = Gtk.Stack()
         self.stack.set_homogeneous(False)
         self.stack_switcher = Gtk.StackSwitcher()
@@ -221,6 +237,8 @@ class ScDetailsView(Gtk.Box):
         if self.item.has_status(ItemStatus.INSTALLED):
             self.header_action_remove.show()
             self.header_action_install.hide()
+            if self.launch_info is not None:
+                self.header_action_launch.show()
         else:
             self.header_action_remove.hide()
             self.header_action_install.show()
@@ -243,3 +261,7 @@ class ScDetailsView(Gtk.Box):
     def on_remove_clicked(self, btn, udata=None):
         """ User clicked remove """
         self.context.begin_remove(self.item)
+
+    def on_launch_clicked(self, btn, udata=None):
+        """ User clicked launch """
+        self.launch_info.launch(None, None)
