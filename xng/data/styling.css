@@ -95,3 +95,12 @@ list.sc-changelog .changelog-header {
     padding: 5px;
     border-radius: 2px;
 }
+
+.solus-sc .search-item-row,
+.solus-sc .search-item-row:active {
+    border: 1px solid @borders;
+    background-color: lighter(@theme_bg_color);
+    color: @theme_fg_color;
+    padding: 5px;
+    border-radius: 2px;
+}
