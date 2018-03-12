@@ -15,7 +15,7 @@ from gi.repository import Gtk, GObject, Gdk, Pango
 import threading
 
 from .loadpage import ScLoadingPage
-from xng.plugins.base import PopulationFilter, ItemStatus
+from xng.plugins.base import PopulationFilter, ItemStatus, ProviderItem
 
 
 class NotFoundPlaceholder(Gtk.Label):
@@ -32,6 +32,7 @@ class NotFoundPlaceholder(Gtk.Label):
         self.set_markup("<big>{}</big>".format(_("No results found")))
         self.set_use_markup(True)
         self.set_property("margin", 20)
+
 
 class ScSearchResult(Gtk.ListBoxRow):
     """ Display an item in a pretty view """
@@ -105,6 +106,11 @@ class ScSearchView(Gtk.Box):
 
     __gtype_name__ = "ScSearchView"
 
+    __gsignals__ = {
+        'item-selected': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
+                          (ProviderItem,))
+    }
+
     context = None
     load = None
     listbox_results = None
@@ -133,12 +139,25 @@ class ScSearchView(Gtk.Box):
 
         # Results page
         self.listbox_results = Gtk.ListBox.new()
+        self.listbox_results.set_activate_on_single_click(True)
+        self.listbox_results.connect('row-activated', self.on_row_activated)
+
         self.stack.add_named(self.listbox_results, 'results')
 
         # Placeholder
         self.holder = NotFoundPlaceholder()
         self.holder.show_all()
         self.listbox_results.set_placeholder(self.holder)
+
+    def on_row_activated(self, box, row, udata=None):
+        """ Propogate item selection """
+        if not row:
+            return
+        self.emit_selected_item(row.item)
+
+    def emit_selected_item(self, item):
+        """ Pass our item selection back up to the main window """
+        self.emit('item-selected', item)
 
     def set_search_term(self, term):
         self.begin_busy()

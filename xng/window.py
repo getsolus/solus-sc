@@ -209,6 +209,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         # Build search view
         self.search = ScSearchView(self.context)
         self.stack.add_named(self.search, 'search')
+        self.search.connect('item-selected', self.item_selected)
 
     def pick_resolution(self):
         """ Attempt to pick a good 16:9 resolution for the screen """
