@@ -84,6 +84,10 @@ class ScSearchView(Gtk.Box):
         """ Begin performing the search in a threaded fashion """
         print("Searching for term: {}".format(term))
 
+        # Kill existing results
+        for child in self.listbox_results.get_children():
+            child.destroy()
+
         for plugin in self.context.plugins:
             plugin.populate_storage(
                 self,
