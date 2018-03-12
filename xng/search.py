@@ -17,6 +17,22 @@ import threading
 from .loadpage import ScLoadingPage
 
 
+class NotFoundPlaceholder(Gtk.Label):
+    """ Found no search results. """
+
+    label = None
+
+    def __init__(self):
+        Gtk.Label.__init__(self)
+
+        self.set_valign(Gtk.Align.CENTER)
+        self.set_halign(Gtk.Align.CENTER)
+        # Unable to find any matching search results
+        self.set_markup("<big>{}</big>".format(_("No results found")))
+        self.set_use_markup(True)
+        self.set_property("margin", 20)
+
+
 class ScSearchView(Gtk.Box):
     """ Provide search functionality
 
@@ -27,6 +43,7 @@ class ScSearchView(Gtk.Box):
 
     context = None
     load = None
+    listbox_results = None
 
     def get_page_name(self):
         return _("Search")
@@ -50,8 +67,11 @@ class ScSearchView(Gtk.Box):
         self.stack.add_named(self.load, 'loading')
 
         # Results page
-        self.results = Gtk.Label("IDK BOSS")
-        self.stack.add_named(self.results, 'results')
+        self.listbox_results = Gtk.ListBox.new()
+        self.stack.add_named(self.listbox_results, 'results')
+        holder = NotFoundPlaceholder()
+        holder.show_all()
+        self.listbox_results.set_placeholder(holder)
 
     def set_search_term(self, term):
         self.begin_busy()
