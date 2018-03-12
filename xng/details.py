@@ -164,7 +164,7 @@ class ScDetailsView(Gtk.Box):
 
         self.header_action_launch = Gtk.Button("Launch")
         self.header_action_launch.connect('clicked',
-                                    self.on_launch_clicked)
+                                          self.on_launch_clicked)
         self.header_action_launch.set_valign(Gtk.Align.CENTER)
         self.header_action_launch.set_no_show_all(True)
         self.header_action_launch.set_relief(Gtk.ReliefStyle.NONE)
