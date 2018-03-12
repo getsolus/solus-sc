@@ -313,6 +313,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def push_nav(self, page_name):
         """ Push a new page in the nav stack """
+        if len(self.nav_stack) > 0 and self.nav_stack[-1] == page_name:
+            return
         self.nav_stack.append(page_name)
         self.back_button.set_sensitive(True)
         self.set_current_page(page_name)
