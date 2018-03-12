@@ -15,6 +15,7 @@ from gi.repository import Gtk, GObject, Gdk
 import threading
 
 from .loadpage import ScLoadingPage
+from .categories import ScItemButton
 from xng.plugins.base import PopulationFilter
 
 
@@ -127,7 +128,7 @@ class ScSearchView(Gtk.Box):
         """ Add a new search result to the view """
         Gdk.threads_enter()
 
-        wid = Gtk.Label(item.get_name())
+        wid = ScItemButton(self.context.appsystem, item)
         wid.show_all()
         self.listbox_results.add(wid)
 
