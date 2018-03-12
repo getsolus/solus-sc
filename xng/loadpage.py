@@ -28,6 +28,7 @@ class ScLoadingPage(Gtk.VBox):
         self.messages = [
             _("Switching to the B-side of the cassette"),
             _("Solving the Paradox Of Choice"),
+            _("Blasting regex across repo index"),
         ]
 
         self.set_valign(Gtk.Align.CENTER)
