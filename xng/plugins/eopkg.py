@@ -20,6 +20,7 @@ import pisi
 from pisi.operations.install import plan_install_pkg_names
 import time
 import comar
+import difflib
 
 
 def find_have_data(adb, store):
@@ -380,7 +381,12 @@ class EopkgPlugin(ProviderPlugin):
             print(e)
             return
 
-        for item in srslt:
+        leaders = difflib.get_close_matches(term.lower(),
+                                            srslt, cutoff=0.5)
+        packages = leaders
+        packages.extend(sorted([x for x in srslt if x not in leaders]))
+
+        for item in packages:
             pkg = self.build_item(item)
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.SEARCH)
         print("eopkg done!")
