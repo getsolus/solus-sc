@@ -47,3 +47,6 @@ class ScSearchView(Gtk.Box):
         self.load = ScLoadingPage()
         self.load.set_message(_("Concentrating really hard"))
         self.stack.add_named(self.load, 'loading')
+
+    def set_search_term(self, term):
+        print("Search term is '{}'".format(term))

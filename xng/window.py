@@ -300,9 +300,12 @@ class ScMainWindow(Gtk.ApplicationWindow):
         if len(text) < 1:
             return
 
+        # Set the search term so we're already in loading mode and threading
+        # to the result yield.
+        self.search.set_search_term(text)
+
         # Allow moving to the search now
         self.push_nav("search")
-        print("Should search: {}".format(text))
 
         # Hide the search now
         widget.set_text('')
