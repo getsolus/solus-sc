@@ -73,7 +73,7 @@ class ScMediaFetcher(GObject.Object):
             threadCount = 1
         else:
             threadCount = 2
-        print("{} CPUs detected, restricting to {} threads".format(
+        print("{} threads detected, restricting to {} threads".format(
             cpuCount, threadCount))
 
         # Ensure we have a cache directory before we start
