@@ -186,8 +186,10 @@ class ScSearchView(Gtk.Box):
         print("Searching for term: {}".format(term))
 
         # Kill existing results
+        Gdk.threads_enter()
         for child in self.listbox_results.get_children():
             child.destroy()
+        Gdk.threads_leave()
 
         for plugin in self.context.plugins:
             plugin.populate_storage(
