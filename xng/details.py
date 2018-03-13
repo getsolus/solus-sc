@@ -168,6 +168,7 @@ class ScDetailsView(Gtk.Box):
 
         self.header_action_launch = Gtk.Button.new_from_icon_name(
             "document-open-symbolic", Gtk.IconSize.BUTTON)
+        self.header_action_launch.set_margin_end(4)
         self.header_action_launch.set_tooltip_text(_("Launch"))
         self.header_action_launch.connect('clicked',
                                           self.on_launch_clicked)
