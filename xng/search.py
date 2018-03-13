@@ -68,7 +68,18 @@ class ScSearchResult(Gtk.ListBoxRow):
         label.set_margin_bottom(3)
         label.set_property("xalign", 0.0)
         label.set_halign(Gtk.Align.START)
-        stride_box.pack_start(label, False, False, 0)
+
+        top_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        top_box.pack_start(label, False, False, 0)
+        stride_box.pack_start(top_box, False, False, 0)
+
+        # Show the label
+        ver = item.get_version()
+        id_label = Gtk.Label.new("<small>({} {})</small>".format(item_id, ver))
+        id_label.set_margin_start(8)
+        id_label.set_use_markup(True)
+        id_label.get_style_context().add_class("dim-label")
+        top_box.pack_start(id_label, False, False, 0)
 
         # Get the summary
         summ = appsystem.get_summary(item_id, item.get_summary())
