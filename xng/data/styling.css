@@ -104,3 +104,7 @@ list.sc-changelog .changelog-header {
     padding: 5px;
     border-radius: 2px;
 }
+
+.solus-sc .drawer-background {
+    background-color: alpha(black, 0.75);
+}
