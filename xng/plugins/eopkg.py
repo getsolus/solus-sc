@@ -393,11 +393,12 @@ class EopkgPlugin(ProviderPlugin):
             if count >= 100:
                 break
 
-            pkg = self.build_item(item)
             # Skip devel stuff in search results
-            if pkg.has_status(ItemStatus.META_DEVEL):
+            if item.endswith("-dbginfo") or item.endswith("-devel"):
                 if "dbginfo" not in term and "devel" not in term:
                     continue
+
+            pkg = self.build_item(item)
 
             count += 1
 
