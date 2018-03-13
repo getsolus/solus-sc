@@ -21,6 +21,7 @@ from .loadpage import ScLoadingPage
 from .updates import ScUpdatesView
 from .search import ScSearchView
 from .plugins.base import SearchRequest
+from .drawer import ScDrawer
 
 
 class ScUpdatesButton(Gtk.Button):
@@ -93,6 +94,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
     nav_stack = ['home']
     busy = False
 
+    overlay = None
+    drawer = None
+
     resolutions = [
         (1024, 576),
         (1156, 648),
@@ -110,13 +114,18 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         # Get main layout sorted
         self.layout = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
-        self.add(self.layout)
+        self.overlay = Gtk.Overlay.new()
+        self.add(self.overlay)
+        self.overlay.add(self.layout)
 
         self.build_search_bar()
         self.get_style_context().add_class("solus-sc")
 
         self.context = ScContext(self)
         self.context.connect('loaded', self.on_context_loaded)
+
+        self.drawer = ScDrawer(self.context)
+        self.overlay.add_overlay(self.drawer)
 
         # TODO: Fix this for updates-view handling
         self.build_featured()
