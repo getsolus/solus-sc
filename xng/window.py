@@ -75,6 +75,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     search_bar = None
     search_entry = None
     search_installed_only = None
+    request = None
 
     mode_open = None
 
@@ -321,13 +322,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         request = SearchRequest(text)
         request.set_installed_only(self.search_installed_only.get_active())
         self.search.set_search_request(request)
+        self.request = request  # Cache for resetting the text
 
         # Allow moving to the search now
         self.push_nav("search")
-
-        # Hide the search now
-        widget.set_text('')
-        self.search_button.set_active(False)
 
     def item_selected(self, source, item):
         """ Handle UI selection of an individual item """
@@ -380,6 +378,11 @@ class ScMainWindow(Gtk.ApplicationWindow):
                 page.hide()
             else:
                 page.show_all()
+
+        self.search_button.set_active(name == 'search')
+        if self.request and name == 'search':
+            self.search_entry.set_text(self.request.get_term())
+            self.search_entry.grab_focus()
 
         self.stack.set_visible_child_name(name)
         self.stack.get_visible_child().grab_focus()
