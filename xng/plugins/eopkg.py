@@ -372,6 +372,7 @@ class EopkgPlugin(ProviderPlugin):
         """ Attempt to search for a given term in the DB """
         # Trick eopkg into searching through spaces and hyphens
         term = term.replace(" ", "[-_ ]").replace(".", "\.")
+        term = term.replace("+", "\+").replace("?", "\?")
 
         srslt = set()
         try:
