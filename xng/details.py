@@ -163,7 +163,9 @@ class ScDetailsView(Gtk.Box):
             "suggested-action")
         box.pack_end(self.header_action_upgrade, False, False, 0)
 
-        self.header_action_launch = Gtk.Button("Launch")
+        self.header_action_launch = Gtk.Button.new_from_icon_name(
+            "document-open-symbolic", Gtk.IconSize.BUTTON)
+        self.header_action_launch.set_tooltip_text(_("Launch"))
         self.header_action_launch.connect('clicked',
                                           self.on_launch_clicked)
         self.header_action_launch.set_valign(Gtk.Align.CENTER)
