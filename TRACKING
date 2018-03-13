@@ -1,0 +1,9 @@
+Tracking list for time organisation and tomorrowness
+
+ - Add crossfade tween on modality opacity background when exposing sidebar
+ - Add GtkStack to the drawer body with a Settings callout button. Expand entire page for settings
+ - Ensure modality is respected in drawer mode (set_window_busy)
+ - Add merged operations for job tracker in the drawer
+ - Sort job drawer by ongoing and then queued
+ - Hook up remove/install
+ - Implement Updates view (with SpecialMarkdownParser)
