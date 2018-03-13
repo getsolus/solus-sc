@@ -371,7 +371,7 @@ class EopkgPlugin(ProviderPlugin):
     def populate_search(self, storage, term):
         """ Attempt to search for a given term in the DB """
         # Trick eopkg into searching through spaces and hyphens
-        term = term.replace(" ", "[-_ ]")
+        term = term.replace(" ", "[-_ ]").replace(".", "\.")
 
         srslt = set()
         try:
