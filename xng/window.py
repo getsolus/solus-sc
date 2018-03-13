@@ -304,7 +304,6 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.search_bar.connect_entry(self.search_entry)
         self.search_revealer.set_reveal_child(True)
         self.search_entry.set_hexpand(True)
-        self.search_bar.set_show_close_button(True)
         self.connect('key-press-event', self.handle_key_event)
         self.search_entry.connect('activate', self.on_search_activate)
 
