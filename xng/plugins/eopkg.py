@@ -388,6 +388,11 @@ class EopkgPlugin(ProviderPlugin):
 
         for item in packages:
             pkg = self.build_item(item)
+            # Skip devel stuff in search results
+            if pkg.has_status(ItemStatus.META_DEVEL):
+                if "dbginfo" not in term and "devel" not in term:
+                    continue
+
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.SEARCH)
         print("eopkg done!")
 
