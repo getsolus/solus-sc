@@ -296,6 +296,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         search_options.attach(self.search_entry, 0, 0, 1, 1)
         self.search_installed_only = Gtk.CheckButton.new_with_label(
             _("Only show installed software"))
+        self.search_installed_only.connect('toggled', self.on_install_change)
         search_options.attach(self.search_installed_only,
                               0, 1, 1, 1)
 
@@ -310,6 +311,12 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.search_button.bind_property('active', self.search_bar,
                                          'search-mode-enabled',
                                          GObject.BindingFlags.BIDIRECTIONAL)
+
+    def on_install_change(self, widget, udata=None):
+        """ The Installed-Only filter was toggled """
+        if not self.request:
+            return
+        self.on_search_activate(self.search_entry, None)
 
     def on_search_activate(self, widget, udata=None):
         """ User activated a search """
