@@ -386,12 +386,19 @@ class EopkgPlugin(ProviderPlugin):
         packages = leaders
         packages.extend(sorted([x for x in srslt if x not in leaders]))
 
+        count = 0
+
         for item in packages:
+            if count >= 100:
+                break
+
             pkg = self.build_item(item)
             # Skip devel stuff in search results
             if pkg.has_status(ItemStatus.META_DEVEL):
                 if "dbginfo" not in term and "devel" not in term:
                     continue
+
+            count += 1
 
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.SEARCH)
         print("eopkg done!")
