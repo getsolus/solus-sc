@@ -20,6 +20,7 @@ from .featured import ScFeaturedEmbed
 from .loadpage import ScLoadingPage
 from .updates import ScUpdatesView
 from .search import ScSearchView
+from .plugins.base import SearchRequest
 
 
 class ScUpdatesButton(Gtk.Button):
@@ -73,6 +74,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
     search_revealer = None
     search_bar = None
     search_entry = None
+    search_installed_only = None
 
     mode_open = None
 
@@ -285,11 +287,18 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.search_bar = Gtk.SearchBar.new()
         self.search_revealer.add(self.search_bar)
         self.search_entry = Gtk.SearchEntry.new()
+        self.search_entry.set_hexpand(True)
         self.search_entry.set_size_request(400, -1)
 
-        search_layout = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
-        self.search_bar.add(search_layout)
-        search_layout.pack_start(self.search_entry, True, True, 0)
+        search_options = Gtk.Grid.new()
+        search_options.set_row_spacing(6)
+        search_options.attach(self.search_entry, 0, 0, 1, 1)
+        self.search_installed_only = Gtk.CheckButton.new_with_label(
+            _("Only show installed software"))
+        search_options.attach(self.search_installed_only,
+                              0, 1, 1, 1)
+
+        self.search_bar.add(search_options)
         self.search_bar.connect_entry(self.search_entry)
         self.search_revealer.set_reveal_child(True)
         self.search_entry.set_hexpand(True)
@@ -309,7 +318,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         # Set the search term so we're already in loading mode and threading
         # to the result yield.
-        self.search.set_search_term(text)
+        request = SearchRequest(text)
+        request.set_installed_only(self.search_installed_only.get_active())
+        self.search.set_search_request(request)
 
         # Allow moving to the search now
         self.push_nav("search")

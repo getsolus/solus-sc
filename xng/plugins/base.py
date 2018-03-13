@@ -117,6 +117,31 @@ class ProviderStorage(GObject.Object):
         raise RuntimeError("implement clear")
 
 
+class SearchRequest(GObject.Object):
+    """ SearchRequest is passed as the extra argument to populate_storage
+        to permit controlling the search.
+    """
+
+    __gtype_name__ = "ScSearchRequest"
+
+    installed_only = False
+    term = None
+
+    def __init__(self, term):
+        GObject.Object.__init__(self)
+        self.term = term
+
+    def set_installed_only(self, installed_only):
+        """ Whether this request is for installed only """
+        self.installed_only = installed_only
+
+    def get_installed_only(self):
+        return self.installed_only
+
+    def get_term(self):
+        return self.term
+
+
 class ProviderPlugin(GObject.Object):
     """ A ProviderPlugin provides its own managemenet and access to the
         underlying package management system to provide the options to the

@@ -368,15 +368,16 @@ class EopkgPlugin(ProviderPlugin):
             item = self.build_item(i)
             storage.add_item(item.get_id(), item, PopulationFilter.NEW)
 
-    def populate_search(self, storage, term):
+    def populate_search(self, storage, request):
         """ Attempt to search for a given term in the DB """
         # Trick eopkg into searching through spaces and hyphens
-        term = term.replace(" ", "[-_ ]").replace(".", "\.")
+        term = request.get_term().replace(" ", "[-_ ]").replace(".", "\.")
         term = term.replace("+", "\+").replace("?", "\?")
 
         srslt = set()
         try:
-            srslt.update(self.availDB.search_package([term]))
+            if not request.get_installed_only():
+                srslt.update(self.availDB.search_package([term]))
             srslt.update(self.installDB.search_package([term]))
         except Exception as e:
             # Invalid regex, basically, from someone smashing FIREFOX????

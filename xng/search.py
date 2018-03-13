@@ -170,20 +170,20 @@ class ScSearchView(Gtk.Box):
         """ Pass our item selection back up to the main window """
         self.emit('item-selected', item)
 
-    def set_search_term(self, term):
+    def set_search_request(self, request):
         self.begin_busy()
 
         # Force UI to update itself before loading.
         while (Gtk.events_pending()):
             Gtk.main_iteration()
 
-        thr = threading.Thread(target=self.do_search, args=(term,))
+        thr = threading.Thread(target=self.do_search, args=(request,))
         thr.daemon = True
         thr.start()
 
-    def do_search(self, term):
+    def do_search(self, request):
         """ Begin performing the search in a threaded fashion """
-        print("Searching for term: {}".format(term))
+        print("Searching for term: {}".format(request.get_term()))
 
         # Kill existing results
         Gdk.threads_enter()
@@ -195,7 +195,7 @@ class ScSearchView(Gtk.Box):
             plugin.populate_storage(
                 self,
                 PopulationFilter.SEARCH,
-                term)
+                request)
 
         GObject.idle_add(self.end_busy)
 
