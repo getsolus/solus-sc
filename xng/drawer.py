@@ -59,7 +59,7 @@ class ScDrawer(Gtk.EventBox):
 
     def on_button_press_event(self, widget, udata=None):
         """ Handle modality of the sidebar """
-        acqu = self.revealer.get_allocation()
+        acqu = self.sidebar.get_allocation()
         salloc = self.get_allocation()
         acqu.x += salloc.x
         acqu.y += salloc.y
@@ -71,8 +71,11 @@ class ScDrawer(Gtk.EventBox):
 
     def build_sidebar(self):
         """ Build the actual sidebar """
-        self.sidebar = Gtk.Label("Totally a sidebar =)")
-        self.sidebar.get_style_context().add_class("drawer")
+        self.sidebar = Gtk.EventBox.new()
+        self.sidebar.set_border_width(2)
+        self.sidebar.get_style_context().add_class("sidebar")
+        self.sidebar_label = Gtk.Label("Totally a sidebar =)")
+        self.sidebar.add(self.sidebar_label)
         self.sidebar.show_all()
         self.revealer.add(self.sidebar)
         self.revealer.show_all()
