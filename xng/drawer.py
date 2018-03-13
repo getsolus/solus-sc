@@ -11,10 +11,10 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk, GObject
 
 
-class ScDrawer(Gtk.Box):
+class ScDrawer(Gtk.EventBox):
     """ Shows details for ongoing jobs
 
         The Drawer contains the drawer mechanism to show the ongoing jobs
@@ -27,25 +27,61 @@ class ScDrawer(Gtk.Box):
     revealer = None
     sidebar = None
 
+    drawer_visible = GObject.Property(type=bool, default=False)
+
     def __init__(self, context):
-        Gtk.Box.__init__(self, orientation=Gtk.Orientation.HORIZONTAL)
+        Gtk.EventBox.__init__(self)
 
         self.context = context
 
         self.revealer = Gtk.Revealer.new()
-        self.pack_end(self.revealer, False, False, 0)
+        self.add(self.revealer)
+        self.revealer.set_halign(Gtk.Align.END)
+        self.revealer.set_valign(Gtk.Align.FILL)
         self.build_sidebar()
         self.show_all()
 
         self.get_style_context().add_class("drawer-background")
+        self.revealer.set_reveal_child(False)
+        self.revealer.set_transition_type(
+            Gtk.RevealerTransitionType.SLIDE_LEFT)
+        self.revealer.connect('notify::child-revealed', self.revealer_change)
+        self.connect('button-press-event', self.on_button_press_event)
 
-        self.revealer.set_child_visible(False)
-
-        self.set_visible(False)
         self.set_no_show_all(True)
+        self.hide()
+
+    def revealer_change(self, revealer, prop):
+        """ When the revealer hides the child, hide our own overlay self."""
+        if revealer.get_reveal_child():
+            return
+        self.hide()
+
+    def on_button_press_event(self, widget, udata=None):
+        """ Handle modality of the sidebar """
+        acqu = self.revealer.get_allocation()
+        salloc = self.get_allocation()
+        acqu.x += salloc.x
+        acqu.y += salloc.y
+        if udata.x < acqu.x or udata.x > acqu.x + acqu.width:
+            self.slide_out()
+        elif udata.y < acqu.y or udata.y > acqu.y + acqu.height:
+            self.slide_out()
+        return Gdk.EVENT_PROPAGATE
 
     def build_sidebar(self):
         """ Build the actual sidebar """
         self.sidebar = Gtk.Label("Totally a sidebar =)")
         self.sidebar.get_style_context().add_class("drawer")
+        self.sidebar.show_all()
         self.revealer.add(self.sidebar)
+        self.revealer.show_all()
+
+    def slide_in(self):
+        self.drawer_visible = True
+        self.show()
+        self.revealer.set_reveal_child(True)
+
+    def slide_out(self):
+        self.drawer_visible = False
+        self.revealer.set_reveal_child(False)

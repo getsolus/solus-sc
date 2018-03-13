@@ -110,15 +110,12 @@ class ScMainWindow(Gtk.ApplicationWindow):
         Gtk.Window.__init__(self, application=app)
         self.pick_resolution()
 
-        self.build_headerbar()
-
         # Get main layout sorted
         self.layout = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         self.overlay = Gtk.Overlay.new()
         self.add(self.overlay)
         self.overlay.add(self.layout)
 
-        self.build_search_bar()
         self.get_style_context().add_class("solus-sc")
 
         self.context = ScContext(self)
@@ -126,6 +123,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         self.drawer = ScDrawer(self.context)
         self.overlay.add_overlay(self.drawer)
+
+        self.build_headerbar()
+        self.build_search_bar()
 
         # TODO: Fix this for updates-view handling
         self.build_featured()
@@ -268,6 +268,24 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.hbar.pack_start(self.home_button)
         self.home_button.set_sensitive(False)
 
+        # Toggle for sidebar drawer
+        self.sidebar_button = Gtk.ToggleButton()
+        self.sidebar_button.connect('toggled', self.on_sidebar_toggled)
+        img = Gtk.Image.new_from_icon_name(
+            "open-menu-symbolic",
+            Gtk.IconSize.SMALL_TOOLBAR
+        )
+        self.sidebar_button.add(img)
+        self.sidebar_button.set_can_focus(False)
+        st = self.sidebar_button.get_style_context()
+        st.add_class("image-button")
+        self.hbar.pack_end(self.sidebar_button)
+
+        self.sidebar_button.bind_property('active',
+                                          self.drawer,
+                                          'drawer-visible',
+                                          GObject.BindingFlags.BIDIRECTIONAL)
+
         self.search_button = Gtk.ToggleButton()
         img = Gtk.Image.new_from_icon_name(
             "edit-find-symbolic", Gtk.IconSize.SMALL_TOOLBAR)
@@ -281,6 +299,12 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.updates_button = ScUpdatesButton()
         self.updates_button.connect("clicked", self.on_updates_clicked)
         self.hbar.pack_end(self.updates_button)
+
+    def on_sidebar_toggled(self, widget, udata=None):
+        if widget.get_active():
+            self.drawer.slide_in()
+        else:
+            self.drawer.slide_out()
 
     def on_updates_clicked(self, widget, udata=None):
         self.push_nav("updates")
