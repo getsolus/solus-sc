@@ -143,10 +143,12 @@ class ScDetailsView(Gtk.Box):
         self.header_action_install.set_no_show_all(True)
         self.header_action_install.get_style_context().add_class(
             "suggested-action")
+        self.header_action_install.set_margin_end(2)
         box.pack_end(self.header_action_install, False, False, 0)
 
         # Remove thing
         self.header_action_remove = Gtk.Button("Remove")
+        self.header_action_remove.set_margin_end(2)
         self.header_action_remove.connect('clicked',
                                           self.on_remove_clicked)
         self.header_action_remove.set_valign(Gtk.Align.CENTER)
@@ -157,6 +159,7 @@ class ScDetailsView(Gtk.Box):
 
         # Upgrade thing
         self.header_action_upgrade = Gtk.Button("Upgrade")
+        self.header_action_upgrade.set_margin_end(2)
         self.header_action_upgrade.set_valign(Gtk.Align.CENTER)
         self.header_action_upgrade.set_no_show_all(True)
         self.header_action_upgrade.get_style_context().add_class(
