@@ -154,6 +154,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.home_button.set_sensitive(not busy)
         self.search_button.set_sensitive(not busy)
         self.updates_button.set_sensitive(not busy)
+        self.search_entry.set_sensitive(not busy)
+        self.search_installed_only.set_sensitive(not busy)
 
     def on_context_loaded(self, context):
         """ We now have featured, so we're half way through initial loading """
