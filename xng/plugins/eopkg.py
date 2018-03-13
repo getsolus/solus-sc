@@ -373,8 +373,9 @@ class EopkgPlugin(ProviderPlugin):
         # Trick eopkg into searching through spaces and hyphens
         term = term.replace(" ", "[-_ ]")
 
+        srslt = set()
         try:
-            srslt = set(self.availDB.search_package([term]))
+            srslt.update(self.availDB.search_package([term]))
             srslt.update(self.installDB.search_package([term]))
         except Exception as e:
             # Invalid regex, basically, from someone smashing FIREFOX????
