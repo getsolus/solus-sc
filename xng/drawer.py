@@ -70,14 +70,22 @@ class ScDrawerPlane(Gtk.Revealer):
 
     def on_button_press_event(self, widget, udata=None):
         """ Handle modality of the sidebar """
-        acqu = self.drawer.get_child().get_allocation()
-        salloc = self.get_allocation()
-        acqu.x += salloc.x
-        acqu.y += salloc.y
-        if udata.x < acqu.x or udata.x > acqu.x + acqu.width:
+
+        # Because GTK positioning is utterly broken, our x y is relative
+        # only to the WIDGET not the WINDOW. -_- Instead, transform to the
+        # toplevel coordinate system, and then find out where the sidebar
+        # is physically on screen, *then* compare root X.
+        toplevel = self.get_toplevel()
+        topwin = toplevel.get_window()
+        (x, y) = topwin.get_position()
+        (w, h) = toplevel.get_size()
+        (rx, ry) = self.translate_coordinates(toplevel, x, y)
+        child_x = (rx + w) - self.drawer.get_allocated_width()
+
+        if udata.x_root >= rx and udata.x_root <= child_x:
             self.slide_out()
-        elif udata.y < acqu.y or udata.y > acqu.y + acqu.height:
-            self.slide_out()
+            return Gdk.EVENT_STOP
+
         return Gdk.EVENT_PROPAGATE
 
     def slide_in(self):
