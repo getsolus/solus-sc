@@ -127,6 +127,8 @@ class ScDrawer(Gtk.Revealer):
 
         self.context = context
         self.set_transition_duration(200)
+        self.set_border_width(0)
+        self.set_property("margin", 0)
 
         self.set_halign(Gtk.Align.END)
         self.set_valign(Gtk.Align.FILL)
@@ -139,7 +141,6 @@ class ScDrawer(Gtk.Revealer):
     def build_sidebar(self):
         """ Build the actual sidebar """
         self.sidebar = Gtk.EventBox.new()
-        self.sidebar.set_border_width(2)
         self.sidebar.get_style_context().add_class("sidebar")
         self.sidebar_label = Gtk.Label("This is totally a sidebar =)")
         self.sidebar_label.set_property("margin", 5)
