@@ -56,11 +56,26 @@ class ScDrawerPlane(Gtk.Revealer):
         self.connect('notify::child-revealed', self.revealer_change)
         self.drawer.connect('notify::child-revealed', self.sidebar_change)
 
+        # Allow clicks outside the sidebar to trigger a dismissal
+        self.connect('button-press-event', self.on_button_press_event)
+
         # Fix visibility now
         self.set_reveal_child(False)
         self.show_all()
         self.set_no_show_all(True)
         self.hide()
+
+    def on_button_press_event(self, widget, udata=None):
+        """ Handle modality of the sidebar """
+        acqu = self.drawer.get_child().get_allocation()
+        salloc = self.get_allocation()
+        acqu.x += salloc.x
+        acqu.y += salloc.y
+        if udata.x < acqu.x or udata.x > acqu.x + acqu.width:
+            self.slide_out()
+        elif udata.y < acqu.y or udata.y > acqu.y + acqu.height:
+            self.slide_out()
+        return Gdk.EVENT_PROPAGATE
 
     def slide_in(self):
         """ Activate plane and slide in the sidebar """
@@ -118,18 +133,6 @@ class ScDrawer(Gtk.Revealer):
 
         self.set_transition_type(
             Gtk.RevealerTransitionType.SLIDE_LEFT)
-
-    def on_button_press_event(self, widget, udata=None):
-        """ Handle modality of the sidebar """
-        acqu = self.sidebar.get_allocation()
-        salloc = self.get_allocation()
-        acqu.x += salloc.x
-        acqu.y += salloc.y
-        if udata.x < acqu.x or udata.x > acqu.x + acqu.width:
-            self.slide_out()
-        elif udata.y < acqu.y or udata.y > acqu.y + acqu.height:
-            self.slide_out()
-        return Gdk.EVENT_PROPAGATE
 
     def build_sidebar(self):
         """ Build the actual sidebar """
