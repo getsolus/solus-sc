@@ -56,15 +56,6 @@ class ScApplication(Gtk.Application):
             Gtk.StyleContext.add_provider_for_screen(screen,
                                                      css,
                                                      prio)
-            settings = Gtk.Settings.get_for_screen(screen)
-            gtkTheme = settings.get_property("gtk-theme-name").lower()
-            if gtkTheme == "arc" or gtkTheme.startswith("arc-"):
-                f2 = Gio.File.new_for_path(join_resource_path("arc.css"))
-                css2 = Gtk.CssProvider()
-                css2.load_from_file(f2)
-                Gtk.StyleContext.add_provider_for_screen(screen,
-                                                         css2,
-                                                         prio)
         except Exception as e:
             print("Error loading CSS: {}".format(e))
 
