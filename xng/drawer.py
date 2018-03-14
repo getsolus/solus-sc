@@ -173,6 +173,7 @@ class ScDrawer(Gtk.Revealer):
 
         # Link to get to settings view
         settings_button = Gtk.Button.new()
+        settings_button.set_halign(Gtk.Align.START)
         settings_button.get_style_context().add_class("flat")
         button_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         button_img = Gtk.Image.new_from_icon_name(
