@@ -151,6 +151,7 @@ class ScDrawer(Gtk.Revealer):
         # Now add the stack
         self.stack = Gtk.Stack.new()
         self.stack.set_homogeneous(False)
+        self.stack.set_interpolate_size(True)
         self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
         self.sidebar.add(self.stack)
 
