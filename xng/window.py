@@ -21,7 +21,7 @@ from .loadpage import ScLoadingPage
 from .updates import ScUpdatesView
 from .search import ScSearchView
 from .plugins.base import SearchRequest
-from .drawer import ScDrawer
+from .drawer import ScDrawerPlane
 
 
 class ScUpdatesButton(Gtk.Button):
@@ -121,7 +121,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.context = ScContext(self)
         self.context.connect('loaded', self.on_context_loaded)
 
-        self.drawer = ScDrawer(self.context)
+        self.drawer = ScDrawerPlane(self.context)
         self.overlay.add_overlay(self.drawer)
 
         self.build_headerbar()
