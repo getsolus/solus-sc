@@ -12,6 +12,7 @@
 #
 
 from gi.repository import Gtk, Gdk, GObject
+from .settings_view import ScSettingsView
 
 
 class ScDrawerPlane(Gtk.Revealer):
@@ -121,6 +122,9 @@ class ScDrawer(Gtk.Revealer):
     context = None
     revealer = None
     sidebar = None
+    stack = None
+
+    settings_view = None
 
     def __init__(self, context):
         Gtk.Revealer.__init__(self)
@@ -140,13 +144,61 @@ class ScDrawer(Gtk.Revealer):
 
     def build_sidebar(self):
         """ Build the actual sidebar """
+
         self.sidebar = Gtk.EventBox.new()
         self.sidebar.get_style_context().add_class("sidebar")
-        self.sidebar_label = Gtk.Label("This is totally a sidebar =)")
-        self.sidebar_label.set_property("margin", 5)
-        self.sidebar.add(self.sidebar_label)
+
+        # Now add the stack
+        self.stack = Gtk.Stack.new()
+        self.stack.set_homogeneous(False)
+        self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
+        self.sidebar.add(self.stack)
+
+        # Build primary view
+        self.build_primary_view()
+
+        # Construct settings view to allow switching to it
+        self.settings_view = ScSettingsView(self.context)
+        self.stack.add_named(self.settings_view, 'settings')
+        self.settings_view.connect('go-back', self.on_back_clicked)
+
         self.sidebar.show_all()
         self.add(self.sidebar)
+
+    def build_primary_view(self):
+        """ Build the main page for the stack """
+        box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        box.set_border_width(10)
+        box.set_valign(Gtk.Align.START)
+
+        # Link to get to settings view
+        settings_button = Gtk.Button.new()
+        settings_button.get_style_context().add_class("flat")
+        button_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        button_img = Gtk.Image.new_from_icon_name(
+            "go-next-symbolic",
+            Gtk.IconSize.BUTTON)
+        button_lbl = Gtk.Label.new(_("Settings"))
+        button_box.pack_start(button_img, False, False, 0)
+        button_img.set_margin_end(4)
+        button_lbl.set_halign(Gtk.Align.START)
+        button_box.pack_start(button_lbl, False, False, 0)
+        settings_button.add(button_box)
+        settings_button.connect('clicked', self.on_settings_clicked)
+
+        box.pack_start(settings_button, False, False, 0)
+
+        # Now add to the stack
+        box.show_all()
+        self.stack.add_named(box, 'main')
+
+    def on_settings_clicked(self, widget, udata=None):
+        """ Settings button was clicked, move to Settings view """
+        self.stack.set_visible_child_name('settings')
+
+    def on_back_clicked(self, widget, udata=None):
+        """ Pressed back button from within settings view """
+        self.stack.set_visible_child_name('main')
 
     def slide_in(self):
         """ Slide ourselves onto the plane """
@@ -155,3 +207,5 @@ class ScDrawer(Gtk.Revealer):
     def slide_out(self):
         """ Slide ourselves off the plane """
         self.set_reveal_child(False)
+        # Reset on tween out
+        self.stack.set_visible_child_name('main')
