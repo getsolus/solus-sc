@@ -13,6 +13,7 @@
 
 from gi.repository import Gtk, Gdk, GObject
 from .settings_view import ScSettingsView
+from .jobview import ScJobView
 
 
 class ScDrawerPlane(Gtk.Revealer):
@@ -125,6 +126,7 @@ class ScDrawer(Gtk.Revealer):
     stack = None
 
     settings_view = None
+    job_view = None
 
     def __init__(self, context):
         Gtk.Revealer.__init__(self)
@@ -189,6 +191,10 @@ class ScDrawer(Gtk.Revealer):
         settings_button.connect('clicked', self.on_settings_clicked)
 
         box.pack_start(settings_button, False, False, 0)
+
+        # Whack in the job view now
+        self.job_view = ScJobView(self.context)
+        box.pack_start(self.job_view, False, False, 0)
 
         # Now add to the stack
         box.show_all()

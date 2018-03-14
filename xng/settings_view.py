@@ -123,6 +123,11 @@ class ScSettingsView(Gtk.Box):
 
         self.pack_start(button, False, False, 0)
 
+        sep = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
+        sep.set_margin_top(6)
+        sep.set_margin_bottom(18)
+        self.pack_start(sep, False, False, 0)
+
     def on_back_clicked(self, btn, udata=None):
         """ User clicked our back button, let the primary view know """
         self.emit('go-back')
