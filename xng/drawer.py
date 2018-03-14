@@ -42,6 +42,7 @@ class ScDrawerPlane(Gtk.Revealer):
 
         # We want to crossfade our contents
         self.set_transition_type(Gtk.RevealerTransitionType.CROSSFADE)
+        self.set_transition_duration(190)
 
         # Build the main body to show other things in
         self.body = Gtk.EventBox.new()
@@ -125,6 +126,7 @@ class ScDrawer(Gtk.Revealer):
         Gtk.Revealer.__init__(self)
 
         self.context = context
+        self.set_transition_duration(200)
 
         self.set_halign(Gtk.Align.END)
         self.set_valign(Gtk.Align.FILL)
