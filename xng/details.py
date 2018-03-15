@@ -87,7 +87,12 @@ class ScDetailsView(Gtk.Box):
         if self.item.has_status(ItemStatus.INSTALLED):
             launch_id = apps.get_launchable_id(id)
             if launch_id is not None:
-                self.launch_info = Gio.DesktopAppInfo.new(launch_id)
+                try:
+                    self.launch_info = Gio.DesktopAppInfo.new(launch_id)
+                except Exception as e:
+                    self.launch_info = None
+                    print("Warning, request AppStream data rebuild for: {}".format(launch_id))
+                    print(e)
 
         # Now set the screenshot ball in motion
         self.screenie_view.set_item(item)
