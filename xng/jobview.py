@@ -39,8 +39,9 @@ class ScJobView(Gtk.Box):
         self.pack_start(sep, False, False, 0)
 
         # Ongoing jobs
-        lab = self.fancy_header(_("Tasks"), "system-run")
+        lab = self.fancy_header(_("Tasks"), "view-list-symbolic")
         self.pack_start(lab, False, False, 0)
+        lab.set_margin_start(4)
         lab.set_margin_bottom(20)
 
         # Create our fancyish listbox

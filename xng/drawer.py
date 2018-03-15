@@ -185,11 +185,11 @@ class ScDrawer(Gtk.Revealer):
 
         # Link to get to settings view
         settings_button = Gtk.Button.new()
-        settings_button.set_halign(Gtk.Align.START)
+        settings_button.set_halign(Gtk.Align.END)
         settings_button.get_style_context().add_class("flat")
         button_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         button_img = Gtk.Image.new_from_icon_name(
-            "go-next-symbolic",
+            "system-run-symbolic",
             Gtk.IconSize.BUTTON)
         button_lbl = Gtk.Label.new(_("Settings"))
         button_box.pack_start(button_img, False, False, 0)

@@ -107,7 +107,7 @@ class ScSettingsView(Gtk.Box):
         """ Match header area of main view to allow back button """
         # Link to get to settings view
         button = Gtk.Button.new()
-        button.set_halign(Gtk.Align.START)
+        button.set_halign(Gtk.Align.END)
         button.get_style_context().add_class("flat")
         button_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         button_img = Gtk.Image.new_from_icon_name(
