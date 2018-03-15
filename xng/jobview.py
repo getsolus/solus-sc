@@ -13,6 +13,8 @@
 
 from gi.repository import Gtk
 
+from .jobwidget import ScJobWidget
+
 
 class ScJobView(Gtk.Box):
     """ Provide a view to show ongoing and enqueued jobs
@@ -21,6 +23,9 @@ class ScJobView(Gtk.Box):
     __gtype_name__ = "ScJobView"
 
     context = None
+
+    running_job = None
+    listbox_jobs = None
 
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
@@ -34,15 +39,28 @@ class ScJobView(Gtk.Box):
         self.pack_start(sep, False, False, 0)
 
         # Ongoing jobs
-        lab = self.fancy_header(_("Ongoing jobs"), "system-run")
+        lab = self.fancy_header(_("Tasks"), "system-run")
         self.pack_start(lab, False, False, 0)
+        lab.set_margin_bottom(20)
 
-        # Pending jobs
-        lab = self.fancy_header(_("Pending jobs"), "system-suspend-symbolic")
-        self.pack_start(lab, False, False, 0)
+        # Create our fancyish listbox
+        self.listbox_jobs = Gtk.ListBox.new()
+        self.listbox_jobs.set_selection_mode(Gtk.SelectionMode.NONE)
+        scroll = Gtk.ScrolledWindow.new(None, None)
+        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scroll.add(self.listbox_jobs)
+        scroll.set_valign(Gtk.Align.FILL)
+        self.listbox_jobs.set_valign(Gtk.Align.FILL)
+        self.listbox_jobs.set_vexpand(True)
+        scroll.set_shadow_type(Gtk.ShadowType.NONE)
+        self.pack_start(scroll, True, True, 0)
+
+        # Primary running job is a dynamic ScJobWidget
+        self.running_job = ScJobWidget(True)
+        self.listbox_jobs.add(self.running_job)
 
     def fancy_header(self, title, icon):
-        """ Build a fancy consistent header for each section """
+        """ Build a fancy consistent header for the top section """
         box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         lab = Gtk.Label.new(title)
         lab.set_use_markup(True)

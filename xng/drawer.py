@@ -180,7 +180,8 @@ class ScDrawer(Gtk.Revealer):
         """ Build the main page for the stack """
         box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         box.set_border_width(10)
-        box.set_valign(Gtk.Align.START)
+        box.set_valign(Gtk.Align.FILL)
+        box.set_vexpand(True)
 
         # Link to get to settings view
         settings_button = Gtk.Button.new()
@@ -202,7 +203,7 @@ class ScDrawer(Gtk.Revealer):
 
         # Whack in the job view now
         self.job_view = ScJobView(self.context)
-        box.pack_start(self.job_view, False, False, 0)
+        box.pack_start(self.job_view, True, True, 0)
 
         # Now add to the stack
         box.show_all()
