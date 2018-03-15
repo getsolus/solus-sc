@@ -68,6 +68,30 @@ class ScDrawerPlane(Gtk.Revealer):
         self.set_no_show_all(True)
         self.hide()
 
+    def handle_key_event(self, e):
+        """ Allow chaining global input to us """
+
+        # Not relevant to us
+        if not self.drawer_visible:
+            return Gdk.EVENT_PROPAGATE
+
+        # Not an escape..
+        if e.keyval != Gdk.KEY_Escape:
+            return Gdk.EVENT_PROPAGATE
+
+        # We need to handle going back
+        self.perform_back()
+        return Gdk.EVENT_STOP
+
+    def perform_back(self):
+        """ Handle back navigation with the escape key """
+        if not self.drawer_visible:
+            return
+        if self.drawer.handle_back():
+            return
+        # Dismiss!
+        self.slide_out()
+
     def on_button_press_event(self, widget, udata=None):
         """ Handle modality of the sidebar """
 
@@ -271,3 +295,11 @@ class ScDrawer(Gtk.Revealer):
         self.set_reveal_child(False)
         # Reset on tween out
         self.stack.set_visible_child_name('main')
+        self.button_stack.set_visible_child_name('settings_button')
+
+    def handle_back(self):
+        """ Allow back/escape behaviour """
+        if self.stack.get_visible_child_name() == "main":
+            return False
+        self.on_back_clicked(None)
+        return True

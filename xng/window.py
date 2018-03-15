@@ -311,8 +311,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def handle_key_event(self, w, e=None, d=None):
         """ Proxy window navigation events to the searchbar """
-        if self.busy:
-            return Gdk.EVENT_PROPAGATE
+        if self.busy or self.drawer.drawer_visible:
+            return self.drawer.handle_key_event(e)
         return self.search_bar.handle_event(e)
 
     def build_search_bar(self):
