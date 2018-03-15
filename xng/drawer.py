@@ -95,6 +95,10 @@ class ScDrawerPlane(Gtk.Revealer):
     def on_button_press_event(self, widget, udata=None):
         """ Handle modality of the sidebar """
 
+        # Already handled in toplevel window for back button
+        if udata.button == 8:
+            return Gdk.EVENT_PROPAGATE
+
         # Because GTK positioning is utterly broken, our x y is relative
         # only to the WIDGET not the WINDOW. -_- Instead, transform to the
         # toplevel coordinate system, and then find out where the sidebar

@@ -382,6 +382,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def on_back_clicked(self, btn, udata=None):
         """ User clicked the back button """
+        if len(self.nav_stack) < 2:
+            # Already no nav..
+            return
         self.nav_stack.pop()
         if len(self.nav_stack) < 2:
             self.back_button.set_sensitive(False)
@@ -447,9 +450,17 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def on_button_release_event(self, widget, event=None):
         """ Handle "back button" on mouse """
-        if not self.back_button.get_sensitive():
-            return
-        if event.button == 8:  # Back button
+        if event.button != 8:
+            return Gdk.EVENT_PROPAGATE
+
+        # Tell the drawer to handle it
+        if self.drawer.drawer_visible:
+            self.drawer.perform_back()
+            return Gdk.EVENT_STOP
+
+        # Tell us to handle it..
+        if self.back_button.get_sensitive():
             self.on_back_clicked(self.back_button, event)
             return Gdk.EVENT_STOP
+
         return Gdk.EVENT_PROPAGATE
