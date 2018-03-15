@@ -140,7 +140,7 @@ class ScDrawer(Gtk.Revealer):
         Gtk.Revealer.__init__(self)
 
         self.context = context
-        self.set_transition_duration(200)
+        self.set_transition_duration(170)
         self.set_border_width(0)
         self.set_property("margin", 0)
 
