@@ -33,10 +33,6 @@ class ScJobView(Gtk.Box):
         self.set_size_request(200, -1)
 
         self.context = context
-        sep = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
-        sep.set_margin_top(6)
-        sep.set_margin_bottom(18)
-        self.pack_start(sep, False, False, 0)
 
         # Ongoing jobs
         lab = self.fancy_header(_("Tasks"), "view-list-symbolic")

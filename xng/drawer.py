@@ -136,6 +136,8 @@ class ScDrawer(Gtk.Revealer):
     settings_view = None
     job_view = None
 
+    button_stack = None  # Settings, Back
+
     def __init__(self, context):
         Gtk.Revealer.__init__(self)
 
@@ -158,12 +160,16 @@ class ScDrawer(Gtk.Revealer):
         self.sidebar = Gtk.EventBox.new()
         self.sidebar.get_style_context().add_class("sidebar")
 
+        self.layout = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.sidebar.add(self.layout)
+        self.build_header()
+
         # Now add the stack
         self.stack = Gtk.Stack.new()
         self.stack.set_homogeneous(False)
         self.stack.set_interpolate_size(True)
         self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
-        self.sidebar.add(self.stack)
+        self.layout.pack_start(self.stack, True, True, 0)
 
         # Build primary view
         self.build_primary_view()
@@ -171,7 +177,6 @@ class ScDrawer(Gtk.Revealer):
         # Construct settings view to allow switching to it
         self.settings_view = ScSettingsView(self.context)
         self.stack.add_named(self.settings_view, 'settings')
-        self.settings_view.connect('go-back', self.on_back_clicked)
 
         self.sidebar.show_all()
         self.add(self.sidebar)
@@ -183,6 +188,16 @@ class ScDrawer(Gtk.Revealer):
         box.set_valign(Gtk.Align.FILL)
         box.set_vexpand(True)
 
+        # Whack in the job view now
+        self.job_view = ScJobView(self.context)
+        box.pack_start(self.job_view, True, True, 0)
+
+        # Now add to the stack
+        box.show_all()
+        self.stack.add_named(box, 'main')
+
+    def build_header(self):
+        """ Build the navigation stack header """
         # Link to get to settings view
         settings_button = Gtk.Button.new()
         settings_button.set_halign(Gtk.Align.END)
@@ -199,23 +214,53 @@ class ScDrawer(Gtk.Revealer):
         settings_button.add(button_box)
         settings_button.connect('clicked', self.on_settings_clicked)
 
-        box.pack_start(settings_button, False, False, 0)
+        # Link to get back to the main view
+        button = Gtk.Button.new()
+        button.set_halign(Gtk.Align.END)
+        button.get_style_context().add_class("flat")
+        button_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        button_img = Gtk.Image.new_from_icon_name(
+            "go-previous-symbolic",
+            Gtk.IconSize.BUTTON)
+        button_lbl = Gtk.Label.new(_("Back"))
+        button_box.pack_start(button_img, False, False, 0)
+        button_img.set_margin_end(4)
+        button_lbl.set_halign(Gtk.Align.START)
+        button_box.pack_start(button_lbl, False, False, 0)
+        button.add(button_box)
+        button.connect('clicked', self.on_back_clicked)
 
-        # Whack in the job view now
-        self.job_view = ScJobView(self.context)
-        box.pack_start(self.job_view, True, True, 0)
+        # Now a button stack for our two buttons
+        self.button_stack = Gtk.Stack.new()
+        self.button_stack.set_interpolate_size(True)
+        self.button_stack.set_transition_type(
+            Gtk.StackTransitionType.CROSSFADE)
+        self.button_stack.set_homogeneous(False)
+        self.button_stack.set_halign(Gtk.Align.END)
+        self.button_stack.set_margin_top(10)
+        self.button_stack.set_margin_end(10)
 
-        # Now add to the stack
-        box.show_all()
-        self.stack.add_named(box, 'main')
+        # Add buttons..
+        self.button_stack.add_named(settings_button, 'settings_button')
+        self.button_stack.add_named(button, 'back_button')
+        self.button_stack.set_visible_child_name('settings_button')
+
+        self.layout.pack_start(self.button_stack, False, False, 0)
+
+        sep = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
+        sep.set_margin_top(6)
+        sep.set_margin_bottom(18)
+        self.layout.pack_start(sep, False, False, 0)
 
     def on_settings_clicked(self, widget, udata=None):
         """ Settings button was clicked, move to Settings view """
         self.stack.set_visible_child_name('settings')
+        self.button_stack.set_visible_child_name('back_button')
 
     def on_back_clicked(self, widget, udata=None):
         """ Pressed back button from within settings view """
         self.stack.set_visible_child_name('main')
+        self.button_stack.set_visible_child_name('settings_button')
 
     def slide_in(self):
         """ Slide ourselves onto the plane """
