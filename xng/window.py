@@ -25,13 +25,7 @@ from .drawer import ScDrawerPlane
 
 
 class ScUpdatesButton(Gtk.Button):
-    """ ScUpdatesButton is a simple button wrapper to allow hiding the
-        updates text until such point as the button is needed fully
-
-        When updates are available, the button style class is updated
-        and we expand the text out to the left of the button, to
-        provide a visual cue to the user that there has been an internal
-        state change.
+    """ Simple button that restyles itself when updates are available
     """
 
     img = None
@@ -39,14 +33,10 @@ class ScUpdatesButton(Gtk.Button):
     def __init__(self):
         Gtk.Button.__init__(self)
 
-        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
-        self.add(box)
-
-        # Image is anchored on the left
         self.img = Gtk.Image.new_from_icon_name(
             "software-update-available-symbolic",
             Gtk.IconSize.SMALL_TOOLBAR)
-        box.pack_start(self.img, True, True, 0)
+        self.add(self.img)
 
     def set_updates_available(self, available):
         """ Alter our state to indicate update availability """
@@ -60,6 +50,62 @@ class ScUpdatesButton(Gtk.Button):
 
         # Just helps with idle loops
         return False
+
+
+class ScDrawerButton(Gtk.ToggleButton):
+    """ Simple button to control the draw visibility, and also sliding
+        a spinner into view when jobs are currently running
+    """
+
+    revealer = None
+    spinner = None
+    context = None
+
+    def __init__(self, context):
+        Gtk.ToggleButton.__init__(self)
+        self.context = context
+
+        box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
+        self.add(box)
+
+        # Image is anchored on the left
+        self.img = Gtk.Image.new_from_icon_name(
+            "open-menu-symbolic",
+            Gtk.IconSize.SMALL_TOOLBAR)
+        box.pack_start(self.img, True, True, 0)
+        self.img.set_halign(Gtk.Align.CENTER)
+
+        self.set_can_focus(False)
+        self.get_style_context().add_class("image-button")
+
+        # Allow sliding the spinner into view
+        self.revealer = Gtk.Revealer.new()
+        self.revealer.set_reveal_child(False)
+        self.revealer.set_transition_type(
+            Gtk.RevealerTransitionType.SLIDE_RIGHT)
+        self.spinner = Gtk.Spinner.new()
+        self.spinner.stop()
+        self.revealer.add(self.spinner)
+        box.pack_start(self.revealer, False, False, 0)
+        self.revealer.set_property("margin", 0)
+        self.revealer.set_border_width(0)
+
+        self.spinner.set_margin_start(3)
+        self.spinner.set_margin_end(3)
+
+        # Allow knowing job states
+        self.context.executor.connect('execution-started', self.start_exec)
+        self.context.executor.connect('execution-ended', self.end_exec)
+
+    def start_exec(self, executor, item):
+        """ Execution started, show the busy spinner """
+        self.spinner.start()
+        self.revealer.set_reveal_child(True)
+
+    def end_exec(self, executor, item):
+        """ Execution stopped, hide the busy spinner """
+        self.spinner.stop()
+        self.revealer.set_reveal_child(False)
 
 
 class ScMainWindow(Gtk.ApplicationWindow):
@@ -269,16 +315,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.home_button.set_sensitive(False)
 
         # Toggle for sidebar drawer
-        self.sidebar_button = Gtk.ToggleButton()
+        self.sidebar_button = ScDrawerButton(self.context)
         self.sidebar_button.connect('toggled', self.on_sidebar_toggled)
-        img = Gtk.Image.new_from_icon_name(
-            "open-menu-symbolic",
-            Gtk.IconSize.SMALL_TOOLBAR
-        )
-        self.sidebar_button.add(img)
-        self.sidebar_button.set_can_focus(False)
-        st = self.sidebar_button.get_style_context()
-        st.add_class("image-button")
         self.hbar.pack_end(self.sidebar_button)
 
         self.sidebar_button.bind_property('active',
