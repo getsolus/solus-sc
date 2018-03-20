@@ -60,7 +60,7 @@ class Executor(GObject.Object):
 
             This should be called by the backend being executed
         """
-        self.progress_value = msg
+        self.progress_value = value
 
     def install_package(self, ids):
         """ Install or queue installation """
