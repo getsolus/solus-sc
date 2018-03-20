@@ -13,10 +13,12 @@
 
 
 from .op_queue import OperationQueue, Operation, OperationType
+from gi.repository import GObject
 from threading import Lock, Thread
+from .plugins.base import ProviderItem
 
 
-class Executor:
+class Executor(GObject.Object):
     """ Executor is responsible for handling the main "loop" around the
         installation/removal of packages
     """
@@ -25,12 +27,40 @@ class Executor:
     thread_lock = None
     thread_running = False
 
+    progress_string = None
+    progress_value = None
+
+    __gtype_name__ = "ScExecutor"
+
+    __gsignals__ = {
+        'execution-started': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
+                              (ProviderItem,)),
+        'execution-ended': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
+                            (ProviderItem,))
+    }
+
     def __init__(self):
+        GObject.Object.__init__(self)
+
+        # Management of the work queue
         self.queue = OperationQueue()
         self.thread_lock = Lock()
         self.thread_running = False
 
-        # TODO: Spawn a thread
+    def set_progress_string(self, msg):
+        """ Update the progress message to be displayed for the ongoing
+            actions
+
+            This should be called by the backend being executed
+        """
+        self.progress_string = msg
+
+    def set_progress_value(self, value):
+        """ Set the current progress value that will be displayed
+
+            This should be called by the backend being executed
+        """
+        self.progress_value = msg
 
     def install_package(self, ids):
         """ Install or queue installation """
@@ -65,14 +95,8 @@ class Executor:
         """ Process the queue until it empties """
         while not self.queue.opstack.empty():
             item = self.queue.opstack.get()
-            plugin = item.data.get_plugin()
-            if item.opType == OperationType.INSTALL:
-                plugin.install_item(item.data)
-            elif item.opType == OperationType.REMOVE:
-                plugin.install_item(item.data)
-            elif item.opType == OperationType.UPGRADE:
-                plugin.remove_item(item.data)
-            print("Got item: {}".format(item.data))
+            self.process_queue_item(item)
+
         # Queue ran out
         print("queue emptied")
         self.thread_lock.acquire()
@@ -80,3 +104,14 @@ class Executor:
             self.thread_running = False
         finally:
             self.thread_lock.release()
+
+    def process_queue_item(self, item):
+        """ Handle execution of a single item """
+        plugin = item.data.get_plugin()
+        # Process
+        if item.opType == OperationType.INSTALL:
+            plugin.install_item(item.data)
+        elif item.opType == OperationType.REMOVE:
+            plugin.install_item(item.data)
+        elif item.opType == OperationType.UPGRADE:
+                plugin.remove_item(item.data)
