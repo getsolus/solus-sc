@@ -453,7 +453,7 @@ class EopkgPlugin(ProviderPlugin):
     def install_item(self, items):
         names = [x.get_id() for x in items]
         print("installing: {}".format(names))
-        self.pmanager.installPackage(",".join(names), async=self.dbus_callback)
+        self.pmanager.installPackage(",".join(names))
 
 
 class EopkgItem(ProviderItem):

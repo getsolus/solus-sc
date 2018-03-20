@@ -125,8 +125,8 @@ class ScContext(GObject.Object):
         # TODO: Make sure this part is a dependency dialog
         print("begin_install: {}".format(", ".join(names)))
 
-        # Now try the install
-        item.get_plugin().install_item((item,))
+        # Schedule now
+        self.executor.install_package(item)
 
     def begin_remove(self, item):
         """ Begin the work necessary to remove a package """

@@ -110,7 +110,7 @@ class Executor(GObject.Object):
         plugin = item.data.get_plugin()
         # Process
         if item.opType == OperationType.INSTALL:
-            plugin.install_item(item.data)
+            plugin.install_item((item.data, ))
         elif item.opType == OperationType.REMOVE:
             plugin.install_item(item.data)
         elif item.opType == OperationType.UPGRADE:
