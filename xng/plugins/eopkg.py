@@ -271,6 +271,11 @@ class EopkgPlugin(ProviderPlugin):
 
         # Talk to eopkg/pisi over dbus
         self.link = comar.Link()
+        try:
+            self.link.setLocale()
+        except Exception as e:
+            print("Failure to set locale: {}".format(e))
+
         self.pmanager = self.link.System.Manager['pisi']
         self.link.listenSignals("System.Manager", self.dbus_callback)
 
