@@ -39,6 +39,7 @@ class ScContext(GObject.Object):
         GObject.Object.__init__(self)
         self.has_loaded = False
         self.window = window
+        self.executor = Executor()
 
     def begin_load(self):
         """ Request a load for the system, i.e. after all components are
@@ -114,7 +115,6 @@ class ScContext(GObject.Object):
     def build_data(self, args=None):
         """ Perform expensive operations """
         self.appsystem = AppSystem()
-        self.executor = Executor()
         GLib.idle_add(self.emit_loaded)
 
     def begin_install(self, item):
@@ -126,7 +126,7 @@ class ScContext(GObject.Object):
         print("begin_install: {}".format(", ".join(names)))
 
         # Now try the install
-        item.get_plugin().install_item(packages)
+        item.get_plugin().install_item((item,))
 
     def begin_remove(self, item):
         """ Begin the work necessary to remove a package """
