@@ -95,7 +95,11 @@ class Executor(GObject.Object):
         """ Process the queue until it empties """
         while not self.queue.opstack.empty():
             item = self.queue.opstack.get()
-            self.process_queue_item(item)
+            try:
+                self.begin_executor_busy(item)
+                self.process_queue_item(item)
+            finally:
+                self.end_executor_busy(item)
 
         # Queue ran out
         print("queue emptied")
@@ -115,3 +119,11 @@ class Executor(GObject.Object):
             plugin.install_item(item.data)
         elif item.opType == OperationType.UPGRADE:
                 plugin.remove_item(item.data)
+
+    def begin_executor_busy(self, item):
+        """ Let listeners know the executor is stepping into a job now """
+        self.emit('execution-started', item.data)
+
+    def end_executor_busy(self, item):
+        """ Let listeners know we're done for now """
+        self.emit('execution-ended', item.data)
