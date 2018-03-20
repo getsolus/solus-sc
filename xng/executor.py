@@ -13,7 +13,7 @@
 
 
 from .op_queue import OperationQueue, Operation, OperationType
-from gi.repository import GObject
+from gi.repository import GObject, Gdk
 from threading import Lock, Thread
 from .plugins.base import ProviderItem
 
@@ -122,8 +122,12 @@ class Executor(GObject.Object):
 
     def begin_executor_busy(self, item):
         """ Let listeners know the executor is stepping into a job now """
+        Gdk.threads_enter()
         self.emit('execution-started', item.data)
+        Gdk.threads_leave()
 
     def end_executor_busy(self, item):
         """ Let listeners know we're done for now """
+        Gdk.threads_enter()
         self.emit('execution-ended', item.data)
+        Gdk.threads_leave()
