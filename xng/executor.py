@@ -13,7 +13,7 @@
 
 
 from .op_queue import OperationQueue, Operation, OperationType
-from gi.repository import GObject, Gdk
+from gi.repository import GObject, Gdk, GLib
 from threading import Lock, Thread
 from .plugins.base import ProviderItem
 
@@ -29,6 +29,7 @@ class Executor(GObject.Object):
 
     progress_string = None
     progress_value = None
+    job_description = None
 
     __gtype_name__ = "ScExecutor"
 
@@ -55,12 +56,18 @@ class Executor(GObject.Object):
         """
         self.progress_string = msg
 
+    def get_progress_string(self):
+        return self.progress_string
+
     def set_progress_value(self, value):
         """ Set the current progress value that will be displayed
 
             This should be called by the backend being executed
         """
         self.progress_value = value
+
+    def get_job_description(self):
+        return self.job_description
 
     def install_package(self, ids):
         """ Install or queue installation """
@@ -96,6 +103,7 @@ class Executor(GObject.Object):
         while not self.queue.opstack.empty():
             item = self.queue.opstack.get()
             try:
+                self.set_job_description(item)
                 self.begin_executor_busy(item)
                 self.process_queue_item(item)
             finally:
@@ -108,6 +116,16 @@ class Executor(GObject.Object):
             self.thread_running = False
         finally:
             self.thread_lock.release()
+
+    def set_job_description(self, item):
+        """ Set appropriate job description for sidebar display """
+        name = GLib.markup_escape_text(str(item.data.get_name()))
+        if item.opType == OperationType.INSTALL:
+            # Install gedit
+            self.job_description = _("Install '{}'".format(name))
+        elif item.opType == OperationType.REMOVE:
+            self.job_description = _("Remove '{}'".format(name))
+        # Don't know how to handle update yet'
 
     def process_queue_item(self, item):
         """ Handle execution of a single item """

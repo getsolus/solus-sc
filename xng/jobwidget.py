@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib
 
 
 class ScJobWidget(Gtk.Box):
@@ -29,6 +29,7 @@ class ScJobWidget(Gtk.Box):
     size_group = None
 
     context = None
+    monitor_id = None
 
     def __init__(self, context=None):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
@@ -69,3 +70,37 @@ class ScJobWidget(Gtk.Box):
         self.progressbar.set_halign(Gtk.Align.START)
         self.pack_start(self.progressbar, False, False, 0)
         self.size_group.add_widget(self.progressbar)
+
+        # Make sure we know what the context is doing
+        self.context.executor.connect('execution-started', self.start_exec)
+        self.context.executor.connect('execution-ended', self.end_exec)
+
+    def start_exec(self, executor, item):
+        """ Executor started a job, start monitoring now """
+        # Stop existing monitor
+        if self.monitor_id is not None:
+            print("Removing old monitor")
+            GLib.source_remove(self.monitor_id)
+            self.monitor_id = None
+
+        # Give us an appropriate display label
+        self.title_label.set_markup("<small>{}</small>".format(
+            self.context.executor.get_job_description()))
+
+        # Set up new monitor
+        print("Adding new monitor")
+        self.monitor_id = GLib.timeout_add(50, self.monitor_callback)
+
+    def end_exec(self, executor, item):
+        """ Executor ended a job, stop monitoring now """
+        if self.monitor_id is not None:
+            print("Stopped old monitor")
+            GLib.source_remove(self.monitor_id)
+            self.monitor_id = None
+        pass
+
+    def monitor_callback(self):
+        """ Idle timer to routinely update our state """
+        self.action_label.set_markup("<small>{}</small>".format(
+            self.context.executor.get_progress_string()))
+        return self.monitor_id is not None
