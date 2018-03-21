@@ -448,12 +448,54 @@ class EopkgPlugin(ProviderPlugin):
 
     def dbus_callback(self, package, signal, args):
         """ eopkg/pisi talked to us via COMAR """
-        print("signal: {} (args: {})".format(signal, args))
 
-    def install_item(self, items):
+        # Proxy the request to the appropriate callback
+        if signal == "status":
+            self.handle_dbus_status(args)
+        elif signal == "progress":
+            self.handle_dbus_progress(args)
+        elif signal == "finished" or signal is None:
+            self.handle_dbus_finished(args)
+        elif str(signal).startswith("tr.org.pardus.comar.Comar.PolicyKit"):
+            self.handle_dbus_cancelled(args)
+
+    def handle_dbus_status(self, args):
+        """ Handle status command appropriately """
+        cmd = args[0]
+        what = args[1]
+
+        print("Status: {} {}".format(cmd, what))
+
+    def handle_dbus_progress(self, args):
+        """ Handle progress changes """
+        print("Progress: {}".format(args))
+
+    def handle_dbus_finished(self, args):
+        """ Handle D-BUS finish, i.e. rebuild caches and such """
+        finishedTypes = [
+            "System.Manager.installPackage",
+            "System.Manager.reinstallPackage",
+            "System.Manager.removePackage",
+            "System.Manager.updatePackage",
+            "System.Manager.updateRepository",
+            "System.Manager.updateAllRepositories",
+        ]
+        if args and args[0] and args[0] in finishedTypes:
+            # This is where we need to force a rebuild of the context
+            print("Finished: {}".format(args[0]))
+
+    def handle_dbus_cancelled(self, args):
+        """ Cancellation or failure to authenticate """
+        print("Cancellation: {}".format(args))
+
+    def install_item(self, executor, items):
         names = [x.get_id() for x in items]
         print("installing: {}".format(names))
+        # Stash executor for dbus callback
+        self.executor = executor
         self.pmanager.installPackage(",".join(names))
+        # Drop it again
+        self.executor = None
 
 
 class EopkgItem(ProviderItem):

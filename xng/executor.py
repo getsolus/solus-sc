@@ -114,11 +114,11 @@ class Executor(GObject.Object):
         plugin = item.data.get_plugin()
         # Process
         if item.opType == OperationType.INSTALL:
-            plugin.install_item((item.data, ))
+            plugin.install_item(self, (item.data, ))
         elif item.opType == OperationType.REMOVE:
-            plugin.install_item(item.data)
+            plugin.remove_item(self, item.data)
         elif item.opType == OperationType.UPGRADE:
-                plugin.remove_item(item.data)
+            plugin.remove_item(self, item.data)
 
     def begin_executor_busy(self, item):
         """ Let listeners know the executor is stepping into a job now """

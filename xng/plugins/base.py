@@ -169,13 +169,13 @@ class ProviderPlugin(GObject.Object):
         """ Return the categories known by this plugin """
         return []
 
-    def install_item(self, item):
+    def install_item(self, executor, item):
         raise RuntimeError("implement install_item")
 
-    def remove_item(self, item):
+    def remove_item(self, executor, item):
         raise RuntimeError("implement remove_item")
 
-    def upgrade_item(self, item):
+    def upgrade_item(self, executor, item):
         raise RuntimeError("implement upgrade_item")
 
     def plan_install_item(self, item):
