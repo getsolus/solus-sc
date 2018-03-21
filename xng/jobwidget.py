@@ -28,7 +28,9 @@ class ScJobWidget(Gtk.Box):
     progressbar = None
     size_group = None
 
-    def __init__(self, dynamic=False):
+    context = None
+
+    def __init__(self, context=None):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self.set_spacing(3)
@@ -45,8 +47,9 @@ class ScJobWidget(Gtk.Box):
         self.pack_start(self.title_label, False, False, 0)
         self.size_group.add_widget(self.title_label)
 
+        self.context = context
         # No sense in creating widgets we never use.
-        if not dynamic:
+        if not self.context:
             return
 
         # Construct our ongoing action label

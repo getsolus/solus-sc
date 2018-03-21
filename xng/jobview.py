@@ -55,7 +55,7 @@ class ScJobView(Gtk.Box):
         self.pack_start(scroll, True, True, 0)
 
         # Primary running job is a dynamic ScJobWidget
-        self.running_job = ScJobWidget(True)
+        self.running_job = ScJobWidget(self.context)
         self.listbox_jobs.add(self.running_job)
 
     def fancy_header(self, title, icon):
