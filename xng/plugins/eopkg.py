@@ -259,6 +259,10 @@ class EopkgPlugin(ProviderPlugin):
     link = None
     pmanager = None
 
+    # Allow us to track expected operations for progress purposes
+    progress_total = 0    # Total number of items in our operation
+    progress_current = 0  # Current progress
+
     __gtype_name__ = "NxEopkgPlugin"
 
     def __init__(self):
@@ -444,6 +448,9 @@ class EopkgPlugin(ProviderPlugin):
         ret = []
         for name in pkgs:
             ret.append(self.build_item(name))
+
+        # Track how many we'll end up installing later.
+        self.progress_total = len(ret)
         return ret
 
     def dbus_callback(self, package, signal, args):
@@ -464,7 +471,52 @@ class EopkgPlugin(ProviderPlugin):
         cmd = args[0]
         what = args[1]
 
-        print("Status: {} {}".format(cmd, what))
+        # Unlike old SC we no longer look for configuring step as usysconf
+        # does this once we're all complete.
+
+        if cmd == "upgrading":
+            self.handle_dbus_upgrading(what)
+        elif cmd == "upgraded":
+            self.handle_dbus_upgraded(what)
+        elif cmd == "removing":
+            self.handle_dbus_removing(what)
+        elif cmd == "removed":
+            self.handle_dbus_removed(what)
+        elif cmd == "installing":
+            self.handle_dbus_installing(what)
+        elif cmd == "installed":
+            self.handle_dbus_installed(what)
+        elif cmd == "extracting":
+            self.handle_dbus_extracting(what)
+        else:
+            print("Status: {} {}".format(cmd, what))
+
+    def handle_dbus_upgrading(self, what):
+        """ Package is now upgrading """
+        print("Upgrading: {}".format(what))
+
+    def handle_dbus_upgraded(self, what):
+        """ Package was upgraded """
+        print("Upgraded: {}".format(what))
+
+    def handle_dbus_removing(self, what):
+        """ Package is now removing """
+        print("Removing: {}".format(what))
+
+    def handle_dbus_removed(self, what):
+        """ Package was removed """
+        print("Removed: {}".format(what))
+
+    def handle_dbus_installing(self, what):
+        """ Package is now installing """
+        print("Installing: {}".format(what))
+
+    def handle_dbus_installed(self, what):
+        """ Package was installed """
+        print("Installed: {}".format(what))
+
+    def handle_dbus_extracting(self, what):
+        print("Extracting: {}".format(what))
 
     def handle_dbus_progress(self, args):
         """ Handle progress changes """
