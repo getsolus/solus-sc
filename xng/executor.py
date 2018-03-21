@@ -127,6 +127,9 @@ class Executor(GObject.Object):
             self.job_description = _("Remove '{}'".format(name))
         # Don't know how to handle update yet'
 
+        # Update our initial display label
+        self.progress_string = "{}…".format(_("Waiting"))
+
     def process_queue_item(self, item):
         """ Handle execution of a single item """
         plugin = item.data.get_plugin()
