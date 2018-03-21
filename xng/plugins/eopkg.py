@@ -262,6 +262,7 @@ class EopkgPlugin(ProviderPlugin):
     # Allow us to track expected operations for progress purposes
     progress_total = 0    # Total number of items in our operation
     progress_current = 0  # Current progress
+    current_package = None
 
     __gtype_name__ = "NxEopkgPlugin"
 
@@ -495,33 +496,58 @@ class EopkgPlugin(ProviderPlugin):
 
     def handle_dbus_upgrading(self, what):
         """ Package is now upgrading """
-        print("Upgrading: {}".format(what))
+        self.current_package = what
+        self.executor.set_progress_string(_("Upgrading {} of {}: {}".format(
+            self.progress_current,
+            self.progress_total,
+            self.current_package)))
 
     def handle_dbus_upgraded(self, what):
         """ Package was upgraded """
-        print("Upgraded: {}".format(what))
+        self.executor.set_progress_string(_("Upgraded {} of {}: {}".format(
+            self.progress_current,
+            self.progress_total,
+            self.current_package)))
 
     def handle_dbus_removing(self, what):
         """ Package is now removing """
-        print("Removing: {}".format(what))
+        self.current_package = what
+        self.executor.set_progress_string(_("Removing {} of {}: {}".format(
+            self.progress_current,
+            self.progress_total,
+            self.current_package)))
 
     def handle_dbus_removed(self, what):
         """ Package was removed """
-        print("Removed: {}".format(what))
+        self.executor.set_progress_string(_("Removed {} of {}: {}".format(
+            self.progress_current,
+            self.progress_total,
+            self.current_package)))
 
     def handle_dbus_installing(self, what):
         """ Package is now installing """
-        print("Installing: {}".format(what))
+        self.current_package = what
+        self.executor.set_progress_string(_("Installing {} of {}: {}".format(
+            self.progress_current,
+            self.progress_total,
+            self.current_package)))
 
     def handle_dbus_installed(self, what):
         """ Package was installed """
-        print("Installed: {}".format(what))
+        self.executor.set_progress_string(_("Installed {} of {}: {}".format(
+            self.progress_current,
+            self.progress_total,
+            self.current_package)))
 
     def handle_dbus_extracting(self, what):
-        print("Extracting: {}".format(what))
+        self.current_package = what
+        self.executor.set_progress_string(_("Extracting {} of {}: {}".format(
+            self.progress_current,
+            self.progress_total,
+            self.current_package)))
 
     def handle_dbus_usysconf(self):
-        print("usysconf now running")
+        self.executor.set_progress_string(_("Updating system configuration"))
 
     def handle_dbus_progress(self, args):
         """ Handle progress changes """

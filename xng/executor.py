@@ -54,7 +54,9 @@ class Executor(GObject.Object):
 
             This should be called by the backend being executed
         """
+        Gdk.threads_enter()
         self.progress_string = msg
+        Gdk.threads_leave()
 
     def get_progress_string(self):
         return self.progress_string
