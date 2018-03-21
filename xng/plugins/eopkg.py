@@ -488,6 +488,8 @@ class EopkgPlugin(ProviderPlugin):
             self.handle_dbus_installed(what)
         elif cmd == "extracting":
             self.handle_dbus_extracting(what)
+        elif cmd == "systemconf":
+            self.handle_dbus_usysconf()
         else:
             print("Status: {} {}".format(cmd, what))
 
@@ -517,6 +519,9 @@ class EopkgPlugin(ProviderPlugin):
 
     def handle_dbus_extracting(self, what):
         print("Extracting: {}".format(what))
+
+    def handle_dbus_usysconf(self):
+        print("usysconf now running")
 
     def handle_dbus_progress(self, args):
         """ Handle progress changes """
