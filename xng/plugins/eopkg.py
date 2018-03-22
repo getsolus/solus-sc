@@ -572,6 +572,8 @@ class EopkgPlugin(ProviderPlugin):
             # This is where we need to force a rebuild of the context
             print("Finished: {}".format(args[0]))
 
+        print("Finished message: {}".format(args))
+
     def handle_dbus_cancelled(self, args):
         """ Cancellation or failure to authenticate """
         print("Cancellation: {}".format(args))
