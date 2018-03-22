@@ -77,9 +77,13 @@ class ScItemButton(Gtk.FlowBoxChild):
         self.action_button = Gtk.Button.new_with_label(action_name)
         self.action_button.set_halign(Gtk.Align.END)
         self.action_button.set_valign(Gtk.Align.CENTER)
-        self.action_button.get_style_context().add_class(action_style)
         main_box.pack_end(self.action_button, False, False, 0)
         self.action_button.get_style_context().add_class("flat")
+
+        if item.has_status(ItemStatus.META_ESSENTIAL):
+            self.action_button.set_sensitive(False)
+        else:
+            self.action_button.get_style_context().add_class(action_style)
 
         self.get_style_context().add_class("category-item-row")
 
