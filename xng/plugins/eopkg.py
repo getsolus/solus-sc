@@ -512,7 +512,6 @@ class EopkgPlugin(ProviderPlugin):
             self.current_package)))
         self.progress_current += 1
 
-
     def handle_dbus_removing(self, what):
         """ Package is now removing """
         self.current_package = what
