@@ -56,6 +56,7 @@ class Executor(GObject.Object):
         """
         Gdk.threads_enter()
         self.progress_string = msg
+        print(msg)
         Gdk.threads_leave()
 
     def get_progress_string(self):

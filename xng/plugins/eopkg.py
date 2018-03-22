@@ -452,6 +452,8 @@ class EopkgPlugin(ProviderPlugin):
 
         # Track how many we'll end up installing later.
         self.progress_total = len(ret)
+        self.progress_current = 0
+
         return ret
 
     def dbus_callback(self, package, signal, args):
@@ -498,51 +500,55 @@ class EopkgPlugin(ProviderPlugin):
         """ Package is now upgrading """
         self.current_package = what
         self.executor.set_progress_string(_("Upgrading {} of {}: {}".format(
-            self.progress_current,
+            self.progress_current + 1,
             self.progress_total,
             self.current_package)))
 
     def handle_dbus_upgraded(self, what):
         """ Package was upgraded """
         self.executor.set_progress_string(_("Upgraded {} of {}: {}".format(
-            self.progress_current,
+            self.progress_current + 1,
             self.progress_total,
             self.current_package)))
+        self.progress_current += 1
+
 
     def handle_dbus_removing(self, what):
         """ Package is now removing """
         self.current_package = what
         self.executor.set_progress_string(_("Removing {} of {}: {}".format(
-            self.progress_current,
+            self.progress_current + 1,
             self.progress_total,
             self.current_package)))
 
     def handle_dbus_removed(self, what):
         """ Package was removed """
         self.executor.set_progress_string(_("Removed {} of {}: {}".format(
-            self.progress_current,
+            self.progress_current + 1,
             self.progress_total,
             self.current_package)))
+        self.progress_current += 1
 
     def handle_dbus_installing(self, what):
         """ Package is now installing """
         self.current_package = what
         self.executor.set_progress_string(_("Installing {} of {}: {}".format(
-            self.progress_current,
+            self.progress_current + 1,
             self.progress_total,
             self.current_package)))
 
     def handle_dbus_installed(self, what):
         """ Package was installed """
         self.executor.set_progress_string(_("Installed {} of {}: {}".format(
-            self.progress_current,
+            self.progress_current + 1,
             self.progress_total,
             self.current_package)))
+        self.progress_current += 1
 
     def handle_dbus_extracting(self, what):
         self.current_package = what
         self.executor.set_progress_string(_("Extracting {} of {}: {}".format(
-            self.progress_current,
+            self.progress_current + 1,
             self.progress_total,
             self.current_package)))
 
