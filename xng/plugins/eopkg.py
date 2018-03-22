@@ -264,6 +264,8 @@ class EopkgPlugin(ProviderPlugin):
     progress_current = 0  # Current progress
     current_package = None
 
+    operation_blocked = False  # Allow spin locking
+
     __gtype_name__ = "NxEopkgPlugin"
 
     def __init__(self):
@@ -456,6 +458,18 @@ class EopkgPlugin(ProviderPlugin):
 
         return ret
 
+    def spinlock_busy_wait(self):
+        """ Prep us for a new spinlock cycle """
+        print(" -> Prep spinlock")
+        self.operation_blocked = True
+
+    def spinlock_busy_end(self):
+        """ Wait until we're unblocked basically, with minimal wakes """
+        print(" -> spinlock start")
+        while self.operation_blocked:
+            time.sleep(.500)
+        print(" -> spinlock end")
+
     def dbus_callback(self, package, signal, args):
         """ eopkg/pisi talked to us via COMAR """
 
@@ -571,6 +585,8 @@ class EopkgPlugin(ProviderPlugin):
         if args and args[0] and args[0] in finishedTypes:
             # This is where we need to force a rebuild of the context
             print("Finished: {}".format(args[0]))
+            # Unblock spin lock here
+            self.operation_blocked = False
 
         print("Finished message: {}".format(args))
 
@@ -583,7 +599,12 @@ class EopkgPlugin(ProviderPlugin):
         print("installing: {}".format(names))
         # Stash executor for dbus callback
         self.executor = executor
+
+        # Guard operation to ensure we complete all ops
+        self.spinlock_busy_wait()
         self.pmanager.installPackage(",".join(names))
+        self.spinlock_busy_end()
+
         # Drop it again
         self.executor = None
 
