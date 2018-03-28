@@ -99,7 +99,6 @@ class ScSearchResult(Gtk.ListBoxRow):
         elif item.has_status(ItemStatus.UPDATE_NEEDED):
             action_name = "Update"
 
-
         self.action_button = Gtk.Button.new_with_label(action_name)
         self.action_button.set_halign(Gtk.Align.END)
         self.action_button.set_valign(Gtk.Align.CENTER)
