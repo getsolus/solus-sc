@@ -91,13 +91,13 @@ class ScSearchResult(Gtk.ListBoxRow):
         summary.set_halign(Gtk.Align.START)
         stride_box.pack_start(summary, False, False, 0)
 
-        action_name = "Install"
+        action_name = _("Install")
         action_style = "suggested-action"
         if item.has_status(ItemStatus.INSTALLED):
-            action_name = "Remove"
+            action_name = _("Remove")
             action_style = "destructive-action"
         elif item.has_status(ItemStatus.UPDATE_NEEDED):
-            action_name = "Update"
+            action_name = _("Update")
 
         self.action_button = Gtk.Button.new_with_label(action_name)
         self.action_button.set_halign(Gtk.Align.END)
