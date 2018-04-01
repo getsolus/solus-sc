@@ -27,18 +27,24 @@ class ScJobView(Gtk.Box):
     running_job = None
     listbox_jobs = None
 
+    runner_stack = None  # Allow switching between running/not-running
+
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self.set_size_request(200, -1)
 
         self.context = context
+        self.context.executor.connect('execution-started', self.start_exec)
+        self.context.executor.connect('execution-ended', self.end_exec)
 
         # Ongoing jobs
         lab = self.fancy_header(_("Tasks"), "view-list-symbolic")
         self.pack_start(lab, False, False, 0)
         lab.set_margin_start(4)
         lab.set_margin_bottom(20)
+
+        self.build_primary_job()
 
         # Create our fancyish listbox
         self.listbox_jobs = Gtk.ListBox.new()
@@ -52,9 +58,31 @@ class ScJobView(Gtk.Box):
         scroll.set_shadow_type(Gtk.ShadowType.NONE)
         self.pack_start(scroll, True, True, 0)
 
+
+    def build_primary_job(self):
         # Primary running job is a dynamic ScJobWidget
         self.running_job = ScJobWidget(self.context)
-        self.listbox_jobs.add(self.running_job)
+
+        # Build runner stack to allow switching out to no active jobs
+        self.runner_stack = Gtk.Stack.new()
+        self.runner_stack.set_transition_type(
+            Gtk.StackTransitionType.CROSSFADE)
+        self.pack_start(self.runner_stack, False, False, 0)
+        self.runner_stack.set_interpolate_size(True)
+
+        # Not running job
+        lab = Gtk.Label.new("<small>{}</small>".format(
+            _("No currently running tasks")))
+        lab.set_use_markup(True)
+        lab.get_style_context().add_class("dim-label")
+        lab.set_halign(Gtk.Align.START)
+        lab.set_margin_start(4)
+        lab.set_valign(Gtk.Align.CENTER)
+        self.runner_stack.add_named(lab, 'not-running')
+
+        # Running job
+        self.runner_stack.add_named(self.running_job, 'running')
+        self.runner_stack.set_visible_child_name('not-running')
 
     def fancy_header(self, title, icon):
         """ Build a fancy consistent header for the top section """
@@ -70,3 +98,11 @@ class ScJobView(Gtk.Box):
         box.set_margin_top(6)
         box.set_margin_bottom(6)
         return box
+
+    def start_exec(self, executor):
+        """ Show the job widget again """
+        self.runner_stack.set_visible_child_name('running')
+
+    def end_exec(self, executor):
+        """ Hide job widget again """
+        self.runner_stack.set_visible_child_name('not-running')
