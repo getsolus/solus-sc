@@ -618,7 +618,7 @@ class EopkgPlugin(ProviderPlugin):
         self.executor = executor
 
         self.spinlock_busy_wait()
-        self.pmanager.updateRepository(repository=source.get_name())
+        self.pmanager.updateRepository(source.get_name())
         self.spinlock_busy_end()
 
         self.executor = None
