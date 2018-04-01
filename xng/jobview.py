@@ -58,9 +58,8 @@ class ScJobView(Gtk.Box):
         scroll.set_shadow_type(Gtk.ShadowType.NONE)
         self.pack_start(scroll, True, True, 0)
 
-
     def build_primary_job(self):
-        # Primary running job is a dynamic ScJobWidget
+        """ Build the primary "running job" view """
         self.running_job = ScJobWidget(self.context)
 
         # Build runner stack to allow switching out to no active jobs
