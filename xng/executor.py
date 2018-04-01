@@ -34,7 +34,11 @@ class Executor(GObject.Object):
 
     __gsignals__ = {
         'execution-started': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, ()),
-        'execution-ended': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, ())
+        'execution-ended': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, ()),
+        'job-enqueued': (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE,
+                         (Operation,)),
+        'job-dequeued': (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE,
+                         (Operation,))
     }
 
     def __init__(self):
@@ -69,20 +73,35 @@ class Executor(GObject.Object):
     def get_job_description(self):
         return self.job_description
 
+    def emit_enqueued(self, operation):
+        """ Let folks know a new job is enqueued """
+        self.emit('job-enqueued', operation)
+
+    def emit_dequeued(self, operation):
+        """ Let folks know a job has been dequeued """
+        self.emit('job-dequeued', operation)
+
+    def push_operation(self, operation):
+        """ Push an operation and mark it queued """
+        self.emit_enqueued(operation)
+        self.queue.push_operation(operation)
+        self.maybe_respawn()
+
     def install_package(self, ids):
         """ Install or queue installation """
-        self.queue.push_operation(Operation.Install(ids))
-        self.maybe_respawn()
+        self.push_operation(Operation.Install(ids))
 
     def remove_package(self, ids):
         """ Remove or queue removal """
-        self.queue.push_operation(Operation.Remove(ids))
-        self.maybe_respawn()
+        self.push_operation(Operation.Remove(ids))
 
     def upgrade_package(self, ids):
         """ Upgrade or queue upgrade """
-        self.queue.push_operation(Operation.Upgrade(ids))
-        self.maybe_respawn()
+        self.push_operation(Operation.Upgrade(ids))
+
+    def refresh_source(self, source):
+        """ Push a refresh operation onto the queue """
+        self.push_operation(Operation.Refresh(source))
 
     def maybe_respawn(self):
         """ Start up the worker thread again if our thread ended """
@@ -103,6 +122,7 @@ class Executor(GObject.Object):
         while not self.queue.opstack.empty():
             item = self.queue.opstack.get()
             try:
+                self.emit_dequeued(item)
                 self.set_job_description(item)
                 self.begin_executor_busy(item)
                 self.process_queue_item(item)
@@ -119,16 +139,7 @@ class Executor(GObject.Object):
 
     def set_job_description(self, item):
         """ Set appropriate job description for sidebar display """
-        name = GLib.markup_escape_text(str(item.data.get_name()))
-        if item.opType == OperationType.INSTALL:
-            # Install gedit
-            self.job_description = _("Install '{}'".format(name))
-        elif item.opType == OperationType.REMOVE:
-            self.job_description = _("Remove '{}'".format(name))
-        elif item.opType == OperationType.REFRESH:
-            self.job_description = _("Refresh source '{}'".format(name))
-        # Don't know how to handle update yet'
-
+        self.job_description = GLib.markup_escape_text(str(item.describe()))
         # Update our initial display label
         self.progress_string = "{}…".format(_("Waiting"))
 
@@ -156,8 +167,3 @@ class Executor(GObject.Object):
         Gdk.threads_enter()
         self.emit('execution-ended')
         Gdk.threads_leave()
-
-    def refresh_source(self, source):
-        """ Push a refresh operation onto the queue """
-        self.queue.push_operation(Operation.Refresh(source))
-        self.maybe_respawn()

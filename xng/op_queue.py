@@ -13,6 +13,8 @@
 
 import Queue
 
+from gi.repository import GObject
+
 
 class OperationType:
 
@@ -22,7 +24,7 @@ class OperationType:
     REFRESH = 0  # Refresh is highest priority
 
 
-class Operation:
+class Operation(GObject.Object):
     """ Operation wraps up various operations so that they can be applied
         immediately whilst other operations will continue to be stacked up
         until such time as they can be applied.
@@ -31,13 +33,32 @@ class Operation:
     opType = 0
     data = None
 
+    __gtype_name__ = "XngOperation"
+
     def __cmp__(self, other):
         """ Ensure we can make other items higher priority ... """
         return cmp(self.opType, other.opType)
 
     def __init__(self, data, opType):
+        GObject.Object.__init__(self)
         self.data = data
         self.opType = opType
+
+    def describe(self):
+        """ Describe the current job/operation """
+        name = self.data.get_name()
+        if self.opType == OperationType.INSTALL:
+            # Install 'gedit'
+            return _("Install '{}'".format(name))
+        elif self.opType == OperationType.REMOVE:
+            # Remove 'gedit'
+            return _("Remove '{}'".format(name))
+        elif self.opType == OperationType.REFRESH:
+            # Refresh source 'Solus'
+            return _("Refresh source '{}'".format(name))
+        else:
+            # Don't know how to handle update yet
+            return None
 
     @staticmethod
     def Install(ids):

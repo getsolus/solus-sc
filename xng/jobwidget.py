@@ -104,3 +104,8 @@ class ScJobWidget(Gtk.Box):
         self.action_label.set_markup("<small>{}</small>".format(
             self.context.executor.get_progress_string()))
         return self.monitor_id is not None
+
+    def update_job(self, job):
+        """ Update our appearance based on a pending job """
+        safe = GLib.markup_escape_text(job.describe())
+        self.title_label.set_markup("<small>{}</small>".format(safe))

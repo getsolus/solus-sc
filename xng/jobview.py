@@ -29,14 +29,22 @@ class ScJobView(Gtk.Box):
 
     runner_stack = None  # Allow switching between running/not-running
 
+    jobs = None  # Mapping of jobs
+
+    pending_revealer = None
+
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self.set_size_request(200, -1)
 
         self.context = context
+        # Need to know all the jobs
         self.context.executor.connect('execution-started', self.start_exec)
         self.context.executor.connect('execution-ended', self.end_exec)
+        self.jobs = dict()
+        self.context.executor.connect('job-enqueued', self.job_enqueued)
+        self.context.executor.connect('job-dequeued', self.job_dequeued)
 
         # Ongoing jobs
         lab = self.fancy_header(_("Tasks"), "view-list-symbolic")
@@ -45,6 +53,21 @@ class ScJobView(Gtk.Box):
         lab.set_margin_bottom(20)
 
         self.build_primary_job()
+
+        # Pending tasks
+        self.pending_revealer = Gtk.Revealer.new()
+        self.pending_revealer.set_transition_type(
+            Gtk.RevealerTransitionType.SLIDE_UP)
+        lab = Gtk.Label("<small>{}</small>".format(_("Queued tasks")))
+        lab.get_style_context().add_class("dim-label")
+        lab.set_use_markup(True)
+        self.pending_revealer.add(lab)
+        lab.set_margin_start(4)
+        lab.set_margin_top(6)
+        lab.set_margin_bottom(6)
+        lab.set_halign(Gtk.Align.START)
+        self.pending_revealer.set_reveal_child(False)
+        self.pack_start(self.pending_revealer, False, False, 0)
 
         # Create our fancyish listbox
         self.listbox_jobs = Gtk.ListBox.new()
@@ -105,3 +128,24 @@ class ScJobView(Gtk.Box):
     def end_exec(self, executor):
         """ Hide job widget again """
         self.runner_stack.set_visible_child_name('not-running')
+
+    def job_enqueued(self, executor, job):
+        """ Add a new job representation """
+        if job in self.jobs:
+            return
+        wid = ScJobWidget()
+        wid.update_job(job)
+        wid.show_all()
+        self.listbox_jobs.add(wid)
+        self.jobs[job] = wid
+        self.pending_revealer.set_reveal_child(True)
+
+    def job_dequeued(self, executor, job):
+        """ Remove our job representation """
+        if job not in self.jobs:
+            return
+        jobview = self.jobs[job]
+        self.listbox_jobs.remove(jobview.get_parent())
+        del self.jobs[job]
+        if len(self.jobs) < 1:
+            self.pending_revealer.set_reveal_child(False)
