@@ -15,7 +15,6 @@
 from .op_queue import OperationQueue, Operation, OperationType
 from gi.repository import GObject, Gdk, GLib
 from threading import Lock, Thread
-from .plugins.base import ProviderItem
 
 
 class Executor(GObject.Object):
@@ -34,10 +33,8 @@ class Executor(GObject.Object):
     __gtype_name__ = "ScExecutor"
 
     __gsignals__ = {
-        'execution-started': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
-                              (ProviderItem,)),
-        'execution-ended': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE,
-                            (ProviderItem,))
+        'execution-started': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, ()),
+        'execution-ended': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, ())
     }
 
     def __init__(self):
@@ -128,6 +125,8 @@ class Executor(GObject.Object):
             self.job_description = _("Install '{}'".format(name))
         elif item.opType == OperationType.REMOVE:
             self.job_description = _("Remove '{}'".format(name))
+        elif item.opType == OperationType.REFRESH:
+            self.job_description = _("Refresh source '{}'".format(name))
         # Don't know how to handle update yet'
 
         # Update our initial display label
@@ -143,19 +142,22 @@ class Executor(GObject.Object):
             plugin.remove_item(self, item.data)
         elif item.opType == OperationType.UPGRADE:
             plugin.remove_item(self, item.data)
+        elif item.opType == OperationType.REFRESH:
+            plugin.refresh_source(self, item.data)
 
     def begin_executor_busy(self, item):
         """ Let listeners know the executor is stepping into a job now """
         Gdk.threads_enter()
-        self.emit('execution-started', item.data)
+        self.emit('execution-started')
         Gdk.threads_leave()
 
     def end_executor_busy(self, item):
         """ Let listeners know we're done for now """
         Gdk.threads_enter()
-        self.emit('execution-ended', item.data)
+        self.emit('execution-ended')
         Gdk.threads_leave()
 
-    def refresh_source(self, plugin, source):
-        print("Refreshing source {} from plugin {}".format(
-            source.describe(), plugin))
+    def refresh_source(self, source):
+        """ Push a refresh operation onto the queue """
+        self.queue.push_operation(Operation.Refresh(source))
+        self.maybe_respawn()

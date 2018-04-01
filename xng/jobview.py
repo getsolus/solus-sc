@@ -33,8 +33,6 @@ class ScJobView(Gtk.Box):
         self.set_size_request(200, -1)
 
         self.context = context
-        self.context.executor.connect('execution-started', self.start_exec)
-        self.context.executor.connect('execution-ended', self.end_exec)
 
         # Ongoing jobs
         lab = self.fancy_header(_("Tasks"), "view-list-symbolic")
@@ -72,11 +70,3 @@ class ScJobView(Gtk.Box):
         box.set_margin_top(6)
         box.set_margin_bottom(6)
         return box
-
-    def start_exec(self, executor, item):
-        """ Know when stuff is happening ... """
-        print("Start exec: {}".format(item))
-
-    def end_exec(self, executor, item):
-        """ Know when it isn't. """
-        print("End exec: {}".format(item))

@@ -148,4 +148,4 @@ class ScContext(GObject.Object):
         """ Attempt to refresh all sources """
         for plugin in self.plugins:
             for source in plugin.sources():
-                self.executor.refresh_source(plugin, source)
+                self.executor.refresh_source(source)

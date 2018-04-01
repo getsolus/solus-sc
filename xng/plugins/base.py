@@ -77,8 +77,14 @@ class ProviderSource(GObject.Object):
 
     __gtype_name__ = "NxProviderSource"
 
+    parent_plugin = None
+
     def __init__(self):
         GObject.Object.__init__(self)
+
+    def get_name(self):
+        """ Return human readable name for this source """
+        raise RuntimeError("implement get_name")
 
     def describe(self):
         """ Request a human readable description for this source """
@@ -96,9 +102,8 @@ class ProviderSource(GObject.Object):
         """ Determines whether the source can be edited """
         return False
 
-    def refresh(self, executor):
-        """ Attempt to refresh the source """
-        raise RuntimeError("implement refresh")
+    def get_plugin(self):
+        return self.parent_plugin
 
 
 class ProviderStorage(GObject.Object):
@@ -197,6 +202,10 @@ class ProviderPlugin(GObject.Object):
             Returning an item that is NOT installed will mark it for install
         """
         raise RuntimeError("implement plan_remove_item")
+
+    def refresh_source(self, executor, source):
+        """ Implementation needs to refresh the given source """
+        raise RuntimeError("implement refresh_source")
 
 
 class ProviderItem(GObject.Object):

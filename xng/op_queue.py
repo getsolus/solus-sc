@@ -16,9 +16,10 @@ import Queue
 
 class OperationType:
 
-    INSTALL = 2  # Installs should be evaluated after removals
-    REMOVE = 1   # Remove is low-ish priority but must be before installs
-    UPGRADE = 0  # Upgrades should be before everything!
+    INSTALL = 3  # Installs should be evaluated after removals
+    REMOVE = 2   # Remove is low-ish priority but must be before installs
+    UPGRADE = 1  # Upgrades should be before anything changing packages
+    REFRESH = 0  # Refresh is highest priority
 
 
 class Operation:
@@ -49,6 +50,10 @@ class Operation:
     @staticmethod
     def Upgrade(ids):
         return Operation(ids, OperationType.UPGRADE)
+
+    @staticmethod
+    def Refresh(source):
+        return Operation(source, OperationType.REFRESH)
 
 
 class OperationQueue:

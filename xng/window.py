@@ -97,12 +97,12 @@ class ScDrawerButton(Gtk.ToggleButton):
         self.context.executor.connect('execution-started', self.start_exec)
         self.context.executor.connect('execution-ended', self.end_exec)
 
-    def start_exec(self, executor, item):
+    def start_exec(self, executor):
         """ Execution started, show the busy spinner """
         self.spinner.start()
         self.revealer.set_reveal_child(True)
 
-    def end_exec(self, executor, item):
+    def end_exec(self, executor):
         """ Execution stopped, hide the busy spinner """
         self.spinner.stop()
         self.revealer.set_reveal_child(False)
@@ -221,6 +221,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.set_current_page("home")
         self.loading.stop()
         self.set_busy(False)
+        GLib.idle_add(self.begin_refresh)
+        return False
+
+    def begin_refresh(self):
         self.context.refresh_sources()
         return False
 

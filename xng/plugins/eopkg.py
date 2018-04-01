@@ -155,11 +155,12 @@ class EopkgSource(ProviderSource):
     url = None
     name = None
     plugin = None
-
     __gtype_name__ = "NxEopkgSource"
 
-    def __init__(self, rdb, repoName, plugin):
-        self.plugin = plugin
+    def get_name(self):
+        return self.name
+
+    def __init__(self, rdb, repoName):
         ProviderSource.__init__(self)
         self.url = rdb.get_repo_url(repoName)
         self.name = repoName
@@ -170,9 +171,6 @@ class EopkgSource(ProviderSource):
         if not self.active:
             ret += " (inactive)"
         return ret
-
-    def refresh(self, executor):
-        print("Refreshing source..?")
 
 
 class EopkgGroup(ProviderCategory):
@@ -319,7 +317,9 @@ class EopkgPlugin(ProviderPlugin):
         repos = []
         mainRepos = self.repoDB.list_repos(only_active=False)
         for x in mainRepos:
-            repos.append(EopkgSource(self.repoDB, x, self))
+            repo = EopkgSource(self.repoDB, x)
+            repo.parent_plugin = self
+            repos.append(repo)
         return repos
 
     def populate_storage(self, storage, popfilter, extra):
@@ -611,6 +611,16 @@ class EopkgPlugin(ProviderPlugin):
         self.spinlock_busy_end()
 
         # Drop it again
+        self.executor = None
+
+    def refresh_source(self, executor, source):
+        print("Refreshing source: {}".format(source.get_name()))
+        self.executor = executor
+
+        self.spinlock_busy_wait()
+        self.pmanager.updateRepository(repository=source.get_name())
+        self.spinlock_busy_end()
+
         self.executor = None
 
 

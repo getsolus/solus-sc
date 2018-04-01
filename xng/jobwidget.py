@@ -75,7 +75,7 @@ class ScJobWidget(Gtk.Box):
         self.context.executor.connect('execution-started', self.start_exec)
         self.context.executor.connect('execution-ended', self.end_exec)
 
-    def start_exec(self, executor, item):
+    def start_exec(self, executor):
         """ Executor started a job, start monitoring now """
         # Stop existing monitor
         if self.monitor_id is not None:
@@ -91,7 +91,7 @@ class ScJobWidget(Gtk.Box):
         print("Adding new monitor")
         self.monitor_id = GLib.timeout_add(50, self.monitor_callback)
 
-    def end_exec(self, executor, item):
+    def end_exec(self, executor):
         """ Executor ended a job, stop monitoring now """
         if self.monitor_id is not None:
             print("Stopped old monitor")
