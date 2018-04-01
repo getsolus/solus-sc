@@ -512,6 +512,8 @@ class EopkgPlugin(ProviderPlugin):
             self.handle_dbus_extracting(what)
         elif cmd == "systemconf":
             self.handle_dbus_usysconf()
+        elif cmd == "updatingrepo":
+            self.handle_dbus_repo_update()
         else:
             print("Status: {} {}".format(cmd, what))
 
@@ -572,6 +574,9 @@ class EopkgPlugin(ProviderPlugin):
 
     def handle_dbus_usysconf(self):
         self.executor.set_progress_string(_("Updating system configuration"))
+
+    def handle_dbus_repo_update(self):
+        self.executor.set_progress_string(_("Updating repository information"))
 
     def handle_dbus_progress(self, args):
         """ Handle progress changes """
