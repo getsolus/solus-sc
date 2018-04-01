@@ -96,6 +96,10 @@ class ProviderSource(GObject.Object):
         """ Determines whether the source can be edited """
         return False
 
+    def refresh(self, executor):
+        """ Attempt to refresh the source """
+        raise RuntimeError("implement refresh")
+
 
 class ProviderStorage(GObject.Object):
     """ ProviderStorage is an abstract type that should be populated by

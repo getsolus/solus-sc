@@ -143,3 +143,9 @@ class ScContext(GObject.Object):
         if not self.window:
             return False
         return self.window.done()
+
+    def refresh_sources(self):
+        """ Attempt to refresh all sources """
+        for plugin in self.plugins:
+            for source in plugin.sources():
+                self.executor.refresh_source(plugin, source)

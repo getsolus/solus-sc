@@ -221,6 +221,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.set_current_page("home")
         self.loading.stop()
         self.set_busy(False)
+        self.context.refresh_sources()
         return False
 
     def build_featured(self):

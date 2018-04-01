@@ -155,3 +155,7 @@ class Executor(GObject.Object):
         Gdk.threads_enter()
         self.emit('execution-ended', item.data)
         Gdk.threads_leave()
+
+    def refresh_source(self, plugin, source):
+        print("Refreshing source {} from plugin {}".format(
+            source.describe(), plugin))
