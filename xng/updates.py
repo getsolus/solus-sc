@@ -55,23 +55,23 @@ class ScUpdatesView(Gtk.Box):
         # Primary update card
         card = ScCard()
         flowbox.add(card)
-        card.set_title("Updates")
-        card.set_body("36 updates are available")
+        card.set_title("Updates available")
+        card.set_body("36")
         card.get_style_context().add_class("updates-card")
         card.set_icon_name("software-update-available-symbolic")
 
         # Bug count
         card = ScCard()
         flowbox.add(card)
-        card.set_title("Bugs")
-        card.set_body("12 bugs fixed")
+        card.set_title("Bugs fixed")
+        card.set_body("12")
         card.get_style_context().add_class("bugs-card")
         card.set_icon_name("edit-cut-symbolic")
 
         # Security count
         card = ScCard()
         flowbox.add(card)
-        card.set_title("Security")
-        card.set_body("15 security updates available")
+        card.set_title("Security updates")
+        card.set_body("15")
         card.get_style_context().add_class("security-card")
         card.set_icon_name("security-high-symbolic")

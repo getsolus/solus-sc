@@ -109,35 +109,39 @@ list.sc-changelog .changelog-header {
     background-color: alpha(black, 0.75);
 }
 
-.sc-card.outer {
-    /*box-shadow: 0 2px 3px 1px alpha(black, 0.47);*/
-    box-shadow: 0 2px 2px 1px alpha(black, 0.27);
-    border-radius: 2px;
-    background-color: white;
+.sc-card .body-label {
+    font-size: 110%;
+    font-weight: 500;
 }
 
-.sc-card .title-label {
-    font-variant: small-caps;
-    font-weight: 600;
+.sc-card.outer {
+    /*box-shadow: 0 2px 3px 1px alpha(black, 0.47);*/
+    box-shadow: 0 2px 2px 1px shade(@borders, .9);
+    border-radius: 2px;
+    background-color: lighter(@theme_bg_color);
 }
 
 /* Security card */
-.sc-card.outer.security-card {
+.sc-card.outer.security-card .image-wrap {
     background-color: #4CAF50;
+    border-radius: 100%;
     color: white;
     text-shadow: none;
 }
 
 /* Updates count card */
-.sc-card.outer.updates-card {
+.sc-card.outer.updates-card .image-wrap {
     background-color: #2196F3;
+    border-radius: 100%;
+
     color: white;
     text-shadow: none;
 }
 
 /* Bug fix count card */
-.sc-card.outer.bugs-card {
+.sc-card.outer.bugs-card .image-wrap {
     background-color: #009688;
+    border-radius: 100%;
     color: white;
     text-shadow: none;
 }
