@@ -108,3 +108,14 @@ list.sc-changelog .changelog-header {
 .solus-sc .drawer-background {
     background-color: alpha(black, 0.75);
 }
+
+.sc-card.outer {
+    /*box-shadow: 0 2px 3px 1px alpha(black, 0.47);*/
+    box-shadow: 0 2px 2px 1px alpha(black, 0.27);
+    border-radius: 2px;
+    background-color: white;
+}
+
+.sc-card .title {
+    font-variant: small-caps;
+}

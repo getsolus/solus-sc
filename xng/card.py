@@ -1,0 +1,70 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+#
+#  This file is part of solus-sc
+#
+#  Copyright © 2014-2018 Ikey Doherty <ikey@solus-project.com>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+
+from gi.repository import Gtk
+
+
+class ScCard(Gtk.FlowBoxChild):
+    """ A simplistic card used to display statistics and such in a pretty
+        material design inspired fashion.
+    """
+
+    contents = None
+
+    title_label = None
+    body_label = None
+
+    def __init__(self):
+        Gtk.FlowBoxChild.__init__(self)
+
+        # Ensure we set the outer card style
+        self.get_style_context().add_class("sc-card")
+        self.get_style_context().add_class("outer")
+        self.set_border_width(0)
+        self.set_property("margin", 0)
+
+        # Where we put stuff
+        cwrap = Gtk.EventBox.new()
+        cwrap.set_border_width(0)
+        cwrap.set_property("margin", 0)
+        self.contents = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        cwrap.add(self.contents)
+        self.add(cwrap)
+        cwrap.get_style_context().add_class("body")
+
+        # Title label
+        self.title_label = Gtk.Label.new("Title")
+        self.title_label.set_use_markup(True)
+        self.title_label.get_style_context().add_class("dim-label")
+        self.title_label.get_style_context().add_class("title")
+        self.title_label.set_halign(Gtk.Align.END)
+        self.contents.pack_start(self.title_label, False, False, 0)
+        self.title_label.set_margin_end(6)
+        self.title_label.set_margin_top(6)
+        self.title_label.set_margin_bottom(6)
+
+        # Body label
+        self.body_label = Gtk.Label.new("Body text")
+        self.body_label.set_use_markup(True)
+        self.body_label.set_halign(Gtk.Align.END)
+        self.contents.pack_start(self.body_label, False, False, 0)
+        self.contents.set_margin_end(6)
+        self.contents.set_margin_bottom(6)
+
+    def set_title(self, title):
+        """ Set the title for this card """
+        self.title_label.set_markup(title.upper())
+
+    def set_body(self, body):
+        """ Set the body text for this card """
+        self.body_label.set_markup(body)

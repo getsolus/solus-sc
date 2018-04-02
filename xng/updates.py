@@ -13,6 +13,8 @@
 
 from gi.repository import Gtk
 
+from .card import ScCard
+
 
 class ScUpdatesView(Gtk.Box):
     """ Show system and application updates
@@ -33,6 +35,28 @@ class ScUpdatesView(Gtk.Box):
 
         self.context = context
 
+        self.build_stats_view()
+
         lab = Gtk.Label.new("Not yet implemented")
         self.pack_start(lab, True, True, 0)
         self.show_all()
+
+    def build_stats_view(self):
+        """ Build the assortment of stats we show at the top of the page """
+        flowbox = Gtk.FlowBox.new()
+        flowbox.set_row_spacing(24)
+        flowbox.set_column_spacing(24)
+        flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.pack_start(flowbox, False, False, 0)
+        flowbox.set_property("margin", 24)
+
+        # Create some stat cards
+        card = ScCard()
+        flowbox.add(card)
+        card.set_title("Updates")
+        card.set_body("36 updates are available")
+
+        card = ScCard()
+        flowbox.add(card)
+        card.set_title("Security")
+        card.set_body("12 security updates available")
