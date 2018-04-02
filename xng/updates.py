@@ -38,6 +38,7 @@ class ScUpdatesView(Gtk.Box):
         self.build_stats_view()
 
         lab = Gtk.Label.new("Not yet implemented")
+        lab.get_style_context().add_class("dim-label")
         self.pack_start(lab, True, True, 0)
         self.show_all()
 
@@ -49,7 +50,8 @@ class ScUpdatesView(Gtk.Box):
         flowbox.set_column_spacing(24)
         flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
         self.pack_start(flowbox, False, False, 0)
-        flowbox.set_halign(Gtk.Align.FILL)
+        flowbox.set_halign(Gtk.Align.CENTER)
+        flowbox.set_hexpand(True)
         flowbox.set_property("margin", 24)
 
         # Primary update card
