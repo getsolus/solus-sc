@@ -58,11 +58,11 @@ class SnapdPlugin(ProviderPlugin):
     def categories(self):
         return self.children
 
-    def populate_storage(self, storage, popfilter, extra, cancel):
+    def populate_storage(self, storage, popfilter, extra):
         if popfilter == PopulationFilter.INSTALLED:
             return self.populate_installed(storage)
         elif popfilter == PopulationFilter.SEARCH:
-            return self.populate_search(storage, extra, cancel)
+            return self.populate_search(storage, extra)
         elif popfilter == PopulationFilter.CATEGORY:
             return self.populate_category(storage, extra)
 
@@ -81,15 +81,14 @@ class SnapdPlugin(ProviderPlugin):
             snap_id = snap.get_id()
             storage.add_item(snap_id, snap, PopulationFilter.CATEGORY)
 
-    def populate_search(self, storage, term, cancel):
+    def populate_search(self, storage, sq):
         """ Search for the remote snap """
         # TODO: Make async.
+        term = sq.get_term()
         listage = self.snapd_client.find_sync(snapd.FindFlags.NONE, term)
         if listage is None or len(listage) < 1:
             return
         for i in listage:
-            if cancel.is_set():
-                return
             # TODO: Cache??
             snap = SnapdItem(i)
             snap.parent_plugin = self
