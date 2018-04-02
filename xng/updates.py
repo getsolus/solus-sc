@@ -26,6 +26,7 @@ class ScUpdatesView(Gtk.Box):
     __gtype_name__ = "ScUpdatesView"
 
     context = None
+    header_box = None
 
     def get_page_name(self):
         return _("Updates")
@@ -35,12 +36,22 @@ class ScUpdatesView(Gtk.Box):
 
         self.context = context
 
+        self.build_header()
         self.build_stats_view()
 
         lab = Gtk.Label.new("Not yet implemented")
         lab.get_style_context().add_class("dim-label")
         self.pack_start(lab, True, True, 0)
         self.show_all()
+
+    def build_header(self):
+        """ Build the primary header view """
+        ebox = Gtk.EventBox()
+        self.header_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.header_box.set_border_width(20)
+        ebox.add(self.header_box)
+        ebox.get_style_context().add_class("updates-header")
+        self.pack_start(ebox, False, False, 0)
 
     def build_stats_view(self):
         """ Build the assortment of stats we show at the top of the page """
@@ -52,11 +63,7 @@ class ScUpdatesView(Gtk.Box):
         flowbox.set_halign(Gtk.Align.CENTER)
         flowbox.set_hexpand(True)
         flowbox.set_property("margin", 24)
-
-        ebox = Gtk.EventBox()
-        ebox.add(flowbox)
-        ebox.get_style_context().add_class("updates-header")
-        self.pack_start(ebox, False, False, 0)
+        self.header_box.pack_start(flowbox, True, True, 0)
 
         # Primary update card
         card = ScCard()
