@@ -116,6 +116,27 @@ list.sc-changelog .changelog-header {
     background-color: white;
 }
 
-.sc-card .title {
+.sc-card .title-label {
     font-variant: small-caps;
+}
+
+/* Security card */
+.sc-card.outer.security-card {
+    background-color: #4CAF50;
+    color: white;
+    text-shadow: none;
+}
+
+/* Updates count card */
+.sc-card.outer.updates-card {
+    background-color: #2196F3;
+    color: white;
+    text-shadow: none;
+}
+
+/* Bug fix count card */
+.sc-card.outer.bugs-card {
+    background-color: #009688;
+    color: white;
+    text-shadow: none;
 }

@@ -44,19 +44,34 @@ class ScUpdatesView(Gtk.Box):
     def build_stats_view(self):
         """ Build the assortment of stats we show at the top of the page """
         flowbox = Gtk.FlowBox.new()
+        flowbox.set_homogeneous(True)
         flowbox.set_row_spacing(24)
         flowbox.set_column_spacing(24)
         flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
         self.pack_start(flowbox, False, False, 0)
+        flowbox.set_halign(Gtk.Align.FILL)
         flowbox.set_property("margin", 24)
 
-        # Create some stat cards
+        # Primary update card
         card = ScCard()
         flowbox.add(card)
         card.set_title("Updates")
         card.set_body("36 updates are available")
+        card.get_style_context().add_class("updates-card")
+        card.set_icon_name("software-update-available-symbolic")
 
+        # Bug count
+        card = ScCard()
+        flowbox.add(card)
+        card.set_title("Bugs")
+        card.set_body("12 bugs fixed")
+        card.get_style_context().add_class("bugs-card")
+        card.set_icon_name("edit-cut-symbolic")
+
+        # Security count
         card = ScCard()
         flowbox.add(card)
         card.set_title("Security")
-        card.set_body("12 security updates available")
+        card.set_body("15 security updates available")
+        card.get_style_context().add_class("security-card")
+        card.set_icon_name("security-high-symbolic")

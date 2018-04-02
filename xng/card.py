@@ -23,6 +23,8 @@ class ScCard(Gtk.FlowBoxChild):
 
     title_label = None
     body_label = None
+    image = None
+    overlay = None
 
     def __init__(self):
         Gtk.FlowBoxChild.__init__(self)
@@ -33,20 +35,34 @@ class ScCard(Gtk.FlowBoxChild):
         self.set_border_width(0)
         self.set_property("margin", 0)
 
+        self.set_size_request(300, -1)
+
+        # We overlay our image cuz we're crafty.
+        self.overlay = Gtk.Overlay.new()
+        self.add(self.overlay)
+
         # Where we put stuff
         cwrap = Gtk.EventBox.new()
         cwrap.set_border_width(0)
         cwrap.set_property("margin", 0)
+
+        # TODO: Unfuck
+        self.image = Gtk.Image.new_from_icon_name(
+            "software-update-available-symbolic",
+            Gtk.IconSize.DIALOG)
+        self.overlay.add_overlay(self.image)
+        self.image.set_halign(Gtk.Align.START)
+
+        # Primary contents view
         self.contents = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         cwrap.add(self.contents)
-        self.add(cwrap)
+        self.overlay.add(cwrap)
         cwrap.get_style_context().add_class("body")
 
         # Title label
         self.title_label = Gtk.Label.new("Title")
         self.title_label.set_use_markup(True)
-        self.title_label.get_style_context().add_class("dim-label")
-        self.title_label.get_style_context().add_class("title")
+        self.title_label.get_style_context().add_class("title-label")
         self.title_label.set_halign(Gtk.Align.END)
         self.contents.pack_start(self.title_label, False, False, 0)
         self.title_label.set_margin_end(6)
@@ -68,3 +84,6 @@ class ScCard(Gtk.FlowBoxChild):
     def set_body(self, body):
         """ Set the body text for this card """
         self.body_label.set_markup(body)
+
+    def set_icon_name(self, icon_name):
+        self.image.set_from_icon_name(icon_name, Gtk.IconSize.DIALOG)
