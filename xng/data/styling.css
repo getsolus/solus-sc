@@ -118,6 +118,7 @@ list.sc-changelog .changelog-header {
 
 .sc-card .title-label {
     font-variant: small-caps;
+    font-weight: 600;
 }
 
 /* Security card */
