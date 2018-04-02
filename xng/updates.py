@@ -49,10 +49,14 @@ class ScUpdatesView(Gtk.Box):
         flowbox.set_row_spacing(24)
         flowbox.set_column_spacing(24)
         flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
-        self.pack_start(flowbox, False, False, 0)
         flowbox.set_halign(Gtk.Align.CENTER)
         flowbox.set_hexpand(True)
         flowbox.set_property("margin", 24)
+
+        ebox = Gtk.EventBox()
+        ebox.add(flowbox)
+        ebox.get_style_context().add_class("updates-header")
+        self.pack_start(ebox, False, False, 0)
 
         # Primary update card
         card = ScCard()

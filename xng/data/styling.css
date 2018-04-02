@@ -27,7 +27,7 @@
     border: 1px solid @borders;
 }*/
 
-.featured-box, .details-header {
+.featured-box, .details-header, .updates-header {
     background-color: alpha(@link_color, 0.12);
     border-bottom: 1px solid alpha(@link_color, 0.22);
     padding: 5px;
