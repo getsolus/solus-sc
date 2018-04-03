@@ -14,6 +14,7 @@
 from .appsystem import AppSystem
 from .executor import Executor
 from .util.fetcher import ScMediaFetcher
+from .util.desktop import ScDesktopIntegration
 from gi.repository import GObject, GLib
 import threading
 
@@ -28,6 +29,7 @@ class ScContext(GObject.Object):
     executor = None
     driver_manager = None
     window = None
+    desktop = None
 
     __gtype_name__ = "ScContext"
 
@@ -40,6 +42,7 @@ class ScContext(GObject.Object):
         self.has_loaded = False
         self.window = window
         self.executor = Executor()
+        self.desktop = ScDesktopIntegration()
 
     def begin_load(self):
         """ Request a load for the system, i.e. after all components are
