@@ -140,6 +140,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
     nav_stack = ['home']
     busy = False
 
+    primary_layout = None
+
     overlay = None
     drawer = None
 
@@ -154,23 +156,44 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def __init__(self, app):
         Gtk.Window.__init__(self, application=app)
+
+        # Before we do anything, sort out context
+        self.context = ScContext(self)
+        self.context.connect('loaded', self.on_context_loaded)
+
+        # Pick appropriate screen resolution
         self.pick_resolution()
+
+        # Primary layout allows us to *potentially* use toolbar instead of
+        # a headerbar.
+        self.primary_layout = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.add(self.primary_layout)
 
         # Get main layout sorted
         self.layout = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         self.overlay = Gtk.Overlay.new()
-        self.add(self.overlay)
+        self.primary_layout.pack_end(self.overlay, True, True, 0)
         self.overlay.add(self.layout)
 
+        # Allow styling us
         self.get_style_context().add_class("solus-sc")
 
-        self.context = ScContext(self)
-        self.context.connect('loaded', self.on_context_loaded)
-
+        # Set up the drawer
         self.drawer = ScDrawerPlane(self.context)
         self.overlay.add_overlay(self.drawer)
 
-        self.build_headerbar()
+        # Either pick a headerbar or toolbar
+        if self.context.desktop.should_csd():
+            self.build_headerbar()
+        else:
+            self.build_toolbar()
+
+        # Once we (maybe) have headerbar, update window display
+        self.set_title("Software Center")
+        self.set_position(Gtk.WindowPosition.CENTER)
+        self.set_icon_name("system-software-install")
+
+        # Put the search bar within the "main" body
         self.build_search_bar()
 
         # TODO: Fix this for updates-view handling
@@ -292,14 +315,64 @@ class ScMainWindow(Gtk.ApplicationWindow):
             return
         self.set_size_request(800, 600)
 
+    def build_toolbar(self):
+        """ Build a simpler toolbar for the primary layout for non CSD """
+        self.hbar = Gtk.Toolbar()
+        self.hbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR)
+        self.primary_layout.pack_start(self.hbar, False, False, 0)
+        self.hbar.get_style_context().add_class("primary-toolbar")
+
+        # Back button
+        self.back_button = Gtk.ToolButton.new(None, _("Back"))
+        self.back_button.set_is_important(True)
+        self.back_button.connect('clicked', self.on_back_clicked)
+        self.back_button.set_sensitive(False)
+        self.back_button.set_icon_name("go-previous-symbolic")
+        self.hbar.add(self.back_button)
+
+        # Home button
+        self.home_button = Gtk.ToolButton.new(None, _("Home"))
+        self.home_button.set_is_important(True)
+        self.home_button.connect('clicked', self.on_home_clicked)
+        self.home_button.set_sensitive(False)
+        self.home_button.set_icon_name("go-home-symbolic")
+        self.hbar.add(self.home_button)
+
+        # Space it out
+        sep = Gtk.SeparatorToolItem()
+        sep.set_expand(True)
+        sep.set_draw(False)
+        self.hbar.add(sep)
+
+        # Toggle for sidebar drawer
+        self.sidebar_button = ScDrawerButton(self.context)
+        self.sidebar_button.connect('toggled', self.on_sidebar_toggled)
+        item_wrap = Gtk.ToolItem()
+        item_wrap.add(self.sidebar_button)
+        self.hbar.add(item_wrap)
+
+        self.sidebar_button.bind_property('active',
+                                          self.drawer,
+                                          'drawer-visible',
+                                          GObject.BindingFlags.BIDIRECTIONAL)
+
+        self.search_button = Gtk.ToggleToolButton()
+        self.search_button.set_icon_name("edit-find-symbolic")
+        self.search_button.set_property("label", _("Search"))
+        self.hbar.add(self.search_button)
+
+        # Update button position won't affect search button placement
+        self.updates_button = ScUpdatesButton()
+        self.updates_button.connect("clicked", self.on_updates_clicked)
+        item_wrap = Gtk.ToolItem()
+        item_wrap.add(self.updates_button)
+        self.hbar.add(item_wrap)
+
     def build_headerbar(self):
-        """ Build main nav + search """
+        """ Build GtkHeaderBar for CSD supporting desktops """
         self.hbar = Gtk.HeaderBar()
         self.hbar.set_show_close_button(True)
         self.set_titlebar(self.hbar)
-        self.set_title("Software Center")
-        self.set_position(Gtk.WindowPosition.CENTER)
-        self.set_icon_name("system-software-install")
 
         # Navigation control..
         self.back_button = Gtk.Button.new_from_icon_name(
@@ -473,7 +546,10 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         self.stack.set_visible_child_name(name)
         self.stack.get_visible_child().grab_focus()
-        self.hbar.set_subtitle(self.stack.get_visible_child().get_page_name())
+        # If we're using CSD, update subtitle
+        if self.context.desktop.should_csd():
+            page_name = self.stack.get_visible_child().get_page_name()
+            self.hbar.set_subtitle(page_name)
         self.home_button.set_sensitive(name != "home")
 
         if name == "home":

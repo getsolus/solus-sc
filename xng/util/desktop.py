@@ -74,3 +74,11 @@ class ScDesktopIntegration(GObject.Object):
 
         if len(self.desktop_classes) < 1:
             self.desktop_classes.add(ScDesktopClass.UNKNOWN)
+
+    def has_desktop_class(self, dclass):
+        """ Return True if the running desktop has the given class """
+        return dclass in self.desktop_classes
+
+    def should_csd(self):
+        """ Return True if we should use CSD with the current desktop """
+        return self.has_desktop_class(ScDesktopClass.GNOME)
