@@ -346,7 +346,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         # Toggle for sidebar drawer
         self.sidebar_button = ScDrawerButton(self.context)
-        self.sidebar_button.set_relief_style(Gtk.ReliefStyle.NONE)
+        self.sidebar_button.set_relief(Gtk.ReliefStyle.NONE)
         self.sidebar_button.connect('toggled', self.on_sidebar_toggled)
         item_wrap = Gtk.ToolItem()
         item_wrap.add(self.sidebar_button)
@@ -364,7 +364,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
         # Update button position won't affect search button placement
         self.updates_button = ScUpdatesButton()
-        self.updates_button.set_relief_style(Gtk.ReliefStyle.NONE)
+        self.updates_button.set_relief(Gtk.ReliefStyle.NONE)
         self.updates_button.connect("clicked", self.on_updates_clicked)
         item_wrap = Gtk.ToolItem()
         item_wrap.add(self.updates_button)
