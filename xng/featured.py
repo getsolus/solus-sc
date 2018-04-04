@@ -90,6 +90,13 @@ class ScFeaturedThumb(Gtk.EventBox):
         self.thumb.get_style_context().add_class("dim")
         self.add(self.thumb)
 
+        self.connect('realize', self.on_realized)
+
+    def on_realized(self, udata=None):
+        display = Gdk.Display.get_default()
+        curs = Gdk.Cursor.new_from_name(display, "pointer")
+        self.get_window().set_cursor(curs)
+
     def set_dim(self, dim):
         """ Mark as dim or not """
         if dim:
