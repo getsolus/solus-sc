@@ -7,3 +7,9 @@ Tracking list for time organisation and tomorrowness
  - Sort job drawer by ongoing and then queued
  - Hook up remove/install
  - Implement Updates view (with SpecialMarkdownParser)
+
+
+Add virtualbox guest detection through modalias match and Linux Driver Management:
+
+    dmi:bvninnotekGmbH:bvrVirtualBox:bd12/01/2006:svninnotekGmbH:pnVirtualBox:pvr1.2:rvnOracleCorporation:rnVirtualBox:rvr1.2:cvnOracleCorporation:ct1:cvr:
+    dmi:*VirtualBox*OracleCorporation*
