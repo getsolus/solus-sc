@@ -11,9 +11,9 @@
 #  (at your option) any later version.
 #
 
-from .base import ProviderPlugin, ProviderItem, ProviderSource, \
+from ..base import ProviderPlugin, ProviderItem, ProviderSource, \
     ProviderCategory
-from .base import PopulationFilter, ItemStatus, Transaction
+from ..base import PopulationFilter, ItemStatus, Transaction
 from gi.repository import AppStreamGlib as As
 from gi.repository import Gtk
 import pisi

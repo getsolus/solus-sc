@@ -41,7 +41,7 @@ def get_native_plugin():
 
     osRel = get_os_release()
     if osRel.from_family("solus"):
-        from .eopkg import EopkgPlugin
+        from .eopkg.eopkg import EopkgPlugin
         _native_plugin = EopkgPlugin()
         return _native_plugin
 
