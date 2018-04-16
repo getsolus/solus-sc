@@ -64,11 +64,7 @@ class EopkgPlugin(ProviderPlugin):
 
     def __init__(self):
         ProviderPlugin.__init__(self)
-        self.availDB = pisi.db.packagedb.PackageDB()
-        self.installDB = pisi.db.installdb.InstallDB()
-        self.repoDB = pisi.db.repodb.RepoDB()
-        self.groupDB = pisi.db.groupdb.GroupDB()
-        self.compDB = pisi.db.componentdb.ComponentDB()
+        self.rebuild_db()
 
         # Talk to eopkg/pisi over dbus
         self.link = comar.Link()
@@ -81,6 +77,17 @@ class EopkgPlugin(ProviderPlugin):
         self.link.listenSignals("System.Manager", self.dbus_callback)
 
         self.build_categories()
+
+    def rebuild_db(self):
+        """ Ensure our database set is completely up to date now """
+        print("Rebuilding DBs")
+        pisi.db.invalidate_caches()
+        self.availDB = pisi.db.packagedb.PackageDB()
+        self.installDB = pisi.db.installdb.InstallDB()
+        self.repoDB = pisi.db.repodb.RepoDB()
+        self.groupDB = pisi.db.groupdb.GroupDB()
+        self.compDB = pisi.db.componentdb.ComponentDB()
+        print("Rebuilt DBs")
 
     def build_categories(self):
         """ Find all of our possible categories and nest them. """
@@ -419,6 +426,7 @@ class EopkgPlugin(ProviderPlugin):
         if args and args[0] and args[0] in finishedTypes:
             # This is where we need to force a rebuild of the context
             print("Finished: {}".format(args[0]))
+            self.rebuild_db()
             # Unblock spin lock here
             self.operation_blocked = False
 
