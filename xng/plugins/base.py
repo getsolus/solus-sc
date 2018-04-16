@@ -81,9 +81,17 @@ class Transaction(GObject.Object):
         """ Push a new removal operation """
         self.removals.add(item)
 
+    def pop_removal(self, item):
+        """ Pop a removal from the set of counted items """
+        self.removals.remove(item)
+
     def push_installation(self, item):
         """ Push a new installation operation """
         self.installations.add(item)
+
+    def pop_installation(self, item):
+        """ When an item has completed, remove it """
+        self.installations.remove(item)
 
     def push_reinstallation(self, item):
         """ Push a new reinstallation operation (remove + install) """
@@ -93,6 +101,10 @@ class Transaction(GObject.Object):
     def push_upgrade(self, item):
         """ Push a new upgrade (explicit upgrade) operation """
         self.upgrades.add(item)
+
+    def pop_upgrade(self, item):
+        """ Pop an upgrade from the set of counted upgrades """
+        self.upgrades.remove(item)
 
     def count_operations(self):
         """ Total number of operations to be applied """
