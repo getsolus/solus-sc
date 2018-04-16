@@ -60,6 +60,8 @@ class Transaction(GObject.Object):
 
     installations = None  # Any installations to be performed
 
+    upgrades = None  # Any upgrades to be performed
+
     op_type = None  # No initial operation type
 
     def __init__(self, primary_item=None):
@@ -69,6 +71,7 @@ class Transaction(GObject.Object):
 
         self.removals = set()
         self.installations = set()
+        self.upgrades = set()
 
     def set_operation_type(self, op_type):
         """ Initiated by the context only """
@@ -87,9 +90,15 @@ class Transaction(GObject.Object):
         self.removals.add(item)
         self.installations.add(item)
 
+    def push_upgrade(self, item):
+        """ Push a new upgrade (explicit upgrade) operation """
+        self.upgrades.add(item)
+
     def count_operations(self):
         """ Total number of operations to be applied """
-        return self.count_installations() + self.count_removals()
+        return (self.count_installations() +
+                self.count_removals() +
+                self.count_upgrades())
 
     def count_installations(self):
         """ Total number of install operations """
@@ -98,6 +107,10 @@ class Transaction(GObject.Object):
     def count_removals(self):
         """ Total number of removal operations """
         return len(self.removals)
+
+    def count_upgrades(self):
+        """ Total number of upgrade operations """
+        return len(self.upgrades)
 
     def describe(self):
         sb = None
@@ -109,9 +122,10 @@ class Transaction(GObject.Object):
             sb = "Upgrade: {}".format(self.primary_item.get_id())
 
         # Format for debug
-        sb += ", removals: {}, installs: {}".format(
+        sb += ", removals: {}, installs: {}, upgrades: {}".format(
             [x.get_id() for x in self.removals],
-            [x.get_id() for x in self.installations])
+            [x.get_id() for x in self.installations],
+            [x.get_id() for x in self.upgrades])
 
         return sb
 

@@ -458,7 +458,12 @@ class EopkgPlugin(ProviderPlugin):
         # Push the installation set here
         (pg, pkgs) = plan_install_pkg_names([item.get_id()])
         for name in pkgs:
-            trans.push_installation(self.build_item(name))
+            if self.installDB.has_package(name):
+                # Have the package so its an update now
+                trans.push_upgrade(self.build_item(name))
+            else:
+                # Newly installed through dependency
+                trans.push_installation(self.build_item(name))
 
         # Potential conflict?
         conflicts = pisi_helper.check_conflicts(pkgs, self.availDB)
