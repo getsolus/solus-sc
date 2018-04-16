@@ -28,14 +28,16 @@ class ScUpdatesView(Gtk.Box):
 
     context = None
     header_box = None
+    updates_button = None
 
     def get_page_name(self):
         return _("Updates")
 
-    def __init__(self, context):
+    def __init__(self, context, updates_button):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self.context = context
+        self.updates_button = updates_button
 
         self.build_header()
         self.build_stats_view()
@@ -93,6 +95,7 @@ class ScUpdatesView(Gtk.Box):
     def refresh(self):
         """ Begin checking for updates """
         print("Sources refreshed: Check for updates now")
+        self.updates_button.set_updates_available(False)
         for plugin in self.context.plugins:
             plugin.populate_storage(self,
                                     PopulationFilter.UPDATES,
@@ -102,4 +105,5 @@ class ScUpdatesView(Gtk.Box):
         """ Got updates set available """
         if popfilter != PopulationFilter.UPDATES:
             return
+        self.updates_button.set_updates_available(True)
         print("Updatable: {}".format(id))

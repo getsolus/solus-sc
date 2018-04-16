@@ -221,10 +221,6 @@ class ScMainWindow(Gtk.ApplicationWindow):
         # Handle events
         self.connect("button-release-event", self.on_button_release_event)
 
-        # Stupid hack
-        GLib.timeout_add(
-            3000, lambda: self.updates_button.set_updates_available(True))
-
     def set_busy(self, busy):
         """ Mark the window as busy and prevent further navigation """
         self.busy = busy
@@ -298,7 +294,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         self.stack.add_named(self.details, 'details')
 
         # Build updates view
-        self.updates = ScUpdatesView(self.context)
+        self.updates = ScUpdatesView(self.context, self.updates_button)
         self.stack.add_named(self.updates, 'updates')
 
         # Build search view
@@ -596,3 +592,4 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def begin_check_updates(self):
         """ We've been told to check for updates """
         self.updates.refresh()
+        return False

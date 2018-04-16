@@ -174,5 +174,5 @@ class ScContext(GObject.Object):
 
     def enqueue_update_refresh(self):
         """ Tell the window to check for updates through the updates view """
-        self.window.begin_check_updates()
+        GLib.idle_add(self.window.begin_check_updates)
         return False
