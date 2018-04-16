@@ -11,12 +11,29 @@
 #  (at your option) any later version.
 #
 
-from ..base import ProviderPlugin
+from ..base import ProviderPlugin, ProviderCategory
 
 from gi.repository import Flatpak
 
 # Plugin locals
 from .source import FlatpakSource
+
+
+class FlatpakRootCategory(ProviderCategory):
+    """ Provider the root category for Flatpak navigation """
+
+    def __init__(self):
+        ProviderCategory.__init__(self)
+
+    def get_name(self):
+        return _("Flatpak")
+
+    def get_id(self):
+        return "flatpak"
+
+    def get_icon_name(self):
+        # TODO: Only return this when icon theme supports it
+        return "application-vnd.flatpak"
 
 
 class FlatpakPlugin(ProviderPlugin):
@@ -28,11 +45,14 @@ class FlatpakPlugin(ProviderPlugin):
 
     client = None  # FlatpakInstallation
 
+    root_category = None  # To allow browsing flatpak
+
     def __init__(self):
         ProviderPlugin.__init__(self)
 
         # We only manage the system-wide flatpak install, not user bits
         self.client = Flatpak.Installation.new_system(None)
+        self.root_category = FlatpakRootCategory()
 
     def populate_storage(self, storage, popfilter, extra):
         print("flatpak: not yet implemented =)")
@@ -55,3 +75,6 @@ class FlatpakPlugin(ProviderPlugin):
             Flatpak.get_default_arch(),  # Use local architecture
             None)
         print("flatpak appstream synced")
+
+    def categories(self):
+        return [self.root_category]
