@@ -24,6 +24,8 @@ class FlatpakSource(ProviderSource):
     name = None
     title = None
 
+    remote = None  # Ref to the FlatpakRemote
+
     __gtype_name__ = "NxFlatpakSource"
 
     def get_name(self):
@@ -32,10 +34,11 @@ class FlatpakSource(ProviderSource):
 
     def __init__(self, remote):
         ProviderSource.__init__(self)
+        self.remote = remote
 
-        self.url = remote.get_url()
-        self.name = remote.get_name()
-        self.title = remote.get_title()
+        self.url = self.remote.get_url()
+        self.name = self.remote.get_name()
+        self.title = self.remote.get_title()
 
         self.active = not remote.get_disabled()
 
@@ -44,3 +47,7 @@ class FlatpakSource(ProviderSource):
         if not self.active:
             ret += " (inactive)"
         return ret
+
+    def get_remote(self):
+        """ Return the FlatpakRemote """
+        return self.remote
