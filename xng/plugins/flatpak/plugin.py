@@ -13,10 +13,14 @@
 
 from ..base import ProviderPlugin, ProviderCategory
 
-from gi.repository import Flatpak, GLib
+from gi.repository import Flatpak, GLib, Gio
+from gi.repository import AppStreamGlib as As
 
 # Plugin locals
 from .source import FlatpakSource
+
+import os
+
 
 # 3 hours between appstream syncs
 APPSTREAM_THRESHOLD_SECS = (60 * 60) * 3
@@ -59,14 +63,12 @@ class FlatpakPlugin(ProviderPlugin):
         self.client = Flatpak.Installation.new_system(None)
         self.root_category = FlatpakRootCategory()
 
+        # Our own temporary appstore..
+        self.store = As.Store.new()
+        self.store.set_origin("flatpak")
+
         # Cache the remotes because we actually need their appstream dirs
         self.build_remotes()
-
-        # Walk the remotes now
-        for remote in self.remotes:
-            fremote = remote.get_remote()
-            appdir = fremote.get_appstream_dir()
-            print appdir.get_path()
 
     def build_remotes(self):
         """ Build our known remotes """
@@ -75,6 +77,18 @@ class FlatpakPlugin(ProviderPlugin):
             source = FlatpakSource(remote)
             source.parent_plugin = self
             self.remotes.append(source)
+
+        self.build_appstream()
+
+    def build_appstream(self):
+        """ Update store with appstream information """
+        for remote in self.remotes:
+            appfile = remote.get_appstream_file()
+            if not os.path.exists(appfile):
+                continue
+            # load_from_path seems broken right now
+            gf = Gio.File.new_for_path(appfile)
+            self.store.from_file(gf, remote.get_appstream_icons(), None)
 
     def populate_storage(self, storage, popfilter, extra):
         print("flatpak: not yet implemented =)")
@@ -97,7 +111,6 @@ class FlatpakPlugin(ProviderPlugin):
 
         # Do we need appstream data update?
         fremote = source.get_remote()
-        appdir = fremote.get_appstream_dir()
         modtime = 0
         try:
             updatefile = fremote.get_appstream_timestamp()

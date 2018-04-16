@@ -13,6 +13,9 @@
 
 from ..base import ProviderSource
 
+import os
+import os.path
+
 
 class FlatpakSource(ProviderSource):
     """ FlatpakSource provides an abstract wrapper for an underlying eopkg
@@ -41,6 +44,40 @@ class FlatpakSource(ProviderSource):
         self.title = self.remote.get_title()
 
         self.active = not remote.get_disabled()
+
+        # Compute appstream bits
+        self.build_appstream_info()
+
+    def build_appstream_info(self):
+        """ Build the appstream paths for later """
+        self.appstream_dir = self.remote.get_appstream_dir().get_path()
+        print(self.appstream_dir)
+        if os.path.exists(self.appstream_dir):
+            for item in os.listdir(self.appstream_dir):
+                if item.startswith("appstream.xml"):
+                    self.appstream_file = os.path.join(
+                        self.appstream_dir, item)
+                    break
+            self.appstream_icons = os.path.join(self.appstream_dir, "icons")
+            return
+
+        # Otherwise..
+        self.appstream_file = os.path.join(
+            self.appstream_dir, "appstream.xml.gz")
+        self.appstream_icons = os.path.join(
+            self.appstream_dir, "icons")
+
+    def get_appstream_dir(self):
+        """ Return appstream directory """
+        return self.appstream_dir
+
+    def get_appstream_file(self):
+        """ Return appstream file path """
+        return self.appstream_file
+
+    def get_appstream_icons(self):
+        """ Return icon path """
+        return self.appstream_icons
 
     def describe(self):
         ret = "{} - {}".format(self.title, self.url)
