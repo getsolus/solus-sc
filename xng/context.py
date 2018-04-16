@@ -86,6 +86,20 @@ class ScContext(GObject.Object):
         if snap is not None:
             self.plugins.append(snap)
 
+    def init_flatpak_plugin(self):
+        """ Load the currently work-in-progress flatpak plugin """
+        flatpak = None
+
+        try:
+            from xng.plugins.flatpak.plugin import FlatpakPlugin
+            flatpak = FlatpakPlugin()
+        except Exception as e:
+            print("flatpak support unavailable on this system: {}".format(e))
+            flatpak = None
+
+        if flatpak is not None:
+            self.plugins.append(flatpak)
+
     def init_native_plugin(self):
         """ Init the native plugin """
         osPlugin = None
@@ -110,6 +124,7 @@ class ScContext(GObject.Object):
         self.plugins = []
 
         # self.init_snap_plugin()
+        self.init_flatpak_plugin()
         self.init_native_plugin()
 
     def emit_loaded(self):

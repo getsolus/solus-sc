@@ -11,19 +11,17 @@
 #  (at your option) any later version.
 #
 
-import gi
-try:
-    gi.require_version('Snapd', '1')
-except Exception as ex:
-    print("Could not import Snapd: {}".format(ex))
-    pass
+from ..base import ProviderPlugin
 
-try:
-    gi.require_version('Flatpak', '1.0')
-except Exception as ex:
-    print("Could not import Flatpak: {}".format(ex))
 
-try:
-    gi.require_version('Ldm', '1.0')
-except Exception as ex:
-    print("Could not import Ldm: {}".format(ex))
+class FlatpakPlugin(ProviderPlugin):
+    """ FlatpakPlugin abstracts the underlying flatpak 
+    """
+
+    __gtype_name__ = "NxFlatpakPlugin"
+
+    def __init__(self):
+        ProviderPlugin.__init__(self)
+
+    def populate_storage(self, storage, popfilter, extra):
+        print("flatpak: not yet implemented =)")
