@@ -11,11 +11,16 @@
 #  (at your option) any later version.
 #
 
-from ..base import ProviderPlugin, ProviderItem, ProviderSource, \
-    ProviderCategory
-from ..base import PopulationFilter, ItemStatus, Transaction
+from ..base import ProviderPlugin
+from ..base import PopulationFilter, Transaction
+
+# Plugin local
+from .component import EopkgComponent
+from .group import EopkgGroup
+from .item import EopkgItem
+from .source import EopkgSource
+
 from gi.repository import AppStreamGlib as As
-from gi.repository import Gtk
 import pisi
 from pisi.operations.install import plan_install_pkg_names
 from pisi.operations.remove import plan_remove, plan_autoremove
@@ -72,182 +77,6 @@ def history_sort(pkgA, pkgB):
     ab = unmangle_date(dateB)
 
     return cmp(aa, ab)
-
-
-# Mandatory components, removing will cause imminent death
-essential_components = [
-    "system.base",
-]
-
-
-# Essential packages, removing will upset and lead to imminent death.
-essential_packages = [
-    "mesalib",
-    "xorg-server",
-    "dhcpcd",
-    "network-manager",
-    "wpa_supplicant",
-]
-
-
-# Utter laziness. :P
-ICON_MAPS = {
-    "desktop": "user-desktop",
-    "desktop.budgie": "start-here-solus",
-    "desktop.core": "system-run",
-    "desktop.font": "fonts",
-    "desktop.gnome": "desktop-environment-gnome",
-    "desktop.gnome.core": "system-devices-information",
-    "desktop.gnome.doc": "folder-documents",
-    "desktop.gtk": "gtk-dialog-info",
-    "desktop.kde": "desktop-environment-kde",
-    "desktop.library": "emblem-shared-symbolic",
-    "desktop.mate": "mate",
-    "desktop.multimedia": "multimedia-volume-control",
-    "desktop.qt": "qtconfig-qt4",
-    "desktop.theme": "preferences-desktop-wallpaper",
-    "editor": "x-office-document",
-    "games": "applications-games",
-    "games.action": "dota2",
-    "games.arcade": "gnome-nibbles",
-    "games.card": "gnome-aisleriot",
-    "games.emulator": "ds-emulator",
-    "games.puzzle": "gnome-tetravex",
-    "games.rpg": "wesnoth",
-    "games.strategy": "games-endturn",
-    "multimedia.sound": "multimedia-volume-control",
-    "multimedia.video": "camera-video",
-    "multimedia.audio": "library-music",
-    "multimedia.graphics": "camera-photo",
-    "network.download": "transmission",
-    "network.email": "internet-mail",
-    "network.im": "empathy",
-    "network.irc": "hexchat",
-    "network.news": "internet-news-reader",
-    "network.web": "emblem-web",
-    "network.web.browser": "web-browser",
-    "office": "x-office-spreadsheet",
-    "office.finance": "homebank",
-    "office.maths": "gnome-calculator",
-    "office.scientific": "applications-science",
-    "office.notes": "gnote",
-    "office.viewers": "calibre-viewer",
-    "programming.devel": "text-x-changelog",
-    "programming.haskell": "applications-haskell",
-    "programming.ide": "text-editor",
-    "programming.java": "applications-java",
-    "programming.python": "application-x-python-bytecode",
-    "programming.tools": "gitg",
-    "security": "preferences-system-firewall",
-}
-
-
-def is_essential_package(pkg):
-    """ Essential packages should NEVER be removed by the user. """
-    if pkg.partOf in essential_components:
-        return True
-    if pkg.name in essential_packages:
-        return True
-    return False
-
-
-class EopkgSource(ProviderSource):
-    """ EopkgSource wraps a repository object """
-
-    active = None
-    url = None
-    name = None
-    plugin = None
-    __gtype_name__ = "NxEopkgSource"
-
-    def get_name(self):
-        return self.name
-
-    def __init__(self, rdb, repoName):
-        ProviderSource.__init__(self)
-        self.url = rdb.get_repo_url(repoName)
-        self.name = repoName
-        self.active = rdb.repo_active(repoName)
-
-    def describe(self):
-        ret = "{} - {}".format(self.name, self.url)
-        if not self.active:
-            ret += " (inactive)"
-        return ret
-
-
-class EopkgGroup(ProviderCategory):
-    """ Wraps a GroupDB entry for top level groups """
-
-    id = None
-    group = None
-    children = None
-
-    def __init__(self, groupID, group):
-        ProviderCategory.__init__(self)
-        self.id = groupID
-        self.group = group
-        self.children = []
-
-        # Just replace the icon on the fly with something that
-        # fits better into the current theme
-        settings = Gtk.Settings.get_default()
-        icon_theme = settings.get_property("gtk-icon-theme-name")
-        icon_theme = icon_theme.lower().replace("-", "")
-        # Sneaky, I know.
-        if icon_theme == "arcicons" or icon_theme == "arc":
-            devIcon = "text-x-changelog"
-        else:
-            devIcon = "gnome-dev-computer"
-
-        replacements = {
-            "text-editor": "x-office-calendar",
-            "redhat-programming": devIcon,
-            "security-high": "preferences-system-privacy",
-            "network": "preferences-system-network",
-        }
-
-        icon = str(self.group.icon)
-        if icon in replacements:
-            self.icon = replacements[icon]
-        else:
-            self.icon = icon
-
-    def get_children(self):
-        return self.children
-
-    def get_name(self):
-        return str(self.group.localName)
-
-    def get_id(self):
-        return str(self.id)
-
-    def get_icon_name(self):
-        """ Return internal eopkg group icon name """
-        return self.icon
-
-
-class EopkgComponent(ProviderCategory):
-    """ Wraps an eopkg component """
-
-    id = None
-    comp = None
-
-    def __init__(self, compID, comp):
-        ProviderCategory.__init__(self)
-        self.id = compID
-        self.comp = comp
-
-    def get_name(self):
-        return str(self.comp.localName)
-
-    def get_id(self):
-        return str(self.id)
-
-    def get_icon_name(self):
-        if str(self.id) in ICON_MAPS:
-            return ICON_MAPS[str(self.id)]
-        return "package-x-generic"
 
 
 class EopkgPlugin(ProviderPlugin):
@@ -663,58 +492,3 @@ class EopkgPlugin(ProviderPlugin):
         self.spinlock_busy_end()
 
         self.executor = None
-
-
-class EopkgItem(ProviderItem):
-    """ EopkgItem abstracts access to the native package type, i.e. eopkg """
-
-    installed = None
-    available = None
-    displayCandidate = None
-
-    __gtype_name__ = "NxEopkgItem"
-
-    def __init__(self, installed, available):
-        ProviderItem.__init__(self)
-        self.installed = installed
-        self.available = available
-
-        self.add_status(ItemStatus.META_CHANGELOG)
-
-        if self.installed is not None:
-            self.displayCandidate = self.installed
-            self.add_status(ItemStatus.INSTALLED)
-            relOld = self.installed.history[0].release
-            relNew = relOld
-            if self.available:
-                relNew = self.available.history[0].release
-            if relNew > relOld:
-                self.add_status(ItemStatus.UPDATE_NEEDED)
-        else:
-            self.displayCandidate = self.available
-
-        # Is this an essential item?
-        if self.available and is_essential_package(self.available):
-            self.add_status(ItemStatus.META_ESSENTIAL)
-
-        name = self.get_name()
-        if name.endswith("-dbginfo") or name.endswith("-devel"):
-            self.add_status(ItemStatus.META_DEVEL)
-
-    def get_id(self):
-        return str(self.displayCandidate.name)
-
-    def get_name(self):
-        return self.displayCandidate.name
-
-    def get_summary(self):
-        return str(self.displayCandidate.summary)
-
-    def get_title(self):
-        return str(self.displayCandidate.name)
-
-    def get_description(self):
-        return str(self.displayCandidate.description)
-
-    def get_version(self):
-        return self.displayCandidate.history[0].version
