@@ -48,3 +48,10 @@ class FlatpakPlugin(ProviderPlugin):
 
     def refresh_source(self, executor, source):
         print("flatpak refresh source: {}".format(source.get_name()))
+        self.client.update_remote_sync(source.name, None)
+        print("flatpak source refreshed, begin appstream sync")
+        self.client.update_appstream_sync(
+            source.name,
+            Flatpak.get_default_arch(),  # Use local architecture
+            None)
+        print("flatpak appstream synced")
