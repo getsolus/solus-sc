@@ -19,6 +19,7 @@ from gi.repository import Gtk
 import pisi
 from pisi.operations.install import plan_install_pkg_names
 from pisi.operations.remove import plan_remove, plan_autoremove
+# from pisi.operations.upgrade import plan_upgrade
 from pisi.operations import helper as pisi_helper
 import time
 import comar
@@ -337,6 +338,8 @@ class EopkgPlugin(ProviderPlugin):
             return self.populate_featured(storage, extra)
         elif popfilter == PopulationFilter.CATEGORY:
             return self.populate_category(storage, extra)
+        elif popfilter == PopulationFilter.UPDATES:
+            self.populate_updates(storage, extra)
 
     def populate_recent(self, storage, appsystem):
         """ Populate home view with recently updated packages """
@@ -438,6 +441,15 @@ class EopkgPlugin(ProviderPlugin):
         for pkgID in pkgs:
             pkg = self.build_item(pkgID)
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.CATEGORY)
+
+    def populate_updates(self, storage, extra):
+        """ Find all available updates for the currently installed software
+            Note: This is incredibly primitive and has no plan facility """
+        # This does account for stuff that is set to be replaced
+        pkgs = pisi.api.list_upgradable()
+        for pkgID in pkgs:
+            pkg = self.build_item(pkgID)
+            storage.add_item(pkg.get_id(), pkg, PopulationFilter.UPDATES)
 
     def build_item(self, name):
         """ Build a complete item definition """

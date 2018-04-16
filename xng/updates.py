@@ -14,6 +14,7 @@
 from gi.repository import Gtk
 
 from .card import ScCard
+from .plugins.base import PopulationFilter
 
 
 class ScUpdatesView(Gtk.Box):
@@ -88,3 +89,16 @@ class ScUpdatesView(Gtk.Box):
         card.set_body("15")
         card.get_style_context().add_class("security-card")
         card.set_icon_name("security-high-symbolic")
+
+    def refresh(self):
+        """ Begin checking for updates """
+        for plugin in self.context.plugins:
+            plugin.populate_storage(self,
+                                    PopulationFilter.UPDATES,
+                                    self.context.appsystem)
+
+    def add_item(self, id, item, popfilter):
+        """ Got updates set available """
+        if popfilter != PopulationFilter.UPDATES:
+            return
+        print("Updatable: {}".format(id))

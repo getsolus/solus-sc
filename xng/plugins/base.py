@@ -26,6 +26,7 @@ class PopulationFilter:
     NEW = 3        # Find new packages
     RECENT = 4     # Find recently updated packages
     FEATURED = 5   # Basically "hot stuff"
+    UPDATES = 6    # Only store updates in the list
 
 
 class ItemStatus:
@@ -284,6 +285,12 @@ class ProviderPlugin(GObject.Object):
 
     def upgrade_item(self, executor, item):
         raise RuntimeError("implement upgrade_item")
+
+    def plan_upgrade_item(self, items):
+        """ Implementation must return a Transaction object for the given
+            list of items to fully plan the given upgrade operation
+        """
+        raise RuntimeError("implement plan_upgrade_item")
 
     def plan_install_item(self, item):
         """ Implementation needs to return a Transaction object describing
