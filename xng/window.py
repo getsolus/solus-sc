@@ -228,8 +228,15 @@ class ScMainWindow(Gtk.ApplicationWindow):
     def set_busy(self, busy):
         """ Mark the window as busy and prevent further navigation """
         self.busy = busy
-        self.back_button.set_sensitive(not busy)
-        self.home_button.set_sensitive(not busy)
+
+        if busy:
+            self.back_button.set_sensitive(False)
+            self.home_button.set_sensitive(False)
+        else:
+            can_back = len(self.nav_stack) > 1
+            self.back_button.set_sensitive(can_back)
+            self.home_button.set_sensitive(can_back)
+
         self.search_button.set_sensitive(not busy)
         self.updates_button.set_sensitive(not busy)
         self.search_entry.set_sensitive(not busy)
