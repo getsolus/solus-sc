@@ -237,18 +237,14 @@ class ProviderPlugin(GObject.Object):
         raise RuntimeError("implement upgrade_item")
 
     def plan_install_item(self, item):
-        """ Implementation needs to return a list of all items to be installed
-            to satisfy the installation of this item
-
-            Returning an item that IS installed will mark it for removal
+        """ Implementation needs to return a Transaction object describing
+            the operations required to satisfy the installation of this item
         """
         raise RuntimeError("implement plan_install_item")
 
     def plan_remove_item(self, item):
-        """ Implementation needs to return a list of all items to be removed
-            to satisfy the removal of this item
-
-            Returning an item that is NOT installed will mark it for install
+        """ Implementation needs to return a Transaction object describing
+            the operations required to satisfy the removal of this item
         """
         raise RuntimeError("implement plan_remove_item")
 

@@ -13,11 +13,12 @@
 
 from .base import ProviderPlugin, ProviderItem, ProviderSource, \
     ProviderCategory
-from .base import PopulationFilter, ItemStatus
+from .base import PopulationFilter, ItemStatus, Transaction
 from gi.repository import AppStreamGlib as As
 from gi.repository import Gtk
 import pisi
 from pisi.operations.install import plan_install_pkg_names
+from pisi.operations import helper as pisi_helper
 import time
 import comar
 import difflib
@@ -451,17 +452,21 @@ class EopkgPlugin(ProviderPlugin):
 
     def plan_install_item(self, item):
         """ Plan the installation of a given item """
-        (pg, pkgs) = plan_install_pkg_names([item.get_id()])
+        trans = Transaction(item)
         # We only want the package set, not the graph
-        ret = []
+
+        # Push the installation set here
+        (pg, pkgs) = plan_install_pkg_names([item.get_id()])
         for name in pkgs:
-            ret.append(self.build_item(name))
+            trans.push_installation(self.build_item(name))
 
-        # Track how many we'll end up installing later.
-        self.progress_total = len(ret)
-        self.progress_current = 0
+        # Potential conflict?
+        conflicts = pisi_helper.check_conflicts(pkgs, self.availDB)
+        if conflicts:
+            for name in conflicts:
+                trans.push_removal(self.build_item(name))
 
-        return ret
+        return trans
 
     def spinlock_busy_wait(self):
         """ Prep us for a new spinlock cycle """

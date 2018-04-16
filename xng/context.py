@@ -122,11 +122,8 @@ class ScContext(GObject.Object):
 
     def begin_install(self, item):
         """ Begin the work necessary to install a package """
-        packages = item.get_plugin().plan_install_item(item)
-        names = [x.get_id() for x in packages]
-
-        # TODO: Make sure this part is a dependency dialog
-        print("begin_install: {}".format(", ".join(names)))
+        transaction = item.get_plugin().plan_install_item(item)
+        print("begin_install: {}".format(transaction))
         print("deliberately gimped")
         return
 
