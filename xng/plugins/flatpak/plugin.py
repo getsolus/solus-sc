@@ -15,6 +15,9 @@ from ..base import ProviderPlugin
 
 from gi.repository import Flatpak
 
+# Plugin locals
+from .source import FlatpakSource
+
 
 class FlatpakPlugin(ProviderPlugin):
     """ FlatpakPlugin abstracts the underlying flatpak package management
@@ -31,9 +34,17 @@ class FlatpakPlugin(ProviderPlugin):
         # We only manage the system-wide flatpak install, not user bits
         self.client = Flatpak.Installation.new_system(None)
 
-        for remote in self.client.list_remotes(None):
-            print(" > flatpak remote: {} {}".format(
-                remote.get_title(), remote.get_url()))
-
     def populate_storage(self, storage, popfilter, extra):
         print("flatpak: not yet implemented =)")
+
+    def sources(self):
+        """ Return all flatpak sources """
+        sources = []
+        for remote in self.client.list_remotes(None):
+            source = FlatpakSource(remote)
+            source.parent_plugin = self
+            sources.append(source)
+        return sources
+
+    def refresh_source(self, executor, source):
+        print("flatpak refresh source: {}".format(source.get_name()))
