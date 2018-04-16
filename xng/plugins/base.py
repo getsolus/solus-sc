@@ -265,9 +265,13 @@ class ProviderPlugin(GObject.Object):
         """
         raise RuntimeError("implement plan_install_item")
 
-    def plan_remove_item(self, item):
+    def plan_remove_item(self, item, automatic=False):
         """ Implementation needs to return a Transaction object describing
             the operations required to satisfy the removal of this item
+
+            If `automatic` is set to True, the implementation should also
+            plan to remove any automatically installed dependencies along
+            with this
         """
         raise RuntimeError("implement plan_remove_item")
 

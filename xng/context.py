@@ -134,8 +134,11 @@ class ScContext(GObject.Object):
 
     def begin_remove(self, item):
         """ Begin the work necessary to remove a package """
-        packages = item.get_plugin().plan_remove_item(item)
-        print("begin_remove: {}".format(packages))
+        transaction = item.get_plugin().plan_remove_item(item)
+        transaction.set_operation_type(OperationType.REMOVE)
+        print("begin_remove: {}".format(transaction.describe()))
+        print("deliberately gimped")
+        return
 
     def set_window_busy(self, busy):
         if not self.window:

@@ -18,6 +18,7 @@ from gi.repository import AppStreamGlib as As
 from gi.repository import Gtk
 import pisi
 from pisi.operations.install import plan_install_pkg_names
+from pisi.operations.remove import plan_remove, plan_autoremove
 from pisi.operations import helper as pisi_helper
 import time
 import comar
@@ -453,7 +454,6 @@ class EopkgPlugin(ProviderPlugin):
     def plan_install_item(self, item):
         """ Plan the installation of a given item """
         trans = Transaction(item)
-        # We only want the package set, not the graph
 
         # Push the installation set here
         (pg, pkgs) = plan_install_pkg_names([item.get_id()])
@@ -465,6 +465,20 @@ class EopkgPlugin(ProviderPlugin):
         if conflicts:
             for name in conflicts:
                 trans.push_removal(self.build_item(name))
+
+        return trans
+
+    def plan_remove_item(self, item, automatic=False):
+        """ Plan removal of a given item """
+        trans = Transaction(item)
+
+        if not automatic:
+            (pg, pkgs) = plan_remove([item.get_id()])
+        else:
+            (pg, pkgs) = plan_autoremove([item.get_id()])
+
+        for name in pkgs:
+            trans.push_removal(self.build_item(name))
 
         return trans
 
