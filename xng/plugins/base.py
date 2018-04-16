@@ -44,6 +44,55 @@ class ItemStatus:
     META_ESSENTIAL = 1 << 9   # Essential component. Do NOT remove!
 
 
+class Transaction(GObject.Object):
+    """ The Transaction class wraps a planned operation and returns the
+        set of operations to be performed. This allows internal code to
+        know the full set of operations to be completed ahead of time,
+        including any automatic installs, conflict removals, etc.
+    """
+
+    __gtype_name__ = "NxTransaction"
+
+    primary_item = None  # Associated primary item
+
+    removals = None  # Any removals we need to perform (conflicts)
+
+    installations = None  # Any installations to be performed
+
+    def __init__(self, primary_item=None):
+        GObject.Object.__init__(self)
+
+        self.primary_item = primary_item
+
+        self.removals = set()
+        self.installations = set()
+
+    def push_removal(self, item):
+        """ Push a new removal operation """
+        self.removals.add(item)
+
+    def push_installation(self, item):
+        """ Push a new installation operation """
+        self.installations.add(item)
+
+    def push_reinstallation(self, item):
+        """ Push a new reinstallation operation (remove + install) """
+        self.removals.add(item)
+        self.installations.add(item)
+
+    def count_operations(self):
+        """ Total number of operations to be applied """
+        return self.count_installations() + self.count_removals()
+
+    def count_installations(self):
+        """ Total number of install operations """
+        return len(self.installations)
+
+    def count_removals(self):
+        """ Total number of removal operations """
+        return len(self.removals)
+
+
 class ProviderCategory(GObject.Object):
     """ ProviderCategory provides categorisation for the software center and
         allows nesting for the native items """
