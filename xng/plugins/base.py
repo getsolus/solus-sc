@@ -12,6 +12,7 @@
 #
 
 from gi.repository import GObject
+from xng.op_queue import OperationType
 
 
 class PopulationFilter:
@@ -59,6 +60,8 @@ class Transaction(GObject.Object):
 
     installations = None  # Any installations to be performed
 
+    op_type = None  # No initial operation type
+
     def __init__(self, primary_item=None):
         GObject.Object.__init__(self)
 
@@ -66,6 +69,10 @@ class Transaction(GObject.Object):
 
         self.removals = set()
         self.installations = set()
+
+    def set_operation_type(self, op_type):
+        """ Initiated by the context only """
+        self.op_type = op_type
 
     def push_removal(self, item):
         """ Push a new removal operation """
@@ -91,6 +98,22 @@ class Transaction(GObject.Object):
     def count_removals(self):
         """ Total number of removal operations """
         return len(self.removals)
+
+    def describe(self):
+        sb = None
+        if self.op_type == OperationType.INSTALL:
+            sb = "Install: {}".format(self.primary_item.get_id())
+        elif self.op_type == OperationType.REMOVE:
+            sb = "Remove: {}".format(self.primary_item.get_id())
+        elif self.op_type == OperationType.UPGRADE:
+            sb = "Upgrade: {}".format(self.primary_item.get_id())
+
+        # Format for debug
+        sb += ", removals: {}, installs: {}".format(
+            [x.get_id() for x in self.removals],
+            [x.get_id() for x in self.installations])
+
+        return sb
 
 
 class ProviderCategory(GObject.Object):
@@ -322,3 +345,6 @@ class ProviderItem(GObject.Object):
 
     def get_plugin(self):
         return self.parent_plugin
+
+    def __str__(self):
+        return self.get_id()

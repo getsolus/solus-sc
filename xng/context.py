@@ -13,6 +13,7 @@
 
 from .appsystem import AppSystem
 from .executor import Executor
+from .op_queue import OperationType
 from .util.fetcher import ScMediaFetcher
 from .util.desktop import ScDesktopIntegration
 from gi.repository import GObject, GLib
@@ -123,7 +124,8 @@ class ScContext(GObject.Object):
     def begin_install(self, item):
         """ Begin the work necessary to install a package """
         transaction = item.get_plugin().plan_install_item(item)
-        print("begin_install: {}".format(transaction))
+        transaction.set_operation_type(OperationType.INSTALL)
+        print("begin_install: {}".format(transaction.describe()))
         print("deliberately gimped")
         return
 
