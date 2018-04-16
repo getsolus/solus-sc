@@ -592,3 +592,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
             return Gdk.EVENT_STOP
 
         return Gdk.EVENT_PROPAGATE
+
+    def begin_check_updates(self):
+        """ We've been told to check for updates """
+        self.updates.refresh()

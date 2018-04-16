@@ -32,6 +32,8 @@ class ScContext(GObject.Object):
     window = None
     desktop = None
 
+    sources_count = 0
+
     __gtype_name__ = "ScContext"
 
     __gsignals__ = {
@@ -43,6 +45,7 @@ class ScContext(GObject.Object):
         self.has_loaded = False
         self.window = window
         self.executor = Executor()
+        self.executor.connect('refreshed', self.on_refreshed)
         self.desktop = ScDesktopIntegration()
 
     def begin_load(self):
@@ -153,6 +156,23 @@ class ScContext(GObject.Object):
 
     def refresh_sources(self):
         """ Attempt to refresh all sources """
+        sources = []
         for plugin in self.plugins:
-            for source in plugin.sources():
-                self.executor.refresh_source(source)
+            sources.extend(plugin.sources())
+        self.sources_count = len(sources)
+        for source in sources:
+            self.executor.refresh_source(source)
+
+    def on_refreshed(self, executor):
+        """ When all sources have refreshed, we can start the first check
+            for available updates, otherwise we risk grabbing stale update
+            information.
+        """
+        self.sources_count -= 1
+        if self.sources_count == 0:
+            GObject.idle_add(self.enqueue_update_refresh)
+
+    def enqueue_update_refresh(self):
+        """ Tell the window to check for updates through the updates view """
+        self.window.begin_check_updates()
+        return False

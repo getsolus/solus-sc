@@ -92,6 +92,7 @@ class ScUpdatesView(Gtk.Box):
 
     def refresh(self):
         """ Begin checking for updates """
+        print("Sources refreshed: Check for updates now")
         for plugin in self.context.plugins:
             plugin.populate_storage(self,
                                     PopulationFilter.UPDATES,

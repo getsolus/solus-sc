@@ -35,6 +35,7 @@ class Executor(GObject.Object):
     __gsignals__ = {
         'execution-started': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, ()),
         'execution-ended': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, ()),
+        'refreshed': (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, ()),
         'job-enqueued': (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE,
                          (Operation,)),
         'job-dequeued': (GObject.SIGNAL_RUN_FIRST, GObject.TYPE_NONE,
@@ -166,4 +167,6 @@ class Executor(GObject.Object):
         """ Let listeners know we're done for now """
         Gdk.threads_enter()
         self.emit('execution-ended')
+        if item.opType == OperationType.REFRESH:
+            self.emit('refreshed')
         Gdk.threads_leave()
