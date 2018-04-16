@@ -31,56 +31,15 @@ import comar
 import difflib
 
 
-def find_have_data(adb, store):
-    """ Find all packages with AppStream data """
-    ret = []
-
-    for key in adb.list_packages(None):
-        app = store.get_app_by_pkgname(key)
-        if not app:
-            continue
-        # Only want desktop apps here
-        if app.get_kind() != As.AppKind.DESKTOP:
-            continue
-        ret.append(key)
-    return ret
-
-
-def filter_packages_by_data(adb, store):
-    """ Return available packages by appdata only """
-    pkgs = find_have_data(adb, store)
-    ret = []
-    for item in pkgs:
-        pkg = adb.get_package(item)
-        ret.append(pkg)
-    return ret
-
-
-def unmangle_date(tstamp):
-    try:
-        ret = time.strptime(tstamp, "%Y-%m-%d")
-        return ret
-    except Exception:
-        # Probably because old eopkg pspec
-        pass
-    try:
-        ret = time.strptime(tstamp, "%m-%d-%Y")
-        return ret
-    except Exception:
-        return 0
-
-
-def history_sort(pkgA, pkgB):
-    dateA = pkgA.history[0].date
-    dateB = pkgB.history[0].date
-    aa = unmangle_date(dateA)
-    ab = unmangle_date(dateB)
-
-    return cmp(aa, ab)
-
-
 class EopkgPlugin(ProviderPlugin):
-    """ EopkgPlugin interfaces with the eopkg package manager """
+    """ EopkgPlugin wraps the underlying package manager (eopkg) to allow
+        discovery of packages in a fashion consistent with the expectations
+        of the Software Center.
+
+        It is also responsible for managing the COMAR D-BUS link to serialise
+        the job queue via the executor. As such, all privileged calls made
+        by the plugin are blocking, as they run on a dedicated worker thread.
+    """
 
     availDB = None
     installDB = None
@@ -492,3 +451,51 @@ class EopkgPlugin(ProviderPlugin):
         self.spinlock_busy_end()
 
         self.executor = None
+
+
+def find_have_data(adb, store):
+    """ Find all packages with AppStream data """
+    ret = []
+
+    for key in adb.list_packages(None):
+        app = store.get_app_by_pkgname(key)
+        if not app:
+            continue
+        # Only want desktop apps here
+        if app.get_kind() != As.AppKind.DESKTOP:
+            continue
+        ret.append(key)
+    return ret
+
+
+def filter_packages_by_data(adb, store):
+    """ Return available packages by appdata only """
+    pkgs = find_have_data(adb, store)
+    ret = []
+    for item in pkgs:
+        pkg = adb.get_package(item)
+        ret.append(pkg)
+    return ret
+
+
+def unmangle_date(tstamp):
+    try:
+        ret = time.strptime(tstamp, "%Y-%m-%d")
+        return ret
+    except Exception:
+        # Probably because old eopkg pspec
+        pass
+    try:
+        ret = time.strptime(tstamp, "%m-%d-%Y")
+        return ret
+    except Exception:
+        return 0
+
+
+def history_sort(pkgA, pkgB):
+    dateA = pkgA.history[0].date
+    dateB = pkgB.history[0].date
+    aa = unmangle_date(dateA)
+    ab = unmangle_date(dateB)
+
+    return cmp(aa, ab)

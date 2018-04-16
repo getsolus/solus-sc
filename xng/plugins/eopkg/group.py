@@ -16,7 +16,13 @@ from gi.repository import Gtk
 
 
 class EopkgGroup(ProviderCategory):
-    """ Wraps a GroupDB entry for top level groups """
+    """ EopkgGroup provides a toplevel category component for the Software
+        Center which in turn wraps the component DB to provide a second level
+        of navigation.
+
+        No packages belong to a group, but they belong to the components which
+        in turn belong to only one group.
+    """
 
     id = None
     group = None

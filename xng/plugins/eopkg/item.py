@@ -15,7 +15,14 @@ from ..base import ProviderItem, ItemStatus
 
 
 class EopkgItem(ProviderItem):
-    """ EopkgItem abstracts access to the native package type, i.e. eopkg """
+    """ EopkgItem provides an abstract view of the underlying eopkg package
+        object and exposes various control bits to integrate better within
+        the Software Center
+
+        Notably it attempts to track the difference between the installed
+        package, if any, and the available repository package (again, if it
+        exists).
+    """
 
     installed = None
     available = None

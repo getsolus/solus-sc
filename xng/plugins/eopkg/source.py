@@ -15,7 +15,9 @@ from ..base import ProviderSource
 
 
 class EopkgSource(ProviderSource):
-    """ EopkgSource wraps a repository object """
+    """ EopkgSource provides an abstract wrapper for an underlying eopkg
+        repository object so that it can be managed by the Software Center
+    """
 
     active = None
     url = None

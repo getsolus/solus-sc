@@ -15,7 +15,10 @@ from ..base import ProviderCategory
 
 
 class EopkgComponent(ProviderCategory):
-    """ Wraps an eopkg component """
+    """ EopkgComponent belongs to a single EopkgGroup, providing navigational
+        access to packages for a single exclusive component. This powers the
+        primary view of the Software Center.
+    """
 
     id = None
     comp = None
