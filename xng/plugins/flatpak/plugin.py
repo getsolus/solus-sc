@@ -13,15 +13,27 @@
 
 from ..base import ProviderPlugin
 
+from gi.repository import Flatpak
+
 
 class FlatpakPlugin(ProviderPlugin):
-    """ FlatpakPlugin abstracts the underlying flatpak 
+    """ FlatpakPlugin abstracts the underlying flatpak package management
+        system in a fashion suitable for consumption by the Software Center
     """
 
     __gtype_name__ = "NxFlatpakPlugin"
 
+    client = None  # FlatpakInstallation
+
     def __init__(self):
         ProviderPlugin.__init__(self)
+
+        # We only manage the system-wide flatpak install, not user bits
+        self.client = Flatpak.Installation.new_system(None)
+
+        for remote in self.client.list_remotes(None):
+            print(" > flatpak remote: {} {}".format(
+                remote.get_title(), remote.get_url()))
 
     def populate_storage(self, storage, popfilter, extra):
         print("flatpak: not yet implemented =)")
