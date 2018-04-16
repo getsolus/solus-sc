@@ -67,13 +67,18 @@ class FlatpakPlugin(ProviderPlugin):
         return sources
 
     def refresh_source(self, executor, source):
-        print("flatpak refresh source: {}".format(source.get_name()))
+        """ For flatpak we sync the remote ref *and* sync AppStream """
+        self.executor = executor
+
+        self.executor.set_progress_string(_("Updating repository information"))
         self.client.update_remote_sync(source.name, None)
-        print("flatpak source refreshed, begin appstream sync")
+        self.executor.set_progress_string(_("Updating AppStream data"))
         self.client.update_appstream_sync(
             source.name,
             Flatpak.get_default_arch(),  # Use local architecture
             None)
+
+        self.executor = None
         print("flatpak appstream synced")
 
     def categories(self):
