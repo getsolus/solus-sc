@@ -75,17 +75,18 @@ class ScDetailsView(Gtk.Box):
 
         # Grab the app
         apps = self.context.appsystem
+        store = item.get_store()
         id = item.get_id()
 
         # Update main header
-        self.header_name.set_markup(apps.get_name(id, item.get_name()))
+        self.header_name.set_markup(apps.get_name(id, item.get_name(), store))
         self.header_summary.set_markup(
-            apps.get_summary(id, item.get_summary()))
-        pbuf = apps.get_pixbuf_only(id)
+            apps.get_summary(id, item.get_summary(), store))
+        pbuf = apps.get_pixbuf_only(id, store)
         self.header_image.set_from_pixbuf(pbuf)
 
         if self.item.has_status(ItemStatus.INSTALLED):
-            launch_id = apps.get_launchable_id(id)
+            launch_id = apps.get_launchable_id(id, store)
             if launch_id is not None:
                 try:
                     self.launch_info = Gio.DesktopAppInfo.new(launch_id)
@@ -224,7 +225,8 @@ class ScDetailsView(Gtk.Box):
 
         id = self.item.get_id()
         fallback = self.item.get_description()
-        desc = self.context.appsystem.get_description(id, fallback)
+        store = self.item.get_store()
+        desc = self.context.appsystem.get_description(id, fallback, store)
 
         plain = As.markup_convert(desc, As.MarkupConvertFormat.MARKDOWN)
         lines = []

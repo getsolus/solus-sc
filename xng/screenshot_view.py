@@ -122,8 +122,9 @@ class ScScreenshotView(Gtk.Box):
 
         # Ask AppSystem for screenshots (AppStream only!)
         id = item.get_id()
+        store = item.get_store()
         apps = self.context.appsystem
-        screens = apps.get_screenshots(id)
+        screens = apps.get_screenshots(id, store)
         if not screens:
             self.image_widget.hide()
             self.image_widget.show_not_found()
