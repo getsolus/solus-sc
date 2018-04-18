@@ -130,7 +130,10 @@ class AppSystem:
         ret = store.get_app_by_pkgname(id)
         if ret:
             return ret
-        return store.get_app_by_id(str(id) + ".desktop")
+        ret = store.get_app_by_id(id)
+        if ret:
+            return ret
+        return store.get_app_by_id(id + ".desktop")
 
     def get_summary(self, id, fallback, store=None):
         """ Return a usable summary for a package """
