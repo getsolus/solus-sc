@@ -24,6 +24,7 @@ class ScItemButton(Gtk.FlowBoxChild):
 
     item = None
     action_button = None
+    name = None
 
     def __init__(self, appsystem, item):
         Gtk.FlowBoxChild.__init__(self)
@@ -47,6 +48,7 @@ class ScItemButton(Gtk.FlowBoxChild):
 
         # Get the title
         name = appsystem.get_name(item_id, item.get_name(), store)
+        self.name = name
         label = Gtk.Label(name)
         label.get_style_context().add_class("sc-bold")
         label.set_use_markup(True)
@@ -195,6 +197,7 @@ class ScCategoriesView(Gtk.Box):
             Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self.item_scroller.set_overlay_scrolling(False)
         self.item_list = Gtk.FlowBox.new()
+        self.item_list.set_sort_func(self.sort_categories)
         self.item_list.set_activate_on_single_click(True)
         self.item_list.connect('child-activated', self.item_activated)
         self.item_list.set_row_spacing(12)
@@ -207,6 +210,9 @@ class ScCategoriesView(Gtk.Box):
         self.item_view.pack_start(self.item_scroller, True, True, 0)
 
         self.show_all()
+
+    def sort_categories(self, catA, catB):
+        return cmp(catA.name.lower(), catB.name.lower())
 
     def item_activated(self, box, child, udata=None):
         """ An item in the component listing is being interacted with """
