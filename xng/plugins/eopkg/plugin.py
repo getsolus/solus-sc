@@ -232,6 +232,8 @@ class EopkgPlugin(ProviderPlugin):
 
     def populate_category(self, storage, category):
         """ Ask componentDB for all packages in the given component """
+        if not self.compDB.has_component(category.get_id()):
+            return
         pkgs = self.compDB.get_packages(category.get_id(), None, False)
         for pkgID in pkgs:
             pkg = self.build_item(pkgID)
