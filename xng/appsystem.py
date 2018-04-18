@@ -242,8 +242,13 @@ class AppSystem:
             except Exception as e:
                 print(e)
             return self.default_pixbuf
-        if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
+        try:
+            if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
+                return self.default_pixbuf
+        except Exception as e:
+            print("Should not happen: {}".format(e))
             return self.default_pixbuf
+
         pbuf = icon.get_pixbuf()
         if pbuf.get_height() != 64:
             pbuf = pbuf.scale_simple(
