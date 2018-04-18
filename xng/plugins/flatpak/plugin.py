@@ -11,12 +11,13 @@
 #  (at your option) any later version.
 #
 
-from ..base import ProviderPlugin, ProviderCategory
+from ..base import ProviderPlugin, ProviderCategory, PopulationFilter
 
 from gi.repository import Flatpak, GLib, Gio
 from gi.repository import AppStreamGlib as As
 
 # Plugin locals
+from .item import FlatpakItem
 from .source import FlatpakSource
 
 import os
@@ -129,9 +130,6 @@ class FlatpakPlugin(ProviderPlugin):
             gf = Gio.File.new_for_path(appfile)
             self.store.from_file(gf, remote.get_appstream_icons(), None)
 
-    def populate_storage(self, storage, popfilter, extra):
-        print("flatpak: not yet implemented =)")
-
     def sources(self):
         """ Return all flatpak sources """
         return self.remotes
@@ -177,3 +175,29 @@ class FlatpakPlugin(ProviderPlugin):
 
     def categories(self):
         return [self.root_category]
+
+    def populate_storage(self, storage, popfilter, extra):
+        """ Dispatch the storage population to an appropriate helper """
+        if popfilter == PopulationFilter.CATEGORY:
+            self.populate_category(storage, extra)
+
+    def populate_category(self, storage, category):
+        """ Populate the storage with refs from the given category """
+        if not category.get_id().startswith("flatpak:"):
+            return
+        remote_apps = self.client.list_remote_refs_sync(
+            category.source.name,
+            None)
+
+        for remote_app in remote_apps:
+            if not remote_app.get_kind() == Flatpak.RefKind.APP:
+                continue
+            item = self.build_item(remote_app)
+            storage.add_item(item.get_id(), item, PopulationFilter.CATEGORY)
+
+    def build_item(self, ref):
+        """ Return an appropriate FlatpakItem for result sets """
+        item = FlatpakItem(ref)
+
+        # TODO: Mimic eopkg and try to grab the avail/install difference
+        return item
