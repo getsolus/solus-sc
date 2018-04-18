@@ -29,8 +29,19 @@ APPSTREAM_THRESHOLD_SECS = (60 * 60) * 3
 class FlatpakRootCategory(ProviderCategory):
     """ Provider the root category for Flatpak navigation """
 
+    sources = None
+    components = None
+
     def __init__(self):
         ProviderCategory.__init__(self)
+
+    def set_sources(self, sources):
+        """ Update the sources """
+        self.sources = sources
+
+        self.components = list()
+        for x in self.sources:
+            self.components.append(FlatpakComponent(x))
 
     def get_name(self):
         return _("Flatpak")
@@ -41,6 +52,28 @@ class FlatpakRootCategory(ProviderCategory):
     def get_icon_name(self):
         # TODO: Only return this when icon theme supports it
         return "application-vnd.flatpak"
+
+    def get_children(self):
+        return self.components
+
+
+class FlatpakComponent(ProviderCategory):
+    """ Provides a category per remote """
+
+    source = None
+
+    def __init__(self, source):
+        ProviderCategory.__init__(self)
+        self.source = source
+
+    def get_name(self):
+        return self.source.get_name()
+
+    def get_id(self):
+        return self.source.name
+
+    def get_icon_name(self):
+        return "web-browser-symbolic"
 
 
 class FlatpakPlugin(ProviderPlugin):
@@ -69,6 +102,9 @@ class FlatpakPlugin(ProviderPlugin):
 
         # Cache the remotes because we actually need their appstream dirs
         self.build_remotes()
+
+        # Pass the remotes to the root category
+        self.root_category.set_sources(self.remotes)
 
     def build_remotes(self):
         """ Build our known remotes """
