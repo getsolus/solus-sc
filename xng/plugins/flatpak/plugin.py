@@ -70,7 +70,7 @@ class FlatpakComponent(ProviderCategory):
         return self.source.get_name()
 
     def get_id(self):
-        return self.source.name
+        return "flatpak:{}".format(self.source.name)
 
     def get_icon_name(self):
         return "web-browser-symbolic"
