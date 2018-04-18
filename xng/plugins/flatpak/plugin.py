@@ -102,7 +102,6 @@ class FlatpakPlugin(ProviderPlugin):
 
         # Our own temporary appstore..
         self.store = As.Store.new()
-        self.store.set_origin("flatpak")
 
         # Cache the remotes because we actually need their appstream dirs
         self.build_remotes()
@@ -198,6 +197,7 @@ class FlatpakPlugin(ProviderPlugin):
     def build_item(self, ref):
         """ Return an appropriate FlatpakItem for result sets """
         item = FlatpakItem(ref)
+        item.store = self.store  # TODO: Construct one store per remote
 
         # TODO: Mimic eopkg and try to grab the avail/install difference
         return item

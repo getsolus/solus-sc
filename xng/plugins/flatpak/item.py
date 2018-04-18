@@ -22,6 +22,7 @@ class FlatpakItem(ProviderItem):
     installed = None
     available = None
     displayCandidate = None
+    store = None
 
     __gtype_name__ = "NxFlatpakItem"
 
@@ -37,13 +38,16 @@ class FlatpakItem(ProviderItem):
         return self.displayCandidate.get_name()
 
     def get_summary(self):
-        return None
+        return self.displayCandidate.format_ref()
 
     def get_title(self):
-        return None
+        return self.displayCandidate.get_name()
 
     def get_description(self):
         return self.displayCandidate.get_name()
 
     def get_version(self):
         return self.displayCandidate.get_commit()
+
+    def get_store(self):
+        return self.store

@@ -53,7 +53,7 @@ class ScSearchResult(Gtk.ListBoxRow):
         # Pack the image first
         img = Gtk.Image.new()
         main_box.pack_start(img, False, False, 0)
-        icon = appsystem.get_pixbuf_only(item_id)
+        icon = appsystem.get_pixbuf_only(item_id, item.get_store())
         img.set_from_pixbuf(icon)
 
         stride_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
@@ -61,7 +61,7 @@ class ScSearchResult(Gtk.ListBoxRow):
         main_box.pack_start(stride_box, True, True, 0)
 
         # Get the title
-        name = appsystem.get_name(item_id, item.get_name())
+        name = appsystem.get_name(item_id, item.get_name(), item.get_store())
         label = Gtk.Label(name)
         label.get_style_context().add_class("sc-bold")
         label.set_use_markup(True)
@@ -82,7 +82,9 @@ class ScSearchResult(Gtk.ListBoxRow):
         top_box.pack_start(id_label, False, False, 0)
 
         # Get the summary
-        summ = appsystem.get_summary(item_id, item.get_summary())
+        summ = appsystem.get_summary(item_id,
+                                     item.get_summary(),
+                                     item.get_store())
         summary = Gtk.Label(summ)
         summary.set_use_markup(True)
         summary.set_property("xalign", 0.0)

@@ -383,5 +383,9 @@ class ProviderItem(GObject.Object):
     def get_plugin(self):
         return self.parent_plugin
 
+    def get_store(self):
+        """ Plugins can use a different AsStore if required """
+        return None
+
     def __str__(self):
         return self.get_id()

@@ -123,25 +123,30 @@ class AppSystem:
                 64, 64, GdkPixbuf.InterpType.BILINEAR)
         return pbuf
 
-    def get_summary(self, id, fallback):
+    def get_store_variant(self, store, id):
+        """ Helper to find the package """
+        if not store:
+            store = self.store
+        ret = store.get_app_by_pkgname(id)
+        if ret:
+            return ret
+        return store.get_app_by_id(str(id) + ".desktop")
+
+    def get_summary(self, id, fallback, store=None):
         """ Return a usable summary for a package """
-        app = self.store.get_app_by_pkgname(id)
+        app = self.get_store_variant(store, id)
         ret = None
         if not app:
             ret = GLib.markup_escape_text(str(fallback))
         else:
             ret = app.get_comment("C")
+        if not ret:
+            return self.sanitize(fallback)
         return self.sanitize(ret)
 
-    def has_id(self, id):
-        """ Determine if an ID is known or not """
-        if self.store.get_app_by_pkgname(id) is None:
-            return False
-        return True
-
-    def get_description(self, id, fallback):
+    def get_description(self, id, fallback, store=None):
         """ Return a usable description for a package """
-        app = self.store.get_app_by_pkgname(id)
+        app = self.get_store_variant(store, id)
         if not app:
             return self.sanitize(
                 GLib.markup_escape_text(str(fallback)))
@@ -151,34 +156,35 @@ class AppSystem:
                 GLib.markup_escape_text(str(fallback)))
         return c
 
-    def get_name(self, id, fallback):
-        app = self.store.get_app_by_pkgname(id)
+    def get_name(self, id, fallback, store=None):
+        app = self.get_store_variant(store, id)
         if not app:
             return GLib.markup_escape_text(str(fallback))
-        return GLib.markup_escape_text(self.sanitize(app.get_name("C")))
+        ret = app.get_name("C")
+        if not ret:
+            return self.sanitize(fallback)
+        return GLib.markup_escape_text(self.sanitize(ret))
 
-    def _get_appstream_url(self, id, ptype):
+    def _get_appstream_url(self, id, ptype, store):
         """ Get an appstream link for the given package """
-        app = self.store.get_app_by_pkgname(id)
+        app = self.get_store_variant(store, id)
         if not app:
             return None
         url = app.get_url_item(ptype)
         return url
 
-    def get_website(self, id, fallback):
+    def get_website(self, id, fallback, store=None):
         """ Get the website for a given package """
-        home = self._get_appstream_url(id, As.UrlKind.HOMEPAGE)
+        home = self._get_appstream_url(id, As.UrlKind.HOMEPAGE, store)
         if home:
             return home
         if fallback:
             return str(fallback)
         return None
 
-    def _get_pixbuf_internal(self, id, size):
+    def _get_pixbuf_internal(self, id, size, store):
         """ Get the AppStream GdkPixbuf for a package """
-        app = self.store.get_app_by_pkgname(id)
-        if not app:
-            return None
+        app = self.get_store_variant(store, id)
         # TODO: Incorporate HIDPI!
         icon = app.get_icon_for_size(size, size)
         if not icon:
@@ -194,11 +200,11 @@ class AppSystem:
             return None
         return icon.get_pixbuf()
 
-    def get_pixbuf(self, id):
-        return self._get_pixbuf_internal(id, 64)
+    def get_pixbuf(self, id, store=None):
+        return self._get_pixbuf_internal(id, 64, store)
 
-    def get_pixbuf_massive(self, id):
-        return self._get_pixbuf_internal(id, 128)
+    def get_pixbuf_massive(self, id, store=None):
+        return self._get_pixbuf_internal(id, 128, store)
 
     def default_pixbuf_lookup(self, app):
         """ Use our built in preloaded pixbufs """
@@ -209,9 +215,9 @@ class AppSystem:
             return self.addon_pixbuf
         return self.default_pixbuf
 
-    def get_pixbuf_only(self, id):
+    def get_pixbuf_only(self, id, store=None):
         """ Only get a pixbuf - no fallbacks  """
-        app = self.store.get_app_by_pkgname(id)
+        app = self.get_store_variant(store, id)
         if not app:
             return self.default_pixbuf_lookup(app)
         # TODO: Incorporate HIDPI!
@@ -244,24 +250,24 @@ class AppSystem:
                 64, 64, GdkPixbuf.InterpType.BILINEAR)
         return pbuf
 
-    def get_donation_site(self, id):
+    def get_donation_site(self, id, store=None):
         """ Get a donation link for the given package """
-        return self._get_appstream_url(id, As.UrlKind.DONATION)
+        return self._get_appstream_url(id, As.UrlKind.DONATION, store)
 
-    def get_bug_site(self, id):
+    def get_bug_site(self, id, store=None):
         """ Get a bug link for the given package """
-        return self._get_appstream_url(id, As.UrlKind.BUGTRACKER)
+        return self._get_appstream_url(id, As.UrlKind.BUGTRACKER, store)
 
-    def get_developers(self, id):
+    def get_developers(self, id, store=None):
         """ Get the developer names for the given package """
-        app = self.store.get_app_by_pkgname(id)
+        app = self.get_store_variant(store, id)
         if not app:
             return None
         return app.get_developer_name("C")
 
-    def get_screenshots(self, id):
+    def get_screenshots(self, id, store=None):
         """ Return wrapped Screenshot objects for the package """
-        app = self.store.get_app_by_pkgname(id)
+        app = self.get_store_variant(store, id)
         if not app:
             return None
         screens = app.get_screenshots()
@@ -277,9 +283,9 @@ class AppSystem:
                 print("Unable to load screen: {}".format(e))
         return ret
 
-    def get_launchable_id(self, id):
+    def get_launchable_id(self, id, store=None):
         """ Return the desktop file id for the given package """
-        app = self.store.get_app_by_pkgname(id)
+        app = self.get_store_variant(store, id)
         if not app:
             return None
         launch = app.get_launchable_by_kind(As.LaunchableKind.DESKTOP_ID)

@@ -33,10 +33,12 @@ class ScItemButton(Gtk.FlowBoxChild):
         main_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         self.add(main_box)
 
+        store = item.get_store()
+
         # Pack the image first
         img = Gtk.Image.new()
         main_box.pack_start(img, False, False, 0)
-        icon = appsystem.get_pixbuf_only(item_id)
+        icon = appsystem.get_pixbuf_only(item_id, store)
         img.set_from_pixbuf(icon)
 
         stride_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
@@ -44,7 +46,7 @@ class ScItemButton(Gtk.FlowBoxChild):
         main_box.pack_start(stride_box, True, True, 0)
 
         # Get the title
-        name = appsystem.get_name(item_id, item.get_name())
+        name = appsystem.get_name(item_id, item.get_name(), store)
         label = Gtk.Label(name)
         label.get_style_context().add_class("sc-bold")
         label.set_use_markup(True)
@@ -54,7 +56,7 @@ class ScItemButton(Gtk.FlowBoxChild):
         stride_box.pack_start(label, False, False, 0)
 
         # Get the summary
-        summ = appsystem.get_summary(item_id, item.get_summary())
+        summ = appsystem.get_summary(item_id, item.get_summary(), store)
         if len(summ) > 100:
             summ = "%s…" % summ[0:100]
         summary = Gtk.Label(summ)
