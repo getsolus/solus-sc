@@ -203,6 +203,7 @@ class AppSystem:
             if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
                 return self.default_pixbuf
         except Exception as e:
+            print(e)
             return self.default_pixbuf
         return icon.get_pixbuf()
 
@@ -221,13 +222,27 @@ class AppSystem:
             return self.addon_pixbuf
         return self.default_pixbuf
 
+    def find_icon(self, app, width, height):
+        """ AppStream will happily give us remote icons when we'll only look
+            to load locally sourced ones in the icon cache. It will also give
+            us remote ones before a locally existing one so we have to do
+            the iteration ourselves.
+        """
+        for icon in app.get_icons():
+            kind = icon.get_kind()
+            if kind == As.IconKind.UNKNOWN or kind == As.IconKind.REMOTE:
+                continue
+            if icon.get_width() == width and icon.get_height() == height:
+                return icon
+        return app.get_icon_for_size(width, height)
+
     def get_pixbuf_only(self, id, store=None):
         """ Only get a pixbuf - no fallbacks  """
         app = self.get_store_variant(store, id)
         if not app:
             return self.default_pixbuf_lookup(app)
         # TODO: Incorporate HIDPI!
-        icon = app.get_icon_for_size(64, 64)
+        icon = self.find_icon(app, 64, 64)
         if not icon:
             return self.default_pixbuf_lookup(app)
         kind = icon.get_kind()
