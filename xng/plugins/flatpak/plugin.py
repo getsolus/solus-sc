@@ -41,6 +41,9 @@ class FlatpakRootCategory(ProviderCategory):
 
         self.components = list()
         for x in self.sources:
+            # We only display remotes we can enumerate
+            if x.remote.get_noenumerate():
+                continue
             self.components.append(FlatpakComponent(x))
 
     def get_name(self):
