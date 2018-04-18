@@ -189,7 +189,11 @@ class FlatpakPlugin(ProviderPlugin):
             None)
 
         for remote_app in remote_apps:
+            # Only want apps
             if not remote_app.get_kind() == Flatpak.RefKind.APP:
+                continue
+            # Only support native arch
+            if remote_app.get_arch() != Flatpak.get_default_arch():
                 continue
             item = self.build_item(remote_app)
             storage.add_item(item.get_id(), item, PopulationFilter.CATEGORY)
