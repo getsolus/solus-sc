@@ -199,8 +199,11 @@ class AppSystem:
             # Load up a gthemedicon version
             im = Gio.ThemedIcon.new(icon.get_name())
             return im
-        if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
-            return None
+        try:
+            if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
+                return self.default_pixbuf
+        except Exception as e:
+            return self.default_pixbuf
         return icon.get_pixbuf()
 
     def get_pixbuf(self, id, store=None):
