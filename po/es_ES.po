@@ -5,18 +5,16 @@
 # Translators:
 # Alfonso Rodríguez <eu.castelos@gmail.com>, 2017
 # Francisco Rangel <fcorangelc@gmail.com>, 2017
-# GaberPanda <blocsigabi@gmail.com>, 2018
 # Josué Vargas <josue.vargas.cazar@gmail.com>, 2017
 # Mario Daniel Ruiz Saavedra <desiderantes@rocketmail.com>, 2016
 # roberto lopez <riscogordo@gmail.com>, 2016
-# mrkucho <vhugo642@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2018-04-29 02:56+0000\n"
-"Last-Translator: GaberPanda <blocsigabi@gmail.com>\n"
+"PO-Revision-Date: 2017-10-14 10:32+0000\n"
+"Last-Translator: Francisco Rangel <fcorangelc@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/solus-project/solus-sc/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -487,7 +485,7 @@ msgid "Open up the updates view of the application"
 msgstr "Abrir la vista de actualizaciones de la aplicación"
 
 #. Quirky loading message
-#: ../solus_sc/available_view.py:38
+#: ../solus_sc/available_view.py:24
 msgid "Switching to the B-side of the cassette…"
 msgstr "Cambiando a la cara b del cassette..."
 
@@ -509,7 +507,7 @@ msgstr "Una operación pendiente"
 #: ../solus_sc/basket.py:203
 #, python-format
 msgid "Updating %s repository"
-msgstr "Actualizando repositorios %s"
+msgstr "Actualizando repositorio %s"
 
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
@@ -693,7 +691,7 @@ msgstr "Instalado"
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:220 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Software de Terceros"
+msgstr "Software de terceros"
 
 #. The search page
 #: ../solus_sc/main_window.py:225 ../solus_sc/sidebar.py:69
@@ -705,13 +703,13 @@ msgstr "Buscar"
 msgid "Settings"
 msgstr "Preferencias"
 
-#: ../solus_sc/package_view.py:41
+#: ../solus_sc/installed_view.py:30
 msgid "Solving the Paradox Of Choice"
 msgstr "Resolviendo la paradója de la elección"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
-#: ../solus_sc/search_results.py:41
+#: ../solus_sc/search_results.py:65
 msgid "Concentrating really hard"
 msgstr "Concentrándose realmente fuerte"
 
@@ -777,7 +775,7 @@ msgstr "Por favor compruebe más tarde, las actualizaciones se estan aplicando a
 
 #: ../solus_sc/updates_view.py:207
 msgid "Software is up to date"
-msgstr "El software está actualizado"
+msgstr "El software esta actualizado"
 
 #. Selection label
 #. No updates currently selected for installation
@@ -792,7 +790,7 @@ msgstr "Buscar nuevas actualizaciones"
 #. Apply the updates
 #: ../solus_sc/updates_view.py:302 ../solus_sc/updates_view.py:303
 msgid "Update Selected"
-msgstr "Actualizar Seleccionados"
+msgstr "Actualización seleccionada"
 
 #. "2 of 10 updates selected"
 #: ../solus_sc/updates_view.py:538

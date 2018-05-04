@@ -4,13 +4,13 @@
 # 
 # Translators:
 # David Macura <david@macurovi.cz>, 2016-2017
-# Ondřej Pucholt <o.pucholt@windowslive.com>, 2017-2018
+# Ondřej Pucholt <o.pucholt@windowslive.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2018-04-01 12:26+0000\n"
+"PO-Revision-Date: 2017-11-24 21:04+0000\n"
 "Last-Translator: Ondřej Pucholt <o.pucholt@windowslive.com>\n"
 "Language-Team: Czech (http://www.transifex.com/solus-project/solus-sc/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -668,7 +668,7 @@ msgstr "K dispozici nejsou žádné snímky"
 #. Window title
 #: ../solus_sc/main_window.py:162
 msgid "Software Center"
-msgstr "Centrum softwaru"
+msgstr "Centrum Softwaru"
 
 #. Main view, primary view, when opening the software center
 #: ../solus_sc/main_window.py:207 ../solus_sc/sidebar.py:65
@@ -811,7 +811,7 @@ msgstr "Pro zajištění bezpečnosti vašeho zařízení aktualizujte co nejdř
 
 #: ../solus_update/application.py:306
 msgid "Software updates available"
-msgstr "Jsou k dispozici aktualizace softwaru"
+msgstr "Aktualizace softwaru jsou k dispozi"
 
 #: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
@@ -819,4 +819,4 @@ msgstr "Pro vaše zařízení jsou dostupné nové aktualizace softwaru"
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
-msgstr "Otevřít Centrum softwaru"
+msgstr "Otevřít centrum softwaru"

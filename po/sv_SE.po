@@ -4,7 +4,6 @@
 # 
 # Translators:
 # Gaius Anderson, 2016
-# Jon Arvid, 2018
 # Puppelimies, 2017
 # Torbjörn Reuterberg <cecar66@gmail.com>, 2016
 msgid ""
@@ -12,8 +11,8 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2018-03-29 12:04+0000\n"
-"Last-Translator: Jon Arvid\n"
+"PO-Revision-Date: 2017-09-23 06:26+0000\n"
+"Last-Translator: Puppelimies\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/solus-project/solus-sc/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,7 +60,7 @@ msgstr "Utvecklingsverktyg - bassystem"
 
 #: ../repo_data/components.xml.in.h:10
 msgid "X.Org Base Components"
-msgstr "X.Org baskomponenter"
+msgstr "X.Org Baskomponenter"
 
 #: ../repo_data/components.xml.in.h:11
 msgid "Base components required for the X.Org System"
@@ -69,31 +68,31 @@ msgstr "Baskomponenter som krävs för X.Org Systemet"
 
 #: ../repo_data/components.xml.in.h:12
 msgid "X.Org Protocol Headers"
-msgstr "X.Org protokollrubriker"
+msgstr "X.Org Protokollrubriker"
 
 #: ../repo_data/components.xml.in.h:13
 msgid "Protocol headers required for building X.Org Libraries"
-msgstr "Protokollrubriker som krävs för att bygga X.Org-biblioteksfiler"
+msgstr "Protokollrubriker som krävs för byggnad av X.Org Biblioteksfiler"
 
 #: ../repo_data/components.xml.in.h:14
 msgid "X.Org Core Libraries"
-msgstr "Grundbiblioteksfiler för X.Org"
+msgstr "X.Org Kärna Biblioteksfiler"
 
 #: ../repo_data/components.xml.in.h:15
 msgid "Core libraries required by X.Org"
-msgstr "Grundbiblioteksfiler som krävs av X.Org"
+msgstr "Kärna biblioteksfiler som krävs av X.Org"
 
 #: ../repo_data/components.xml.in.h:16
 msgid "X.Org Core Fonts"
-msgstr "X.Org grundfonter"
+msgstr "X.Org Kärna Fonter"
 
 #: ../repo_data/components.xml.in.h:17
 msgid "Core fonts required by X.Org"
-msgstr "Grundfonter som krävs av X.Org"
+msgstr "Kärna fonter som krävs av X.Org"
 
 #: ../repo_data/components.xml.in.h:18
 msgid "X.Org Core Applications"
-msgstr "X.Org grundapplikationer"
+msgstr "X.Org Kärna Applikationer"
 
 #: ../repo_data/components.xml.in.h:19
 msgid "Collection of simple applications for X.Org"
@@ -101,27 +100,27 @@ msgstr "Samling av enkla applikationer för X.Org"
 
 #: ../repo_data/components.xml.in.h:20
 msgid "X.Org Display"
-msgstr "X.Org-skärm"
+msgstr "X.Org Skärm"
 
 #: ../repo_data/components.xml.in.h:21
 msgid "Software required to run an X.Org Display"
-msgstr "Program som krävs för att köra en X.Org-skärm"
+msgstr "Programvara som krävs för att köra en X.Org Skärm"
 
 #: ../repo_data/components.xml.in.h:22
 msgid "X.Org Server"
-msgstr "X.Org-server"
+msgstr "X.Org Server"
 
 #: ../repo_data/components.xml.in.h:23
 msgid "Core server of the X Window System"
-msgstr "Kärnserver för X Window-systemet"
+msgstr "Kärnserver för X Window Systemet"
 
 #: ../repo_data/components.xml.in.h:24
 msgid "X.Org Drivers"
-msgstr "X.Org-drivrutiner"
+msgstr "X.Org Drivrutiner"
 
 #: ../repo_data/components.xml.in.h:25
 msgid "Drivers required to use the X Window System"
-msgstr "Drivrutiner som krävs av X Window-systemet"
+msgstr "Drivrutiner som krävs för att använda X Window Systemet"
 
 #: ../repo_data/components.xml.in.h:26
 msgid "Networking Base"
@@ -129,11 +128,11 @@ msgstr "Nätverksbas"
 
 #: ../repo_data/components.xml.in.h:27
 msgid "Email clients"
-msgstr "E-postklienter"
+msgstr "Epost klienter"
 
 #: ../repo_data/components.xml.in.h:28
 msgid "IRC clients"
-msgstr "IRC-klienter"
+msgstr "IRC klienter"
 
 #: ../repo_data/components.xml.in.h:29
 msgid "Instant messaging"
@@ -141,11 +140,11 @@ msgstr "Snabbmeddelandeprogram"
 
 #: ../repo_data/components.xml.in.h:30
 msgid "News and RSS readers"
-msgstr "Nyhets- och RSS-läsare"
+msgstr "Nyheter och RSS läsare"
 
 #: ../repo_data/components.xml.in.h:31
 msgid "Remote management software"
-msgstr "Program för fjärrhantering"
+msgstr "Fjärrhantering Programvara"
 
 #: ../repo_data/components.xml.in.h:32
 msgid "Web applications"
@@ -161,11 +160,11 @@ msgstr "Nätverksverktyg"
 
 #: ../repo_data/components.xml.in.h:35
 msgid "Download managers"
-msgstr "Nedladdningshanterare"
+msgstr "Nerladdningshanterare"
 
 #: ../repo_data/components.xml.in.h:36
 msgid "Networking CLI Clients"
-msgstr "CLI-klienter för nätverk"
+msgstr "Nätverk CLI Klienter"
 
 #: ../repo_data/components.xml.in.h:37
 msgid "Kernel Images"
@@ -185,35 +184,35 @@ msgstr "Enkla och avancerade textredigerare"
 
 #: ../repo_data/components.xml.in.h:41 ../repo_data/groups.xml.in.h:5
 msgid "Office Software"
-msgstr "Kontorsprogram"
+msgstr "Kontor Programvara"
 
 #: ../repo_data/components.xml.in.h:42
 msgid "Office software"
-msgstr "Kontorsprogram"
+msgstr "Kontor programvara"
 
 #: ../repo_data/components.xml.in.h:43
 msgid "Financial Software"
-msgstr "Finansiella program"
+msgstr "Finansiell Programvara"
 
 #: ../repo_data/components.xml.in.h:44
 msgid "Mathematics-Oriented Software"
-msgstr "Matematikprogram"
+msgstr "Matematikorienterad Programvara"
 
 #: ../repo_data/components.xml.in.h:45
 msgid "Note-Taking Software"
-msgstr "Anteckningsprogram"
+msgstr "Anteckning Programvara"
 
 #: ../repo_data/components.xml.in.h:46
 msgid "Scientific Software"
-msgstr "Vetenskapsprogram"
+msgstr "Vetenskaplig Programvara"
 
 #: ../repo_data/components.xml.in.h:47
 msgid "Software aimed at various scientific fields."
-msgstr "Program för diverse vetenskapliga områden."
+msgstr "Programvara ämnat för diverse vetenskapliga områden."
 
 #: ../repo_data/components.xml.in.h:48
 msgid "E-book and PDF Viewing Software"
-msgstr "E-boks- och PDF-läsare"
+msgstr "E-bok och PDF Visningsprogramvara"
 
 #: ../repo_data/components.xml.in.h:49
 msgid "Programming"
@@ -221,7 +220,7 @@ msgstr "Programmering"
 
 #: ../repo_data/components.xml.in.h:50
 msgid "Software related to programming"
-msgstr "Program för programmering"
+msgstr "Programmeringsrelaterad programvara"
 
 #: ../repo_data/components.xml.in.h:51
 msgid "Development files"
@@ -229,7 +228,7 @@ msgstr "Utvecklingsfiler"
 
 #: ../repo_data/components.xml.in.h:52
 msgid "Integrated Developer Environments"
-msgstr "Utvecklingsmiljöer"
+msgstr "Integrerade utvecklarmiljöer"
 
 #: ../repo_data/components.xml.in.h:53
 msgid "Development tools"
@@ -237,19 +236,19 @@ msgstr "Utvecklingsverktyg"
 
 #: ../repo_data/components.xml.in.h:54
 msgid "Haskell libraries"
-msgstr "Haskell-biblioteksfiler"
+msgstr "Haskell biblioteksfiler"
 
 #: ../repo_data/components.xml.in.h:55
 msgid "Python modules"
-msgstr "Python-moduler"
+msgstr "Python moduler"
 
 #: ../repo_data/components.xml.in.h:56
 msgid "Perl modules"
-msgstr "Perl-moduler"
+msgstr "Perl moduler"
 
 #: ../repo_data/components.xml.in.h:57
 msgid "Java modules and libraries"
-msgstr "Java-moduler och biblioteksfiler"
+msgstr "Java moduler och biblioteksfiler"
 
 #: ../repo_data/components.xml.in.h:58
 msgid "Programming libraries"
@@ -261,15 +260,15 @@ msgstr "Databasklienter och servrar"
 
 #: ../repo_data/components.xml.in.h:60
 msgid "Desktop Software"
-msgstr "Skrivbordprogram"
+msgstr "Skrivbord Programvara"
 
 #: ../repo_data/components.xml.in.h:61
 msgid "Desktop specific software"
-msgstr "Skrivbordsspecifika program"
+msgstr "Skrivbordsspecifik programvara"
 
 #: ../repo_data/components.xml.in.h:62
 msgid "General Multimedia Software"
-msgstr "Allmänna multimediaprogram"
+msgstr "Allmän Multimedia Programvara"
 
 #: ../repo_data/components.xml.in.h:63
 msgid "Graphics"
@@ -277,39 +276,39 @@ msgstr "Grafik"
 
 #: ../repo_data/components.xml.in.h:64
 msgid "Graphics Manipulation Software"
-msgstr "Program för bildredigering"
+msgstr "Grafisk Manipulation Programvara"
 
 #: ../repo_data/components.xml.in.h:65
 msgid "Multimedia Codecs"
-msgstr "Multimedia-codecar"
+msgstr "Multimedia Codecar"
 
 #: ../repo_data/components.xml.in.h:66
 msgid "Multimedia Codecs and Format Support"
-msgstr "Multimedia-codecar och formatstöd"
+msgstr "Multimedia Codecar och Format Stöd"
 
 #: ../repo_data/components.xml.in.h:67
 msgid "Video Software"
-msgstr "Videoprogram"
+msgstr "Video Programvara"
 
 #: ../repo_data/components.xml.in.h:68
 msgid "Audio Software"
-msgstr "Ljudprogram"
+msgstr "Ljud Programvara"
 
 #: ../repo_data/components.xml.in.h:69
 msgid "Multimedia Libraries"
-msgstr "Biblioteksfiler för multimedia"
+msgstr "Multimedia Biblioteksfiler"
 
 #: ../repo_data/components.xml.in.h:70
 msgid "GStreamer Runtime"
-msgstr "GStreamer-exekvering"
+msgstr "GStreamer Exekvering"
 
 #: ../repo_data/components.xml.in.h:71
 msgid "GStreamer Runtime &amp; Support Libraries"
-msgstr "GStreamer-exekvering och stödbiblioteksfiler"
+msgstr "GStreamer Exekvering &amp; Stöd Biblioteksfiler"
 
 #: ../repo_data/components.xml.in.h:72
 msgid "Desktop Libraries"
-msgstr "Biblioteksfiler för skrivbord"
+msgstr "Skrivbord Biblioteksfiler"
 
 #: ../repo_data/components.xml.in.h:73
 msgid "Common libraries required for a desktop"
@@ -333,39 +332,39 @@ msgstr "Fonter för att förbättra skrivbordet"
 
 #: ../repo_data/components.xml.in.h:78
 msgid "Qt Runtime Libraries"
-msgstr "Qt-exekveringsbibliotek"
+msgstr "Qt Exekveringsbibliotek"
 
 #: ../repo_data/components.xml.in.h:79
 msgid "GTK Runtime Libraries"
-msgstr "GTK-exekveringsbibliotek"
+msgstr "GTK Exekveringsbibliotek"
 
 #: ../repo_data/components.xml.in.h:80
 msgid "Budgie Desktop"
-msgstr "Budgie-skrivbord"
+msgstr "Budgie Skrivbord"
 
 #: ../repo_data/components.xml.in.h:81
 msgid "Elements of the Solus Budgie Experience"
-msgstr "Element av Solus Budgie-upplevelsen"
+msgstr "Element av Solus Budgie Upplevelsen"
 
 #: ../repo_data/components.xml.in.h:82
 msgid "GNOME Desktop"
-msgstr "GNOME-skrivbord"
+msgstr "GNOME Skrivbord"
 
 #: ../repo_data/components.xml.in.h:83
 msgid "MATE Desktop"
-msgstr "MATE-skrivbord"
+msgstr "MATE Skrivbord"
 
 #: ../repo_data/components.xml.in.h:84
 msgid "i3 Desktop"
-msgstr "i3-skrivbord"
+msgstr "i3 Skrivbord"
 
 #: ../repo_data/components.xml.in.h:85
 msgid "GNOME Desktop - Core System"
-msgstr "GNOME-skrivbord - grundsystem"
+msgstr "GNOME Skrivbord - Kärna System"
 
 #: ../repo_data/components.xml.in.h:86
 msgid "GNOME Documentation Tools"
-msgstr "GNOME dokumentationsverktyg"
+msgstr "GNOME Dokumentationsverktyg"
 
 #: ../repo_data/components.xml.in.h:87
 msgid "Documentation tools for GNOME"
@@ -373,19 +372,19 @@ msgstr "Dokumentationsverktyg för GNOME"
 
 #: ../repo_data/components.xml.in.h:88
 msgid "KDE Desktop"
-msgstr "KDE-skrivbord"
+msgstr "KDE Skrivbord"
 
 #: ../repo_data/components.xml.in.h:89
 msgid "KDE Desktop - Core System"
-msgstr "KDE-skrivbord - grundsystem"
+msgstr "KDE Skrivbord - Kärna System"
 
 #: ../repo_data/components.xml.in.h:90
 msgid "Desktop Core Components"
-msgstr "Grundkomponenter för skrivbord"
+msgstr "Skrivbord Kärna Komponenter"
 
 #: ../repo_data/components.xml.in.h:91
 msgid "Core components for desktop systems"
-msgstr "Grundkomponenter för skrivbordssystem"
+msgstr "Kärna komponenter för skrivbord system"
 
 #: ../repo_data/components.xml.in.h:92
 msgid "Security applications"
@@ -405,7 +404,7 @@ msgstr "Säkerhetsorienterade biblioteksfiler"
 
 #: ../repo_data/components.xml.in.h:96
 msgid "Main games collection"
-msgstr "Spelsamling"
+msgstr "Spel samling"
 
 #: ../repo_data/components.xml.in.h:97
 msgid "Main games"
@@ -413,55 +412,55 @@ msgstr "Spel"
 
 #: ../repo_data/components.xml.in.h:98
 msgid "Action Games"
-msgstr "Actionspel"
+msgstr "Action Spel"
 
 #: ../repo_data/components.xml.in.h:99
 msgid "Arcade Games"
-msgstr "Arkadspel"
+msgstr "Arkad Spel"
 
 #: ../repo_data/components.xml.in.h:100
 msgid "Card Games"
-msgstr "Kortspel"
+msgstr "Kort Spel"
 
 #: ../repo_data/components.xml.in.h:101
 msgid "Console Emulators"
-msgstr "Konsolemulatorer"
+msgstr "Konsol Emulatorer"
 
 #: ../repo_data/components.xml.in.h:102
 msgid "Massive Multiplayer Online Games"
-msgstr "Massive Multiplayer Onlinspel"
+msgstr "Massiva Multiplayer Online Spel"
 
 #: ../repo_data/components.xml.in.h:103
 msgid "Platformer Games"
-msgstr "Plattformsspel"
+msgstr "Plattform Spel"
 
 #: ../repo_data/components.xml.in.h:104
 msgid "Puzzle Games"
-msgstr "Pussel "
+msgstr "Pussel Spel"
 
 #: ../repo_data/components.xml.in.h:105
 msgid "Role-playing Games"
-msgstr "Rollspel "
+msgstr "Rollspel Spel"
 
 #: ../repo_data/components.xml.in.h:106
 msgid "Strategy Games"
-msgstr "Strategispel"
+msgstr "Strategi Spel"
 
 #: ../repo_data/distribution.xml.in.h:1
 msgid "Solus Repository"
-msgstr "Solus-förråd"
+msgstr "Solus Förråd"
 
 #: ../repo_data/groups.xml.in.h:1
 msgid "System Software"
-msgstr "Systemprogram"
+msgstr "System Programvara"
 
 #: ../repo_data/groups.xml.in.h:2
 msgid "Internet Software"
-msgstr "Internetprogram"
+msgstr "Internet Programvara"
 
 #: ../repo_data/groups.xml.in.h:3
 msgid "Multimedia &amp; Graphics"
-msgstr "Multimedia och grafik"
+msgstr "Multimedia &amp; Grafik"
 
 #: ../repo_data/groups.xml.in.h:4
 msgid "Gaming on Solus"
@@ -469,29 +468,29 @@ msgstr "Spel på Solus"
 
 #: ../repo_data/groups.xml.in.h:6
 msgid "Programming Languages &amp; Tools"
-msgstr "Programmeringsspråk och verktyg"
+msgstr "Programmeringsspråk &amp; Verktyg"
 
 #: ../repo_data/groups.xml.in.h:7
 msgid "Desktop Software &amp; Theming"
-msgstr "Skrivbordsprogram och teman"
+msgstr "Skrivbord Programvara &amp; Teman"
 
 #: ../repo_data/groups.xml.in.h:8
 msgid "Security Software"
-msgstr "Säkerhetsrogram"
+msgstr "Säkerhet Programvara"
 
 #: ../solus_sc/application.py:84
 msgid "Open up the updates view of the application"
 msgstr "Öppna uppdateringsvyn för applikationen"
 
 #. Quirky loading message
-#: ../solus_sc/available_view.py:38
+#: ../solus_sc/available_view.py:24
 msgid "Switching to the B-side of the cassette…"
-msgstr "Byter till B-sidan på kassetten ..."
+msgstr "Byter till B-sidan på kassetten..."
 
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
 msgid "{} operations pending"
-msgstr "{} pågående jobb"
+msgstr "{} arbeten pågående"
 
 #: ../solus_sc/basket.py:153
 msgid " - This may take <b>some time!</b>"
@@ -500,13 +499,13 @@ msgstr "- Detta kan ta <b>en god stund!</b>"
 #. Only one package operation to be performed
 #: ../solus_sc/basket.py:158
 msgid "One operation pending"
-msgstr "Ett pågående jobb"
+msgstr "Ett arbete pågående"
 
 #. "Updating Solus repository" (named repo)
 #: ../solus_sc/basket.py:203
 #, python-format
 msgid "Updating %s repository"
-msgstr "Uppdaterar %s-förrådet"
+msgstr "Uppdaterar %s förrådet"
 
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
@@ -531,13 +530,13 @@ msgstr "Tar bort {} av {}: {}"
 #. "Upgraded 1 of 10: bash"
 #: ../solus_sc/basket.py:231
 msgid "Upgraded {} of {}: {}"
-msgstr "Uppgraderade {} av {}: {}"
+msgstr "Uppgraderat {} av {}: {}"
 
 #. "Removed 1 of 10: bash"
 #. "Installed 1 of 10: bash"
 #: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
 msgid "Removed {} of {}: {}"
-msgstr "Tog bort {} av {}: {}"
+msgstr "Tagit bort {} av {}: {}"
 
 #. "Downloading eopkg-index.xml.xz (10kb/s)
 #: ../solus_sc/basket.py:264
@@ -557,7 +556,7 @@ msgstr "Laddar ner {}"
 
 #: ../solus_sc/basket.py:323
 msgid "The following dependencies need to be installed to continue"
-msgstr "Följande beroenden måste installeras för att du ska kunna fortsätta"
+msgstr "Följande beroenden måste installeras för att kunna fortsätta"
 
 #: ../solus_sc/basket.py:333
 msgid "Installation confirmation"
@@ -565,15 +564,15 @@ msgstr "Bekräfta installation"
 
 #: ../solus_sc/basket.py:336
 msgid "The following dependencies need to be removed to continue"
-msgstr "Följande beroenden måste tas bort för att du ska kunna kunna fortsätta"
+msgstr "Följande beroenden måste tas bort för att kunna fortsätta"
 
 #: ../solus_sc/basket.py:337
 msgid "Removal confirmation"
-msgstr "Bekräfta borttagning"
+msgstr "Bekräfta borttag"
 
 #: ../solus_sc/basket.py:340
 msgid "The following dependencies need to be updated to continue"
-msgstr "Följande beroenden måste uppdateras för att du ska kunna kunna fortsätta"
+msgstr "Följande beroenden måste uppdateras för att kunna fortsätta"
 
 #: ../solus_sc/basket.py:341
 msgid "Update confirmation"
@@ -612,7 +611,7 @@ msgstr "Rapportera problem"
 
 #: ../solus_sc/details.py:217
 msgid "Visit Website"
-msgstr "Besök webbplats"
+msgstr "Besök Hemsida"
 
 #: ../solus_sc/details.py:314 ../solus_sc/updates_view.py:296
 msgid "Details"
@@ -670,7 +669,7 @@ msgstr "Inga skärmdumpar tillgängliga"
 #. Window title
 #: ../solus_sc/main_window.py:162
 msgid "Software Center"
-msgstr "Programcentral"
+msgstr "Programvarucentral"
 
 #. Main view, primary view, when opening the software center
 #: ../solus_sc/main_window.py:207 ../solus_sc/sidebar.py:65
@@ -685,12 +684,12 @@ msgstr "Uppdateringar"
 #. This page shows the locally instaleld items
 #: ../solus_sc/main_window.py:216 ../solus_sc/sidebar.py:67
 msgid "Installed"
-msgstr "Installerade"
+msgstr "Installerad"
 
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:220 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Tredje part"
+msgstr "Tredjepart"
 
 #. The search page
 #: ../solus_sc/main_window.py:225 ../solus_sc/sidebar.py:69
@@ -702,23 +701,23 @@ msgstr "Sök"
 msgid "Settings"
 msgstr "Inställningar"
 
-#: ../solus_sc/package_view.py:41
+#: ../solus_sc/installed_view.py:30
 msgid "Solving the Paradox Of Choice"
 msgstr "Löser valfrihetens paradox"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
-#: ../solus_sc/search_results.py:41
+#: ../solus_sc/search_results.py:65
 msgid "Concentrating really hard"
 msgstr "Koncentrationen är enorm"
 
 #: ../solus_sc/search_results.py:62
 msgid "Type a query to get started"
-msgstr "Skriv en förfrågan för att komma igång"
+msgstr "Skriv en förfrågan för att börja"
 
 #: ../solus_sc/search_results.py:81
 msgid "No results found"
-msgstr "Inga resultat "
+msgstr "Inga resultat hittades"
 
 #. Check for updates every hour
 #: ../solus_sc/settings_view.py:75
@@ -780,7 +779,7 @@ msgstr "Mjukvaran är uppdaterad"
 #. No updates currently selected for installation
 #: ../solus_sc/updates_view.py:273
 msgid "0 items selected"
-msgstr "0 valda"
+msgstr "0 val gjorda"
 
 #: ../solus_sc/updates_view.py:287
 msgid "Check new updates"
@@ -794,12 +793,12 @@ msgstr "Uppdatera valda"
 #. "2 of 10 updates selected"
 #: ../solus_sc/updates_view.py:538
 msgid "{} of {} updates selected"
-msgstr "{} av {} uppdateringar valda"
+msgstr "{} av {} uppdateringar valt"
 
 #. "2 of 10 updates selected (20.05MB to download)"
 #: ../solus_sc/updates_view.py:545
 msgid "{} of {} updates selected ({} to download)"
-msgstr "{} av {} uppdateringar valda ({} att ladda ner)"
+msgstr "{} av {} uppdateringar valt ({} att ladda ner)"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
@@ -809,16 +808,16 @@ msgstr "Säkerhetsuppdateringar finns tillgängliga"
 msgid ""
 "Update at your earliest convenience to ensure continued security of your "
 "device"
-msgstr "Uppdatera snarast för att hålla din enhet säker"
+msgstr "Uppdatera snarast för att säkerställa fortsatt säkerhet på din enhet"
 
 #: ../solus_update/application.py:306
 msgid "Software updates available"
-msgstr "Programuppdateringar finns tillgängliga"
+msgstr "Mjukvaruuppdateringar finns tillgängliga"
 
 #: ../solus_update/application.py:307
 msgid "New software updates are available for your device"
-msgstr "Nya programuppdateringar till din enhet finns tillgängliga"
+msgstr "Nya mjukvaruuppdateringar till din enhet finns tillgängliga"
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
-msgstr "Öppna programcentral"
+msgstr "Öppna Programvarucentral"

@@ -7,7 +7,6 @@
 # Christian Kaindl <crisscross.kaindl@outlook.de>, 2016-2017
 # Martin Stock <martinstockffm@gmail.com>, 2017
 # Oliver Zimmermann <olitever@gmail.com>, 2016
-# optikfluffel <optik@fluffel.io>, 2018
 # Peter Hansen <alawistablet@gmail.com>, 2017
 # Peter Hansen <alawistablet@gmail.com>, 2017
 # Roman Spirgi <bigant@fedoraproject.org>, 2018
@@ -18,8 +17,8 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2018-04-04 17:29+0000\n"
-"Last-Translator: optikfluffel <optik@fluffel.io>\n"
+"PO-Revision-Date: 2018-02-14 01:00+0000\n"
+"Last-Translator: Roman Spirgi <bigant@fedoraproject.org>\n"
 "Language-Team: German (http://www.transifex.com/solus-project/solus-sc/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -311,7 +310,7 @@ msgstr "GStreamer-Runtime"
 
 #: ../repo_data/components.xml.in.h:71
 msgid "GStreamer Runtime &amp; Support Libraries"
-msgstr "GStreamer-Runtime &amp; Unterstützungsbibliotheken"
+msgstr "GStreamer-Runtime & amp; Unterstützungsbibliotheken"
 
 #: ../repo_data/components.xml.in.h:72
 msgid "Desktop Libraries"
@@ -479,7 +478,7 @@ msgstr "Programmiersprachen &amp; Werkzeuge"
 
 #: ../repo_data/groups.xml.in.h:7
 msgid "Desktop Software &amp; Theming"
-msgstr "Desktop-Software &amp; Theming"
+msgstr "Desktop-Software & amp; Theming"
 
 #: ../repo_data/groups.xml.in.h:8
 msgid "Security Software"

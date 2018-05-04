@@ -5,7 +5,6 @@
 # Translators:
 # Dzej Kob <accountxyz@protonmail.com>, 2017
 # Kamil Jaśniewicz <ejdzent@outlook.com>, 2016
-# Karol Bieńkowski <karlossss1996@gmail.com>, 2018
 # Robert Orzanna <robert@orzanna.de>, 2017
 # Piotr <peter19731973@googlemail.com>, 2016
 msgid ""
@@ -13,8 +12,8 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2018-03-04 08:59+0000\n"
-"Last-Translator: Karol Bieńkowski <karlossss1996@gmail.com>\n"
+"PO-Revision-Date: 2017-09-23 06:30+0000\n"
+"Last-Translator: Robert Orzanna <robert@orzanna.de>\n"
 "Language-Team: Polish (http://www.transifex.com/solus-project/solus-sc/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +23,7 @@ msgstr ""
 
 #: ../repo_data/components.xml.in.h:1
 msgid "System Base"
-msgstr "Składniki systemu"
+msgstr "Baza systemowa"
 
 #: ../repo_data/components.xml.in.h:2
 msgid "Base Components"
@@ -40,7 +39,7 @@ msgstr "Narzędzia rozruchowe"
 
 #: ../repo_data/components.xml.in.h:5
 msgid "Tools and daemons required early in the boot process"
-msgstr "Narzędzia i demony wymagane na początku procesu uruchamiania systemu"
+msgstr "Narzędzia i demony wymagane na początku procesu ładowania"
 
 #: ../repo_data/components.xml.in.h:6
 msgid "System utilities"
@@ -50,7 +49,7 @@ msgstr "Narzędzia systemowe"
 msgid ""
 "Commonly used components for a full installation, not used in minimal "
 "environments"
-msgstr "Często używane komponenty do pełnej instalacji, nieużywane w minimalnych środowiskach"
+msgstr "Często używane komponenty do pełnej instalacji, nie używane w minimalnych środowiskach"
 
 #: ../repo_data/components.xml.in.h:8
 msgid "Base development tools"
@@ -58,11 +57,11 @@ msgstr "Podstawowe narzędzia programistyczne"
 
 #: ../repo_data/components.xml.in.h:9
 msgid "Development utilities - base system"
-msgstr "Narzędzia programistyczne - system podstawowy"
+msgstr "Narzędzia programistyczne - system bazowy"
 
 #: ../repo_data/components.xml.in.h:10
 msgid "X.Org Base Components"
-msgstr "Podstawowe składniki X.Org"
+msgstr "Komponenty bazowe X.Org"
 
 #: ../repo_data/components.xml.in.h:11
 msgid "Base components required for the X.Org System"
@@ -78,7 +77,7 @@ msgstr "Nagłówki protokołów wymagane do tworzenia bibliotek X.Org"
 
 #: ../repo_data/components.xml.in.h:14
 msgid "X.Org Core Libraries"
-msgstr "Biblioteki podstawowe X.org"
+msgstr "X.org podstawowe biblioteki"
 
 #: ../repo_data/components.xml.in.h:15
 msgid "Core libraries required by X.Org"
@@ -94,7 +93,7 @@ msgstr "Czcionki podstawowe wymagane przez X.Org"
 
 #: ../repo_data/components.xml.in.h:18
 msgid "X.Org Core Applications"
-msgstr "Aplikacje podstawowe X.Org"
+msgstr "Aplikacje rdzeniowe X.Org"
 
 #: ../repo_data/components.xml.in.h:19
 msgid "Collection of simple applications for X.Org"
@@ -162,11 +161,11 @@ msgstr "Narzędzia sieciowe"
 
 #: ../repo_data/components.xml.in.h:35
 msgid "Download managers"
-msgstr "Menedżery pobierania"
+msgstr "Pobieranie menedżerów"
 
 #: ../repo_data/components.xml.in.h:36
 msgid "Networking CLI Clients"
-msgstr "Klienci CLI"
+msgstr "Sieciowanie klientów CLI"
 
 #: ../repo_data/components.xml.in.h:37
 msgid "Kernel Images"
@@ -178,11 +177,11 @@ msgstr "Rozwój jądra"
 
 #: ../repo_data/components.xml.in.h:39
 msgid "Text Editors"
-msgstr "Edytory tekstu"
+msgstr "Edytory tekstowe"
 
 #: ../repo_data/components.xml.in.h:40
 msgid "Simple and advanced text editors"
-msgstr "Proste i zaawansowane edytory tekstu"
+msgstr "Proste i zaawansowane edytory tekstowe"
 
 #: ../repo_data/components.xml.in.h:41 ../repo_data/groups.xml.in.h:5
 msgid "Office Software"
@@ -210,11 +209,11 @@ msgstr "Oprogramowanie naukowe"
 
 #: ../repo_data/components.xml.in.h:47
 msgid "Software aimed at various scientific fields."
-msgstr "Oprogramowanie skierowane do różnych dziedzin nauki."
+msgstr "Oprogramowanie mające na celu różne dziedziny naukowe."
 
 #: ../repo_data/components.xml.in.h:48
 msgid "E-book and PDF Viewing Software"
-msgstr "Oprogramowanie do przeglądania PDF i E-book"
+msgstr "Ebook i oprogramowanie do przeglądania plików PDF"
 
 #: ../repo_data/components.xml.in.h:49
 msgid "Programming"
@@ -262,15 +261,15 @@ msgstr "Klienci i serwery bazy danych"
 
 #: ../repo_data/components.xml.in.h:60
 msgid "Desktop Software"
-msgstr "Oprogramowanie dla środowisk graficznych"
+msgstr "Oprogramowania typu pulpita"
 
 #: ../repo_data/components.xml.in.h:61
 msgid "Desktop specific software"
-msgstr "Oprogramowanie dla konkretnych środowisk graficznych"
+msgstr "Oprogramowanie dla komputerów stacjonarnych"
 
 #: ../repo_data/components.xml.in.h:62
 msgid "General Multimedia Software"
-msgstr "Oprogramowanie multimedialne"
+msgstr "Ogólne oprogramowanie multimedialne"
 
 #: ../repo_data/components.xml.in.h:63
 msgid "Graphics"
@@ -302,11 +301,11 @@ msgstr "Biblioteki multimedialne"
 
 #: ../repo_data/components.xml.in.h:70
 msgid "GStreamer Runtime"
-msgstr "Środowisko wykonawcze GStreamer"
+msgstr "Czas działania GStreamer"
 
 #: ../repo_data/components.xml.in.h:71
 msgid "GStreamer Runtime &amp; Support Libraries"
-msgstr "Środowisko wykonawcze GStreamer &amp; Biblioteki wsparcia"
+msgstr "Czas działania programu GStreamer &amp; Biblioteki wsparcia"
 
 #: ../repo_data/components.xml.in.h:72
 msgid "Desktop Libraries"
@@ -318,19 +317,19 @@ msgstr "Wspólne biblioteki wymagane na pulpicie"
 
 #: ../repo_data/components.xml.in.h:74
 msgid "Desktop Theming"
-msgstr "Motywy Pulpitu"
+msgstr "Tematy Pulpitu"
 
 #: ../repo_data/components.xml.in.h:75
 msgid "Themes to enhance the desktop"
-msgstr "Motywy do personalizacji pulpitu"
+msgstr "Tematy ułatwiające pracę na komputerze stacjonarnym"
 
 #: ../repo_data/components.xml.in.h:76
 msgid "Desktop Fonts"
-msgstr "Czcionki Pulpitu"
+msgstr "Czcionki pulpitu"
 
 #: ../repo_data/components.xml.in.h:77
 msgid "Fonts to enhance the desktop"
-msgstr "Czcionki do personalizacji pulpitu"
+msgstr "Czcionki zwiększające pulpit"
 
 #: ../repo_data/components.xml.in.h:78
 msgid "Qt Runtime Libraries"
@@ -342,27 +341,27 @@ msgstr "Biblioteki wykonawcze GTK"
 
 #: ../repo_data/components.xml.in.h:80
 msgid "Budgie Desktop"
-msgstr "Pulpit Budgie"
+msgstr "Budgie Pulpit"
 
 #: ../repo_data/components.xml.in.h:81
 msgid "Elements of the Solus Budgie Experience"
-msgstr "Elementy Solus Budgie Experience"
+msgstr "Elementy doświadczenia Solusa Budgie"
 
 #: ../repo_data/components.xml.in.h:82
 msgid "GNOME Desktop"
-msgstr "Pulpit GNOME"
+msgstr "GNOME Pulpit"
 
 #: ../repo_data/components.xml.in.h:83
 msgid "MATE Desktop"
-msgstr "Pulpit MATE"
+msgstr "MATE Pulpit"
 
 #: ../repo_data/components.xml.in.h:84
 msgid "i3 Desktop"
-msgstr "Pulpit i3"
+msgstr "i3 Pulpit"
 
 #: ../repo_data/components.xml.in.h:85
 msgid "GNOME Desktop - Core System"
-msgstr "Pulpit GNOME - System podstawowy"
+msgstr "GNOME Pulpit - System podstawowy"
 
 #: ../repo_data/components.xml.in.h:86
 msgid "GNOME Documentation Tools"
@@ -370,7 +369,7 @@ msgstr "Narzędzia dokumentacyjne GNOME"
 
 #: ../repo_data/components.xml.in.h:87
 msgid "Documentation tools for GNOME"
-msgstr "Narzędzia dokumentacyjne dla GNOME"
+msgstr "Narzędzia dokumentacyjne GNOME"
 
 #: ../repo_data/components.xml.in.h:88
 msgid "KDE Desktop"
@@ -485,7 +484,7 @@ msgid "Open up the updates view of the application"
 msgstr "Otwórz widok aktualizacji aplikacji"
 
 #. Quirky loading message
-#: ../solus_sc/available_view.py:38
+#: ../solus_sc/available_view.py:24
 msgid "Switching to the B-side of the cassette…"
 msgstr "Przełączanie na stronę B kasety..."
 
@@ -653,7 +652,7 @@ msgstr "Zgłoś nieprawidłową lub brakującą licencję"
 msgid ""
 "This selection is available in accordance with the terms set in the "
 "following license(s):"
-msgstr "Ten wybór jest dostępny zgodnie z warunkami określonymi w następującej (-ych) licencji (licencjach):"
+msgstr "Ten wybór jest dostępny zgodnie z warunkami określonymi w następujących (-ych) licencji (licencji):"
 
 #: ../solus_sc/details.py:518
 msgid "Cannot remove core system software"
@@ -691,7 +690,7 @@ msgstr "Zainstalowane"
 #. Software made available from outside the Solus software repos
 #: ../solus_sc/main_window.py:220 ../solus_sc/sidebar.py:68
 msgid "Third Party"
-msgstr "Zewnętrzne"
+msgstr "Oprogramowanie firm trzecich"
 
 #. The search page
 #: ../solus_sc/main_window.py:225 ../solus_sc/sidebar.py:69
@@ -703,13 +702,13 @@ msgstr "Szukaj"
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: ../solus_sc/package_view.py:41
+#: ../solus_sc/installed_view.py:30
 msgid "Solving the Paradox Of Choice"
 msgstr "Rozwiązanie paradoksu wyboru"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
-#: ../solus_sc/search_results.py:41
+#: ../solus_sc/search_results.py:65
 msgid "Concentrating really hard"
 msgstr "Koncentruję się naprawdę mocno"
 
