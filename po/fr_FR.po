@@ -8,6 +8,7 @@
 # Benoit Bouyé <benoit.bouye@gmail.com>, 2016
 # Bridouzz <justin.berthault@gmail.com>, 2016
 # Fred Tempez <ftempez@gmail.com>, 2017
+# Arkelis <guillaume2.fayard@wanadoo.fr>, 2018
 # Hang Man <Hangman@hotmail.fr>, 2017
 # Bridouzz <justin.berthault@gmail.com>, 2016
 # Laurent Tréguier <laurent@treguier.org>, 2016
@@ -18,6 +19,7 @@
 # Sheldon Wayne <jwcapricieuse@gmail.com>, 2017
 # Thomas Hautier <thom0294@gmail.com>, 2017
 # Thomas Hautier <thom0294@gmail.com>, 2017
+# Thomas Hautier <thom0294@gmail.com>, 2018
 # Tom Moo <p1461601@mvrht.com>, 2017
 # Xytrios Xytrios <xytrios@gmail.com>, 2017
 # yoann <yoann.p@laposte.net>, 2016
@@ -26,8 +28,8 @@ msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2018-02-04 21:23+0000\n"
-"Last-Translator: Aestan <anthony.margerand@gmail.com>\n"
+"PO-Revision-Date: 2018-03-31 18:24+0000\n"
+"Last-Translator: Arkelis <guillaume2.fayard@wanadoo.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/solus-project/solus-sc/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,11 +85,11 @@ msgstr "Composants de base requis pour X.Org"
 
 #: ../repo_data/components.xml.in.h:12
 msgid "X.Org Protocol Headers"
-msgstr "En-têtes du protocole X.Org"
+msgstr "Entêtes du protocole X.Org"
 
 #: ../repo_data/components.xml.in.h:13
 msgid "Protocol headers required for building X.Org Libraries"
-msgstr "En-têtes de protocole pour créer les bibliothèques X.Org"
+msgstr "Entêtes de protocole pour créer les bibliothèques X.Org"
 
 #: ../repo_data/components.xml.in.h:14
 msgid "X.Org Core Libraries"
@@ -235,7 +237,7 @@ msgstr "Programmation"
 
 #: ../repo_data/components.xml.in.h:50
 msgid "Software related to programming"
-msgstr "Logiciel en relation avec la programmation"
+msgstr "Logiciels pour la programmation"
 
 #: ../repo_data/components.xml.in.h:51
 msgid "Development files"
@@ -275,7 +277,7 @@ msgstr "Bases de données, clients et serveurs"
 
 #: ../repo_data/components.xml.in.h:60
 msgid "Desktop Software"
-msgstr "Logiciel de bureau"
+msgstr "Logiciels de bureau"
 
 #: ../repo_data/components.xml.in.h:61
 msgid "Desktop specific software"
@@ -395,7 +397,7 @@ msgstr "Bureau KDE - système de base"
 
 #: ../repo_data/components.xml.in.h:90
 msgid "Desktop Core Components"
-msgstr "Bureau - éléments essentiels"
+msgstr "Eléments essentiels du bureau"
 
 #: ../repo_data/components.xml.in.h:91
 msgid "Core components for desktop systems"
@@ -509,7 +511,7 @@ msgstr "{} opérations en attente"
 
 #: ../solus_sc/basket.py:153
 msgid " - This may take <b>some time!</b>"
-msgstr "- Cela peut prendre <b>du temps!</b>"
+msgstr "- Cela peut durer<b>quelques minutes !</b>"
 
 #. Only one package operation to be performed
 #: ../solus_sc/basket.py:158
@@ -525,33 +527,33 @@ msgstr "Mise à jour du dépôt %s"
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
 msgid "Extracting {} of {}: {}"
-msgstr "Extraction {} de {}: {}"
+msgstr "Extraction {} sur {}: {}"
 
 #. "Configuring 1 of 10: bash"
 #: ../solus_sc/basket.py:213
 msgid "Configuring {} of {}: {}"
-msgstr "Configuration {} de {}: {}"
+msgstr "Configuration {} sur {}: {}"
 
 #. "Installing 1 of 10: bash"
 #: ../solus_sc/basket.py:219
 msgid "Installing {} of {}: {}"
-msgstr "Installation {} de {}: {}"
+msgstr "Installation {} sur {}: {}"
 
 #. "Removing (1 of 10): bash"
 #: ../solus_sc/basket.py:222
 msgid "Removing {} of {}: {}"
-msgstr "Désinstallation {} de {}: {}"
+msgstr "Désinstallation {} sur {}: {}"
 
 #. "Upgraded 1 of 10: bash"
 #: ../solus_sc/basket.py:231
 msgid "Upgraded {} of {}: {}"
-msgstr "Mis à jour {} de {}: {}"
+msgstr "Mise à jour {} sur {}: {}"
 
 #. "Removed 1 of 10: bash"
 #. "Installed 1 of 10: bash"
 #: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
 msgid "Removed {} of {}: {}"
-msgstr "Supprimé {} de {}: {}"
+msgstr "{} sur {} supprimé(s) : {}"
 
 #. "Downloading eopkg-index.xml.xz (10kb/s)
 #: ../solus_sc/basket.py:264
@@ -561,7 +563,7 @@ msgstr "Téléchargement en cours {} ({})"
 #. "Downloading 1 of 10: bash (10kb/s)
 #: ../solus_sc/basket.py:268
 msgid "Downloading {} of {}: {} ({})"
-msgstr "Téléchargement en cours {} de {}: {} ({})"
+msgstr "Téléchargement en cours {} sur {}: {} ({})"
 
 #. print args
 #. Downloading eopkg-index.xml.sha1sum
@@ -718,7 +720,7 @@ msgstr "Paramètres"
 
 #: ../solus_sc/package_view.py:41
 msgid "Solving the Paradox Of Choice"
-msgstr "Résoudre le paradoxe du choix"
+msgstr "Résolution du paradoxe du choix"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
@@ -728,7 +730,7 @@ msgstr "La concentration est maximale"
 
 #: ../solus_sc/search_results.py:62
 msgid "Type a query to get started"
-msgstr "Commencer par une recherche"
+msgstr "Tapez une recherche pour commencer"
 
 #: ../solus_sc/search_results.py:81
 msgid "No results found"
@@ -742,12 +744,12 @@ msgstr "Toutes les heures"
 #. Check for updates once per day
 #: ../solus_sc/settings_view.py:77
 msgid "Daily"
-msgstr "Quotidiennement"
+msgstr "Tous les jours"
 
 #. Check for updates once a week
 #: ../solus_sc/settings_view.py:79
 msgid "Weekly"
-msgstr "Hebdomadaire"
+msgstr "Tous les mois"
 
 #. Notify of all updates
 #: ../solus_sc/settings_view.py:94
@@ -808,12 +810,12 @@ msgstr "Mettre à jour la sélection"
 #. "2 of 10 updates selected"
 #: ../solus_sc/updates_view.py:538
 msgid "{} of {} updates selected"
-msgstr "{} de {} mises à jour sélectionnées"
+msgstr "{} sur {} mises à jour sélectionnées"
 
 #. "2 of 10 updates selected (20.05MB to download)"
 #: ../solus_sc/updates_view.py:545
 msgid "{} of {} updates selected ({} to download)"
-msgstr "{} de {} mises à jour sélectionnées ({} à télécharger)"
+msgstr "{} sur {} mises à jour sélectionnées ({} à télécharger)"
 
 #: ../solus_update/application.py:301
 msgid "Security updates available"
@@ -835,4 +837,4 @@ msgstr "De nouvelles mises à jour logicielles sont disponibles pour votre appar
 
 #: ../solus_update/application.py:312
 msgid "Open Software Center"
-msgstr "Centrale des logiciels libres"
+msgstr "Ouvrir la logithèque"

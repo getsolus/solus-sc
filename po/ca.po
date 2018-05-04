@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Davidmp <medipas@gmail.com>, 2016-2017
+# Davidmp <medipas@gmail.com>, 2016-2018
+# NeoMahler <roc.humet@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-09-23 07:45+0000\n"
+"PO-Revision-Date: 2018-04-16 17:32+0000\n"
 "Last-Translator: Davidmp <medipas@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/solus-project/solus-sc/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -314,7 +315,7 @@ msgstr "Biblioteques usuals necessàries per a un escriptori"
 
 #: ../repo_data/components.xml.in.h:74
 msgid "Desktop Theming"
-msgstr "Tematització de l'escriptori"
+msgstr "Personalització de l'escriptori"
 
 #: ../repo_data/components.xml.in.h:75
 msgid "Themes to enhance the desktop"
@@ -470,7 +471,7 @@ msgstr "Llenguatges de programació, eines"
 
 #: ../repo_data/groups.xml.in.h:7
 msgid "Desktop Software &amp; Theming"
-msgstr "Programari per a l'escriptori, tematització"
+msgstr "Programari per a l'escriptori, personalització"
 
 #: ../repo_data/groups.xml.in.h:8
 msgid "Security Software"
@@ -481,9 +482,9 @@ msgid "Open up the updates view of the application"
 msgstr "Obre la vista d'actualitzacions de l'aplicació"
 
 #. Quirky loading message
-#: ../solus_sc/available_view.py:24
+#: ../solus_sc/available_view.py:38
 msgid "Switching to the B-side of the cassette…"
-msgstr "Es canvia a la cara B del casset..."
+msgstr "Canviant a la cara B del casset..."
 
 #. The number (more than one) of package operations to be performed
 #: ../solus_sc/basket.py:149
@@ -699,13 +700,13 @@ msgstr "Cerca"
 msgid "Settings"
 msgstr "Paràmetres"
 
-#: ../solus_sc/installed_view.py:30
+#: ../solus_sc/package_view.py:41
 msgid "Solving the Paradox Of Choice"
 msgstr "Solució de la paradoxa de la tria"
 
 #. self.spinner.start()
 #. "Witty" loading page, loading search results
-#: ../solus_sc/search_results.py:65
+#: ../solus_sc/search_results.py:41
 msgid "Concentrating really hard"
 msgstr "M'hi estic trencant les banyes"
 
@@ -763,7 +764,7 @@ msgstr "No instal·lat"
 
 #: ../solus_sc/updates_view.py:87
 msgid "Discombobulating update matrix"
-msgstr "Matriu d'actualització desconcertant"
+msgstr "Desentortolligant la matriu d'actualització"
 
 #: ../solus_sc/updates_view.py:110
 msgid "Please check back later, updates are now applying"
@@ -786,7 +787,7 @@ msgstr "Comprova si hi ha actualitzacions noves"
 #. Apply the updates
 #: ../solus_sc/updates_view.py:302 ../solus_sc/updates_view.py:303
 msgid "Update Selected"
-msgstr "Actualització seleccionada"
+msgstr "Actualitza la selecció"
 
 #. "2 of 10 updates selected"
 #: ../solus_sc/updates_view.py:538
