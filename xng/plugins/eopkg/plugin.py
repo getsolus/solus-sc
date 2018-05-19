@@ -518,7 +518,7 @@ class EopkgPlugin(ProviderPlugin):
         pitem = transaction.primary_item
         # Guard operation to ensure we complete all ops
         self.spinlock_busy_wait()
-        self.pmanager.installPackage(pitem.get_id())
+        self.pmanager.installPackage(pitem.get_id(), timeout=100000)
         self.spinlock_busy_end()
 
         # Drop it again
@@ -534,7 +534,7 @@ class EopkgPlugin(ProviderPlugin):
 
         # Guard operation to ensure we complete all ops
         self.spinlock_busy_wait()
-        self.pmanager.removePackage(items)
+        self.pmanager.removePackage(items, timeout=100000)
         self.spinlock_busy_end()
 
         # Drop it again
@@ -546,7 +546,7 @@ class EopkgPlugin(ProviderPlugin):
         self.executor = executor
 
         self.spinlock_busy_wait()
-        self.pmanager.updateRepository(source.get_name())
+        self.pmanager.updateRepository(source.get_name(), timeout=100000)
         self.spinlock_busy_end()
 
         self.executor = None
