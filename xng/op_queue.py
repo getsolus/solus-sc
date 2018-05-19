@@ -46,6 +46,7 @@ class Operation(GObject.Object):
 
     def describe(self):
         """ Describe the current job/operation """
+        return self.data.describe()
         name = self.data.get_name()
         if self.opType == OperationType.INSTALL:
             # Install 'gedit'

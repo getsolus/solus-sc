@@ -65,14 +65,25 @@ class Transaction(GObject.Object):
 
     op_type = None  # No initial operation type
 
+    op_counter = None  # Top counter of all ops
+
+    items = None
+
     def __init__(self, primary_item=None):
         GObject.Object.__init__(self)
 
         self.primary_item = primary_item
+        self.op_counter = 0
+        if primary_item:
+            self.plugin = primary_item.get_plugin()
 
         self.removals = set()
         self.installations = set()
         self.upgrades = set()
+        self.items = dict()
+
+    def get_plugin(self):
+        return self.plugin
 
     def set_operation_type(self, op_type):
         """ Initiated by the context only """
@@ -81,6 +92,8 @@ class Transaction(GObject.Object):
     def push_removal(self, item):
         """ Push a new removal operation """
         self.removals.add(item)
+        self.op_counter += 1
+        self.items[item.get_id()] = item
 
     def pop_removal(self, item):
         """ Pop a removal from the set of counted items """
@@ -89,6 +102,8 @@ class Transaction(GObject.Object):
     def push_installation(self, item):
         """ Push a new installation operation """
         self.installations.add(item)
+        self.op_counter += 1
+        self.items[item.get_id()] = item
 
     def pop_installation(self, item):
         """ When an item has completed, remove it """
@@ -98,10 +113,14 @@ class Transaction(GObject.Object):
         """ Push a new reinstallation operation (remove + install) """
         self.removals.add(item)
         self.installations.add(item)
+        self.op_counter += 2
+        self.items[item.get_id()] = item
 
     def push_upgrade(self, item):
         """ Push a new upgrade (explicit upgrade) operation """
         self.upgrades.add(item)
+        self.op_counter += 1
+        self.items[item.get_id()] = item
 
     def pop_upgrade(self, item):
         """ Pop an upgrade from the set of counted upgrades """
@@ -112,6 +131,10 @@ class Transaction(GObject.Object):
         return (self.count_installations() +
                 self.count_removals() +
                 self.count_upgrades())
+
+    def get_fraction(self):
+        """ Return the current fraction for all pending operations """
+        return 1.0 - (float(self.count_operations()) / float(self.op_counter))
 
     def count_installations(self):
         """ Total number of install operations """
@@ -128,17 +151,19 @@ class Transaction(GObject.Object):
     def describe(self):
         sb = None
         if self.op_type == OperationType.INSTALL:
-            sb = "Install: {}".format(self.primary_item.get_id())
+            sb = "Install: '{}'".format(self.primary_item.get_id())
         elif self.op_type == OperationType.REMOVE:
-            sb = "Remove: {}".format(self.primary_item.get_id())
+            sb = "Remove: '{}'".format(self.primary_item.get_id())
         elif self.op_type == OperationType.UPGRADE:
-            sb = "Upgrade: {}".format(self.primary_item.get_id())
+            sb = "Upgrade: '{}'".format(self.primary_item.get_id())
 
         # Format for debug
-        sb += ", removals: {}, installs: {}, upgrades: {}".format(
+        sb2 = sb
+        sb2 += ", removals: {}, installs: {}, upgrades: {}".format(
             [x.get_id() for x in self.removals],
             [x.get_id() for x in self.installations],
             [x.get_id() for x in self.upgrades])
+        print(sb2)
 
         return sb
 
@@ -277,13 +302,13 @@ class ProviderPlugin(GObject.Object):
         """ Return the categories known by this plugin """
         return []
 
-    def install_item(self, executor, item):
+    def install_item(self, executor, transaction):
         raise RuntimeError("implement install_item")
 
-    def remove_item(self, executor, item):
+    def remove_item(self, executor, transaction):
         raise RuntimeError("implement remove_item")
 
-    def upgrade_item(self, executor, item):
+    def upgrade_item(self, executor, transaction):
         raise RuntimeError("implement upgrade_item")
 
     def plan_upgrade_item(self, items):

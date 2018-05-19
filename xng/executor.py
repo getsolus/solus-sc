@@ -45,6 +45,7 @@ class Executor(GObject.Object):
     def __init__(self):
         GObject.Object.__init__(self)
 
+        self.progress_value = 0.0
         # Management of the work queue
         self.queue = OperationQueue()
         self.thread_lock = Lock()
@@ -64,12 +65,18 @@ class Executor(GObject.Object):
     def get_progress_string(self):
         return self.progress_string
 
+    def get_progress_value(self):
+        return self.progress_value
+
     def set_progress_value(self, value):
         """ Set the current progress value that will be displayed
 
             This should be called by the backend being executed
         """
+        Gdk.threads_enter()
         self.progress_value = value
+        print(value)
+        Gdk.threads_leave()
 
     def get_job_description(self):
         return self.job_description
@@ -149,7 +156,7 @@ class Executor(GObject.Object):
         plugin = item.data.get_plugin()
         # Process
         if item.opType == OperationType.INSTALL:
-            plugin.install_item(self, (item.data, ))
+            plugin.install_item(self, item.data)
         elif item.opType == OperationType.REMOVE:
             plugin.remove_item(self, item.data)
         elif item.opType == OperationType.UPGRADE:

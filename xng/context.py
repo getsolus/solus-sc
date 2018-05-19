@@ -144,11 +144,11 @@ class ScContext(GObject.Object):
         transaction = item.get_plugin().plan_install_item(item)
         transaction.set_operation_type(OperationType.INSTALL)
         print("begin_install: {}".format(transaction.describe()))
-        print("deliberately gimped")
-        return
+        # print("deliberately gimped")
+        # return
 
         # Schedule now
-        # self.executor.install_package(item)
+        self.executor.install_package(transaction)
 
     def begin_remove(self, item):
         """ Begin the work necessary to remove a package """

@@ -54,8 +54,7 @@ class EopkgPlugin(ProviderPlugin):
     pmanager = None
 
     # Allow us to track expected operations for progress purposes
-    progress_total = 0    # Total number of items in our operation
-    progress_current = 0  # Current progress
+    trans = None
     current_package = None
 
     operation_blocked = False  # Allow spin locking
@@ -353,67 +352,80 @@ class EopkgPlugin(ProviderPlugin):
     def handle_dbus_upgrading(self, what):
         """ Package is now upgrading """
         self.current_package = what
-        self.executor.set_progress_string(_("Upgrading {} of {}: {}".format(
-            self.progress_current + 1,
-            self.progress_total,
-            self.current_package)))
+        self.executor.set_progress_string(_("Upgrading {} ({} / {})").format(
+            self.current_package,
+            self.trans.op_counter - self.trans.count_operations() + 1,
+            self.trans.op_counter,
+        ))
 
     def handle_dbus_upgraded(self, what):
         """ Package was upgraded """
-        self.executor.set_progress_string(_("Upgraded {} of {}: {}".format(
-            self.progress_current + 1,
-            self.progress_total,
-            self.current_package)))
-        self.progress_current += 1
+        self.executor.set_progress_string(_("Upgraded {} ({} / {})").format(
+            self.current_package,
+            self.trans.op_counter - self.trans.count_operations() + 1,
+            self.trans.op_counter,
+        ))
+        self.trans.pop_upgrade(self.trans.items[self.current_package])
+        self.executor.set_progress_value(self.trans.get_fraction())
 
     def handle_dbus_removing(self, what):
         """ Package is now removing """
         self.current_package = what
-        self.executor.set_progress_string(_("Removing {} of {}: {}".format(
-            self.progress_current + 1,
-            self.progress_total,
-            self.current_package)))
+        self.executor.set_progress_string(_("Removing {} ({} / {})").format(
+            self.current_package,
+            self.trans.op_counter - self.trans.count_operations() + 1,
+            self.trans.op_counter,
+        ))
 
     def handle_dbus_removed(self, what):
         """ Package was removed """
-        self.executor.set_progress_string(_("Removed {} of {}: {}".format(
-            self.progress_current + 1,
-            self.progress_total,
-            self.current_package)))
-        self.progress_current += 1
+        self.executor.set_progress_string(_("Removed {} ({} / {})").format(
+            self.current_package,
+            self.trans.op_counter - self.trans.count_operations() + 1,
+            self.trans.op_counter,
+        ))
+        self.trans.pop_removal(self.trans.items[self.current_package])
+        self.executor.set_progress_value(self.trans.get_fraction())
 
     def handle_dbus_installing(self, what):
         """ Package is now installing """
         self.current_package = what
-        self.executor.set_progress_string(_("Installing {} of {}: {}".format(
-            self.progress_current + 1,
-            self.progress_total,
-            self.current_package)))
+        self.executor.set_progress_string(_("Installing {} ({} / {})").format(
+            self.current_package,
+            self.trans.op_counter - self.trans.count_operations() + 1,
+            self.trans.op_counter,
+        ))
 
     def handle_dbus_installed(self, what):
         """ Package was installed """
-        self.executor.set_progress_string(_("Installed {} of {}: {}".format(
-            self.progress_current + 1,
-            self.progress_total,
-            self.current_package)))
-        self.progress_current += 1
+        self.executor.set_progress_string(_("Installed {} ({} / {})").format(
+            self.current_package,
+            self.trans.op_counter - self.trans.count_operations() + 1,
+            self.trans.op_counter,
+        ))
+        self.trans.pop_installation(self.trans.items[self.current_package])
+        self.executor.set_progress_value(self.trans.get_fraction())
 
     def handle_dbus_extracting(self, what):
         self.current_package = what
-        self.executor.set_progress_string(_("Extracting {} of {}: {}".format(
-            self.progress_current + 1,
-            self.progress_total,
-            self.current_package)))
+        self.executor.set_progress_string(_("Extracting {} ({} / {})").format(
+            self.current_package,
+            self.trans.op_counter - self.trans.count_operations() + 1,
+            self.trans.op_counter,
+        ))
 
     def handle_dbus_usysconf(self):
         self.executor.set_progress_string(_("Updating system configuration"))
+        # TODO: Have bouncing progress
 
     def handle_dbus_repo_update(self):
         self.executor.set_progress_string(_("Updating repository information"))
+        # TODO: Have bouncing progress
 
     def handle_dbus_progress(self, args):
         """ Handle progress changes """
         print("Progress: {}".format(args))
+        # TODO: Show total download progress
 
     def handle_dbus_finished(self, args):
         """ Handle D-BUS finish, i.e. rebuild caches and such """
@@ -438,19 +450,20 @@ class EopkgPlugin(ProviderPlugin):
         """ Cancellation or failure to authenticate """
         print("Cancellation: {}".format(args))
 
-    def install_item(self, executor, items):
-        names = [x.get_id() for x in items]
-        print("installing: {}".format(names))
-        # Stash executor for dbus callback
+    def install_item(self, executor, transaction):
+        # Stash executor + transaction for dbus callback
         self.executor = executor
+        self.trans = transaction
 
+        pitem = transaction.primary_item
         # Guard operation to ensure we complete all ops
         self.spinlock_busy_wait()
-        self.pmanager.installPackage(",".join(names))
+        self.pmanager.installPackage(pitem.get_id())
         self.spinlock_busy_end()
 
         # Drop it again
         self.executor = None
+        self.trans = None
 
     def refresh_source(self, executor, source):
         print("Refreshing source: {}".format(source.get_name()))

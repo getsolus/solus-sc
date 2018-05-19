@@ -103,6 +103,8 @@ class ScJobWidget(Gtk.Box):
         """ Idle timer to routinely update our state """
         self.action_label.set_markup("<small>{}</small>".format(
             self.context.executor.get_progress_string()))
+        self.progressbar.set_fraction(
+            self.context.executor.get_progress_value())
         return self.monitor_id is not None
 
     def update_job(self, job):
