@@ -144,8 +144,6 @@ class ScContext(GObject.Object):
         transaction = item.get_plugin().plan_install_item(item)
         transaction.set_operation_type(OperationType.INSTALL)
         print("begin_install: {}".format(transaction.describe()))
-        # print("deliberately gimped")
-        # return
 
         # Schedule now
         self.executor.install_package(transaction)
@@ -155,8 +153,8 @@ class ScContext(GObject.Object):
         transaction = item.get_plugin().plan_remove_item(item, automatic=True)
         transaction.set_operation_type(OperationType.REMOVE)
         print("begin_remove: {}".format(transaction.describe()))
-        print("deliberately gimped")
-        return
+
+        self.executor.remove_package(transaction)
 
     def set_window_busy(self, busy):
         if not self.window:
