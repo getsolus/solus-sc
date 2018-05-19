@@ -50,13 +50,13 @@ class Operation(GObject.Object):
         name = self.data.get_name()
         if self.opType == OperationType.INSTALL:
             # Install 'gedit'
-            return _("Install '{}'".format(name))
+            return _("Install {}".format(name))
         elif self.opType == OperationType.REMOVE:
             # Remove 'gedit'
-            return _("Remove '{}'".format(name))
+            return _("Remove {}".format(name))
         elif self.opType == OperationType.REFRESH:
             # Refresh source 'Solus'
-            return _("Refresh source '{}'".format(name))
+            return _("Refresh source {}".format(name))
         else:
             # Don't know how to handle update yet
             return None
