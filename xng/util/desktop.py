@@ -81,4 +81,8 @@ class ScDesktopIntegration(GObject.Object):
 
     def should_csd(self):
         """ Return True if we should use CSD with the current desktop """
-        return self.has_desktop_class(ScDesktopClass.GNOME)
+        if self.has_desktop_class(ScDesktopClass.GNOME):
+            return True
+        if self.has_desktop_class(ScDesktopClass.MATE):
+            return True
+        return False
