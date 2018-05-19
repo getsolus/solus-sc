@@ -479,11 +479,9 @@ class EopkgPlugin(ProviderPlugin):
 
         # Update UI
         self.executor.set_progress_value(fraction)
-        progress_string = _("Downloading {} {} ({} / {})".format(
+        progress_string = _("Downloading {} {}".format(
             filename,
             speed_string,
-            self.trans.op_counter - self.trans.count_operations() + 1,
-            self.trans.op_counter,
         ))
         self.executor.set_progress_string(progress_string)
 
