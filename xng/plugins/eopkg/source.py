@@ -35,7 +35,8 @@ class EopkgSource(ProviderSource):
         self.active = rdb.repo_active(repoName)
 
     def describe(self):
-        ret = "{} - {}".format(self.name, self.url)
+        # ret = "{} - {}".format(self.name, self.url)
+        ret = self.name
         if not self.active:
             ret += " (inactive)"
         return ret

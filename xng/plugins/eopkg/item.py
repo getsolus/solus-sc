@@ -12,6 +12,7 @@
 #
 
 from ..base import ProviderItem, ItemStatus
+from pisi.operations.helper import calculate_download_sizes
 
 
 class EopkgItem(ProviderItem):
@@ -74,6 +75,9 @@ class EopkgItem(ProviderItem):
 
     def get_version(self):
         return self.displayCandidate.history[0].version
+
+    def get_download_size(self):
+        return calculate_download_sizes((self.displayCandidate.name, ))[0]
 
 
 # Mandatory components, removing will cause imminent death

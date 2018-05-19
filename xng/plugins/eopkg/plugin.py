@@ -29,6 +29,7 @@ from pisi.operations import helper as pisi_helper
 import time
 import comar
 import difflib
+import os.path
 
 
 class EopkgPlugin(ProviderPlugin):
@@ -424,8 +425,67 @@ class EopkgPlugin(ProviderPlugin):
 
     def handle_dbus_progress(self, args):
         """ Handle progress changes """
-        print("Progress: {}".format(args))
-        # TODO: Show total download progress
+        cmd = args[0]
+        if cmd == 'fetching':
+            self.handle_dbus_fetching(args)
+        else:
+            print("unknown progress: {}".format(args))
+
+    def handle_dbus_fetching(self, args):
+        """ Propagate dbus fetching to right handler """
+        if self.trans:
+            self.handle_dbus_fetching_transaction(args)
+        else:
+            self.handle_dbus_fetching_no_transaction(args)
+
+    def handle_dbus_fetching_no_transaction(self, args):
+        """ Fetching without a transaction, i.e. eopkg-index """
+        filename = os.path.basename(args[1])
+        speed_number = args[3]
+        speed_label = args[4]
+        speed_string = "{} {}".format(speed_number, speed_label)
+        downloaded = args[5]
+        download_size = args[6]
+        fraction = float(downloaded) / float(download_size)
+
+        # Update UI
+        self.executor.set_progress_value(fraction)
+        self.executor.set_progress_string(_("Downloading {} {}").format(
+            filename,
+            speed_string,
+        ))
+
+    def handle_dbus_fetching_transaction(self, args):
+        """ Fetching *with* a transaction, i.e. downloading packages """
+        filename = args[1]
+        # Grab the package name here cuz we don't actually know it
+        filename = pisi.util.parse_package_name(filename)[0]
+        speed_number = args[3]
+        speed_label = args[4]
+        speed_string = "{} {}".format(speed_number, speed_label)
+        downloaded = args[5]
+        download_size = args[6]
+
+        # We've now downloaded a package completely
+        total = self.trans.download_current + downloaded
+        if total == 0:
+            total = 1
+
+        if downloaded == download_size:
+            self.trans.update_downloaded_size(downloaded)
+            fraction = self.trans.get_download_fraction()
+        else:
+            fraction = float(total) / float(self.trans.download_total)
+
+        # Update UI
+        self.executor.set_progress_value(fraction)
+        progress_string = _("Downloading {} {} ({} / {})".format(
+            filename,
+            speed_string,
+            self.trans.op_counter - self.trans.count_operations() + 1,
+            self.trans.op_counter,
+        ))
+        self.executor.set_progress_string(progress_string)
 
     def handle_dbus_finished(self, args):
         """ Handle D-BUS finish, i.e. rebuild caches and such """

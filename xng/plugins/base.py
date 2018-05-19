@@ -67,6 +67,9 @@ class Transaction(GObject.Object):
 
     op_counter = None  # Top counter of all ops
 
+    download_total = 0    # Total amount to download
+    download_current = 0  # Total amount downloaded
+
     items = None
 
     def __init__(self, primary_item=None):
@@ -103,6 +106,7 @@ class Transaction(GObject.Object):
         """ Push a new installation operation """
         self.installations.add(item)
         self.op_counter += 1
+        self.increment_download_size(item)
         self.items[item.get_id()] = item
 
     def pop_installation(self, item):
@@ -115,16 +119,26 @@ class Transaction(GObject.Object):
         self.installations.add(item)
         self.op_counter += 2
         self.items[item.get_id()] = item
+        self.increment_download_size(item)
 
     def push_upgrade(self, item):
         """ Push a new upgrade (explicit upgrade) operation """
         self.upgrades.add(item)
         self.op_counter += 1
         self.items[item.get_id()] = item
+        self.increment_download_size(item)
 
     def pop_upgrade(self, item):
         """ Pop an upgrade from the set of counted upgrades """
         self.upgrades.remove(item)
+
+    def increment_download_size(self, item):
+        """ Add the total download size we're going to need """
+        self.download_total += item.get_download_size()
+
+    def update_downloaded_size(self, size):
+        """ Update the downloaded size with how much we've now got """
+        self.download_current += size
 
     def count_operations(self):
         """ Total number of operations to be applied """
@@ -135,6 +149,12 @@ class Transaction(GObject.Object):
     def get_fraction(self):
         """ Return the current fraction for all pending operations """
         return 1.0 - (float(self.count_operations()) / float(self.op_counter))
+
+    def get_download_fraction(self):
+        """ Return the total amount to be downloaded """
+        if self.download_current == 0:
+            return 1.0 / float(self.download_total)
+        return float(self.download_current) / float(self.download_total)
 
     def count_installations(self):
         """ Total number of install operations """
@@ -411,6 +431,10 @@ class ProviderItem(GObject.Object):
     def get_store(self):
         """ Plugins can use a different AsStore if required """
         return None
+
+    def get_download_size(self):
+        """ Return the total download size for the item """
+        return 0
 
     def __str__(self):
         return self.get_id()
