@@ -44,7 +44,7 @@ class ScContext(GObject.Object):
         GObject.Object.__init__(self)
         self.has_loaded = False
         self.window = window
-        self.executor = Executor()
+        self.executor = Executor(self)
         self.executor.connect('refreshed', self.on_refreshed)
         self.desktop = ScDesktopIntegration()
 

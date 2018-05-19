@@ -13,7 +13,7 @@
 
 
 from .op_queue import OperationQueue, Operation, OperationType
-from gi.repository import GObject, Gdk, GLib
+from gi.repository import GObject, Gdk, GLib, Notify
 from threading import Lock, Thread
 
 
@@ -29,6 +29,8 @@ class Executor(GObject.Object):
     progress_string = None
     progress_value = None
     job_description = None
+    notification = None
+    context = None
 
     __gtype_name__ = "ScExecutor"
 
@@ -42,8 +44,9 @@ class Executor(GObject.Object):
                          (Operation,))
     }
 
-    def __init__(self):
+    def __init__(self, context):
         GObject.Object.__init__(self)
+        self.context = context
 
         self.progress_value = 0.0
         # Management of the work queue
@@ -176,4 +179,38 @@ class Executor(GObject.Object):
         self.emit('execution-ended')
         if item.opType == OperationType.REFRESH:
             self.emit('refreshed')
+        else:
+            self.notify_ended(item)
         Gdk.threads_leave()
+
+    def get_item_name(self, item):
+        """ Get the nice name for the item """
+        id = item.get_id()
+        app_name = self.context.appsystem.get_name(id, item.get_name())
+        return GLib.markup_escape_text(str(app_name))
+
+    def notify_ended(self, item):
+        """ Send a notification to indicate job ending """
+        icon_name = "system-software-install"
+        body = None
+        title = None
+        if item.opType == OperationType.INSTALL:
+            name = self.get_item_name(item.data.primary_item)
+            title = _("New software installed")
+            body = _("Installed {}").format(name)
+        elif item.opType == OperationType.REMOVE:
+            name = self.get_item_name(item.data.primary_item)
+            title = _("Software removed")
+            body = _("Removed {}").format(name)
+        elif item.opType == OperationType.UPGRADE:
+            title = _("Software update completed")
+            body = _("Software updates have been completed")
+        else:
+            return
+
+        if not self.notification:
+            self.notification = Notify.Notification.new(title, body, icon_name)
+        else:
+            self.notification.update(title, body, icon_name)
+        self.notification.set_timeout(4000)
+        self.notification.show()

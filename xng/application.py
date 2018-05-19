@@ -12,7 +12,7 @@
 #
 
 from .window import ScMainWindow
-from gi.repository import Gio, Gtk, Gdk, GLib
+from gi.repository import Gio, Gtk, Gdk, GLib, Notify
 from . import join_resource_path
 import random
 import time
@@ -78,6 +78,9 @@ class ScApplication(Gtk.Application):
         description = _("Open up the updates view of the application")
         option.description = description
         self.add_main_option_entries([option])
+
+        # Need notifications
+        Notify.init("Solus Software Centre")
 
         # Make sure random is moar betterer
         random.seed(time.time())
