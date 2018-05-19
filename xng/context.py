@@ -151,6 +151,7 @@ class ScContext(GObject.Object):
     def begin_remove(self, item):
         """ Begin the work necessary to remove a package """
         transaction = item.get_plugin().plan_remove_item(item, automatic=True)
+        transaction.set_autoremove(True)
         transaction.set_operation_type(OperationType.REMOVE)
         print("begin_remove: {}".format(transaction.describe()))
 

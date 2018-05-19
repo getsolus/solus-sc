@@ -70,6 +70,8 @@ class Transaction(GObject.Object):
     download_total = 0    # Total amount to download
     download_current = 0  # Total amount downloaded
 
+    autoremove = False  # Whether we autoremove or not
+
     items = None
 
     def __init__(self, primary_item=None):
@@ -84,6 +86,9 @@ class Transaction(GObject.Object):
         self.installations = set()
         self.upgrades = set()
         self.items = dict()
+
+    def set_autoremove(self, a):
+        self.autoremove = a
 
     def get_plugin(self):
         return self.plugin

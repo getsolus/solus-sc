@@ -525,6 +525,22 @@ class EopkgPlugin(ProviderPlugin):
         self.executor = None
         self.trans = None
 
+    def remove_item(self, executor, transaction):
+        # Stash executor + transaction for dbus callback
+        self.executor = executor
+        self.trans = transaction
+
+        items = ",".join([x.get_id() for x in transaction.removals])
+
+        # Guard operation to ensure we complete all ops
+        self.spinlock_busy_wait()
+        self.pmanager.removePackage(items)
+        self.spinlock_busy_end()
+
+        # Drop it again
+        self.executor = None
+        self.trans = None
+
     def refresh_source(self, executor, source):
         print("Refreshing source: {}".format(source.get_name()))
         self.executor = executor
