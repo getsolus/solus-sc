@@ -189,7 +189,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
             self.build_toolbar()
 
         # Once we (maybe) have headerbar, update window display
-        self.set_title("Software Center")
+        self.set_title("Software Centre")
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_name("system-software-install")
 

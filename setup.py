@@ -6,7 +6,7 @@ setup(
     version         = "20.0",
     author          = "Ikey Doherty",
     author_email    = "ikey@solus-project.com",
-    description     = ("Solus Software Center"),
+    description     = ("Solus Software Centre"),
     license         = "GPL-2.0",
     url             = "https://github.com/solus-project/os-installer",
     packages        = ['solus_sc', 'eopkg_assist', 'solus_update'],

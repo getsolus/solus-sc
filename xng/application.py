@@ -18,7 +18,7 @@ import random
 import time
 
 
-SC_APP_ID = "com.solus_project.SoftwareCenter"
+SC_APP_ID = "com.solus_project.SoftwareCentre"
 
 
 class ScApplication(Gtk.Application):
