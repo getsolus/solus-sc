@@ -176,11 +176,11 @@ class Transaction(GObject.Object):
     def describe(self):
         sb = None
         if self.op_type == OperationType.INSTALL:
-            sb = "Install: '{}'".format(self.primary_item.get_id())
+            sb = "Install: {}".format(self.primary_item.get_id())
         elif self.op_type == OperationType.REMOVE:
-            sb = "Remove: '{}'".format(self.primary_item.get_id())
+            sb = "Remove: {}".format(self.primary_item.get_id())
         elif self.op_type == OperationType.UPGRADE:
-            sb = "Upgrade: '{}'".format(self.primary_item.get_id())
+            sb = "Upgrade: {}".format(self.primary_item.get_id())
 
         # Format for debug
         sb2 = sb
