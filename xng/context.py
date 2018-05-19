@@ -124,7 +124,7 @@ class ScContext(GObject.Object):
         self.plugins = []
 
         # self.init_snap_plugin()
-        self.init_flatpak_plugin()
+        # self.init_flatpak_plugin()
         self.init_native_plugin()
 
     def emit_loaded(self):
