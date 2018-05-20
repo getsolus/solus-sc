@@ -144,8 +144,6 @@ class ScContext(GObject.Object):
         transaction = item.get_plugin().plan_install_item(item)
         transaction.set_operation_type(OperationType.INSTALL)
         print("begin_install: {}".format(transaction.describe()))
-        print("gimped")
-        return
 
         # Schedule now
         self.executor.install_package(transaction)
