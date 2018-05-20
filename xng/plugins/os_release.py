@@ -31,6 +31,7 @@ class OsRelease:
                 continue
             try:
                 self._parse_blob(p)
+                break
             except Exception as e:
                 print(e)
                 continue
