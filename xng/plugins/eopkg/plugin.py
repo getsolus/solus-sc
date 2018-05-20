@@ -24,6 +24,7 @@ from gi.repository import AppStreamGlib as As
 import pisi
 from pisi.operations.install import plan_install_pkg_names
 from pisi.operations.remove import plan_remove, plan_autoremove
+from pisi.operations.upgrade import upgrade_base
 # from pisi.operations.upgrade import plan_upgrade
 from pisi.operations import helper as pisi_helper
 import time
@@ -264,8 +265,17 @@ class EopkgPlugin(ProviderPlugin):
         """ Plan the installation of a given item """
         trans = Transaction(item)
 
+        # We only install one requested item at a time
+        order = set([item.get_id()])
+        # Now ensure system.base upgrade is present because we satisfy safety
+        order |= upgrade_base(order)
         # Push the installation set here
-        (pg, pkgs) = plan_install_pkg_names([item.get_id()])
+        (pg, pkgs) = plan_install_pkg_names(order)
+
+        # If system.base is defined (should be!) put base packages first
+        if self.compDB.has_component("system.base"):
+            pkgs = pisi_helper.reorder_base_packages(pkgs)
+
         for name in pkgs:
             if self.installDB.has_package(name):
                 # Have the package so its an update now
