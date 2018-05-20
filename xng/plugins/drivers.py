@@ -69,7 +69,13 @@ class DriverManager(GObject.Object):
             print("Cannot detect system GPU: {}".format(ex))
 
         for device in checks:
-            for provider in self.manager.get_providers(device):
+            providers = self.manager.get_providers(device)
+            if not providers:
+                continue
+            print(" > {} providers for {}".format(
+                len(providers), device.get_name()))
+            for provider in providers:
+                print("     > {}".format(provider.get_package()))
                 self.push_provider(provider)
 
     def push_provider(self, provider):
