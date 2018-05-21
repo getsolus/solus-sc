@@ -93,6 +93,11 @@ essential_packages = [
     "dhcpcd",
     "network-manager",
     "wpa_supplicant",
+    "gvfs",
+    "gnome-control-center",
+    "solus-sc",
+    "udisks",
+    "upower",
 ]
 
 
