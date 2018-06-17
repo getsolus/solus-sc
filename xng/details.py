@@ -54,6 +54,9 @@ class ScDetailsView(Gtk.Box):
     parser = None
 
     label_version = None
+    label_website = None
+    label_bugsite = None
+    label_donate = None
 
     def get_page_name(self):
         return self.header_name.get_text()
@@ -257,11 +260,36 @@ class ScDetailsView(Gtk.Box):
         box.pack_start(grid, False, False, 0)
 
         self.label_version = Gtk.Label.new("")
+        self.label_version.set_halign(Gtk.Align.START)
         desc = Gtk.Label.new(_("Version"))
+        desc.set_halign(Gtk.Align.START)
         desc.set_use_markup(True)
         # column row
         grid.attach(desc, 0, 0, 1, 1)
         grid.attach(self.label_version, 1, 0, 1, 1)
+
+        # create buttons for website, donations, etc
+        self.label_website = Gtk.LinkButton.new(_("Visit website"))
+        self.label_website.get_style_context().add_class("flat")
+        self.label_bugsite = Gtk.LinkButton.new(_("Report a bug"))
+        self.label_bugsite.get_style_context().add_class("flat")
+        self.label_donate = Gtk.LinkButton.new(_("Make a donation"))
+        self.label_donate.get_style_context().add_class("flat")
+
+        button_box = Gtk.ButtonBox.new(Gtk.Orientation.HORIZONTAL)
+        button_box.set_halign(Gtk.Align.END)
+        button_box.set_hexpand(True)
+        button_box.set_layout(Gtk.ButtonBoxStyle.END)
+        button_box.add(self.label_website)
+        button_box.add(self.label_bugsite)
+        button_box.add(self.label_donate)
+
+        button_box.show_all()
+        self.label_website.set_no_show_all(True)
+        self.label_bugsite.set_no_show_all(True)
+        self.label_donate.set_no_show_all(True)
+
+        grid.attach(button_box, 2, 0, 1, 1)
 
     def update_description(self):
         # I have become GTK - Destroyer Of Children
@@ -324,6 +352,30 @@ class ScDetailsView(Gtk.Box):
         """ Update extra detail labels from the selected package """
         self.label_version.set_markup("<b>{}</b>".format(
             self.item.get_version()))
+
+        id = self.item.get_id()
+        store = self.item.get_store()
+
+        # Main website
+        site = self.context.appsystem.get_website(id, store)
+        if site:
+            self.label_website.set_uri(site)
+        self.label_website.set_visited(False)
+        self.label_website.set_visible(site is not None)
+
+        # Bug website
+        site = self.context.appsystem.get_bug_site(id, store)
+        if site:
+            self.label_bugsite.set_uri(site)
+        self.label_bugsite.set_visited(False)
+        self.label_bugsite.set_visible(site is not None)
+
+        # Donate website
+        site = self.context.appsystem.get_donation_site(id, store)
+        if site:
+            self.label_donate.set_uri(site)
+        self.label_donate.set_visited(False)
+        self.label_donate.set_visible(site is not None)
 
     def on_install_clicked(self, btn, udata=None):
         """ User clicked install """
