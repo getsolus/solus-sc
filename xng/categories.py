@@ -188,6 +188,16 @@ class ScCategoriesView(Gtk.Box):
         self.loading = ScLoadingPage()
         self.stack.add_named(self.loading, "loading")
 
+        # no items found, TODO: Allow repo manipulation
+        self.no_items_found = Gtk.Label("<big>{}</big>".format(
+            _("No software was found")))
+        self.no_items_found.set_valign(Gtk.Align.CENTER)
+        self.no_items_found.set_halign(Gtk.Align.CENTER)
+        self.no_items_found.get_style_context().add_class("dim-label")
+        self.no_items_found.show_all()
+        self.no_items_found.set_use_markup(True)
+        self.stack.add_named(self.no_items_found, "no-items-found")
+
         # Build main item view
         self.item_view = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         self.stack.add_named(self.item_view, "items")
@@ -236,8 +246,12 @@ class ScCategoriesView(Gtk.Box):
             self.components.remove(sproglet)
 
         # Add all the new components
-        for component in self.category.get_children():
+        children = self.category.get_children()
+        for component in children:
             self.add_component(component)
+
+        if not children:
+            self.stack.set_visible_child_name("no-items-found")
 
         # Begin selection of the first item
         if not self.item_first:
