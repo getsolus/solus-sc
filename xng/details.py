@@ -53,6 +53,8 @@ class ScDetailsView(Gtk.Box):
     description_box = None
     parser = None
 
+    label_version = None
+
     def get_page_name(self):
         return self.header_name.get_text()
 
@@ -101,6 +103,7 @@ class ScDetailsView(Gtk.Box):
 
         self.update_description()
         self.update_actions()
+        self.update_details()
 
         # Always re-focus to details
         self.stack.set_visible_child_name("details")
@@ -211,12 +214,54 @@ class ScDetailsView(Gtk.Box):
         self.screenie_view.set_halign(Gtk.Align.CENTER)
         box.pack_start(self.screenie_view, False, False, 0)
 
+        self.build_header_section(_("Description"), box)
         # A place to have our description
         self.description_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
-        self.description_box.set_margin_top(30)
         self.description_box.set_margin_end(150)
         self.description_box.set_margin_start(30)
         box.pack_start(self.description_box, False, False, 0)
+
+        self.build_details_grid(box)
+
+    def build_header_section(self, label, pack_target):
+        """ Build a fancy header section and put it into pack_target """
+        # Header for the information
+        lab = Gtk.Label.new(label)
+        lab.set_use_markup(True)
+        lab.set_halign(Gtk.Align.START)
+        lab.set_margin_start(30)
+        lab.set_margin_top(30)
+        lab.get_style_context().add_class("dim-label")
+        pack_target.pack_start(lab, False, False, 0)
+
+        # Visually separate this information now
+        sep = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
+        sep.set_margin_start(30)
+        sep.set_margin_end(150)
+        sep.set_margin_top(8)
+        sep.set_margin_bottom(15)
+        pack_target.pack_start(sep, False, False, 0)
+
+    def build_details_grid(self, box):
+        """ Build the detailed information grid for each item """
+        grid = Gtk.Grid.new()
+        grid.set_margin_end(150)
+        grid.set_margin_start(30)
+        grid.set_column_spacing(6)
+        grid.set_row_spacing(12)
+        grid.set_valign(Gtk.Align.START)
+
+        self.build_header_section(_("Information"), box)
+
+        # Attach grid to the view
+        box.pack_start(grid, False, False, 0)
+
+        self.label_version = Gtk.Label.new("")
+        desc = Gtk.Label.new(_("Version"))
+        desc.set_use_markup(True)
+        # column row
+        grid.attach(desc, 0, 0, 1, 1)
+        grid.attach(self.label_version, 1, 0, 1, 1)
 
     def update_description(self):
         # I have become GTK - Destroyer Of Children
@@ -274,6 +319,11 @@ class ScDetailsView(Gtk.Box):
         # Hide launch info once more
         if not self.launch_info:
             self.header_action_launch.hide()
+
+    def update_details(self):
+        """ Update extra detail labels from the selected package """
+        self.label_version.set_markup("<b>{}</b>".format(
+            self.item.get_version()))
 
     def on_install_clicked(self, btn, udata=None):
         """ User clicked install """
