@@ -11,7 +11,9 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
+import threading
+from .op_queue import OperationType
 
 
 class ScOperationDialog(Gtk.Dialog):
@@ -24,10 +26,61 @@ class ScOperationDialog(Gtk.Dialog):
 
     __gtype_name__ = "ScOperationDialog"
 
+    item = None  # Currently active item for planning
+    operation_type = None  # Currently requested operation type
+
     def __init__(self, window):
         Gtk.Dialog.__init__(self, transient_for=window, use_header_bar=1)
-        self.set_title("Add witty title here")
 
     def prepare(self, item, operation_type):
+        """ Prepare to be shown on screen """
+        self.item = item
+        self.operation_type = operation_type
+        thr = threading.Thread(target=self.begin_operation)
+
+        # mark title according to request
+        if self.operation_type == OperationType.INSTALL:
+            self.set_title(_("Install software"))
+        elif self.operation_type == OperationType.REMOVE:
+            self.set_title(_("Remove software"))
+        elif self.operation_type == OperationType.UPGRADE:
+            self.set_title(_("Upgrade software"))
+
         self.show_all()
-        print(operation_type, item)
+        self.begin_busy()
+
+        # Start the operation calculation
+        thr.start()
+
+    def begin_busy(self):
+        """ Mark ourselves busy before we do anything... """
+        self.set_sensitive(False)
+
+    def end_busy(self):
+        """" We're now now ready to be used ... """
+        self.set_sensitive(True)
+
+    def begin_operation(self):
+        """ Here we begin the actual planning for this dialog... """
+        # Get this dude in a second
+        transaction = None
+        plugin = self.item.get_plugin()
+
+        if self.operation_type == OperationType.INSTALL:
+            transaction = plugin.plan_install_item(self.item)
+        elif self.operation_type == OperationType.REMOVE:
+            transaction = plugin.plan_remove_item(self.item)
+        elif self.operation_type == OperationType.UPGRADE:
+            transaction = plugin.plan_upgrade_item(self.item)
+        else:
+            print("!!! UNSUPPORTED OPERATION !!!")
+            return
+
+        print(transaction.removals)
+        print(transaction.installations)
+        print(transaction.upgrades)
+
+        # Set ourselves sensitive/usable again
+        Gdk.threads_enter()
+        self.end_busy()
+        Gdk.threads_leave()
