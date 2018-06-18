@@ -33,28 +33,40 @@ class ScPlanView(Gtk.Box):
     listbox_removal = None  # Removals
     listbox_upgrade = None # Upgrades
 
+    button_accept = None  # Allow remove/install/etc
+
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
         self.context = context
         self.set_border_width(10)
 
+        # Install label
         self.label_install = Gtk.Label.new(
             _("The following software will be installed"))
         self.pack_start(self.label_install, False, False, 0)
         self.label_install.set_halign(Gtk.Align.START)
         self.label_install.set_margin_top(6)
 
+        # Remove label
         self.label_removal = Gtk.Label.new(
             _("The following software will be removed"))
         self.pack_start(self.label_removal, False, False, 0)
         self.label_removal.set_halign(Gtk.Align.START)
         self.label_removal.set_margin_top(6)
 
+        # Upgrade label
         self.label_upgrade = Gtk.Label.new(
             _("The following software will be upgraded"))
         self.pack_start(self.label_upgrade, False, False, 0)
         self.label_upgrade.set_halign(Gtk.Align.START)
         self.label_upgrade.set_margin_top(6)
+
+        # Accept changes
+        self.button_accept = Gtk.Button.new_with_label(_("Accept changes"))
+        self.button_accept.set_margin_top(18)
+        self.button_accept.get_style_context().add_class("suggested-action")
+        self.button_accept.set_halign(Gtk.Align.CENTER)
+        self.pack_start(self.button_accept, False, False, 0)
 
     def prepare(self, item, operation_type):
         """ Prepare to be shown on screen """
