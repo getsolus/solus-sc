@@ -143,8 +143,10 @@ class ScContext(GObject.Object):
     def begin_dialog(self, item, operation_type):
         """ Prepare the dialog for the operation """
         dialog = ScOperationDialog(self.window)
+        self.set_window_busy(True)
         dialog.prepare(item, operation_type)
         result = dialog.run()
+        self.set_window_busy(False)
         print(result)
         dialog.destroy()
 
