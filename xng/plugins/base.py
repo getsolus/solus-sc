@@ -72,6 +72,7 @@ class Transaction(GObject.Object):
     download_current = 0  # Total amount downloaded
 
     install_size = 0  # Total installation size
+    remove_size = 0   # Total removal size
 
     autoremove = False  # Whether we autoremove or not
 
@@ -104,6 +105,7 @@ class Transaction(GObject.Object):
         """ Push a new removal operation """
         self.removals.add(item)
         self.op_counter += 1
+        self.increment_remove_size(item)
         self.items[item.get_id()] = item
 
     def pop_removal(self, item):
@@ -148,6 +150,10 @@ class Transaction(GObject.Object):
     def increment_install_size(self, item):
         """ Add to the total install size """
         self.install_size += item.get_install_size()
+
+    def increment_remove_size(self, item):
+        """ Add to the total removal size """
+        self.remove_size += item.get_install_size()
 
     def update_downloaded_size(self, size):
         """ Update the downloaded size with how much we've now got """
@@ -203,6 +209,10 @@ class Transaction(GObject.Object):
     def get_install_size(self):
         """ Return string form of the total installation size """
         return sc_format_size_local(self.install_size)
+
+    def get_removal_size(self):
+        """ Return string form of the total removal size """
+        return sc_format_size_local(self.remove_size)
 
 
 class ProviderCategory(GObject.Object):

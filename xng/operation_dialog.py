@@ -81,6 +81,7 @@ class ScOperationDialog(Gtk.Dialog):
         print(transaction.upgrades)
 
         print("Install size: {}".format(transaction.get_install_size()))
+        print("Removal size: {}".format(transaction.get_removal_size()))
 
         # Set ourselves sensitive/usable again
         Gdk.threads_enter()
