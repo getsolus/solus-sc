@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gio, Gtk
+from gi.repository import Gio, Gtk, GLib
 from .screenshot_view import ScScreenshotView
 from .util.markdown import SpecialMarkdownParser
 from .plugins.base import ItemStatus
@@ -57,6 +57,7 @@ class ScDetailsView(Gtk.Box):
     label_website = None
     label_bugsite = None
     label_donate = None
+    label_developer = None
 
     def get_page_name(self):
         return self.header_name.get_text()
@@ -291,6 +292,16 @@ class ScDetailsView(Gtk.Box):
 
         grid.attach(button_box, 2, 0, 1, 1)
 
+        self.label_developer = Gtk.Label.new("")
+        self.label_developer.set_margin_top(6)
+        self.label_developer.set_margin_end(6)
+        self.label_developer.set_halign(Gtk.Align.END)
+        self.label_developer.set_hexpand(True)
+        self.label_developer.show_all()
+        self.label_developer.set_no_show_all(True)
+
+        grid.attach(self.label_developer, 2, 1, 1, 1)
+
     def update_description(self):
         # I have become GTK - Destroyer Of Children
         for child in self.description_box.get_children():
@@ -376,6 +387,15 @@ class ScDetailsView(Gtk.Box):
             self.label_donate.set_uri(site)
         self.label_donate.set_visited(False)
         self.label_donate.set_visible(site is not None)
+
+        dev = self.context.appsystem.get_developers(id, store)
+        if dev:
+            developers = GLib.markup_escape_text(dev)
+            self.label_developer.set_markup("Developed by <b>{}</b>".format(
+                developers))
+        else:
+            self.label_developer.set_markup("")
+        self.label_developer.set_visible(dev is not None)
 
     def on_install_clicked(self, btn, udata=None):
         """ User clicked install """
