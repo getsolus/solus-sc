@@ -16,24 +16,22 @@ import threading
 from .op_queue import OperationType
 
 
-class ScOperationDialog(Gtk.Dialog):
+class ScPlanView(Gtk.Box):
     """ Shows details about an install/remove operation before doing it.
-
-        The details view is effectively the pretty view with all the relevant
-        package/software details, screenshots, and actions to invoke removal,
-        installation, etc.
     """
 
-    __gtype_name__ = "ScOperationDialog"
+    __gtype_name__ = "ScPlanView"
 
     item = None  # Currently active item for planning
     operation_type = None  # Currently requested operation type
 
-    def __init__(self, window):
-        Gtk.Dialog.__init__(self, transient_for=window, use_header_bar=1)
+    def __init__(self, context):
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+        self.context = context
 
     def prepare(self, item, operation_type):
         """ Prepare to be shown on screen """
+        return
         self.item = item
         self.operation_type = operation_type
         thr = threading.Thread(target=self.begin_operation)
@@ -46,19 +44,11 @@ class ScOperationDialog(Gtk.Dialog):
         elif self.operation_type == OperationType.UPGRADE:
             self.set_title(_("Upgrade software"))
 
-        self.show_all()
-        self.begin_busy()
+        # self.begin_busy()
 
         # Start the operation calculation
         thr.start()
 
-    def begin_busy(self):
-        """ Mark ourselves busy before we do anything... """
-        self.set_sensitive(False)
-
-    def end_busy(self):
-        """" We're now now ready to be used ... """
-        self.set_sensitive(True)
 
     def begin_operation(self):
         """ Here we begin the actual planning for this dialog... """
@@ -84,6 +74,6 @@ class ScOperationDialog(Gtk.Dialog):
         print("Removal size: {}".format(transaction.get_removal_size()))
 
         # Set ourselves sensitive/usable again
-        Gdk.threads_enter()
-        self.end_busy()
-        Gdk.threads_leave()
+        # Gdk.threads_enter()
+        # self.end_busy()
+        # Gdk.threads_leave()

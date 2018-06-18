@@ -593,3 +593,6 @@ class ScMainWindow(Gtk.ApplicationWindow):
         """ We've been told to check for updates """
         self.updates.refresh()
         return False
+
+    def open_plan_view(self):
+        self.drawer.open_plan_view()

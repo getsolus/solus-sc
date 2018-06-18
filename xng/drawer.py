@@ -116,6 +116,10 @@ class ScDrawerPlane(Gtk.Revealer):
 
         return Gdk.EVENT_PROPAGATE
 
+    def open_plan_view(self):
+        self.slide_in()
+        self.drawer.open_plan_view()
+
     def slide_in(self):
         """ Activate plane and slide in the sidebar """
         self.show()
@@ -205,6 +209,8 @@ class ScDrawer(Gtk.Revealer):
         # Construct settings view to allow switching to it
         self.settings_view = ScSettingsView(self.context)
         self.stack.add_named(self.settings_view, 'settings')
+
+        self.stack.add_named(self.context.plan_view, 'planner')
 
         self.sidebar.show_all()
         self.add(self.sidebar)
@@ -307,3 +313,9 @@ class ScDrawer(Gtk.Revealer):
             return False
         self.on_back_clicked(None)
         return True
+
+    def open_plan_view(self):
+        """ Open to the plan view """
+        self.stack.set_visible_child_name('planner')
+        # TODO: Have a close button instead!
+        self.button_stack.set_visible_child_name('back_button')

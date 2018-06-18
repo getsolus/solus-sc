@@ -14,7 +14,7 @@
 from .appsystem import AppSystem
 from .executor import Executor
 from .op_queue import OperationType
-from .operation_dialog import ScOperationDialog
+from .plan_view import ScPlanView
 from .util.fetcher import ScMediaFetcher
 from .util.desktop import ScDesktopIntegration
 from gi.repository import GObject, GLib
@@ -32,6 +32,7 @@ class ScContext(GObject.Object):
     driver_manager = None
     window = None
     desktop = None
+    plan_view = None
 
     sources_count = 0
 
@@ -48,6 +49,7 @@ class ScContext(GObject.Object):
         self.executor = Executor(self)
         self.executor.connect('refreshed', self.on_refreshed)
         self.desktop = ScDesktopIntegration()
+        self.plan_view = ScPlanView(self)
 
     def begin_load(self):
         """ Request a load for the system, i.e. after all components are
@@ -140,20 +142,17 @@ class ScContext(GObject.Object):
         self.appsystem = AppSystem()
         GLib.idle_add(self.emit_loaded)
 
-    def begin_dialog(self, item, operation_type):
+    def prepare_plan_view(self, item, operation_type):
         """ Prepare the dialog for the operation """
-        dialog = ScOperationDialog(self.window)
-        self.set_window_busy(True)
-        dialog.prepare(item, operation_type)
-        result = dialog.run()
-        self.set_window_busy(False)
-        print(result)
-        dialog.destroy()
+        print("BEGIN PLAN VIEW!")
+        self.window.open_plan_view()
+        self.plan_view.prepare(item, operation_type)
+        print("END PLAN VIEW")
 
     def begin_install(self, item):
         """ Begin the work necessary to install a package """
         print("GIMPED")
-        self.begin_dialog(item, OperationType.INSTALL)
+        self.prepare_plan_view(item, OperationType.INSTALL)
         return
 
         # doesn't run
@@ -167,7 +166,7 @@ class ScContext(GObject.Object):
     def begin_remove(self, item):
         """ Begin the work necessary to remove a package """
         print("GIMPED")
-        self.begin_dialog(item, OperationType.REMOVE)
+        self.prepare_plan_view(item, OperationType.REMOVE)
         return
 
         # doesn't run
