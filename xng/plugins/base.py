@@ -13,6 +13,7 @@
 
 from gi.repository import GObject
 from xng.op_queue import OperationType
+from ..util import sc_format_size_local
 
 
 class PopulationFilter:
@@ -70,6 +71,8 @@ class Transaction(GObject.Object):
     download_total = 0    # Total amount to download
     download_current = 0  # Total amount downloaded
 
+    install_size = 0  # Total installation size
+
     autoremove = False  # Whether we autoremove or not
 
     items = None
@@ -112,6 +115,7 @@ class Transaction(GObject.Object):
         self.installations.add(item)
         self.op_counter += 1
         self.increment_download_size(item)
+        self.increment_install_size(item)
         self.items[item.get_id()] = item
 
     def pop_installation(self, item):
@@ -140,6 +144,10 @@ class Transaction(GObject.Object):
     def increment_download_size(self, item):
         """ Add the total download size we're going to need """
         self.download_total += item.get_download_size()
+
+    def increment_install_size(self, item):
+        """ Add to the total install size """
+        self.install_size += item.get_install_size()
 
     def update_downloaded_size(self, size):
         """ Update the downloaded size with how much we've now got """
@@ -191,6 +199,10 @@ class Transaction(GObject.Object):
         print(sb2)
 
         return sb
+
+    def get_install_size(self):
+        """ Return string form of the total installation size """
+        return sc_format_size_local(self.install_size)
 
 
 class ProviderCategory(GObject.Object):
@@ -439,6 +451,10 @@ class ProviderItem(GObject.Object):
 
     def get_download_size(self):
         """ Return the total download size for the item """
+        return 0
+
+    def get_install_size(self):
+        """ Return the total installation size for the item """
         return 0
 
     def __str__(self):

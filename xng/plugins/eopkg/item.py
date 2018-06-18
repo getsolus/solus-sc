@@ -79,6 +79,9 @@ class EopkgItem(ProviderItem):
     def get_download_size(self):
         return calculate_download_sizes((self.displayCandidate.name, ))[0]
 
+    def get_install_size(self):
+        return long(self.displayCandidate.installedSize)
+
 
 # Mandatory components, removing will cause imminent death
 essential_components = [

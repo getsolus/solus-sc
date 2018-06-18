@@ -34,7 +34,6 @@ def main():
         print("Unable to set proc title - cosmetic, not fatal.")
         print(ex)
 
-    gettext.install("solus-sc", "/usr/share/locale")
     DBusGMainLoop(set_as_default=True)
     GObject.threads_init()
     Gdk.threads_init()
@@ -43,4 +42,5 @@ def main():
 
 
 if __name__ == "__main__":
+    gettext.install("solus-sc", "/usr/share/locale")
     main()
