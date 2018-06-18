@@ -28,23 +28,16 @@ class ScPlanView(Gtk.Box):
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
         self.context = context
+        self.set_border_width(10)
 
     def prepare(self, item, operation_type):
         """ Prepare to be shown on screen """
-        return
         self.item = item
         self.operation_type = operation_type
         thr = threading.Thread(target=self.begin_operation)
 
-        # mark title according to request
-        if self.operation_type == OperationType.INSTALL:
-            self.set_title(_("Install software"))
-        elif self.operation_type == OperationType.REMOVE:
-            self.set_title(_("Remove software"))
-        elif self.operation_type == OperationType.UPGRADE:
-            self.set_title(_("Upgrade software"))
-
-        # self.begin_busy()
+        # TODO: Enforce modality so we can't dismiss!
+        self.context.set_window_busy(True)
 
         # Start the operation calculation
         thr.start()
@@ -74,6 +67,6 @@ class ScPlanView(Gtk.Box):
         print("Removal size: {}".format(transaction.get_removal_size()))
 
         # Set ourselves sensitive/usable again
-        # Gdk.threads_enter()
-        # self.end_busy()
-        # Gdk.threads_leave()
+        Gdk.threads_enter()
+        self.context.set_window_busy(False)
+        Gdk.threads_leave()
