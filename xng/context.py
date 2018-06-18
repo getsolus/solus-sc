@@ -14,6 +14,7 @@
 from .appsystem import AppSystem
 from .executor import Executor
 from .op_queue import OperationType
+from .operation_dialog import ScOperationDialog
 from .util.fetcher import ScMediaFetcher
 from .util.desktop import ScDesktopIntegration
 from gi.repository import GObject, GLib
@@ -139,8 +140,21 @@ class ScContext(GObject.Object):
         self.appsystem = AppSystem()
         GLib.idle_add(self.emit_loaded)
 
+    def begin_dialog(self, item, operation_type):
+        """ Prepare the dialog for the operation """
+        dialog = ScOperationDialog(self.window)
+        dialog.prepare(item, operation_type)
+        result = dialog.run()
+        print(result)
+        dialog.destroy()
+
     def begin_install(self, item):
         """ Begin the work necessary to install a package """
+        print("GIMPED")
+        self.begin_dialog(item, OperationType.INSTALL)
+        return
+
+        # doesn't run
         transaction = item.get_plugin().plan_install_item(item)
         transaction.set_operation_type(OperationType.INSTALL)
         print("begin_install: {}".format(transaction.describe()))
@@ -150,6 +164,11 @@ class ScContext(GObject.Object):
 
     def begin_remove(self, item):
         """ Begin the work necessary to remove a package """
+        print("GIMPED")
+        self.begin_dialog(item, OperationType.REMOVE)
+        return
+
+        # doesn't run
         transaction = item.get_plugin().plan_remove_item(item, automatic=True)
         transaction.set_autoremove(True)
         transaction.set_operation_type(OperationType.REMOVE)
