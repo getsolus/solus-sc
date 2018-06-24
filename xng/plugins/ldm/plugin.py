@@ -47,6 +47,7 @@ class LdmPlugin(ProviderPlugin):
 
         # No hot plug events in the software center itself.
         self.manager = Ldm.Manager.new(Ldm.ManagerFlags.NO_MONITOR)
+        self.manager.add_system_modalias_plugins()
 
     def categories(self):
         return self.cats
