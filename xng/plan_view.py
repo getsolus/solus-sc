@@ -46,6 +46,8 @@ class ScPlanView(Gtk.Box):
         self.pack_start(self.label_install, False, False, 0)
         self.label_install.set_halign(Gtk.Align.START)
         self.label_install.set_margin_top(6)
+        self.label_install.show_all()
+        self.label_install.set_no_show_all(True)
 
         # Remove label
         self.label_removal = Gtk.Label.new(
@@ -53,6 +55,8 @@ class ScPlanView(Gtk.Box):
         self.pack_start(self.label_removal, False, False, 0)
         self.label_removal.set_halign(Gtk.Align.START)
         self.label_removal.set_margin_top(6)
+        self.label_removal.show_all()
+        self.label_removal.set_no_show_all(True)
 
         # Upgrade label
         self.label_upgrade = Gtk.Label.new(
@@ -60,6 +64,8 @@ class ScPlanView(Gtk.Box):
         self.pack_start(self.label_upgrade, False, False, 0)
         self.label_upgrade.set_halign(Gtk.Align.START)
         self.label_upgrade.set_margin_top(6)
+        self.label_upgrade.show_all()
+        self.label_upgrade.set_no_show_all(True)
 
         # Accept changes
         self.button_accept = Gtk.Button.new_with_label(_("Accept changes"))
@@ -107,4 +113,11 @@ class ScPlanView(Gtk.Box):
         # Set ourselves sensitive/usable again
         Gdk.threads_enter()
         self.context.set_window_busy(False)
+
+        # Update labels based on operation set
+        self.label_install.set_visible(len(transaction.installations) > 0)
+        self.label_upgrade.set_visible(len(transaction.upgrades) > 0)
+        self.label_removal.set_visible(len(transaction.removals) > 0)
+
+        # Get back out of ugly gdk lock land
         Gdk.threads_leave()
