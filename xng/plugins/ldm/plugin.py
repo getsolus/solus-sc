@@ -56,4 +56,8 @@ class LdmPlugin(ProviderPlugin):
         # Build a list of devices for the selected category
         devices = self.manager.get_devices(category.ldm_type)
         for device in devices:
+            providers = self.manager.get_providers(device)
+            # Filter out anything that has no provider.
+            if not providers:
+                continue
             print(device)
