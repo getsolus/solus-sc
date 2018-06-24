@@ -11,10 +11,25 @@
 #  (at your option) any later version.
 #
 
-from ..base import ProviderPlugin
+from ..base import ProviderPlugin, ProviderCategory
 
-from gi.repository Ldm
+from gi.repository import Ldm
 
+class LdmRootCategory(ProviderCategory):
+
+    __gtype_name__ = "NxLdmRootCategory"
+
+    def __init__(self):
+        ProviderCategory.__init__(self)
+
+    def get_icon_name(self):
+        return "cs-cat-hardware"
+
+    def get_id(self):
+        return "ldm-category"
+
+    def get_name(self):
+        return _("Hardware & Drivers")
 
 class LdmPlugin(ProviderPlugin):
     """ LdmPlugin interacts with the other plugins so we can provide a dummy
@@ -26,11 +41,7 @@ class LdmPlugin(ProviderPlugin):
 
     def __init__(self):
         ProviderPlugin.__init__(self)
-        self.build_categories()
-
-    def build_categories(self):
-        """ Find all of our possible categories and nest them. """
-        self.cats = []
+        self.cats = [LdmRootCategory()]
 
     def categories(self):
         return self.cats
