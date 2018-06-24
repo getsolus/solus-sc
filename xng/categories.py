@@ -141,6 +141,8 @@ class ScCategoriesView(Gtk.Box):
     item_first = None
     load_page = None
 
+    software_label = None
+
     def get_page_name(self):
         if not self.category:
             return "Categories"
@@ -159,7 +161,7 @@ class ScCategoriesView(Gtk.Box):
         self.layout_constraint.set_margin_bottom(40)
 
         # Mark the Categories view
-        lab = Gtk.Label("Components")
+        lab = Gtk.Label(_("Components"))
         lab.get_style_context().add_class("sc-big")
         lab.set_margin_bottom(12)
         lab.set_halign(Gtk.Align.START)
@@ -173,7 +175,8 @@ class ScCategoriesView(Gtk.Box):
         self.components.set_margin_end(40)
 
         # Mark the Categories view
-        lab = Gtk.Label("Software")
+        lab = Gtk.Label(_("Software"))
+        self.software_label = lab
         lab.get_style_context().add_class("sc-big")
         lab.set_margin_bottom(12)
         lab.set_halign(Gtk.Align.START)
@@ -239,6 +242,10 @@ class ScCategoriesView(Gtk.Box):
         if category == self.category:
             return
         self.category = category
+        software_label = category.get_software_label()
+        if not software_label:
+            software_label = _("Software")
+        self.software_label.set_text(software_label)
 
         # Clear out the old categories
         self.item_first = None

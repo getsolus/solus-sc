@@ -240,6 +240,10 @@ class ProviderCategory(GObject.Object):
         """ Get any nested child categories """
         return []
 
+    def get_software_label(self):
+        """ Allow overriding the Software label in root-level categories """
+        return None
+
 
 class ProviderSource(GObject.Object):
     """ ProviderSource indicates sources used or available for use by a given

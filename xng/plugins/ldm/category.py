@@ -46,6 +46,9 @@ class LdmRootCategory(ProviderCategory):
     def get_name(self):
         return _("Hardware Drivers")
 
+    def get_software_label(self):
+        return _("Drivers")
+
 
 class LdmCategory(ProviderCategory):
     """ Child-level category to allow browsing hardware """
