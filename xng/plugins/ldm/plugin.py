@@ -52,4 +52,8 @@ class LdmPlugin(ProviderPlugin):
             return
 
         print("TODO: Populate category: {}".format(category.get_id()))
-        print(category.ldm_type)
+
+        # Build a list of devices for the selected category
+        devices = self.manager.get_devices(category.ldm_type)
+        for device in devices:
+            print(device)
