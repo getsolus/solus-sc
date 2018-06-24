@@ -32,8 +32,8 @@ class ScExtraItem(Gtk.Label):
 
         # Get clean name
         name = context.appsystem.get_name(id, item.get_name(), store)
-        self.set_text(name)
-
+        name = GLib.markup_escape_text(name)
+        self.set_markup("<small>{}</small>".format(name))
         self.show_all()
 
 
@@ -50,20 +50,22 @@ class ScExtrasBox(Gtk.Box):
     label_header = None
     scroller = None
 
-    def __init__(self, context, title):
+    def __init__(self, context, title, icon="missing-image"):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
         self.context = context
 
         # Whack in the top label
         self.label_header = Gtk.Label.new(title)
+        self.label_header.get_style_context().add_class("dim-label")
         self.label_header.set_halign(Gtk.Align.START)
         self.pack_start(self.label_header, False, False, 0)
+        self.label_header.set_margin_bottom(6)
 
         # Sort out scroller for additional items
         self.scroller = Gtk.ScrolledWindow.new(None, None)
         self.scroller.set_shadow_type(Gtk.ShadowType.NONE)
         self.scroller.set_policy(
-            Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+            Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
         self.pack_start(self.scroller, True, True, 0)
 
         # Listbox to store items lives inside the scrolledwindow
@@ -115,15 +117,20 @@ class ScPlanView(Gtk.Box):
         self.set_border_width(10)
 
         self.box_installs = ScExtrasBox(
-            self.context, _("To be installed"))
+            self.context,
+            _("To be installed"))
+
         self.pack_start(self.box_installs, False, False, 0)
 
         self.box_removals = ScExtrasBox(
-            self.context, _("To be removed"))
+            self.context,
+            _("To be removed"))
+
         self.pack_start(self.box_removals, False, False, 0)
 
         self.box_upgrades = ScExtrasBox(
             self.context, _("To be upgraded"))
+
         self.pack_start(self.box_upgrades, False, False, 0)
 
     def prepare(self, item, operation_type):
