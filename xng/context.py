@@ -151,31 +151,24 @@ class ScContext(GObject.Object):
 
     def begin_install(self, item):
         """ Begin the work necessary to install a package """
-        print("GIMPED")
         self.prepare_plan_view(item, OperationType.INSTALL)
-        return
 
-        # doesn't run
-        transaction = item.get_plugin().plan_install_item(item)
-        transaction.set_operation_type(OperationType.INSTALL)
-        print("begin_install: {}".format(transaction.describe()))
-
-        # Schedule now
-        self.executor.install_package(transaction)
+    def execute_transaction(self, transaction, op_type):
+        """ Actually begin the operation now """
+        transaction.set_operation_type(op_type)
+        if op_type == OperationType.INSTALL:
+            self.executor.install_package(transaction)
+        elif op_type == OperationType.REMOVE:
+            self.executor.remove_package(transaction)
+        elif op_type == OperationType.UPGRADE:
+            self.executor.upgrade_package(transaction)
+        else:
+            print("!!! DAFUQ UNKNOWN OPERATION !!!")
+            return
 
     def begin_remove(self, item):
         """ Begin the work necessary to remove a package """
-        print("GIMPED")
         self.prepare_plan_view(item, OperationType.REMOVE)
-        return
-
-        # doesn't run
-        transaction = item.get_plugin().plan_remove_item(item, automatic=True)
-        transaction.set_autoremove(True)
-        transaction.set_operation_type(OperationType.REMOVE)
-        print("begin_remove: {}".format(transaction.describe()))
-
-        self.executor.remove_package(transaction)
 
     def set_window_busy(self, busy):
         if not self.window:

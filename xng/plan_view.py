@@ -116,6 +116,7 @@ class ScPlanView(Gtk.Box):
 
     body_pane = None
     scroller = None
+    transaction = None
 
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
@@ -168,6 +169,19 @@ class ScPlanView(Gtk.Box):
         self.button_accept.set_margin_start(48)
         self.button_accept.set_margin_end(48)
 
+        # Hook this fella up.
+        self.button_accept.connect('clicked', self.on_accept_clicked)
+
+    def on_accept_clicked(self, widg, udata=None):
+        """ Push the transaction back to whence it came """
+        if not self.transaction:
+            print("!!! DAFUQ. NO TRANSACTION !!!")
+            return
+
+        # Off it goes.
+        self.context.execute_transaction(
+            self.transaction, self.operation_type)
+
     def build_extras(self):
         """ Build sections for each of the 'extras' boxes to go """
         self.box_installs = ScExtrasBox(
@@ -203,6 +217,7 @@ class ScPlanView(Gtk.Box):
         """ Here we begin the actual planning for this dialog... """
         # Get this dude in a second
         transaction = None
+        self.transaction = None
         plugin = self.item.get_plugin()
 
         if self.operation_type == OperationType.INSTALL:
@@ -222,6 +237,7 @@ class ScPlanView(Gtk.Box):
         # Set ourselves sensitive/usable again
         Gdk.threads_enter()
         self.context.set_window_busy(False)
+        self.transaction = transaction
 
         # Update boxes based on operation set
         self.box_installs.populate_from_set(transaction.installations)
