@@ -223,7 +223,7 @@ class ScPlanView(Gtk.Box):
         if self.operation_type == OperationType.INSTALL:
             transaction = plugin.plan_install_item(self.item)
         elif self.operation_type == OperationType.REMOVE:
-            transaction = plugin.plan_remove_item(self.item)
+            transaction = plugin.plan_remove_item(self.item, automatic=True)
         elif self.operation_type == OperationType.UPGRADE:
             transaction = plugin.plan_upgrade_item(self.item)
         else:
