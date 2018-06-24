@@ -71,7 +71,7 @@ class LdmCategory(ProviderCategory):
                 _("GPU"), "ldm:gpu", "preferences-desktop-display"
             ),
             Ldm.DeviceType.HID: (
-                _("Input devices"), "ldm:hid", "preferences-desktop-mouse"
+                _("Peripheral devices"), "ldm:hid", "preferences-desktop-mouse"
             ),
             Ldm.DeviceType.PRINTER: (
                 _("Printers"), "ldm:printer", "printer"
