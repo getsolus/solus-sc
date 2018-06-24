@@ -44,7 +44,7 @@ class LdmRootCategory(ProviderCategory):
         return "ldm:root"
 
     def get_name(self):
-        return _("Hardware & Drivers")
+        return _("Hardware Drivers")
 
 
 class LdmCategory(ProviderCategory):
