@@ -50,7 +50,7 @@ class ScExtrasBox(Gtk.Box):
     label_header = None
     scroller = None
 
-    def __init__(self, context, title, icon="missing-image"):
+    def __init__(self, context, title):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
         self.context = context
 
