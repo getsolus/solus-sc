@@ -109,6 +109,9 @@ class ScPlanView(Gtk.Box):
     box_removals = None
     box_upgrades = None
 
+    label_space_used = None
+    label_space_freed = None
+
     button_accept = None  # Allow remove/install/etc
 
     body_pane = None
@@ -128,11 +131,30 @@ class ScPlanView(Gtk.Box):
         self.body_pane = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         self.scroller.add(self.body_pane)
 
+        self.scroller.set_margin_top(24)
+        self.scroller.set_margin_bottom(24)
+
         self.build_extras()
         self.build_footer()
 
     def build_footer(self):
         """ Build the primary header which is always visible """
+        # Allow showing how much space is going to be used here
+        self.label_space_used = Gtk.Label.new("")
+        self.label_space_used.show_all()
+        self.label_space_used.set_no_show_all(True)
+        self.pack_start(self.label_space_used, False, False, 0)
+        self.label_space_used.set_margin_bottom(6)
+        self.label_space_used.set_halign(Gtk.Align.START)
+
+        # Likewise for space freed
+        self.label_space_freed = Gtk.Label.new("")
+        self.label_space_freed.show_all()
+        self.label_space_freed.set_no_show_all(True)
+        self.pack_start(self.label_space_freed, False, False, 0)
+        self.label_space_freed.set_margin_bottom(6)
+        self.label_space_freed.set_halign(Gtk.Align.START)
+
         self.button_accept = Gtk.Button.new_with_label(_("Accept changes"))
         self.button_accept.get_style_context().add_class("suggested-action")
         self.button_accept.set_halign(Gtk.Align.CENTER)
@@ -197,9 +219,6 @@ class ScPlanView(Gtk.Box):
         print(transaction.installations)
         print(transaction.upgrades)
 
-        print("Install size: {}".format(transaction.get_install_size()))
-        print("Removal size: {}".format(transaction.get_removal_size()))
-
         # Set ourselves sensitive/usable again
         Gdk.threads_enter()
         self.context.set_window_busy(False)
@@ -208,6 +227,26 @@ class ScPlanView(Gtk.Box):
         self.box_installs.populate_from_set(transaction.installations)
         self.box_removals.populate_from_set(transaction.removals)
         self.box_upgrades.populate_from_set(transaction.upgrades)
+
+        # Show install size?
+        if transaction.install_size > 0:
+            install_size = transaction.get_install_size()
+            self.label_space_used.set_markup(
+                _("<small>Installation size: <b>{}</b></small>").format(
+                    install_size))
+            self.label_space_used.show()
+        else:
+            self.label_space_used.hide()
+
+        # Show remove size?
+        if transaction.remove_size > 0:
+            remove_size = transaction.get_removal_size()
+            self.label_space_freed.set_markup(
+                _("<small>Disk space freed: <b>{}</b></small>").format(
+                    remove_size))
+            self.label_space_freed.show()
+        else:
+            self.label_space_freed.hide()
 
         # Get back out of ugly gdk lock land
         Gdk.threads_leave()
