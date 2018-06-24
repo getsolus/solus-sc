@@ -116,6 +116,21 @@ class ScPlanView(Gtk.Box):
         self.context = context
         self.set_border_width(10)
 
+        self.build_header()
+        self.build_extras()
+
+    def build_header(self):
+        """ Build the primary header which is always visible """
+        self.button_accept = Gtk.Button.new_with_label(_("Accept changes"))
+        self.button_accept.get_style_context().add_class("suggested-action")
+        self.button_accept.set_halign(Gtk.Align.CENTER)
+        self.pack_start(self.button_accept, False, False, 0)
+
+        # Temporary padding
+        self.button_accept.set_margin_bottom(24)
+
+    def build_extras(self):
+        """ Build sections for each of the 'extras' boxes to go """
         self.box_installs = ScExtrasBox(
             self.context,
             _("To be installed"))
