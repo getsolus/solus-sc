@@ -27,8 +27,10 @@ class LdmRootCategory(ProviderCategory):
         ProviderCategory.__init__(self)
 
         self.children = [
+            LdmCategory(Ldm.DeviceType.ANY),
             LdmCategory(Ldm.DeviceType.GPU),
             LdmCategory(Ldm.DeviceType.HID),
+            LdmCategory(Ldm.DeviceType.PRINTER),
         ]
 
     def get_children(self):
@@ -56,18 +58,34 @@ class LdmCategory(ProviderCategory):
 
     def __init__(self, ldm_type):
         self.ldm_type = ldm_type
+
+        self.mappings = {
+            Ldm.DeviceType.ANY: (
+                _("All"), "ldm:all", "starred"
+            ),
+            Ldm.DeviceType.GPU: (
+                _("GPU Devices"), "ldm:gpu", "preferences-desktop-display"
+            ),
+            Ldm.DeviceType.HID: (
+                _("HID Devices"), "ldm:hid", "preferences-desktop-mouse"
+            ),
+            Ldm.DeviceType.PRINTER: (
+                _("Printers"), "ldm:printer", "printer"
+            ),
+        }
         self.assign_attributes()
 
     def assign_attributes(self):
         """ Add our attributes based on our primary device type """
-        if self.ldm_type == Ldm.DeviceType.GPU:
-            self.display_name = _("GPU Devices")
-            self.cat_name = "ldm:gpu"
-            self.display_icon = "preferences-desktop-display"
-        elif self.ldm_type == Ldm.DeviceType.HID:
-            self.display_name = _("HID Devices")
-            self.cat_name = "ldm:hid"
-            self.display_icon = "preferences-desktop-mouse"
+        if self.ldm_type in self.mappings:
+            tupleset = self.mappings[self.ldm_type]
+            self.display_name = tupleset[0]
+            self.cat_name = tupleset[1]
+            self.display_icon = tupleset[2]
+        else:
+            self.cat_name = "ldm:broken"
+            self.display_icon = "image-missing"
+            self.display_name = "!!broken!!"
 
     def get_icon_name(self):
         return self.display_icon
