@@ -31,6 +31,7 @@ class LdmRootCategory(ProviderCategory):
             LdmCategory(Ldm.DeviceType.GPU),
             LdmCategory(Ldm.DeviceType.HID),
             LdmCategory(Ldm.DeviceType.PRINTER),
+            LdmCategory(Ldm.DeviceType.PLATFORM),
         ]
 
     def get_children(self):
@@ -72,6 +73,9 @@ class LdmCategory(ProviderCategory):
             Ldm.DeviceType.PRINTER: (
                 _("Printers"), "ldm:printer", "printer"
             ),
+            Ldm.DeviceType.PLATFORM: (
+                _("Platform support"), "ldm:platform", "computer-laptop"
+            )
         }
         self.assign_attributes()
 
