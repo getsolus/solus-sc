@@ -65,10 +65,10 @@ class LdmCategory(ProviderCategory):
                 _("All"), "ldm:all", "starred"
             ),
             Ldm.DeviceType.GPU: (
-                _("GPU Devices"), "ldm:gpu", "preferences-desktop-display"
+                _("GPU"), "ldm:gpu", "preferences-desktop-display"
             ),
             Ldm.DeviceType.HID: (
-                _("HID Devices"), "ldm:hid", "preferences-desktop-mouse"
+                _("Input devices"), "ldm:hid", "preferences-desktop-mouse"
             ),
             Ldm.DeviceType.PRINTER: (
                 _("Printers"), "ldm:printer", "printer"
