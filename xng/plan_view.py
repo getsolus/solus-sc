@@ -16,15 +16,20 @@ import threading
 from .op_queue import OperationType
 
 
-class ScExtraItem(Gtk.Label):
+class ScExtraItem(Gtk.ListBoxRow):
     """ Utility class to encapsulate items for display in boxes """
 
     __gtype_name__ = "ScExtraItem"
 
+    name = None
+
     def __init__(self, context, item):
-        Gtk.Label.__init__(self)
-        self.set_halign(Gtk.Align.START)
-        self.set_use_markup(False)
+        Gtk.ListBoxRow.__init__(self)
+        self.label = Gtk.Label.new("")
+        self.add(self.label)
+
+        self.label.set_halign(Gtk.Align.START)
+        self.label.set_use_markup(False)
 
         # Stash for enquiry
         id = item.get_id()
@@ -32,8 +37,8 @@ class ScExtraItem(Gtk.Label):
 
         # Get clean name
         name = context.appsystem.get_name(id, item.get_name(), store)
-        name = GLib.markup_escape_text(name)
-        self.set_markup("<small>{}</small>".format(name))
+        self.name = GLib.markup_escape_text(name)
+        self.label.set_markup("<small>{}</small>".format(self.name))
         self.show_all()
 
 
@@ -69,6 +74,7 @@ class ScExtrasBox(Gtk.Box):
 
         # Listbox to store items lives inside the scrolledwindow
         self.listbox_items = Gtk.ListBox.new()
+        self.listbox_items.set_sort_func(self.sort_items)
         self.listbox_items.set_selection_mode(Gtk.SelectionMode.NONE)
         self.scroller.add(self.listbox_items)
 
@@ -77,6 +83,10 @@ class ScExtrasBox(Gtk.Box):
         # Ensure we can easily be hidden from view
         self.show_all()
         self.set_no_show_all(True)
+
+    def sort_items(self, itemA, itemB):
+        """ Alpha-sort the listings """
+        return cmp(itemA.name.lower(), itemB.name.lower())
 
     def populate_from_set(self, transaction_set):
         """ Populate our view from the given transaction set """
