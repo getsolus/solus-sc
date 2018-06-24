@@ -21,11 +21,15 @@ class ScExtrasBox(Gtk.Box):
         which show extra dependencies and such
     """""
 
+    __gtype_name__ = "ScExtrasBox"
+
+    context = None
+
     listbox_items = None
     label_header = None
     scroller = None
 
-    def __init__(self, title):
+    def __init__(self, context, title):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         # Whack in the top label
@@ -90,13 +94,16 @@ class ScPlanView(Gtk.Box):
         self.context = context
         self.set_border_width(10)
 
-        self.box_installs = ScExtrasBox(_("To be installed"))
+        self.box_installs = ScExtrasBox(
+            self.context, _("To be installed"))
         self.pack_start(self.box_installs, False, False, 0)
 
-        self.box_removals = ScExtrasBox(_("To be removed"))
+        self.box_removals = ScExtrasBox(
+            self.context, _("To be removed"))
         self.pack_start(self.box_removals, False, False, 0)
 
-        self.box_upgrades = ScExtrasBox(_("To be upgraded"))
+        self.box_upgrades = ScExtrasBox(
+            self.context, _("To be upgraded"))
         self.pack_start(self.box_upgrades, False, False, 0)
 
     def prepare(self, item, operation_type):
