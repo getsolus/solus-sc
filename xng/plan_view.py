@@ -16,6 +16,41 @@ import threading
 from .op_queue import OperationType
 
 
+class ScExtrasBox(Gtk.Box):
+    """ Simple composite widget containing a label and a listbox of items
+        which show extra dependencies and such
+    """""
+
+    listbox_items = None
+    label_header = None
+
+    def __init__(self, title):
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+
+        # Whack in the top label
+        self.label_header = Gtk.Label.new(title)
+        self.label_header.set_halign(Gtk.Align.START)
+        self.pack_start(self.label_header, False, False, 0)
+
+        self.set_margin_top(6)
+
+        # Ensure we can easily be hidden from view
+        self.show_all()
+        self.set_no_show_all(True)
+
+    def populate_from_set(self, transaction_set):
+        """ Populate our view from the given transaction set """
+        # for child in self.listbox_items.get_children():
+        #     child.destroy()
+
+        if len(transaction_set) < 1:
+            self.hide()
+            return
+
+        # TODO: Populate rows.
+        self.show()
+
+
 class ScPlanView(Gtk.Box):
     """ Shows details about an install/remove operation before doing it.
     """
@@ -25,13 +60,10 @@ class ScPlanView(Gtk.Box):
     item = None  # Currently active item for planning
     operation_type = None  # Currently requested operation type
 
-    label_install = None  # Label for packages being installed
-    label_removal = None  # Label for packages being removed
-    label_upgrade = None  # Label for packages being upgraded
-
-    listbox_install = None  # Installations
-    listbox_removal = None  # Removals
-    listbox_upgrade = None # Upgrades
+    # Additional sections
+    box_installs = None
+    box_removals = None
+    box_upgrades = None
 
     button_accept = None  # Allow remove/install/etc
 
@@ -40,39 +72,14 @@ class ScPlanView(Gtk.Box):
         self.context = context
         self.set_border_width(10)
 
-        # Install label
-        self.label_install = Gtk.Label.new(
-            _("To be installed"))
-        self.pack_start(self.label_install, False, False, 0)
-        self.label_install.set_halign(Gtk.Align.START)
-        self.label_install.set_margin_top(6)
-        self.label_install.show_all()
-        self.label_install.set_no_show_all(True)
+        self.box_installs = ScExtrasBox(_("To be installed"))
+        self.pack_start(self.box_installs, False, False, 0)
 
-        # Remove label
-        self.label_removal = Gtk.Label.new(
-            _("To be removed"))
-        self.pack_start(self.label_removal, False, False, 0)
-        self.label_removal.set_halign(Gtk.Align.START)
-        self.label_removal.set_margin_top(6)
-        self.label_removal.show_all()
-        self.label_removal.set_no_show_all(True)
+        self.box_removals = ScExtrasBox(_("To be removed"))
+        self.pack_start(self.box_removals, False, False, 0)
 
-        # Upgrade label
-        self.label_upgrade = Gtk.Label.new(
-            _("To be upgraded"))
-        self.pack_start(self.label_upgrade, False, False, 0)
-        self.label_upgrade.set_halign(Gtk.Align.START)
-        self.label_upgrade.set_margin_top(6)
-        self.label_upgrade.show_all()
-        self.label_upgrade.set_no_show_all(True)
-
-        # Accept changes
-        self.button_accept = Gtk.Button.new_with_label(_("Accept changes"))
-        self.button_accept.set_margin_top(18)
-        self.button_accept.get_style_context().add_class("suggested-action")
-        self.button_accept.set_halign(Gtk.Align.CENTER)
-        self.pack_start(self.button_accept, False, False, 0)
+        self.box_upgrades = ScExtrasBox(_("To be upgraded"))
+        self.pack_start(self.box_upgrades, False, False, 0)
 
     def prepare(self, item, operation_type):
         """ Prepare to be shown on screen """
@@ -85,7 +92,6 @@ class ScPlanView(Gtk.Box):
 
         # Start the operation calculation
         thr.start()
-
 
     def begin_operation(self):
         """ Here we begin the actual planning for this dialog... """
@@ -114,10 +120,10 @@ class ScPlanView(Gtk.Box):
         Gdk.threads_enter()
         self.context.set_window_busy(False)
 
-        # Update labels based on operation set
-        self.label_install.set_visible(len(transaction.installations) > 0)
-        self.label_upgrade.set_visible(len(transaction.upgrades) > 0)
-        self.label_removal.set_visible(len(transaction.removals) > 0)
+        # Update boxes based on operation set
+        self.box_installs.populate_from_set(transaction.installations)
+        self.box_removals.populate_from_set(transaction.removals)
+        self.box_upgrades.populate_from_set(transaction.upgrades)
 
         # Get back out of ugly gdk lock land
         Gdk.threads_leave()
