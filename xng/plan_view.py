@@ -42,7 +42,7 @@ class ScPlanView(Gtk.Box):
 
         # Install label
         self.label_install = Gtk.Label.new(
-            _("The following software will be installed"))
+            _("To be installed"))
         self.pack_start(self.label_install, False, False, 0)
         self.label_install.set_halign(Gtk.Align.START)
         self.label_install.set_margin_top(6)
@@ -51,7 +51,7 @@ class ScPlanView(Gtk.Box):
 
         # Remove label
         self.label_removal = Gtk.Label.new(
-            _("The following software will be removed"))
+            _("To be removed"))
         self.pack_start(self.label_removal, False, False, 0)
         self.label_removal.set_halign(Gtk.Align.START)
         self.label_removal.set_margin_top(6)
@@ -60,7 +60,7 @@ class ScPlanView(Gtk.Box):
 
         # Upgrade label
         self.label_upgrade = Gtk.Label.new(
-            _("The following software will be upgraded"))
+            _("To be upgraded"))
         self.pack_start(self.label_upgrade, False, False, 0)
         self.label_upgrade.set_halign(Gtk.Align.START)
         self.label_upgrade.set_margin_top(6)
