@@ -120,6 +120,10 @@ class ScDrawerPlane(Gtk.Revealer):
         self.slide_in()
         self.drawer.open_plan_view()
 
+    def open_job_view(self):
+        self.slide_in()
+        self.drawer.open_job_view()
+
     def slide_in(self):
         """ Activate plane and slide in the sidebar """
         self.show()
@@ -319,3 +323,8 @@ class ScDrawer(Gtk.Revealer):
         self.stack.set_visible_child_name('planner')
         # TODO: Have a close button instead!
         self.button_stack.set_visible_child_name('back_button')
+
+    def open_job_view(self):
+        """ Open to the job view """
+        self.stack.set_visible_child_name('main')
+        self.button_stack.set_visible_child_name('settings_button')

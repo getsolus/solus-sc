@@ -595,4 +595,9 @@ class ScMainWindow(Gtk.ApplicationWindow):
         return False
 
     def open_plan_view(self):
+        """ Forcibly switch to plan view """
         self.drawer.open_plan_view()
+
+    def open_job_view(self):
+        """ Forcibly switch to job view """
+        self.drawer.open_job_view()

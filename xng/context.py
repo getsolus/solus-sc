@@ -166,6 +166,9 @@ class ScContext(GObject.Object):
             print("!!! DAFUQ UNKNOWN OPERATION !!!")
             return
 
+        # Switch to job view now
+        self.window.open_job_view()
+
     def begin_remove(self, item):
         """ Begin the work necessary to remove a package """
         self.prepare_plan_view(item, OperationType.REMOVE)
