@@ -23,6 +23,7 @@ class ScExtrasBox(Gtk.Box):
 
     listbox_items = None
     label_header = None
+    scroller = None
 
     def __init__(self, title):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
@@ -32,6 +33,17 @@ class ScExtrasBox(Gtk.Box):
         self.label_header.set_halign(Gtk.Align.START)
         self.pack_start(self.label_header, False, False, 0)
 
+        # Sort out scroller for additional items
+        self.scroller = Gtk.ScrolledWindow.new(None, None)
+        self.scroller.set_shadow_type(Gtk.ShadowType.NONE)
+        self.scroller.set_policy(
+            Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        self.pack_start(self.scroller, True, True, 0)
+
+        # Listbox to store items lives inside the scrolledwindow
+        self.listbox_items = Gtk.ListBox.new()
+        self.scroller.add(self.listbox_items)
+
         self.set_margin_top(6)
 
         # Ensure we can easily be hidden from view
@@ -40,14 +52,20 @@ class ScExtrasBox(Gtk.Box):
 
     def populate_from_set(self, transaction_set):
         """ Populate our view from the given transaction set """
-        # for child in self.listbox_items.get_children():
-        #     child.destroy()
+        for child in self.listbox_items.get_children():
+            child.destroy()
 
         if len(transaction_set) < 1:
             self.hide()
             return
 
-        # TODO: Populate rows.
+        # TODO: Populate rows properly, this is crappy demo code
+        for item in transaction_set:
+            lab = Gtk.Label.new(item.get_id())
+            lab.set_halign(Gtk.Align.START)
+            lab.show_all()
+            self.listbox_items.add(lab)
+
         self.show()
 
 
