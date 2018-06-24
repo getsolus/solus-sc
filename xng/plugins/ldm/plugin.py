@@ -15,21 +15,7 @@ from ..base import ProviderPlugin, ProviderCategory
 
 from gi.repository import Ldm
 
-class LdmRootCategory(ProviderCategory):
-
-    __gtype_name__ = "NxLdmRootCategory"
-
-    def __init__(self):
-        ProviderCategory.__init__(self)
-
-    def get_icon_name(self):
-        return "cs-cat-hardware"
-
-    def get_id(self):
-        return "ldm-category"
-
-    def get_name(self):
-        return _("Hardware & Drivers")
+from .category import LdmRootCategory
 
 class LdmPlugin(ProviderPlugin):
     """ LdmPlugin interacts with the other plugins so we can provide a dummy
