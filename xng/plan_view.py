@@ -24,6 +24,7 @@ class ScExtraItem(Gtk.Label):
     def __init__(self, context, item):
         Gtk.Label.__init__(self)
         self.set_halign(Gtk.Align.START)
+        self.set_use_markup(False)
 
         # Stash for enquiry
         id = item.get_id()
@@ -31,8 +32,7 @@ class ScExtraItem(Gtk.Label):
 
         # Get clean name
         name = context.appsystem.get_name(id, item.get_name(), store)
-        name = GLib.markup_escape_text(name)
-        self.set_markup(name)
+        self.set_text(name)
 
         self.show_all()
 
