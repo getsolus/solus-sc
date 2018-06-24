@@ -39,9 +39,14 @@ class LdmPlugin(ProviderPlugin):
     __gtype_name__ = "NxLdmPlugin"
     cats = None
 
+    manager = None
+
     def __init__(self):
         ProviderPlugin.__init__(self)
         self.cats = [LdmRootCategory()]
+
+        # No hot plug events in the software center itself.
+        self.manager = Ldm.Manager.new(Ldm.ManagerFlags.NO_MONITOR)
 
     def categories(self):
         return self.cats
