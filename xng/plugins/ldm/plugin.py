@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from ..base import ProviderPlugin, ProviderCategory
+from ..base import ProviderPlugin, ProviderCategory, PopulationFilter
 
 from gi.repository import Ldm
 
@@ -39,4 +39,17 @@ class LdmPlugin(ProviderPlugin):
         return self.cats
 
     def populate_storage(self, storage, popfilter, extra):
+        if popfilter == PopulationFilter.CATEGORY:
+            self.populate_category(storage, extra)
         pass
+
+    def populate_category(self, storage, category):
+        """ Populate categories """
+        id = category.get_id()
+
+        # Make sure its an LDM category first.
+        if not id.startswith("ldm:"):
+            return
+
+        print("TODO: Populate category: {}".format(category.get_id()))
+        print(category.ldm_type)
