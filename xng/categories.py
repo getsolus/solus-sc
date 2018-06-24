@@ -70,6 +70,11 @@ class ScItemButton(Gtk.FlowBoxChild):
         summary.set_max_width_chars(50)
         stride_box.pack_start(summary, False, False, 0)
 
+        self.get_style_context().add_class("category-item-row")
+
+        if item.has_status(ItemStatus.META_HARDWARE):
+            return
+
         action_name = _("Install")
         action_style = "suggested-action"
         if item.has_status(ItemStatus.INSTALLED):
@@ -89,7 +94,6 @@ class ScItemButton(Gtk.FlowBoxChild):
         else:
             self.action_button.get_style_context().add_class(action_style)
 
-        self.get_style_context().add_class("category-item-row")
 
 
 class ScComponentButton(Gtk.ToggleButton):
