@@ -48,7 +48,6 @@ class ScExtrasBox(Gtk.Box):
 
     listbox_items = None
     label_header = None
-    scroller = None
 
     def __init__(self, context, title):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
@@ -61,7 +60,7 @@ class ScExtrasBox(Gtk.Box):
         self.pack_start(self.label_header, False, False, 0)
         self.label_header.set_margin_bottom(6)
 
-        # Sort out scroller for additional items
+        # Scroller just prevents us getting ugly shadows.
         self.scroller = Gtk.ScrolledWindow.new(None, None)
         self.scroller.set_shadow_type(Gtk.ShadowType.NONE)
         self.scroller.set_policy(
@@ -111,23 +110,40 @@ class ScPlanView(Gtk.Box):
 
     button_accept = None  # Allow remove/install/etc
 
+    body_pane = None
+    scroller = None
+
     def __init__(self, context):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
         self.context = context
         self.set_border_width(10)
 
-        self.build_header()
-        self.build_extras()
+        # Sort out scroller for body pane scrolling
+        self.scroller = Gtk.ScrolledWindow.new(None, None)
+        self.scroller.set_shadow_type(Gtk.ShadowType.NONE)
+        self.scroller.set_policy(
+            Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        self.pack_start(self.scroller, True, True, 0)
+        self.body_pane = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.scroller.add(self.body_pane)
 
-    def build_header(self):
+        self.build_extras()
+        self.build_footer()
+
+    def build_footer(self):
         """ Build the primary header which is always visible """
         self.button_accept = Gtk.Button.new_with_label(_("Accept changes"))
         self.button_accept.get_style_context().add_class("suggested-action")
         self.button_accept.set_halign(Gtk.Align.CENTER)
         self.pack_start(self.button_accept, False, False, 0)
 
-        # Temporary padding
+        # Permanent padding
+        self.button_accept.set_margin_top(24)
         self.button_accept.set_margin_bottom(24)
+
+        # Ensure we have a wide view always
+        self.button_accept.set_margin_start(48)
+        self.button_accept.set_margin_end(48)
 
     def build_extras(self):
         """ Build sections for each of the 'extras' boxes to go """
@@ -135,18 +151,18 @@ class ScPlanView(Gtk.Box):
             self.context,
             _("To be installed"))
 
-        self.pack_start(self.box_installs, False, False, 0)
+        self.body_pane.pack_start(self.box_installs, False, False, 0)
 
         self.box_removals = ScExtrasBox(
             self.context,
             _("To be removed"))
 
-        self.pack_start(self.box_removals, False, False, 0)
+        self.body_pane.pack_start(self.box_removals, False, False, 0)
 
         self.box_upgrades = ScExtrasBox(
             self.context, _("To be upgraded"))
 
-        self.pack_start(self.box_upgrades, False, False, 0)
+        self.body_pane.pack_start(self.box_upgrades, False, False, 0)
 
     def prepare(self, item, operation_type):
         """ Prepare to be shown on screen """
