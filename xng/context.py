@@ -29,7 +29,6 @@ class ScContext(GObject.Object):
     has_loaded = False
     fetcher = None
     executor = None
-    driver_manager = None
     window = None
     desktop = None
     plan_view = None
@@ -57,7 +56,6 @@ class ScContext(GObject.Object):
         if self.has_loaded:
             return
         self.has_loaded = True
-        self.init_ldm()
         self.init_plugins()
         self.fetcher = ScMediaFetcher()
 
@@ -66,15 +64,18 @@ class ScContext(GObject.Object):
         thr.daemon = True
         thr.start()
 
-    def init_ldm(self):
-        """ Initialise Linux Driver Management if available. """
+    def init_ldm_plugin(self):
+        """ Load the all-important Ldm plugin """
+        ldm = None
         try:
-            from xng.plugins.drivers import DriverManager
-            self.driver_manager = DriverManager()
+            from xng.plugins.ldm.plugin import LdmPlugin
+            ldm = LdmPlugin()
         except Exception as e:
-            print("LDM support unavailable on this system: {}".format(e))
-            return
-        self.driver_manager.reload()
+            print("ldm support unavailable on this system: {}".format(e))
+            ldm = None
+
+        if ldm is not None:
+            self.plugins.append(ldm)
 
     def init_snap_plugin(self):
         """ Eventually will load snapd plugin, currently disabled """
@@ -129,6 +130,9 @@ class ScContext(GObject.Object):
         # self.init_snap_plugin()
         # self.init_flatpak_plugin()
         self.init_native_plugin()
+
+        # LDM is actually hella important
+        self.init_ldm_plugin()
 
     def emit_loaded(self):
         """ Emitted on the main thread to let the application know we're now
