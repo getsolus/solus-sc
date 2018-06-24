@@ -11,9 +11,30 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk, Gdk, GLib
 import threading
 from .op_queue import OperationType
+
+
+class ScExtraItem(Gtk.Label):
+    """ Utility class to encapsulate items for display in boxes """
+
+    __gtype_name__ = "ScExtraItem"
+
+    def __init__(self, context, item):
+        Gtk.Label.__init__(self)
+
+        # Stash for enquiry
+        id = item.get_id()
+        store = item.get_store()
+
+        # Get clean name
+        name = context.appsystem.get_name(id, item.get_name(), store)
+        name = GLib.markup_escape_text(name)
+        self.set_markup(name)
+
+        self.set_halign(Gtk.Align.START)
+        self.show_all()
 
 
 class ScExtrasBox(Gtk.Box):
@@ -31,6 +52,7 @@ class ScExtrasBox(Gtk.Box):
 
     def __init__(self, context, title):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+        self.context = context
 
         # Whack in the top label
         self.label_header = Gtk.Label.new(title)
@@ -65,9 +87,7 @@ class ScExtrasBox(Gtk.Box):
 
         # TODO: Populate rows properly, this is crappy demo code
         for item in transaction_set:
-            lab = Gtk.Label.new(item.get_id())
-            lab.set_halign(Gtk.Align.START)
-            lab.show_all()
+            lab = ScExtraItem(self.context, item)
             self.listbox_items.add(lab)
 
         self.show()
