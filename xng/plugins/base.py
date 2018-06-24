@@ -45,6 +45,7 @@ class ItemStatus:
     META_DEVEL = 1 << 7       # Is a development type of package
     META_CHANGELOG = 1 << 8   # Supports changelog functionality
     META_ESSENTIAL = 1 << 9   # Essential component. Do NOT remove!
+    META_HARDWARE = 1 << 10   # This is a fake item.
 
 
 class Transaction(GObject.Object):
