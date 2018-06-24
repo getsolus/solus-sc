@@ -69,6 +69,7 @@ class ScExtrasBox(Gtk.Box):
 
         # Listbox to store items lives inside the scrolledwindow
         self.listbox_items = Gtk.ListBox.new()
+        self.listbox_items.set_selection_mode(Gtk.SelectionMode.NONE)
         self.scroller.add(self.listbox_items)
 
         self.set_margin_top(6)
