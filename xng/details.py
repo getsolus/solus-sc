@@ -59,6 +59,8 @@ class ScDetailsView(Gtk.Box):
     label_donate = None
     label_developer = None
 
+    changelog_view = None
+
     def get_page_name(self):
         return self.header_name.get_text()
 
@@ -75,6 +77,10 @@ class ScDetailsView(Gtk.Box):
         """ Update our UI for the current item """
         if item == self.item:
             return
+
+        # Only show changelog for supported items
+        self.changelog_view.set_visible(
+            item.has_status(ItemStatus.META_CHANGELOG))
 
         self.launch_info = None
         self.item = item
@@ -195,6 +201,8 @@ class ScDetailsView(Gtk.Box):
         self.stack = Gtk.Stack()
         self.stack.set_homogeneous(False)
         self.stack_switcher = Gtk.StackSwitcher()
+        self.stack_switcher.show_all()
+        self.stack_switcher.set_no_show_all(True)
         self.stack_switcher.set_halign(Gtk.Align.CENTER)
         self.stack_switcher.set_stack(self.stack)
         self.stack.set_transition_type(
@@ -204,7 +212,11 @@ class ScDetailsView(Gtk.Box):
 
         # Dummy pages for now
         self.build_details()
-        self.stack.add_titled(Gtk.Box(), "changelog", "Changelog")
+
+        self.changelog_view = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
+        self.changelog_view.show_all()
+        self.changelog_view.set_no_show_all(True)
+        self.stack.add_titled(self.changelog_view, "changelog", "Changelog")
 
     def build_details(self):
         """ Build the main 'Details' view """
