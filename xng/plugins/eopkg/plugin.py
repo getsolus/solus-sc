@@ -79,6 +79,9 @@ class EopkgPlugin(ProviderPlugin):
 
         self.build_categories()
 
+    def get_name(self):
+        return "eopkg"
+
     def rebuild_db(self):
         """ Ensure our database set is completely up to date now """
         print("Rebuilding DBs")

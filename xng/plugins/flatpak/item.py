@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from ..base import ProviderItem
+from ..base import ProviderItem, ItemStatus
 
 
 class FlatpakItem(ProviderItem):
@@ -28,6 +28,8 @@ class FlatpakItem(ProviderItem):
 
     def __init__(self, available):
         ProviderItem.__init__(self)
+        # Not officially supported by anyone
+        self.add_status(ItemStatus.META_THIRD_PARTY)
         self.available = available
         self.displayCandidate = self.available
 

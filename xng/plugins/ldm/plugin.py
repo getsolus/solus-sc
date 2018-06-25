@@ -40,6 +40,9 @@ class LdmPlugin(ProviderPlugin):
         self.manager = Ldm.Manager.new(Ldm.ManagerFlags.NO_MONITOR)
         self.manager.add_system_modalias_plugins()
 
+    def get_name(self):
+        return "ldm"
+
     def categories(self):
         return self.cats
 

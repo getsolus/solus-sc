@@ -109,6 +109,9 @@ class FlatpakPlugin(ProviderPlugin):
         # Pass the remotes to the root category
         self.root_category.set_sources(self.remotes)
 
+    def get_name(self):
+        return "flatpak"
+
     def build_remotes(self):
         """ Build our known remotes """
         self.remotes = []
