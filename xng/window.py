@@ -439,7 +439,7 @@ class ScMainWindow(Gtk.ApplicationWindow):
         if e.keyval == Gdk.KEY_Escape:
             self.on_back_clicked(None)
             return Gdk.EVENT_STOP
-        
+
         return self.search_bar.handle_event(e)
 
     def build_search_bar(self):
