@@ -90,12 +90,6 @@ class AppSystem:
     def sanitize(self, text):
         return text.replace("&quot;", "\"")
 
-    def scaled_icon(self, pbuf):
-        if pbuf.get_height() != 64:
-            pbuf = pbuf.scale_simple(
-                64, 64, GdkPixbuf.InterpType.BILINEAR)
-        return pbuf
-
     def get_store_variant(self, store, id):
         """ Helper to find the package """
         if not store:
