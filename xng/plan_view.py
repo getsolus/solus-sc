@@ -135,6 +135,7 @@ class ScPlanView(Gtk.Box):
 
         # Sort out scroller for body pane scrolling
         self.scroller = Gtk.ScrolledWindow.new(None, None)
+        self.scroller.set_overlay_scrolling(False)
         self.scroller.set_shadow_type(Gtk.ShadowType.NONE)
         self.scroller.set_policy(
             Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
