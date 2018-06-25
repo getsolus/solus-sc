@@ -37,6 +37,7 @@ class ScFeaturedPage(Gtk.Box):
             self.item,
             self.item.get_store(),
             128)
+        self.image.set_pixel_size(128)
         self.image.set_halign(Gtk.Align.START)
         self.image.set_valign(Gtk.Align.START)
         self.image.set_margin_end(36)
