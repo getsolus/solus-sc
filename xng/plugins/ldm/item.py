@@ -62,7 +62,7 @@ class LdmItem(ProviderItem):
         return self.device.get_name()
 
     def get_version(self):
-        return ""
+        return None
 
     def get_icon_name(self):
         return self.icon_name

@@ -54,6 +54,7 @@ class ScDetailsView(Gtk.Box):
     parser = None
 
     label_version = None
+    label_version_id = None
     label_website = None
     label_bugsite = None
     label_donate = None
@@ -275,9 +276,15 @@ class ScDetailsView(Gtk.Box):
 
         self.label_version = Gtk.Label.new("")
         self.label_version.set_halign(Gtk.Align.START)
+        self.label_version.show_all()
+        self.label_version.set_no_show_all(True)
         desc = Gtk.Label.new(_("Version"))
         desc.set_halign(Gtk.Align.START)
         desc.set_use_markup(True)
+        self.label_version_id = desc
+        self.label_version_id.show_all()
+        self.label_version_id.set_no_show_all(True)
+
         # column row
         grid.attach(desc, 0, 0, 1, 1)
         grid.attach(self.label_version, 1, 0, 1, 1)
@@ -374,8 +381,17 @@ class ScDetailsView(Gtk.Box):
 
     def update_details(self):
         """ Update extra detail labels from the selected package """
-        self.label_version.set_markup("<b>{}</b>".format(
-            self.item.get_version()))
+        version = self.item.get_version()
+
+        # Only render version if we have one.
+        if not version:
+            self.label_version.hide()
+            self.label_version_id.hide()
+        else:
+            self.label_version.show()
+            self.label_version_id.show()
+            self.label_version.set_markup("<b>{}</b>".format(
+                self.item.get_version()))
 
         id = self.item.get_id()
         store = self.item.get_store()
