@@ -240,6 +240,8 @@ class ScMainWindow(Gtk.ApplicationWindow):
 
     def on_context_loaded(self, context):
         """ We now have featured, so we're half way through initial loading """
+        self.context.appsystem.window = self
+        self.context.appsystem.scale_factor = self.get_scale_factor()
         self.loading.set_message()
 
     def done(self):

@@ -12,7 +12,7 @@
 #
 
 from gi.repository import AppStreamGlib as As
-from gi.repository import Gio, GLib, GdkPixbuf, Gtk
+from gi.repository import Gio, GLib, GdkPixbuf, Gtk, Gdk
 
 
 class Screenshot:
@@ -84,6 +84,9 @@ class AppSystem:
     other_pixbuf = None
     addon_pixbuf = None
     fetcher = None
+
+    scale_factor = 1
+    window = None
 
     def __init__(self):
         self.store = As.Store()
@@ -232,14 +235,16 @@ class AppSystem:
             kind = icon.get_kind()
             if kind == As.IconKind.UNKNOWN or kind == As.IconKind.REMOTE:
                 continue
-            if icon.get_width() == width and icon.get_height() == height:
+            iwidth = icon.get_width() / icon.get_scale()
+            iheight = icon.get_height() / icon.get_scale()
+            if iwidth == width and iheight == height:
                 return icon
         return app.get_icon_for_size(width, height)
 
     def set_fallback_icon(self, image):
         image.set_from_icon_name("package-x-generic", Gtk.IconSize.INVALID)
 
-    def set_image_from_item(self, image, item, store=None):
+    def set_image_from_item(self, image, item, store=None, size=64):
         """ Set the GtkImage if possible """
         icon_name = item.get_icon_name()
         if icon_name:
@@ -255,8 +260,13 @@ class AppSystem:
             self.set_fallback_icon(image)
             return
 
+        size = size * self.scale_factor
+
         # No icon?
-        icon = self.find_icon(app, 64, 64)
+        icon = self.find_icon(app, size, size)
+        if not icon:
+            size /= self.scale_factor
+            icon = self.find_icon(app, size, size)
         if not icon:
             self.set_fallback_icon(image)
             return
@@ -272,6 +282,7 @@ class AppSystem:
             self.set_fallback_icon(image)
             return
 
+        icon.set_scale(self.scale_factor)
         # Try to load the cached/available icon
         try:
             if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
@@ -285,10 +296,28 @@ class AppSystem:
         # At this point we're dealing with pixbufs
         pbuf = icon.get_pixbuf()
 
-        if pbuf.get_height() != 64:
-            pbuf = pbuf.scale_simple(
-                64, 64, GdkPixbuf.InterpType.BILINEAR)
-        image.set_from_pixbuf(pbuf)
+        if pbuf.get_height() != size:
+           pbuf = pbuf.scale_simple(
+                size, size, GdkPixbuf.InterpType.BILINEAR)
+
+        if self.scale_factor == 1:
+            image.set_from_pixbuf(pbuf)
+            return
+
+        window = self.window.get_window()
+        if not window:
+            self.set_fallback_icon(image)
+            return
+
+        try:
+            surface = Gdk.cairo_surface_create_from_pixbuf(
+                pbuf,
+                self.scale_factor,
+                window)
+            image.set_from_surface(surface)
+        except Exception as e:
+            print(e)
+            self.set_fallback_icon(image)
 
     def get_pixbuf_only(self, id, store=None):
         """ Only get a pixbuf - no fallbacks  """
