@@ -29,6 +29,8 @@ class LdmPlugin(ProviderPlugin):
     manager = None
     context = None  # Back reference to the owning context, special case
 
+    temporary_drivers = None  # Quick list for add_item storage API
+
     def __init__(self, context):
         ProviderPlugin.__init__(self)
         self.context = context
@@ -89,9 +91,19 @@ class LdmPlugin(ProviderPlugin):
     def get_foreign_items(self, provider):
         """ Query all plugins to find the true providers of an LdmProvider """
         package_name = provider.get_package()
+        self.temporary_drivers = []
         for plugin in self.context.plugins:
             if plugin == self:
                 continue
             print("Asking {} for providers of {}".format(
                 plugin,  package_name))
-            # TODO: Return the set and assign them...
+            plugin.populate_storage(self, PopulationFilter.DRIVERS, provider)
+        return self.temporary_drivers
+
+    def add_item(self, id, item, popfilter):
+        """ Handle crosstalk from foreign plugins """
+        if popfilter != PopulationFilter.DRIVERS:
+            raise RuntimeError("fatal use of API!")
+
+        print("Adding driver: {}".format(id))
+        self.temporary_drivers.append(item)
