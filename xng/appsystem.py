@@ -385,8 +385,7 @@ class AppSystem:
         ret = []
         for screen in screens:
             try:
-                # TODO: Pass scale factor
-                img = Screenshot(screen, 1)
+                img = Screenshot(screen, self.scale_factor)
                 ret.append(img)
             except Exception as e:
                 print("Unable to load screen: {}".format(e))

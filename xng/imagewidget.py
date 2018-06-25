@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 from gi.repository import AppStreamGlib as As
 
 
@@ -115,7 +115,15 @@ class ScImageWidget(Gtk.Frame):
         """ Show the loaded image and switch to it on the view """
         self.uri = uri
         self.page_loading.stop()
-        self.page_image.set_from_pixbuf(pbuf)
+        try:
+            surface = Gdk.cairo_surface_create_from_pixbuf(
+                pbuf,
+                self.get_scale_factor(),
+                self.get_window())
+            self.page_image.set_from_surface(surface)
+        except Exception as e:
+            print(e)
+            self.page_image.set_from_pixbuf(pbuf)
         self.stack.set_visible_child_name("page-image")
 
     def show_failed(self, uri, err):
