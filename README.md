@@ -43,7 +43,7 @@ Now you'll need the appdata (this is going to be packaged soon)::
 
 Now just run the main launcher in this repo (don't ctrl+c, it'll explode)::
 
-    ./main.py
+    ./new.py
 
 License
 -------
