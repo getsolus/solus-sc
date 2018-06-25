@@ -95,7 +95,6 @@ class ScItemButton(Gtk.FlowBoxChild):
             self.action_button.get_style_context().add_class(action_style)
 
 
-
 class ScComponentButton(Gtk.ToggleButton):
     """ Represent components in a category """
 
