@@ -50,16 +50,16 @@ class LdmItem(ProviderItem):
             self.device.get_name())
 
     def get_name(self):
-        return self.format_full_name()
+        return self.device.get_name()
 
     def get_summary(self):
-        return self.device.get_name()
-
-    def get_title(self):
         return self.format_full_name()
 
-    def get_description(self):
+    def get_title(self):
         return self.device.get_name()
+
+    def get_description(self):
+        return self.format_full_name()
 
     def get_version(self):
         return None
