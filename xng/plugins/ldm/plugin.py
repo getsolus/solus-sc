@@ -44,7 +44,8 @@ class LdmPlugin(ProviderPlugin):
     def populate_storage(self, storage, popfilter, extra):
         if popfilter == PopulationFilter.CATEGORY:
             self.populate_category(storage, extra)
-        pass
+        elif popfilter == PopulationFilter.DRIVERS:
+            raise RuntimeError("fatal recursion!")
 
     def populate_category(self, storage, category):
         """ Populate categories """
@@ -61,4 +62,27 @@ class LdmPlugin(ProviderPlugin):
         for device in devices:
             item = LdmItem(device)
             id = item.get_id()
+            self.assign_providers(item)
             storage.add_item(id, item, PopulationFilter.CATEGORY)
+
+    def assign_providers(self, item):
+        """ Attempt to relate and assign any relevant providers for a device
+            by querying the foreign providers from other plugins if possible
+        """
+        providers = self.manager.get_providers(item.device)
+        if not providers:
+            return
+        for provider in providers:
+            print("Provider: {}".format(provider))
+            foreign_items = self.get_foreign_items(provider)
+            print(foreign_items)
+
+    def get_foreign_items(self, provider):
+        """ Query all plugins to find the true providers of an LdmProvider """
+        package_name = provider.get_package()
+        for plugin in self.context.plugins:
+            if plugin == self:
+                continue
+            print("Asking {} for providers of {}".format(
+                plugin,  package_name))
+            # TODO: Return the set and assign them...

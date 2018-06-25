@@ -28,6 +28,7 @@ class PopulationFilter:
     RECENT = 4     # Find recently updated packages
     FEATURED = 5   # Basically "hot stuff"
     UPDATES = 6    # Only store updates in the list
+    DRIVERS = 7    # Provide matching drivers to LDM plugin
 
 
 class ItemStatus:
