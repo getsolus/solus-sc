@@ -55,7 +55,7 @@ class LdmPlugin(ProviderPlugin):
         if not id.startswith("ldm:"):
             return
 
-        print("TODO: Populate category: {}".format(category.get_id()))
+        items = []
 
         # Build a list of devices for the selected category
         devices = self.manager.get_devices(category.ldm_type)
@@ -63,7 +63,16 @@ class LdmPlugin(ProviderPlugin):
             item = LdmItem(device)
             id = item.get_id()
             self.assign_providers(item)
+            items.append(item)
+
+        # Pre-sort for display
+        items.sort(self.device_sort, reverse=True)
+
+        for item in items:
             storage.add_item(id, item, PopulationFilter.CATEGORY)
+
+    def device_sort(self, devA, devB):
+        return cmp(devA.get_name().lower(), devB.get_name().lower())
 
     def assign_providers(self, item):
         """ Attempt to relate and assign any relevant providers for a device
