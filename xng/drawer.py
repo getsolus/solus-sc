@@ -53,6 +53,7 @@ class ScDrawerPlane(Gtk.Revealer):
 
         # Plug the drawer into the body of the revealer
         self.drawer = ScDrawer(self.context)
+        self.drawer.plane = self
         self.body.add(self.drawer)
 
         # Allow hiding ourselves as appropriate to fix input modality
@@ -174,6 +175,8 @@ class ScDrawer(Gtk.Revealer):
 
     button_stack = None  # Settings, Back
 
+    plane = None  # Parent plane
+
     def __init__(self, context):
         Gtk.Revealer.__init__(self)
 
@@ -234,39 +237,41 @@ class ScDrawer(Gtk.Revealer):
         box.show_all()
         self.stack.add_named(box, 'main')
 
-    def build_header(self):
-        """ Build the navigation stack header """
-        # Link to get to settings view
-        settings_button = Gtk.Button.new()
-        settings_button.set_halign(Gtk.Align.END)
-        settings_button.get_style_context().add_class("flat")
-        button_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
-        button_img = Gtk.Image.new_from_icon_name(
-            "system-run-symbolic",
-            Gtk.IconSize.BUTTON)
-        button_lbl = Gtk.Label.new(_("Settings"))
-        button_box.pack_start(button_img, False, False, 0)
-        button_img.set_margin_end(4)
-        button_lbl.set_halign(Gtk.Align.START)
-        button_box.pack_start(button_lbl, False, False, 0)
-        settings_button.add(button_box)
-        settings_button.connect('clicked', self.on_settings_clicked)
-
-        # Link to get back to the main view
+    def factory_button(self, label_text, icon_name):
         button = Gtk.Button.new()
         button.set_halign(Gtk.Align.END)
         button.get_style_context().add_class("flat")
         button_box = Gtk.Box.new(Gtk.Orientation.HORIZONTAL, 0)
         button_img = Gtk.Image.new_from_icon_name(
-            "go-previous-symbolic",
+            icon_name,
             Gtk.IconSize.BUTTON)
-        button_lbl = Gtk.Label.new(_("Back"))
+        button_lbl = Gtk.Label.new(label_text)
         button_box.pack_start(button_img, False, False, 0)
         button_img.set_margin_end(4)
         button_lbl.set_halign(Gtk.Align.START)
         button_box.pack_start(button_lbl, False, False, 0)
         button.add(button_box)
-        button.connect('clicked', self.on_back_clicked)
+        return button
+
+    def build_header(self):
+        """ Build the navigation stack header """
+        # Link to get to settings view
+        settings_button = self.factory_button(
+            _("Settings"),
+            "system-run-symbolic")
+        settings_button.connect('clicked', self.on_settings_clicked)
+
+        # Link to get back to the main view
+        back_button = self.factory_button(
+            _("Back"),
+            "go-previous-symbolic")
+        back_button.connect('clicked', self.on_back_clicked)
+
+        # Now let's have ourselves a Close/Dismiss button
+        dismiss_button = self.factory_button(
+            _("Cancel"),
+            "go-previous-symbolic")
+        dismiss_button.connect('clicked', self.on_dismiss_clicked)
 
         # Now a button stack for our two buttons
         self.button_stack = Gtk.Stack.new()
@@ -280,7 +285,8 @@ class ScDrawer(Gtk.Revealer):
 
         # Add buttons..
         self.button_stack.add_named(settings_button, 'settings_button')
-        self.button_stack.add_named(button, 'back_button')
+        self.button_stack.add_named(back_button, 'back_button')
+        self.button_stack.add_named(dismiss_button, 'dismiss_button')
         self.button_stack.set_visible_child_name('settings_button')
 
         self.layout.pack_start(self.button_stack, False, False, 0)
@@ -300,6 +306,10 @@ class ScDrawer(Gtk.Revealer):
         self.stack.set_visible_child_name('main')
         self.button_stack.set_visible_child_name('settings_button')
 
+    def on_dismiss_clicked(self, widget, udata=None):
+        """ Press dismiss button from within planner view """
+        self.plane.slide_out()
+
     def slide_in(self):
         """ Slide ourselves onto the plane """
         self.set_reveal_child(True)
@@ -313,7 +323,8 @@ class ScDrawer(Gtk.Revealer):
 
     def handle_back(self):
         """ Allow back/escape behaviour """
-        if self.stack.get_visible_child_name() == "main":
+        vis_child = self.stack.get_visible_child_name()
+        if vis_child == "main" or vis_child == "planner":
             return False
         self.on_back_clicked(None)
         return True
@@ -321,8 +332,7 @@ class ScDrawer(Gtk.Revealer):
     def open_plan_view(self):
         """ Open to the plan view """
         self.stack.set_visible_child_name('planner')
-        # TODO: Have a close button instead!
-        self.button_stack.set_visible_child_name('back_button')
+        self.button_stack.set_visible_child_name('dismiss_button')
 
     def open_job_view(self):
         """ Open to the job view """
