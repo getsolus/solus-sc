@@ -136,6 +136,8 @@ class EopkgPlugin(ProviderPlugin):
             return self.populate_category(storage, extra)
         elif popfilter == PopulationFilter.UPDATES:
             self.populate_updates(storage, extra)
+        elif popfilter == PopulationFilter.DRIVERS:
+            self.populate_drivers(storage, extra)
 
     def populate_recent(self, storage, appsystem):
         """ Populate home view with recently updated packages """
@@ -248,6 +250,11 @@ class EopkgPlugin(ProviderPlugin):
         for pkgID in pkgs:
             pkg = self.build_item(pkgID)
             storage.add_item(pkg.get_id(), pkg, PopulationFilter.UPDATES)
+
+    def populate_drivers(self, storage, provider):
+        """ Handle foreign driver requests """
+        pkg = provider.get_package()
+        print("eopkg plugin requested to populate drivers on {}".format(pkg))
 
     def build_item(self, name):
         """ Build a complete item definition """
