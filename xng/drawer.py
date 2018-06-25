@@ -101,7 +101,7 @@ class ScDrawerPlane(Gtk.Revealer):
             return Gdk.EVENT_PROPAGATE
 
         # Do not dismiss plan mode with clicks!
-        if self.drawer.plan_mode == True:
+        if self.drawer.plan_mode:
             return Gdk.EVENT_PROPAGATE
 
         # Because GTK positioning is utterly broken, our x y is relative
