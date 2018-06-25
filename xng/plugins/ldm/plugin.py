@@ -27,9 +27,11 @@ class LdmPlugin(ProviderPlugin):
     cats = None
 
     manager = None
+    context = None  # Back reference to the owning context, special case
 
-    def __init__(self):
+    def __init__(self, context):
         ProviderPlugin.__init__(self)
+        self.context = context
         self.cats = [LdmRootCategory()]
 
         # No hot plug events in the software center itself.

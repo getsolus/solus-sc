@@ -69,7 +69,7 @@ class ScContext(GObject.Object):
         ldm = None
         try:
             from xng.plugins.ldm.plugin import LdmPlugin
-            ldm = LdmPlugin()
+            ldm = LdmPlugin(self)
         except Exception as e:
             print("ldm support unavailable on this system: {}".format(e))
             ldm = None
