@@ -297,8 +297,7 @@ class AppSystem:
         pbuf = icon.get_pixbuf()
 
         if pbuf.get_height() != size:
-           pbuf = pbuf.scale_simple(
-                size, size, GdkPixbuf.InterpType.BILINEAR)
+            pbuf = pbuf.scale_simple(size, size, GdkPixbuf.InterpType.BILINEAR)
 
         if self.scale_factor == 1:
             image.set_from_pixbuf(pbuf)

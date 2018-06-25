@@ -30,8 +30,13 @@ class ScFeaturedPage(Gtk.Box):
         self.item = item
         id = self.item.get_id()
 
+        # Prepare featured image
         self.image = Gtk.Image.new()
-        self.context.appsystem.set_image_from_item(self.image, self.item, self.item.get_store(), 128)
+        self.context.appsystem.set_image_from_item(
+            self.image,
+            self.item,
+            self.item.get_store(),
+            128)
         self.image.set_halign(Gtk.Align.START)
         self.image.set_valign(Gtk.Align.START)
         self.image.set_margin_end(36)
