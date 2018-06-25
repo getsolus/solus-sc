@@ -31,6 +31,8 @@ class LdmItem(ProviderItem):
 
         if self.device.has_type(Ldm.DeviceType.GPU):
             self.icon_name = "preferences-desktop-display"
+        elif self.device.has_type(Ldm.DeviceType.AUDIO):
+            self.icon_name = "audio-card"
         elif self.device.has_type(Ldm.DeviceType.HID):
             if "keyboard" in self.device.get_name().lower():
                 self.icon_name = "keyboard"
