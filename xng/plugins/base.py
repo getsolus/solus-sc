@@ -472,5 +472,9 @@ class ProviderItem(GObject.Object):
         """ Return the total installation size for the item """
         return 0
 
+    def get_icon_name(self):
+        """ Return a custom icon name to bypass store requirements """
+        return None
+
     def __str__(self):
         return self.get_id()

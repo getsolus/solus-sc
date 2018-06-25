@@ -13,7 +13,7 @@
 
 from ..base import ProviderItem, ItemStatus
 
-from gi.repository import Ldm
+from gi.repository import Ldm, Gtk, GdkPixbuf
 
 
 class LdmItem(ProviderItem):
@@ -22,11 +22,22 @@ class LdmItem(ProviderItem):
     __gtype_name__ = "NxLdmItem"
 
     device = None
+    icon_name = None
 
     def __init__(self, device):
         ProviderItem.__init__(self)
         self.device = device
         self.add_status(ItemStatus.META_HARDWARE)
+
+        if self.device.has_type(Ldm.DeviceType.GPU):
+            self.icon_name = "preferences-desktop-display"
+        elif self.device.has_type(Ldm.DeviceType.HID):
+            if "keyboard" in self.device.get_name().lower():
+                self.icon_name = "keyboard"
+            else:
+                self.icon_name = "preferences-desktop-mouse"
+        elif self.device.has_type(Ldm.DeviceType.PRINTER):
+            self.icon_name = "printer"
 
     def get_id(self):
         return "ldm:" + str(self.device.get_path())
@@ -50,3 +61,6 @@ class LdmItem(ProviderItem):
 
     def get_version(self):
         return ""
+
+    def get_icon_name(self):
+        return self.icon_name

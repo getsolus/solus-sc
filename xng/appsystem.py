@@ -236,6 +236,60 @@ class AppSystem:
                 return icon
         return app.get_icon_for_size(width, height)
 
+    def set_fallback_icon(self, image):
+        image.set_from_icon_name("package-x-generic", Gtk.IconSize.INVALID)
+
+    def set_image_from_item(self, image, item, store=None):
+        """ Set the GtkImage if possible """
+        icon_name = item.get_icon_name()
+        if icon_name:
+            image.set_from_icon_name(icon_name, Gtk.IconSize.INVALID)
+            return
+
+        # Grab app bits
+        id = item.get_id()
+        app = self.get_store_variant(store, id)
+
+        # No app? Set default icon for hidpi support.
+        if not app:
+            self.set_fallback_icon(image)
+            return
+
+        # No icon?
+        icon = self.find_icon(app, 64, 64)
+        if not icon:
+            self.set_fallback_icon(image)
+            return
+
+        # Find out what kind of icon this is
+        kind = icon.get_kind()
+        if kind == As.IconKind.STOCK:
+            image.set_from_icon_name(icon.get_name(), Gtk.IconSize.INVALID)
+            return
+
+        # We're dealing with an unknown
+        if kind == As.IconKind.UNKNOWN or kind == As.IconKind.REMOTE:
+            self.set_fallback_icon(image)
+            return
+
+        # Try to load the cached/available icon
+        try:
+            if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
+                self.set_fallback_icon(image)
+                return
+        except Exception as e:
+            print("Should not happen: {}".format(e))
+            self.set_fallback_icon(image)
+            return
+
+        # At this point we're dealing with pixbufs
+        pbuf = icon.get_pixbuf()
+
+        if pbuf.get_height() != 64:
+            pbuf = pbuf.scale_simple(
+                64, 64, GdkPixbuf.InterpType.BILINEAR)
+        image.set_from_pixbuf(pbuf)
+
     def get_pixbuf_only(self, id, store=None):
         """ Only get a pixbuf - no fallbacks  """
         app = self.get_store_variant(store, id)

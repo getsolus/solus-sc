@@ -66,9 +66,10 @@ class ScRecentButton(Gtk.Button):
         lab.set_use_markup(True)
         lab.set_halign(Gtk.Align.START)
 
-        pbuf = context.appsystem.get_pixbuf_only(id)
-        img = Gtk.Image.new_from_pixbuf(pbuf)
+        img = Gtk.Image.new()
         img.set_margin_end(12)
+        context.appsystem.set_image_from_item(img, item, item.get_store())
+        img.set_pixel_size(64)
 
         layout.attach(img, 0, 0, 1, 2)
         layout.attach(lab, 1, 0, 1, 1)

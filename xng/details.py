@@ -88,8 +88,8 @@ class ScDetailsView(Gtk.Box):
         self.header_name.set_markup(apps.get_name(id, item.get_name(), store))
         self.header_summary.set_markup(
             apps.get_summary(id, item.get_summary(), store))
-        pbuf = apps.get_pixbuf_only(id, store)
-        self.header_image.set_from_pixbuf(pbuf)
+        apps.set_image_from_item(self.header_image, item, store)
+        self.header_image.set_pixel_size(64)
 
         if self.item.has_status(ItemStatus.INSTALLED):
             launch_id = apps.get_launchable_id(id, store)
@@ -129,6 +129,7 @@ class ScDetailsView(Gtk.Box):
         self.header_name = Gtk.Label("")
         self.header_name.get_style_context().add_class("huge-label")
         self.header_image = Gtk.Image()
+        self.header_image.set_pixel_size(64)
         self.header_image.set_margin_end(24)
         self.header_image.set_margin_start(12)
 

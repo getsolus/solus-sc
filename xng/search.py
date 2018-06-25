@@ -53,8 +53,8 @@ class ScSearchResult(Gtk.ListBoxRow):
         # Pack the image first
         img = Gtk.Image.new()
         main_box.pack_start(img, False, False, 0)
-        icon = appsystem.get_pixbuf_only(item_id, item.get_store())
-        img.set_from_pixbuf(icon)
+        appsystem.set_image_from_item(img, item, item.get_store())
+        img.set_pixel_size(64)
 
         stride_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         img.set_margin_end(12)
