@@ -256,6 +256,12 @@ class EopkgPlugin(ProviderPlugin):
         pkg = provider.get_package()
         print("eopkg plugin requested to populate drivers on {}".format(pkg))
 
+        # This is shitty we need to set up with kernels.
+        if not self.availDB.has_package(pkg):
+            return
+        item = self.build_item(pkg)
+        storage.add_item(item.get_id(), item, PopulationFilter.DRIVERS)
+
     def build_item(self, name):
         """ Build a complete item definition """
         avail = None
