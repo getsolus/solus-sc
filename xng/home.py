@@ -68,7 +68,11 @@ class ScRecentButton(Gtk.Button):
 
         img = Gtk.Image.new()
         img.set_margin_end(12)
-        context.appsystem.set_image_from_item(img, item, item.get_store())
+        context.appsystem.set_image_from_item(
+            img,
+            item,
+            store=item.get_store(),
+            size=64)
         img.set_pixel_size(64)
 
         layout.attach(img, 0, 0, 1, 2)
