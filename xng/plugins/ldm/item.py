@@ -31,14 +31,19 @@ class LdmItem(ProviderItem):
     def get_id(self):
         return "ldm:" + str(self.device.get_path())
 
+    def format_full_name(self):
+        return "{} {}".format(
+            self.device.get_vendor(),
+            self.device.get_name())
+
     def get_name(self):
-        return self.device.get_name()
+        return self.format_full_name()
 
     def get_summary(self):
         return self.device.get_name()
 
     def get_title(self):
-        return self.device.get_name()
+        return self.format_full_name()
 
     def get_description(self):
         return self.device.get_name()
