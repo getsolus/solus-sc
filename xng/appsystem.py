@@ -12,7 +12,7 @@
 #
 
 from gi.repository import AppStreamGlib as As
-from gi.repository import Gio, GLib, GdkPixbuf, Gtk, Gdk
+from gi.repository import GLib, GdkPixbuf, Gtk, Gdk
 
 
 class Screenshot:

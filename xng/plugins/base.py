@@ -37,17 +37,17 @@ class ItemStatus:
     """
 
     INSTALLED = 1 << 0
-    UPDATE_NEEDED = 1 << 1     # We have an update available
+    UPDATE_NEEDED = 1 << 1      # We have an update available
     UPDATING = 1 << 2
     REMOVING = 1 << 3
-    UPDATE_SECURITY = 1 << 4   # Security update available
-    UPDATE_CRITICAL = 1 << 5   # Critical update available
-    UPDATE_BUGFIX = 1 << 6     # Bugfix update available
-    META_DEVEL = 1 << 7        # Is a development type of package
-    META_CHANGELOG = 1 << 8    # Supports changelog functionality
-    META_ESSENTIAL = 1 << 9    # Essential component. Do NOT remove!
-    META_HARDWARE = 1 << 10    # This is a fake item.
-    META_THIRD_PARTY = 1 << 11 # Not officially supported
+    UPDATE_SECURITY = 1 << 4    # Security update available
+    UPDATE_CRITICAL = 1 << 5    # Critical update available
+    UPDATE_BUGFIX = 1 << 6      # Bugfix update available
+    META_DEVEL = 1 << 7         # Is a development type of package
+    META_CHANGELOG = 1 << 8     # Supports changelog functionality
+    META_ESSENTIAL = 1 << 9     # Essential component. Do NOT remove!
+    META_HARDWARE = 1 << 10     # This is a fake item.
+    META_THIRD_PARTY = 1 << 11  # Not officially supported
 
 
 class Transaction(GObject.Object):
