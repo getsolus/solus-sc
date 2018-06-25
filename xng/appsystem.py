@@ -187,8 +187,8 @@ class AppSystem:
             self.set_fallback_icon(image)
             return
 
-        original_size = size
         size = size * self.scale_factor
+        original_size = size
 
         # No icon?
         icon = self.find_icon(app, size, size)
@@ -224,11 +224,11 @@ class AppSystem:
         # At this point we're dealing with pixbufs
         pbuf = icon.get_pixbuf()
 
-        # Ew.
-        if pbuf.get_height() != original_size * self.scale_factor:
+        # Ensure we upscale on HiDPI
+        if pbuf.get_height() != original_size:
             pbuf = pbuf.scale_simple(
-                original_size * self.scale_factor,
-                original_size * self.scale_factor,
+                original_size,
+                original_size,
                 GdkPixbuf.InterpType.BILINEAR)
 
         if self.scale_factor == 1:
