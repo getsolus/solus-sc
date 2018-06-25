@@ -100,6 +100,10 @@ class ScDrawerPlane(Gtk.Revealer):
         if udata.button == 8:
             return Gdk.EVENT_PROPAGATE
 
+        # Do not dismiss plan mode with clicks!
+        if self.drawer.plan_mode == True:
+            return Gdk.EVENT_PROPAGATE
+
         # Because GTK positioning is utterly broken, our x y is relative
         # only to the WIDGET not the WINDOW. -_- Instead, transform to the
         # toplevel coordinate system, and then find out where the sidebar
@@ -120,10 +124,12 @@ class ScDrawerPlane(Gtk.Revealer):
     def open_plan_view(self):
         self.slide_in()
         self.drawer.open_plan_view()
+        self.drawer.plan_mode = True
 
     def open_job_view(self):
         self.slide_in()
         self.drawer.open_job_view()
+        self.drawer.plan_mode = False
 
     def slide_in(self):
         """ Activate plane and slide in the sidebar """
@@ -176,6 +182,7 @@ class ScDrawer(Gtk.Revealer):
     button_stack = None  # Settings, Back
 
     plane = None  # Parent plane
+    plan_mode = False
 
     def __init__(self, context):
         Gtk.Revealer.__init__(self)
@@ -320,6 +327,7 @@ class ScDrawer(Gtk.Revealer):
         # Reset on tween out
         self.stack.set_visible_child_name('main')
         self.button_stack.set_visible_child_name('settings_button')
+        self.plan_mode = False
 
     def handle_back(self):
         """ Allow back/escape behaviour """
@@ -336,5 +344,6 @@ class ScDrawer(Gtk.Revealer):
 
     def open_job_view(self):
         """ Open to the job view """
+        self.plan_mode = False
         self.stack.set_visible_child_name('main')
         self.button_stack.set_visible_child_name('settings_button')
