@@ -28,6 +28,7 @@ class LdmRootCategory(ProviderCategory):
 
         self.children = [
             LdmCategory(Ldm.DeviceType.ANY),
+            LdmCategory(Ldm.DeviceType.AUDIO),
             LdmCategory(Ldm.DeviceType.GPU),
             LdmCategory(Ldm.DeviceType.HID),
             LdmCategory(Ldm.DeviceType.PRINTER),
@@ -66,6 +67,9 @@ class LdmCategory(ProviderCategory):
         self.mappings = {
             Ldm.DeviceType.ANY: (
                 _("All"), "ldm:all", "starred"
+            ),
+            Ldm.DeviceType.AUDIO: (
+                _("Audio"), "ldm:audio", "audio-card"
             ),
             Ldm.DeviceType.GPU: (
                 _("GPU"), "ldm:gpu", "preferences-desktop-display"
