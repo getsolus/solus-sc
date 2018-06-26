@@ -12,7 +12,7 @@
 #
 
 from ..base import ProviderPlugin
-from ..base import PopulationFilter, Transaction
+from ..base import PopulationFilter, Transaction, ItemLink
 
 # Plugin local
 from .component import EopkgComponent
@@ -275,7 +275,23 @@ class EopkgPlugin(ProviderPlugin):
             installed = self.installDB.get_package(name)
         item = EopkgItem(installed, avail)
         item.parent_plugin = self
+
+        if not avail:
+            return item
+
+        # Try to enhance
+        self.refine_item(item)
         return item
+
+    def refine_item(self, item):
+        """ Attempt to add basic refinement to an item """
+        if item.available.partOf == "kernel.drivers":
+            name = item.get_name()
+            if name.endswith("-current"):
+                name = name[0:-8]
+            name32 = name + "-32bit"
+            if self.availDB.has_package(name32):
+                item.push_link(ItemLink.ENHANCES, self.build_item(name32))
 
     def plan_install_item(self, item):
         """ Plan the installation of a given item """
