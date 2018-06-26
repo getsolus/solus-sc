@@ -37,7 +37,7 @@ class EopkgItem(ProviderItem):
         self.available = available
 
         # NOT YET SUPPORTED
-        # self.add_status(ItemStatus.META_CHANGELOG)
+        self.add_status(ItemStatus.META_CHANGELOG)
 
         if self.installed is not None:
             self.displayCandidate = self.installed
