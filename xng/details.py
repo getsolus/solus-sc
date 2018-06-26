@@ -14,7 +14,7 @@
 from gi.repository import Gio, Gtk, GLib
 from .screenshot_view import ScScreenshotView
 from .util.markdown import SpecialMarkdownParser
-from .plugins.base import ItemStatus
+from .plugins.base import ItemStatus, ItemLink
 from gi.repository import AppStreamGlib as As
 
 
@@ -115,6 +115,7 @@ class ScDetailsView(Gtk.Box):
         self.update_description()
         self.update_actions()
         self.update_details()
+        self.update_links()
 
         # Always re-focus to details
         self.stack.set_visible_child_name("details")
@@ -434,6 +435,16 @@ class ScDetailsView(Gtk.Box):
         else:
             self.label_developer.set_markup("")
         self.label_developer.set_visible(dev is not None)
+
+    def update_links(self):
+        """ Deal with ItemLink reasons """
+        id = self.item.get_id()
+        for reason in self.item.links:
+            names = [x.get_name() for x in self.item.links[reason]]
+            if reason == ItemLink.ENHANCES:
+                print("{} Enhanced by: {}".format(id, names))
+            else:
+                print("Providers for virtual: {} {}".format(id, names))
 
     def on_install_clicked(self, btn, udata=None):
         """ User clicked install """
