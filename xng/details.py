@@ -316,8 +316,8 @@ class ScDetailsView(Gtk.Box):
         self.description_box.set_margin_start(30)
         box.pack_start(self.description_box, False, False, 0)
 
-        self.build_details_grid(box)
         self.build_links(box)
+        self.build_details_grid(box)
 
     def build_links(self, box):
         """ Build a set of links to foreign packages """
