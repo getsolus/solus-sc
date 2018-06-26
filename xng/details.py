@@ -18,6 +18,54 @@ from .plugins.base import ItemStatus, ItemLink
 from gi.repository import AppStreamGlib as As
 
 
+class ScLinksBox(Gtk.Box):
+    """ Links to foriegn packages """
+
+    __gtype_name__ = "ScLinksBox"
+
+    listbox_links = None
+    scroller = None
+
+    def __init__(self, title):
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+
+        build_header_section(title, self)
+
+        # Build scrolledwindow to take nasty background off listbox
+        self.scroller = Gtk.ScrolledWindow.new(None, None)
+        self.scroller.set_margin_start(30)
+        self.scroller.set_margin_end(150)
+        self.scroller.set_margin_top(6)
+        self.scroller.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        self.pack_start(self.scroller, False, False, 0)
+
+        self.listbox_links = Gtk.ListBox.new()
+        self.listbox_links.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.scroller.add(self.listbox_links)
+
+    def update(self, item, reason):
+        """ Update our links based on the new item """
+        # Kill old widgets
+        for sprog in self.listbox_links.get_children():
+            sprog.destroy()
+
+        # No reason to show. As it were
+        if reason not in item.links:
+            self.hide()
+            return
+
+        # Walk links and render them
+        for link in item.links[reason]:
+            # TEMP: Use less shitty widget.
+            lab = Gtk.Label.new(link.get_name())
+            lab.set_halign(Gtk.Align.START)
+            lab.show_all()
+            self.listbox_links.add(lab)
+
+        # Make sure we're now visible
+        self.show()
+
+
 class ScDetailsView(Gtk.Box):
     """ Shows details for a selected ProviderItem
 
@@ -61,6 +109,8 @@ class ScDetailsView(Gtk.Box):
     label_developer = None
 
     changelog_view = None
+
+    links_virtual = None  # Providers on virtual packages
 
     def get_page_name(self):
         return self.header_name.get_text()
@@ -233,7 +283,7 @@ class ScDetailsView(Gtk.Box):
         self.screenie_view.set_halign(Gtk.Align.CENTER)
         box.pack_start(self.screenie_view, False, False, 0)
 
-        self.build_header_section(_("Description"), box)
+        build_header_section(_("Description"), box)
         # A place to have our description
         self.description_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
         self.description_box.set_margin_end(150)
@@ -241,25 +291,14 @@ class ScDetailsView(Gtk.Box):
         box.pack_start(self.description_box, False, False, 0)
 
         self.build_details_grid(box)
+        self.build_links(box)
 
-    def build_header_section(self, label, pack_target):
-        """ Build a fancy header section and put it into pack_target """
-        # Header for the information
-        lab = Gtk.Label.new(label)
-        lab.set_use_markup(True)
-        lab.set_halign(Gtk.Align.START)
-        lab.set_margin_start(30)
-        lab.set_margin_top(30)
-        lab.get_style_context().add_class("dim-label")
-        pack_target.pack_start(lab, False, False, 0)
-
-        # Visually separate this information now
-        sep = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
-        sep.set_margin_start(30)
-        sep.set_margin_end(150)
-        sep.set_margin_top(8)
-        sep.set_margin_bottom(15)
-        pack_target.pack_start(sep, False, False, 0)
+    def build_links(self, box):
+        """ Build a set of links to foreign packages """
+        self.links_virtual = ScLinksBox(_("Providers"))
+        box.pack_start(self.links_virtual, False, False, 0)
+        self.links_virtual.show_all()
+        self.links_virtual.set_no_show_all(True)
 
     def build_details_grid(self, box):
         """ Build the detailed information grid for each item """
@@ -270,7 +309,7 @@ class ScDetailsView(Gtk.Box):
         grid.set_row_spacing(12)
         grid.set_valign(Gtk.Align.START)
 
-        self.build_header_section(_("Information"), box)
+        build_header_section(_("Information"), box)
 
         # Attach grid to the view
         box.pack_start(grid, False, False, 0)
@@ -438,13 +477,7 @@ class ScDetailsView(Gtk.Box):
 
     def update_links(self):
         """ Deal with ItemLink reasons """
-        id = self.item.get_id()
-        for reason in self.item.links:
-            names = [x.get_name() for x in self.item.links[reason]]
-            if reason == ItemLink.ENHANCES:
-                print("{} Enhanced by: {}".format(id, names))
-            else:
-                print("Providers for virtual: {} {}".format(id, names))
+        self.links_virtual.update(self.item, ItemLink.PROVIDES)
 
     def on_install_clicked(self, btn, udata=None):
         """ User clicked install """
@@ -457,3 +490,23 @@ class ScDetailsView(Gtk.Box):
     def on_launch_clicked(self, btn, udata=None):
         """ User clicked launch """
         self.launch_info.launch(None, None)
+
+
+def build_header_section(label, pack_target):
+    """ Build a fancy header section and put it into pack_target """
+    # Header for the information
+    lab = Gtk.Label.new(label)
+    lab.set_use_markup(True)
+    lab.set_halign(Gtk.Align.START)
+    lab.set_margin_start(30)
+    lab.set_margin_top(30)
+    lab.get_style_context().add_class("dim-label")
+    pack_target.pack_start(lab, False, False, 0)
+
+    # Visually separate this information now
+    sep = Gtk.Separator.new(Gtk.Orientation.HORIZONTAL)
+    sep.set_margin_start(30)
+    sep.set_margin_end(150)
+    sep.set_margin_top(8)
+    sep.set_margin_bottom(15)
+    pack_target.pack_start(sep, False, False, 0)
