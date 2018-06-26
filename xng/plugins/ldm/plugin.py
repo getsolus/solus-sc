@@ -12,6 +12,7 @@
 #
 
 from ..base import ProviderPlugin, ProviderCategory, PopulationFilter
+from ..base import ItemLink
 
 from gi.repository import Ldm
 
@@ -88,8 +89,10 @@ class LdmPlugin(ProviderPlugin):
             return
         for provider in providers:
             print("Provider: {}".format(provider))
-            foreign_items = self.get_foreign_items(provider)
-            print(foreign_items)
+
+            # Push all of these providers to the current ProviderItem
+            for foreigner in self.get_foreign_items(provider):
+                item.push_link(ItemLink.PROVIDER, foreigner)
 
     def get_foreign_items(self, provider):
         """ Query all plugins to find the true providers of an LdmProvider """
