@@ -36,6 +36,12 @@ class ScLinkLabel(Gtk.Label):
             item.get_name(),
             item.get_store())
 
+        # Mark this guy installed already
+        if item.has_status(ItemStatus.INSTALLED):
+            name += " " + _("(installed)")
+            self.get_style_context().add_class("dim-label")
+
+        name = " • {}".format(name)
         self.set_markup(name)
 
 
