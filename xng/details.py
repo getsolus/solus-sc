@@ -18,8 +18,29 @@ from .plugins.base import ItemStatus, ItemLink
 from gi.repository import AppStreamGlib as As
 
 
+class ScLinkLabel(Gtk.Label):
+    """ Simple widget to provide links between items """
+
+    __gtype_name__ = "ScLinkLabel"
+
+    item = None  # The item we link to
+
+    def __init__(self, context, item):
+        Gtk.Label.__init__(self)
+        self.item = item
+        self.set_halign(Gtk.Align.START)
+        id = item.get_id()
+        # Get an AppSystem name for the item
+        name = context.appsystem.get_name(
+            id,
+            item.get_name(),
+            item.get_store())
+
+        self.set_markup(name)
+
+
 class ScLinksBox(Gtk.Box):
-    """ Links to foriegn packages """
+    """ Links to foreign packages """
 
     __gtype_name__ = "ScLinksBox"
 
@@ -57,9 +78,7 @@ class ScLinksBox(Gtk.Box):
 
         # Walk links and render them
         for link in item.links[reason]:
-            # TEMP: Use less shitty widget.
-            lab = Gtk.Label.new(link.get_name())
-            lab.set_halign(Gtk.Align.START)
+            lab = ScLinkLabel(self.context, link)
             lab.show_all()
             self.listbox_links.add(lab)
 
