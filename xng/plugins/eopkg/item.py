@@ -111,4 +111,6 @@ def is_essential_package(pkg):
         return True
     if pkg.name in essential_packages:
         return True
+    if pkg.name.endswith("-modaliases"):
+        return True
     return False
