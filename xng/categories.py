@@ -72,7 +72,7 @@ class ScItemButton(Gtk.FlowBoxChild):
 
         self.get_style_context().add_class("category-item-row")
 
-        if item.has_status(ItemStatus.META_HARDWARE):
+        if item.has_status(ItemStatus.META_VIRTUAL):
             return
 
         action_name = _("Install")

@@ -356,7 +356,7 @@ class ScDetailsView(Gtk.Box):
     def update_actions(self):
         """ Update actions for the given item """
         # Special case for hardware, none of the buttons will do anything.
-        if self.item.has_status(ItemStatus.META_HARDWARE):
+        if self.item.has_status(ItemStatus.META_VIRTUAL):
             self.header_action_install.hide()
             self.header_action_launch.hide()
             self.header_action_remove.hide()

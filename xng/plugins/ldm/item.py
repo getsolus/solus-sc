@@ -27,7 +27,9 @@ class LdmItem(ProviderItem):
     def __init__(self, device):
         ProviderItem.__init__(self)
         self.device = device
-        self.add_status(ItemStatus.META_HARDWARE)
+
+        # Pure virtual Item, cannot be directly installed
+        self.add_status(ItemStatus.META_VIRTUAL)
 
         if self.device.has_type(Ldm.DeviceType.GPU):
             self.icon_name = "preferences-desktop-display"
