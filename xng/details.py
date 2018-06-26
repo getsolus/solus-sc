@@ -137,6 +137,7 @@ class ScDetailsView(Gtk.Box):
     changelog_view = None
 
     links_virtual = None  # Providers on virtual packages
+    links_enhance = None  # Software that enhances this software..
 
     def get_page_name(self):
         return self.header_name.get_text()
@@ -321,10 +322,18 @@ class ScDetailsView(Gtk.Box):
 
     def build_links(self, box):
         """ Build a set of links to foreign packages """
+
+        # First up is our virtual providers
         self.links_virtual = ScLinksBox(self.context, _("Providers"))
         box.pack_start(self.links_virtual, False, False, 0)
         self.links_virtual.show_all()
         self.links_virtual.set_no_show_all(True)
+
+        # Now we'll have our enhance list
+        self.links_enhance = ScLinksBox(self.context, _("Related software"))
+        box.pack_start(self.links_enhance, False, False, 0)
+        self.links_enhance.show_all()
+        self.links_enhance.set_no_show_all(True)
 
     def build_details_grid(self, box):
         """ Build the detailed information grid for each item """
@@ -504,6 +513,7 @@ class ScDetailsView(Gtk.Box):
     def update_links(self):
         """ Deal with ItemLink reasons """
         self.links_virtual.update(self.item, ItemLink.PROVIDES)
+        self.links_enhance.update(self.item, ItemLink.ENHANCES)
 
     def on_install_clicked(self, btn, udata=None):
         """ User clicked install """
