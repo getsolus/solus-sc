@@ -92,7 +92,7 @@ class LdmPlugin(ProviderPlugin):
 
             # Push all of these providers to the current ProviderItem
             for foreigner in self.get_foreign_items(provider):
-                item.push_link(ItemLink.PROVIDER, foreigner)
+                item.push_link(ItemLink.PROVIDES, foreigner)
 
     def get_foreign_items(self, provider):
         """ Query all plugins to find the true providers of an LdmProvider """

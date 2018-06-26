@@ -57,7 +57,7 @@ class ItemLink:
         place.
     """
 
-    PROVIDER = 1 << 0  # Sole provider of the requested functionality
+    PROVIDES = 1 << 0  # Sole provider of the requested functionality
     ENHANCES = 1 << 1  # Enhances the parent Item in some way.
 
 
