@@ -14,6 +14,7 @@
 from gi.repository import GObject
 from xng.op_queue import OperationType
 from ..util import sc_format_size_local
+from collections import OrderedDict
 
 
 class PopulationFilter:
@@ -48,6 +49,16 @@ class ItemStatus:
     META_ESSENTIAL = 1 << 9     # Essential component. Do NOT remove!
     META_HARDWARE = 1 << 10     # This is a fake item.
     META_THIRD_PARTY = 1 << 11  # Not officially supported
+
+
+class ItemLink:
+    """ The ItemLink enumeration allows us to define the relationship between
+        different Items, i.e. why they're being added to an item in the first
+        place.
+    """
+
+    PROVIDER = 1 << 0  # Sole provider of the requested functionality
+    ENHANCES = 1 << 1  # Enhances the parent Item in some way.
 
 
 class Transaction(GObject.Object):
@@ -405,10 +416,25 @@ class ProviderItem(GObject.Object):
 
     parent_plugin = None
 
+    links = None
+
     def __init__(self):
         GObject.Object.__init__(self)
         # Default to no status
         self.status = 0
+        self.links = OrderedDict()
+
+    def push_link(self, reason, link):
+        """ Link the item in the tree with the given reason """
+        if reason not in self.links:
+            self.links[reason] = set()
+        self.links[reason].add(link)
+
+    def pop_link(self, link):
+        """ Remove the item from all link chains """
+        for reason in self.links:
+            if link in self.links[reason]:
+                self.links[reason].remove(link)
 
     def get_status(self):
         """ Return the current status for this item """
