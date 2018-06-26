@@ -26,8 +26,9 @@ class ScLinksBox(Gtk.Box):
     listbox_links = None
     scroller = None
 
-    def __init__(self, title):
+    def __init__(self, context, title):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+        self.context = context
 
         build_header_section(title, self)
 
@@ -295,7 +296,7 @@ class ScDetailsView(Gtk.Box):
 
     def build_links(self, box):
         """ Build a set of links to foreign packages """
-        self.links_virtual = ScLinksBox(_("Providers"))
+        self.links_virtual = ScLinksBox(self.context, _("Providers"))
         box.pack_start(self.links_virtual, False, False, 0)
         self.links_virtual.show_all()
         self.links_virtual.set_no_show_all(True)
