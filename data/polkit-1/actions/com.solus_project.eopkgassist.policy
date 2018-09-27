@@ -5,7 +5,7 @@
 <policyconfig>
 
   <vendor>Solus Project</vendor>
-  <vendor_url>https://solus-project.com</vendor_url>
+  <vendor_url>https://getsol.us</vendor_url>
   <action id="com.solus_project.eopkgassist.build">
     <icon_name>package-install</icon_name>
     <description>Install third party software</description>
