@@ -28,7 +28,7 @@ import subprocess
 import tempfile
 import shutil
 
-BASE_URI = "https://raw.githubusercontent.com/solus-project/3rd-party/master"
+BASE_URI = "https://raw.githubusercontent.com/getsolus/3rd-party/master"
 
 APPS = {
     "android-studio":
