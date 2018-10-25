@@ -48,7 +48,7 @@ ICON_MAPS = {
     "network.irc": "hexchat",
     "network.news": "internet-news-reader",
     "network.web": "internet-web-browser",
-    "network.web.browser": "internet-web-browser",
+    "network.web.browser": "firefox",
     "office": "libreoffice-calc",
     "office.finance": "homebank",
     "office.maths": "accessories-calculator",
@@ -72,10 +72,15 @@ BREEZE_MISSING_COMP = {
     "desktop.gtk" : "package-x-generic",
     "desktop.mate" : "package-x-generic",
     "desktop.qt" : "package-x-generic",
+    "games.action": "blinken",
+    "games.arcade": "kolf",
     "games.card" : "kpat",
+    "games.emulator": "input-gaming",
     "games.puzzle" : "kblocks",
     "network.download" : "kget",
+    "network.email": "kmail",
     "network.news" : "quiterss",
+    "network.web.browser": "konqueror",
     "office.notes" : "knotes"
 }
 
