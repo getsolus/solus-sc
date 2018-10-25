@@ -66,7 +66,7 @@ ICON_MAPS = {
     "security": "security-high",
 }
 
-ADWAITA_MISSING_COMP = { # Does not include games.* or programming.* since we're just going to override all of those
+ADWAITA_HC_MISSING_COMP = { # Does not include games.* or programming.* since we're just going to override all of those
     "desktop.kde": "package-x-generic",
     "desktop.font": "preferences-desktop-font",
     "desktop.gnome": "start-here-symbolic",
@@ -133,9 +133,9 @@ class ScComponentButton(Gtk.Button):
         if component.name in ICON_MAPS:
             icon = ICON_MAPS[component.name]
 
-            if icon_theme_name == "adwaita": # If Adwaita (please, no)
-                if component.name in ADWAITA_MISSING_COMP:
-                    icon = ADWAITA_MISSING_COMP[component.name]
+            if icon_theme_name == "adwaita" or "highconstrast": # If Adwaita (please, no) or High Contrast
+                if component.name in ADWAITA_HC_MISSING_COMP:
+                    icon = ADWAITA_HC_MISSING_COMP[component.name]
                 elif "games." in component.name or "programming." in component.name: # This is a game or programming component
                     icon = "package-x-generic"
             elif icon_theme_name == "arc" or icon_theme_name == "moka": # If Arc or Moka
