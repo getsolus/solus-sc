@@ -61,9 +61,17 @@ class ScSidebar(Gtk.ListBox):
         self.get_style_context().add_class("main-sidebar")
         self.set_property("width-request", 160)
 
+        icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
+        icon_theme = icon_theme.lower().replace("-", "")
+
+        if icon_theme == "breeze":
+            update_icon = "arrow-up"
+        else:
+            update_icon = "software-update-available-symbolic"
+
         items = [
             ("home", _("Home"), "user-home-symbolic"),
-            ("updates", _("Updates"), "software-update-available-symbolic"),
+            ("updates", _("Updates"), update_icon),
             ("installed", _("Installed"), "computer-symbolic"),
             ("3rd-party", _("Third Party"), "folder-download-symbolic"),
             ("search", _("Search"), "edit-find-symbolic"),
