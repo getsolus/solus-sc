@@ -96,6 +96,14 @@ BREEZE_MISSING_COMP = {
     "programming.tools": "applications-development",
 }
 
+PAPER_MISSING_COMP = { # Does not include games.* since we're just going to override all of those
+    "desktop.kde": "package-x-generic",
+    "desktop.font": "fonts",
+    "desktop.gnome": "package-x-generic",
+    "desktop.mate": "package-x-generic",
+    "programming.devel": "text-x-generic",
+    "programming.perl": "gnome-mime-application-x-perl",
+}
 
 class ScComponentButton(Gtk.Button):
     """ Manage the monotony of a button """
@@ -112,11 +120,16 @@ class ScComponentButton(Gtk.Button):
             icon = ICON_MAPS[component.name]
 
             if icon_theme_name == "arc" or icon_theme_name == "moka": # If Arc or Moka
-                if component.name in ARC_MOKA_MISSING_COMP: # We're missing an icon here
+                if component.name in ARC_MOKA_MISSING_COMP:
                     icon = ARC_MOKA_MISSING_COMP[component.name]
-            elif icon_theme_name == "breeze": # If breeze
-                if component.name in BREEZE_MISSING_COMP: # We're missing an icon here
+            elif icon_theme_name == "breeze": # If Breeze
+                if component.name in BREEZE_MISSING_COMP:
                     icon = BREEZE_MISSING_COMP[component.name]
+            elif icon_theme_name == "paper" or icon_theme_name == "paper-mono-dark": # If Paper
+                if component.name in PAPER_MISSING_COMP:
+                    icon = PAPER_MISSING_COMP[component.name]
+                elif "games." in component.name: # This is a game component
+                    icon = "package-x-generic"
         else:
             icon = "package-x-generic"
         image = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.SMALL_TOOLBAR)
