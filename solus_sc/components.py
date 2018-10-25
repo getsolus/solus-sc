@@ -66,6 +66,14 @@ ICON_MAPS = {
     "security": "security-high",
 }
 
+ARC_MISSING_COMP = {
+    "desktop.font": "fonts",
+    "programming.haskell": "applications-haskell",
+    "programming.java": "applications-java",
+    "programming.perl": "package-x-generic",
+    "programming.ruby": "applications-ruby",
+}
+
 BREEZE_MISSING_COMP = {
     "desktop.gnome" : "package-x-generic",
     "desktop.gnome.core" : "package-x-generic",
@@ -103,7 +111,10 @@ class ScComponentButton(Gtk.Button):
         if component.name in ICON_MAPS:
             icon = ICON_MAPS[component.name]
 
-            if icon_theme_name == "breeze": # If breeze
+            if icon_theme_name == "arc": # If arc
+                if component.name in ARC_MISSING_COMP: # We're missing an icon here
+                    icon = ARC_MISSING_COMP[component.name]
+            elif icon_theme_name == "breeze": # If breeze
                 if component.name in BREEZE_MISSING_COMP: # We're missing an icon here
                     icon = BREEZE_MISSING_COMP[component.name]
         else:
