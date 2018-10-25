@@ -51,7 +51,7 @@ ICON_MAPS = {
     "network.web.browser": "internet-web-browser",
     "office": "x-office-spreadsheet",
     "office.finance": "homebank",
-    "office.maths": "gnome-calculator",
+    "office.maths": "accessories-calculator",
     "office.scientific": "applications-science",
     "office.notes": "gnote",
     "office.viewers": "calibre-viewer",
@@ -72,7 +72,7 @@ class ScComponentButton(Gtk.Button):
 
     component = None
 
-    def __init__(self, db, component):
+    def __init__(self, db, component, icon_theme_name):
         Gtk.Button.__init__(self)
 
         self.component = component
@@ -80,12 +80,24 @@ class ScComponentButton(Gtk.Button):
         c_desc = str(component.localName)
         if component.name in ICON_MAPS:
             icon = ICON_MAPS[component.name]
+
+            if icon_theme_name == "breeze": # If breeze
+                if component.name == "games.card":
+                    icon = "kpat" # Doesn't have gnome-aisleriot
+                elif component.name == "games.puzzle":
+                    icon = "kblocks" # Doesn't have gnome-tetravex
+                elif component.name == "network.download":
+                    icon = "kget" # Doesn't have transmission for obvious reasons
+                elif component.name == "network.news":
+                    icon = "quiterss" # Doesn't have internet-news-reader
+                elif component.name == "office.notes":
+                    icon = "knotes" # Doesn't have gnote
         else:
             icon = "package-x-generic"
         image = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.SMALL_TOOLBAR)
 
         image.set_halign(Gtk.Align.START)
-        # image.set_pixel_size(64)
+        image.set_pixel_size(16)
 
         label_box = Gtk.VBox(0)
 
@@ -139,17 +151,19 @@ class ScComponentsView(Gtk.EventBox):
         self.flowbox.set_valign(Gtk.Align.START)
         self.scroll.add(self.flowbox)
 
-    def set_components(self, components):
+    def set_components(self, components, icon_theme_name):
         """ Update our view based on a given set of components """
         for widget in self.flowbox.get_children():
             widget.destroy()
         compdb = self.owner.basket.componentdb
         appends = []
+
         for comp in components:
             component = compdb.get_component(comp)
             appends.append(component)
+
         for component in sorted(appends, key=lambda x: x.localName):
-            btn = ScComponentButton(compdb, component)
+            btn = ScComponentButton(compdb, component, icon_theme_name)
             btn.connect("clicked", self.on_clicked)
             self.flowbox.add(btn)
             btn.show_all()

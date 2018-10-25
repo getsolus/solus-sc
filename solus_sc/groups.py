@@ -29,19 +29,19 @@ class ScGroupButton(Gtk.Button):
 
         icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
         icon_theme = icon_theme.lower().replace("-", "")
-        # Sneaky, I know.
-        if icon_theme == "arcicons" or icon_theme == "arc":
-            devIcon = "text-x-changelog"
-            securityIcon = "preferences-system-privacy"
+
+        if icon_theme == "arcicons" or icon_theme == "arc": # If Arc
+            devIcon = "text-x-changelog" # Doesn't have accessories-text-editor
+            securityIcon = "preferences-system-privacy" # Doesn't have security-hjigh
         else:
             devIcon = "accessories-text-editor"
             securityIcon = "security-high"
 
         replacements = {
-            "text-editor": "x-office-calendar",
-            "redhat-programming": devIcon,
             "network": "preferences-system-network",
+            "redhat-programming": devIcon,
             "security-high": securityIcon,
+            "text-editor": "x-office-calendar",
         }
 
         # Pretty things up with a Icon|Label setup
@@ -103,6 +103,8 @@ class ScGroupsView(Gtk.EventBox):
 
     breadcrumbs = None
 
+    icon_theme_name = None
+
     def handle_back(self):
         """ Go back to the group selection view for now """
         w = self.breadcrumbs.pop()
@@ -143,6 +145,9 @@ class ScGroupsView(Gtk.EventBox):
         st.add_class(Gtk.STYLE_CLASS_VIEW)
         st.add_class("content")
 
+        icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
+        self.icon_theme_name = icon_theme.lower().replace("-", "")
+
         self.comp_view = ScComponentsView(self, self.owner)
         self.stack.add_named(self.comp_view, "components")
 
@@ -161,7 +166,10 @@ class ScGroupsView(Gtk.EventBox):
         self.stack.set_visible_child_name("components")
         self.breadcrumbs.append("groups")
         components = groupdb.get_group_components(btn.group.name)
-        self.comp_view.set_components(components)
+        icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
+        icon_theme = icon_theme.lower().replace("-", "")
+
+        self.comp_view.set_components(components, self.icon_theme_name)
         self.owner.set_can_back(True)
 
     def init_view(self):
