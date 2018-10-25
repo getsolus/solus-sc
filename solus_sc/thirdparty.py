@@ -169,6 +169,7 @@ class ThirdPartyView(Gtk.VBox):
 
             hbox = Gtk.HBox(0)
             img = Gtk.Image.new_from_icon_name(row[1], Gtk.IconSize.DIALOG)
+
             hbox.pack_start(img, False, False, 0)
             img.set_property("margin", 6)
 

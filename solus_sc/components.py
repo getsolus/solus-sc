@@ -18,12 +18,12 @@ ICON_MAPS = {
     "desktop": "user-desktop",
     "desktop.budgie": "start-here-solus",
     "desktop.core": "system-run",
-    "desktop.font": "fonts",
+    "desktop.font": "font-ttf",
     "desktop.gnome": "desktop-environment-gnome",
     "desktop.gnome.core": "system-devices-information",
     "desktop.gnome.doc": "folder-documents",
     "desktop.gtk": "gtk-dialog-info",
-    "desktop.kde": "desktop-environment-kde",
+    "desktop.kde": "kde",
     "desktop.library": "emblem-shared-symbolic",
     "desktop.mate": "mate",
     "desktop.multimedia": "multimedia-volume-control",
@@ -39,16 +39,16 @@ ICON_MAPS = {
     "games.rpg": "wesnoth",
     "games.strategy": "games-endturn",
     "multimedia.sound": "multimedia-volume-control",
-    "multimedia.video": "camera-video",
-    "multimedia.audio": "library-music",
-    "multimedia.graphics": "camera-photo",
+    "multimedia.video": "folder-videos",
+    "multimedia.audio": "folder-music",
+    "multimedia.graphics": "folder-pictures",
     "network.download": "transmission",
     "network.email": "internet-mail",
     "network.im": "empathy",
     "network.irc": "hexchat",
     "network.news": "internet-news-reader",
-    "network.web": "emblem-web",
-    "network.web.browser": "web-browser",
+    "network.web": "internet-web-browser",
+    "network.web.browser": "internet-web-browser",
     "office": "x-office-spreadsheet",
     "office.finance": "homebank",
     "office.maths": "gnome-calculator",
@@ -56,12 +56,13 @@ ICON_MAPS = {
     "office.notes": "gnote",
     "office.viewers": "calibre-viewer",
     "programming.devel": "text-x-changelog",
-    "programming.haskell": "applications-haskell",
-    "programming.ide": "text-editor",
-    "programming.java": "applications-java",
+    "programming.haskell": "text-x-haskell",
+    "programming.ide": "accessories-text-editor",
+    "programming.java": "text-x-java",
+    "programming.perl": "application-x-perl",
     "programming.python": "application-x-python-bytecode",
     "programming.tools": "gitg",
-    "security": "preferences-system-firewall",
+    "security": "security-high",
 }
 
 
@@ -81,6 +82,7 @@ class ScComponentButton(Gtk.Button):
         else:
             icon = "package-x-generic"
         image = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.SMALL_TOOLBAR)
+
         image.set_halign(Gtk.Align.START)
         # image.set_pixel_size(64)
 
