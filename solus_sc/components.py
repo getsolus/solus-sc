@@ -29,7 +29,7 @@ ICON_MAPS = {
     "desktop.multimedia": "multimedia-volume-control",
     "desktop.qt": "qtconfig-qt4",
     "desktop.theme": "preferences-desktop-wallpaper",
-    "editor": "x-office-document",
+    "editor": "atom",
     "games": "applications-games",
     "games.action": "dota2",
     "games.arcade": "gnome-nibbles",
@@ -49,7 +49,7 @@ ICON_MAPS = {
     "network.news": "internet-news-reader",
     "network.web": "internet-web-browser",
     "network.web.browser": "internet-web-browser",
-    "office": "x-office-spreadsheet",
+    "office": "libreoffice-calc",
     "office.finance": "homebank",
     "office.maths": "accessories-calculator",
     "office.scientific": "applications-science",
@@ -64,6 +64,19 @@ ICON_MAPS = {
     "programming.ruby": "application-x-ruby",
     "programming.tools": "gitg",
     "security": "security-high",
+}
+
+BREEZE_MISSING_COMP = {
+    "desktop.gnome" : "package-x-generic",
+    "desktop.gnome.core" : "package-x-generic",
+    "desktop.gtk" : "package-x-generic",
+    "desktop.mate" : "package-x-generic",
+    "desktop.qt" : "package-x-generic",
+    "games.card" : "kpat",
+    "games.puzzle" : "kblocks",
+    "network.download" : "kget",
+    "network.news" : "quiterss",
+    "office.notes" : "knotes"
 }
 
 
@@ -82,16 +95,8 @@ class ScComponentButton(Gtk.Button):
             icon = ICON_MAPS[component.name]
 
             if icon_theme_name == "breeze": # If breeze
-                if component.name == "games.card":
-                    icon = "kpat" # Doesn't have gnome-aisleriot
-                elif component.name == "games.puzzle":
-                    icon = "kblocks" # Doesn't have gnome-tetravex
-                elif component.name == "network.download":
-                    icon = "kget" # Doesn't have transmission for obvious reasons
-                elif component.name == "network.news":
-                    icon = "quiterss" # Doesn't have internet-news-reader
-                elif component.name == "office.notes":
-                    icon = "knotes" # Doesn't have gnote
+                if component.name in BREEZE_MISSING_COMP: # We're missing an icon here
+                    icon = BREEZE_MISSING_COMP[component.name]
         else:
             icon = "package-x-generic"
         image = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.SMALL_TOOLBAR)
