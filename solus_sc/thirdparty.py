@@ -11,7 +11,7 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import Gtk
+from gi.repository import GLib, Gtk
 
 APPS = {
     'android-studio':
@@ -123,6 +123,7 @@ APPS = {
 class ThirdPartyView(Gtk.VBox):
     """ Work around insane distribution policy to help the user. """
 
+    theme = None
     listbox = None
     basket = None
 
@@ -136,6 +137,8 @@ class ThirdPartyView(Gtk.VBox):
         Gtk.VBox.__init__(self)
         self.basket = owner.basket
         self.basket.connect("basket-changed", self.on_basket_changed)
+        self.theme = Gtk.IconTheme()
+        self.theme.set_custom_theme("solus-sc")
 
         label = Gtk.Label(
             "<small>"
@@ -168,7 +171,12 @@ class ThirdPartyView(Gtk.VBox):
             row = APPS[key]
 
             hbox = Gtk.HBox(0)
-            img = Gtk.Image.new_from_icon_name(row[1], Gtk.IconSize.DIALOG)
+            try:
+                icon = self.theme.load_icon(row[1], 48, Gtk.IconLookupFlags.FORCE_SIZE)
+                img = Gtk.Image.new_from_pixbuf(icon)
+            except GLib.Error as err:
+                img = Gtk.Image.new_from_icon_name(row[1], Gtk.IconSize.DIALOG)
+
             img.set_pixel_size(48)
 
             hbox.pack_start(img, False, False, 0)
