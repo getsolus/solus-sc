@@ -77,8 +77,10 @@ BREEZE_MISSING_COMP = {
     "games.card" : "kpat",
     "games.emulator": "input-gaming",
     "games.puzzle" : "kblocks",
+    "games.rpg": "package-x-generic",
     "network.download" : "kget",
     "network.email": "kmail",
+    "network.im": "kopete",
     "network.news" : "quiterss",
     "network.web.browser": "konqueror",
     "office.notes" : "knotes"
