@@ -66,6 +66,20 @@ ICON_MAPS = {
     "security": "security-high",
 }
 
+ADWAITA_MISSING_COMP = { # Does not include games.* or programming.* since we're just going to override all of those
+    "desktop.kde": "package-x-generic",
+    "desktop.font": "preferences-desktop-font",
+    "desktop.gnome": "start-here-symbolic",
+    "desktop.gnome.core": "package-x-generic",
+    "desktop.gnome.docs": "package-x-generic",
+    "desktop.gtk": "package-x-generic",
+    "desktop.qt": "package-x-generic",
+    "network.download": "emblem-downloads",
+    "network.web": "applications-internet",
+    "office.finance": "package-x-generic",
+    "office.notes": "package-x-generic",
+}
+
 ARC_MOKA_MISSING_COMP = {
     "desktop.font": "fonts",
     "programming.haskell": "applications-haskell",
@@ -119,7 +133,12 @@ class ScComponentButton(Gtk.Button):
         if component.name in ICON_MAPS:
             icon = ICON_MAPS[component.name]
 
-            if icon_theme_name == "arc" or icon_theme_name == "moka": # If Arc or Moka
+            if icon_theme_name == "adwaita": # If Adwaita (please, no)
+                if component.name in ADWAITA_MISSING_COMP:
+                    icon = ADWAITA_MISSING_COMP[component.name]
+                elif "games." in component.name or "programming." in component.name: # This is a game or programming component
+                    icon = "package-x-generic"
+            elif icon_theme_name == "arc" or icon_theme_name == "moka": # If Arc or Moka
                 if component.name in ARC_MOKA_MISSING_COMP:
                     icon = ARC_MOKA_MISSING_COMP[component.name]
             elif icon_theme_name == "breeze": # If Breeze
