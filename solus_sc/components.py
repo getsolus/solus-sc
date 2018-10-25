@@ -66,7 +66,7 @@ ICON_MAPS = {
     "security": "security-high",
 }
 
-ARC_MISSING_COMP = {
+ARC_MOKA_MISSING_COMP = {
     "desktop.font": "fonts",
     "programming.haskell": "applications-haskell",
     "programming.java": "applications-java",
@@ -111,9 +111,9 @@ class ScComponentButton(Gtk.Button):
         if component.name in ICON_MAPS:
             icon = ICON_MAPS[component.name]
 
-            if icon_theme_name == "arc": # If arc
-                if component.name in ARC_MISSING_COMP: # We're missing an icon here
-                    icon = ARC_MISSING_COMP[component.name]
+            if icon_theme_name == "arc" or icon_theme_name == "moka": # If Arc or Moka
+                if component.name in ARC_MOKA_MISSING_COMP: # We're missing an icon here
+                    icon = ARC_MOKA_MISSING_COMP[component.name]
             elif icon_theme_name == "breeze": # If breeze
                 if component.name in BREEZE_MISSING_COMP: # We're missing an icon here
                     icon = BREEZE_MISSING_COMP[component.name]
