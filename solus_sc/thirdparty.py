@@ -18,6 +18,10 @@ APPS = {
         ('Android Studio', 'android-studio',
          'Android development environment based on IntelliJ IDEA.',
          'programming/android-studio/pspec.xml'),
+    'android-tools':
+        ('Android Tools', 'android-file-transfer',
+         'Android Platform Tools.',
+         'programming/tools/android-tools/pspec.xml'),
     'bitwig-studio':
         ('Bitwig Studio', 'bitwig-studio',
          'Music production system for production, remixing and performance.',
@@ -74,17 +78,29 @@ APPS = {
         ('Moneydance', 'moneydance',
          'A personal finance manager.',
          'office/moneydance/pspec.xml'),
+    'ocenaudio':
+        ('Ocenaudio', 'ocenaudio',
+         'Ocenaudio is a fast, cross-platform audio editor.',
+         'multimedia/music/ocenaudio/pspec.xml'),
     'plexmediaserver':
         ('Plex Media Server', 'plex',
          'Plex Media Server',
          'multimedia/video/plexmediaserver/pspec.xml'),
     'pycharm':
         ('Pycharm', 'pycharm',
-         'PyCharm - an IDE for the Python Language',
+         'An IDE for the Python Language.',
          'programming/pycharm/pspec.xml'),
+    'pycharm-ce':
+        ('Pycharm (Community Edition)', 'pycharm',
+         'PyCharm Community Edition - an IDE for the Python',
+         'programming/pycharm-ce/pspec.xml'),
+    'rider':
+        ('Rider', 'rider',
+         'A cross-platform .NET IDE based on the IntelliJ platform and ReSharper.',
+         'programming/rider/pspec.xml'),
     'rubymine':
         ('Rubymine', 'rubymine',
-         'RubyMine - an IDE for the Ruby Language',
+         'An IDE for the Ruby Language.',
          'programming/rubymine/pspec.xml'),
     'skype':
         ('Skype', 'skype',

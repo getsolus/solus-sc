@@ -33,6 +33,8 @@ BASE_URI = "https://raw.githubusercontent.com/getsolus/3rd-party/master"
 APPS = {
     "android-studio":
         "programming/android-studio/pspec.xml",
+    "android-tools":
+        "programming/tools/android-tools/pspec.xml",
     "bitwig-studio":
         "multimedia/music/bitwig-studio/pspec.xml",
     "enpass":
@@ -59,12 +61,18 @@ APPS = {
         "office/mendeleydesktop/pspec.xml",
     "moneydance":
         "office/moneydance/pspec.xml",
+    "ocenaudio":
+        "multimedia/music/ocenaudio/pspec.xml",
     "google-talkplugin":
         "network/im/google-talkplugin/pspec.xml",
     "plexmediaserver":
         "multimedia/video/plexmediaserver/pspec.xml",
     "pycharm":
         "programming/pycharm/pspec.xml",
+    "pycharm-ce":
+        "programming/pycharm-ce/pspec.xml",
+    "rider":
+        "programming/rider/pspec.xml",
     "rubymine":
         "programming/rubymine/pspec.xml",
     "skype":
