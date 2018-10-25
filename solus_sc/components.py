@@ -81,9 +81,11 @@ BREEZE_MISSING_COMP = {
     "network.download" : "kget",
     "network.email": "kmail",
     "network.im": "kopete",
+    "network.irc": "konversation",
     "network.news" : "quiterss",
     "network.web.browser": "konqueror",
-    "office.notes" : "knotes"
+    "office.notes" : "knotes",
+    "programming.tools": "applications-development",
 }
 
 
