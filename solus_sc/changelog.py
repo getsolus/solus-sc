@@ -22,9 +22,10 @@ from . import PACKAGE_ICON_SECURITY
 CVE_HIT = re.compile(r" (CVE\-[0-9]+\-[0-9]+)")
 CVE_URI = "https://cve.mitre.org/cgi-bin/cvename.cgi?name="
 
-# All TNNNN hits are Maniphest Tasks
+# All TNNNN hits are Maniphest Tasks, DNNNN are Differential Revisions
 BUG_HIT = re.compile(r" T(\d+)")
-BUG_URI = "https://dev.getsol.us"
+DIFF_HIT = re.compile(r" D(\d+)")
+PHAB_URI = "https://dev.getsol.us"
 
 # I know, it's evil. From:
 # http://daringfireball.net/2010/07/improved_regex_for_matching_urls
@@ -66,7 +67,8 @@ class ScChangelogEntry(Gtk.EventBox):
             r = MARKUP_CODE_HIT.sub(r'<tt>\1</tt>', r)
             r = MARKUP_BOLD_HIT.sub(r'<b>\1</b>', r)
             r = CVE_HIT.sub(r' <a href="{}\1">\1</a>'.format(CVE_URI), r)
-            r = BUG_HIT.sub(r' <a href="{}/T\1">T\1</a>'.format(BUG_URI), r)
+            r = BUG_HIT.sub(r' <a href="{}/T\1">T\1</a>'.format(PHAB_URI), r)
+            r = DIFF_HIT.sub(r' <a href="{}/D\1">D\1</a>'.format(PHAB_URI), r)
 
             # Check if this is a bullet point
             if (r.startswith("- ") or r.startswith("* ")) and len(r) > 2:
