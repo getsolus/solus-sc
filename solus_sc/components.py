@@ -61,6 +61,7 @@ ICON_MAPS = {
     "programming.java": "text-x-java",
     "programming.perl": "application-x-perl",
     "programming.python": "application-x-python-bytecode",
+    "programming.ruby": "application-x-ruby",
     "programming.tools": "gitg",
     "security": "security-high",
 }

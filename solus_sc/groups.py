@@ -32,14 +32,16 @@ class ScGroupButton(Gtk.Button):
         # Sneaky, I know.
         if icon_theme == "arcicons" or icon_theme == "arc":
             devIcon = "text-x-changelog"
+            securityIcon = "preferences-system-privacy"
         else:
-            devIcon = "gnome-dev-computer"
+            devIcon = "accessories-text-editor"
+            securityIcon = "security-high"
 
         replacements = {
             "text-editor": "x-office-calendar",
             "redhat-programming": devIcon,
-            "security-high": "preferences-system-privacy",
             "network": "preferences-system-network",
+            "security-high": securityIcon,
         }
 
         # Pretty things up with a Icon|Label setup
