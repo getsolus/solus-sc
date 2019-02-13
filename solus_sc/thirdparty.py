@@ -129,10 +129,6 @@ APPS = {
         ('Webstorm', 'webstorm',
          'WebStorm - an IDE for the Web',
          'programming/webstorm/pspec.xml'),
-    'wps-office':
-        ('WPS Office Suite', 'wps-office-wpsmain',
-         'WPS Office Suite',
-         'office/wps-office/pspec.xml'),
 }
 
 
