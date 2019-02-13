@@ -133,16 +133,29 @@ class AppSystem:
             ret = app.get_comment("C")
         return self.sanitize(ret)
 
+    def get_search_summary(self, package):
+        """ Return a usable search summary for a package """
+        app = self.store.get_app_by_pkgname(package.name)
+        ret = None
+        if not app:
+            summary = str(package.summary)
+            summary = summary.replace(" & ", " &amp; ")
+            ret = GLib.markup_escape_text(summary)
+        else:
+            ret = app.get_comment("C")
+        return self.sanitize(ret)
+
     def get_description(self, package):
         """ Return a usable description for a package """
         app = self.store.get_app_by_pkgname(package.name)
+        description = str(package.description)
         if not app:
             return self.sanitize(
-                GLib.markup_escape_text(str(package.description)))
+                GLib.markup_escape_text(description))
         c = app.get_description("C")
         if not c:
             return self.sanitize(
-                GLib.markup_escape_text(str(package.description)))
+                GLib.markup_escape_text(description))
         return c
 
     def get_name(self, package):

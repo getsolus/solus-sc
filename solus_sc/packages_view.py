@@ -127,7 +127,7 @@ class ScPackagesView(Gtk.VBox):
         return Gtk.ListStore(str, str, GdkPixbuf.Pixbuf, str)
 
     def get_pkg_model(self, pkg):
-        summary = self.appsystem.get_summary(pkg)
+        summary = self.appsystem.get_search_summary(pkg)
         summary = render_plain(str(summary))
 
         if len(summary) > 76:
