@@ -97,7 +97,7 @@ APPS = {
         "network/im/skype/pspec.xml",
     "slack-desktop":
         "network/im/slack-desktop/pspec.xml",
-    "spideroak":
+    "spideroakone":
         "network/download/spideroak/pspec.xml",
     "spotify":
         "multimedia/music/spotify/pspec.xml",

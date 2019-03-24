@@ -116,7 +116,7 @@ APPS = {
          'Plex Media Server',
          'multimedia/video/plexmediaserver/pspec.xml'),
     'pomodoneapp':
-        ('Pomodoneapp', 'pomodoneapp',
+        ('PomoDoneApp', 'PomoDoneApp',
          'Workflow tracker using Pomodoro technique',
          'office/pomodoneapp/pspec.xml'),
     'pycharm':
@@ -148,8 +148,8 @@ APPS = {
         ('Slack', 'slack',
          'Team communication for the 21st century.',
          'network/im/slack-desktop/pspec.xml'),
-    'spideroak':
-        ('Spideroak', 'spideroak',
+    'spideroakone':
+        ('SpiderOakONE', 'SpiderOakONE',
          'Spideroak one is a reliable, private backup for everything in your life.',
          'network/download/spideroak/pspec.xml'),
     'spotify':
