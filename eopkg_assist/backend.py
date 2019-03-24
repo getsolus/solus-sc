@@ -35,14 +35,22 @@ APPS = {
         "programming/android-studio/pspec.xml",
     "android-tools":
         "programming/tools/android-tools/pspec.xml",
+    "anydesk":
+        "network/util/anydesk/pspec.xml",
     "bitwig-studio":
         "multimedia/music/bitwig-studio/pspec.xml",
+    "clion":
+        "programming/clion/pspec.xml",
+    "datagrip":
+        "programming/datagrip/pspec.xml",
     "enpass":
         "security/enpass/pspec.xml",
     "flash-player-npapi":
         "multimedia/video/flash-player-npapi/pspec.xml",
     "flash-player-ppapi":
         "multimedia/video/flash-player-ppapi/pspec.xml",
+    "franz":
+        "network/im/franz/pspec.xml",
     "gitkraken":
         "programming/gitkraken/pspec.xml",
     "google-chrome-stable":
@@ -61,12 +69,20 @@ APPS = {
         "office/mendeleydesktop/pspec.xml",
     "moneydance":
         "office/moneydance/pspec.xml",
+    "mscorefonts":
+        "desktop/font/mscorefonts/pspec.xml",
     "ocenaudio":
         "multimedia/music/ocenaudio/pspec.xml",
+    "phpstorm":
+        "programming/phpstorm/pspec.xml",
+    "pixeluvo":
+        "multimedia/graphics/pixeluvo/pspec.xml",
     "google-talkplugin":
         "network/im/google-talkplugin/pspec.xml",
     "plexmediaserver":
         "multimedia/video/plexmediaserver/pspec.xml",
+    "pomodoneapp":
+        "office/pomodoneapp/pspec.xml",
     "pycharm":
         "programming/pycharm/pspec.xml",
     "pycharm-ce":
@@ -75,14 +91,24 @@ APPS = {
         "programming/rider/pspec.xml",
     "rubymine":
         "programming/rubymine/pspec.xml",
+    "scrivener":
+        "office/scrivener/pspec.xml",
     "skype":
         "network/im/skype/pspec.xml",
     "slack-desktop":
         "network/im/slack-desktop/pspec.xml",
+    "spideroak":
+        "network/download/spideroak/pspec.xml",
     "spotify":
         "multimedia/music/spotify/pspec.xml",
     "sublime-text-3":
         "programming/sublime-text-3/pspec.xml",
+    "sunvox":
+        "multimedia/music/sunvox/pspec.xml",
+    "synology-cloud-station-drive":
+        "network/download/synology-cloud-station-drive/pspec.xml",
+    "teamviewer":
+        "network/util/teamviewer/pspec.xml",
     "viber":
         "network/im/viber/pspec.xml",
     "webstorm":

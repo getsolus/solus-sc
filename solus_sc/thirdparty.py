@@ -22,10 +22,22 @@ APPS = {
         ('Android Tools', 'android-file-transfer',
          'Android Platform Tools.',
          'programming/tools/android-tools/pspec.xml'),
+    'anydesk':
+        ('AnyDesk', 'anydesk',
+         'AnyDesk is a remote desktop application',
+         'network/util/anydesk/pspec.xml'),
     'bitwig-studio':
         ('Bitwig Studio', 'bitwig-studio',
          'Music production system for production, remixing and performance.',
          'multimedia/music/bitwig-studio/pspec.xml'),
+    'clion':
+        ('CLion', 'clion',
+         'CLion - an IDE for the C Language',
+         'programming/clion/pspec.xml'),
+    'datagrip':
+        ('DataGrip', 'datagrip',
+         'DataGrip - an IDE for the SQL Language',
+         'programming/datagrip/pspec.xml'),
     'enpass':
         ('Enpass', 'enpass',
          'A multiplatform password manager.',
@@ -38,6 +50,11 @@ APPS = {
         ('Flash Player (PPAPI)', 'flash',
          'Flash Player (PPAPI) for browsers such as Vivaldi.',
          'multimedia/video/flash-player-ppapi/pspec.xml'),
+    'franz':
+        ('Franz', 'franz',
+         'Franz is a free messaging app for services like WhatsApp, Slack, '
+         'Messenger and many more.',
+         'network/im/franz/pspec.xml'),
     'google-chrome-stable':
         ('Google Chrome', 'google-chrome',
          'The web browser from Google',
@@ -78,14 +95,30 @@ APPS = {
         ('Moneydance', 'moneydance',
          'A personal finance manager.',
          'office/moneydance/pspec.xml'),
+    'mscorefonts':
+        ('Mscorefonts', 'mscorefonts',
+         'Microsoft Core Fonts',
+         'desktop/font/mscorefonts/pspec.xml'),
     'ocenaudio':
         ('Ocenaudio', 'ocenaudio',
          'Ocenaudio is a fast, cross-platform audio editor.',
          'multimedia/music/ocenaudio/pspec.xml'),
+    'phpstorm':
+        ('PHPStorm', 'phpstorm',
+         'PHPStorm - an IDE for the PHP Language',
+         'programming/phpstorm/pspec.xml'),
+    'pixeluvo':
+        ('Pixeluvo', 'pixeluvo',
+         'A Beautifully Designed Image and Photo Editor for Windows and Linux',
+         'multimedia/graphics/pixeluvo/pspec.xml'),
     'plexmediaserver':
         ('Plex Media Server', 'plex',
          'Plex Media Server',
          'multimedia/video/plexmediaserver/pspec.xml'),
+    'pomodoneapp':
+        ('Pomodoneapp', 'pomodoneapp',
+         'Workflow tracker using Pomodoro technique',
+         'office/pomodoneapp/pspec.xml'),
     'pycharm':
         ('Pycharm', 'pycharm',
          'An IDE for the Python Language.',
@@ -102,6 +135,10 @@ APPS = {
         ('Rubymine', 'rubymine',
          'An IDE for the Ruby Language.',
          'programming/rubymine/pspec.xml'),
+    'scrivener':
+        ('Scrivener', 'scrivener',
+         'A powerful content-generation tool for writers',
+         'office/scrivener/pspec.xml'),
     'skype':
         ('Skype', 'skype',
          'Skype for Linux Beta - <i>Skype keeps the world talking, for free.'
@@ -111,6 +148,10 @@ APPS = {
         ('Slack', 'slack',
          'Team communication for the 21st century.',
          'network/im/slack-desktop/pspec.xml'),
+    'spideroak':
+        ('Spideroak', 'spideroak',
+         'Spideroak one is a reliable, private backup for everything in your life.',
+         'network/download/spideroak/pspec.xml'),
     'spotify':
         ('Spotify', 'spotify',
          'Spotify Music, Video and Podcast Streaming Client.',
@@ -120,6 +161,20 @@ APPS = {
          'Sublime Text is a sophisticated text editor for code, markup and '
          'prose.',
          'programming/sublime-text-3/pspec.xml'),
+    'sunvox':
+        ('Sunvox', 'sunvox',
+         'Small, fast and powerful modular synthesizer with pattern-based sequencer (tracker)',
+         'multimedia/music/sunvox/pspec.xml'),
+    'synology-cloud-station-drive':
+        ('Synology-Cloud-Station-Drive', 'synology-cloud-station-drive',
+         'Cloud Station Drive is an application which sync files between your computers '
+         'and Synology NAS via the Internet',
+         'network/download/synology-cloud-station-drive/pspec.xml'),
+    'teamviewer':
+        ('TeamViewer', 'teamviewer',
+        'TeamViewer is remote control software for desktop sharing, online '
+        'meetings, web confrencing and file transfers between computers',
+        'network/util/teamviewer/pspec.xml'),
     'viber':
         ('Viber', 'viber',
          'An instant messaging and VoIP app for various mobile operating '
