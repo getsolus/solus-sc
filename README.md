@@ -42,7 +42,7 @@ Now just run the main launcher in this repo (don't ctrl+c, it'll explode):
 License
 -------
 
-Copyright © 2013-2018 Ikey Doherty
+Copyright © 2013-2019 Solus
 
 This software is available under the terms of the GPL-2.0 license.
 Please see `LICENSE` for details.

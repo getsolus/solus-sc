@@ -3,9 +3,9 @@ from setuptools import setup
 
 setup(
     name            = "solus-sc",
-    version         = "20.0",
-    author          = "Ikey Doherty",
-    author_email    = "ikey@solus-project.com",
+    version         = "22.0",
+    author          = "Solus",
+    author_email    = "root@getsol.us",
     description     = ("Solus Software Center"),
     license         = "GPL-2.0",
     url             = "https://github.com/getsolus/solus-sc",

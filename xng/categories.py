@@ -3,7 +3,7 @@
 #
 #  This file is part of solus-sc
 #
-#  Copyright © 2014-2018 Ikey Doherty <ikey@solus-project.com>
+#  Copyright © 2014-2019 Solus
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
