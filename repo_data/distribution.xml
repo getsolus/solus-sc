@@ -442,5 +442,6 @@
 	<Package>vulkan-devel</Package>
 	<Package>vulkan-32bit-devel</Package>
 	<Package>gnutls</Package>
+	<Package>python-faulthandler</Package>
 	</Obsoletes>
 </PISI>

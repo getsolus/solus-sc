@@ -628,5 +628,8 @@
 
 	<!-- Now named libgnutls-utils //-->
 	<Package>gnutls</Package>
+
+	<!-- Not required anymore since D1795 //-->
+	<Package>python-faulthandler</Package>
 	</Obsoletes>
 </PISI>
