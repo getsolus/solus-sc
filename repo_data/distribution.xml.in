@@ -665,5 +665,8 @@
 
 	<!-- merged in with kodi //-->
 	<Package>kodi-pvr-iptvsimple</Package>
+
+	<!-- No upstream activity, slowly breaking against qt updates //-->
+	<Package>utopia-documents</Package>
 	</Obsoletes>
 </PISI>
