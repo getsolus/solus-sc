@@ -14,10 +14,6 @@
 from gi.repository import GLib, Gtk
 
 APPS = {
-    'android-studio':
-        ('Android Studio', 'android-studio',
-         'Android development environment based on IntelliJ IDEA.',
-         'programming/android-studio/pspec.xml'),
     'android-tools':
         ('Android Tools', 'android-file-transfer',
          'Android Platform Tools.',
