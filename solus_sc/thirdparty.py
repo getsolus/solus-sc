@@ -14,10 +14,10 @@
 from gi.repository import GLib, Gtk
 
 APPS = {
-    'android-tools':
-        ('Android Tools', 'android-file-transfer',
-         'Android Platform Tools.',
-         'programming/tools/android-tools/pspec.xml'),
+    'android-studio':
+        ('Android Studio', 'android-studio',
+         'Android development environment based on IntelliJ IDEA.',
+         'programming/android-studio/pspec.xml'),
     'bitwig-studio':
         ('Bitwig Studio', 'bitwig-studio',
          'Music production system for production, remixing and performance.',

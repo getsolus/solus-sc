@@ -31,8 +31,8 @@ import shutil
 BASE_URI = "https://raw.githubusercontent.com/getsolus/3rd-party/master"
 
 APPS = {
-    "android-tools":
-        "programming/tools/android-tools/pspec.xml",
+    "android-studio":
+        "programming/android-studio/pspec.xml",
     "bitwig-studio":
         "multimedia/music/bitwig-studio/pspec.xml",
     "enpass":
