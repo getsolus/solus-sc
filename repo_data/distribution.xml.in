@@ -986,5 +986,8 @@
 		<Package>plasma-desktop-devel</Package>
 		<Package>user-manager</Package>
 		<Package>user-manager-dbginfo</Package>
+
+		<!-- Name changed to celluloid //-->
+    <Package>gnome-mpv</Package>
 	</Obsoletes>
 </PISI>
