@@ -73,6 +73,8 @@ APPS = {
         "programming/rider/pspec.xml",
     "rubymine":
         "programming/rubymine/pspec.xml",
+    "teamviewer":
+        "network/util/teamviewer/pspec.xml",
     "skype":
         "network/im/skype/pspec.xml",
     "slack-desktop":

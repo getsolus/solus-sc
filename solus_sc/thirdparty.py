@@ -98,6 +98,10 @@ APPS = {
         ('Rubymine', 'rubymine',
          'An IDE for the Ruby Language.',
          'programming/rubymine/pspec.xml'),
+    'teamviewer':
+        ('TeamViewer', 'teamviewer',
+        'Application for remote control, desktop sharing, online meetings, web conferencing and file transfer between computers',
+        'network/util/teamviewer/pspec.xml'),
     'skype':
         ('Skype', 'skype',
          'Skype for Linux Beta - <i>Skype keeps the world talking, for free.'
