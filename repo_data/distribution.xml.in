@@ -714,5 +714,8 @@
 		<Package>kcalcore</Package>
 		<Package>kcalcore-devel</Package>
 		<Package>kcalcore-dbginfo</Package>
+
+		<!-- Nightcolor gets shipped now with Plasma 5.17 //-->
+		<Package>plasma-redshift-control</Package>		
 	</Obsoletes>
 </PISI>

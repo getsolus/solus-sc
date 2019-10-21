@@ -496,5 +496,6 @@
 		<Package>kcalcore</Package>
 		<Package>kcalcore-devel</Package>
 		<Package>kcalcore-dbginfo</Package>
+		<Package>plasma-redshift-control</Package>		
 	</Obsoletes>
 </PISI>
