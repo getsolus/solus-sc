@@ -710,11 +710,6 @@
 		<!-- Renamed to python-qtwebengine //-->
 		<Package>python3-qtwebengine</Package>
 
-		<!-- kcalcore gets replaced by kcalendarcore //-->
-		<Package>kcalcore</Package>
-		<Package>kcalcore-devel</Package>
-		<Package>kcalcore-dbginfo</Package>
-
 		<!-- Nightcolor gets shipped now with Plasma 5.17 //-->
 		<Package>plasma-redshift-control</Package>		
 	</Obsoletes>
