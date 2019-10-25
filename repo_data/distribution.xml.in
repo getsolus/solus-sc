@@ -712,5 +712,8 @@
 
 		<!-- Nightcolor gets shipped now with Plasma 5.17 //-->
 		<Package>plasma-redshift-control</Package>
+
+		<!-- needs old python2 to be updated //-->
+		<Package>kpat</Package>
 	</Obsoletes>
 </PISI>
