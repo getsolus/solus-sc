@@ -355,25 +355,11 @@ class ScUpdatesView(Gtk.VBox):
         self.selected_object = None
 
         # Mandatory updates
-        m_label = "<big><b>Required Updates</b></big>\n" \
+        m_label = "<big><b>Available Updates</b></big>\n" \
                   "These updates are mandatory and will be selected " \
                   "automatically."
         row_m = model.append(None, [True, False, m_label, None,
                                     self.appsystem.mandatory_pixbuf,
-                                    True, 0, None])
-        # Security row
-        s_label = "<big><b>Security Updates</b></big>\n" \
-                  "These updates are strongly recommended to support safe " \
-                  "usage of your device."
-        row_s = model.append(None, [False, True, s_label, None,
-                                    self.appsystem.security_pixbuf,
-                                    True, 0, None])
-        # All other updates
-        u_label = "<big><b>Other Updates</b></big>\n" \
-                  "These updates may introduce new software versions and " \
-                  "bug-fixes."
-        row_u = model.append(None, [False, True, u_label, None,
-                                    self.appsystem.other_pixbuf,
                                     True, 0, None])
 
         # Need a shared context for these guys
@@ -406,18 +392,11 @@ class ScUpdatesView(Gtk.VBox):
             icon = PACKAGE_ICON_NORMAL
             if new_pkg.partOf == "system.base":
                 systemBase = True
-                parent_row = row_m
-            else:
-                parent_row = row_u
 
             if self.installdb.has_package(item):
                 old_pkg = self.installdb.get_package(item)
 
             sc_obj = ScUpdateObject(old_pkg, new_pkg)
-
-            if sc_obj.is_security_update() and parent_row != row_m:
-                parent_row = row_s
-                icon = PACKAGE_ICON_SECURITY
 
             summary = str(new_pkg.summary)
             if len(summary) > 76:
@@ -441,16 +420,15 @@ class ScUpdatesView(Gtk.VBox):
                                                       new_version,
                                                       summary)
 
-            model.append(parent_row, [systemBase, not systemBase,
-                                      p_print, dlSize, icon, True, pkgSize,
-                                      sc_obj])
+            model.append(row_m, [True, False,
+                                 p_print, dlSize, icon, True, pkgSize,
+                                 sc_obj])
 
         # Disable empty rows
-        for item in [row_s, row_m, row_u]:
-            if model.iter_n_children(item) == 0:
-                model.set(item, 0, False)
-                model.set(item, 1, False)
-                model.set(item, 5, False)
+        if model.iter_n_children(row_m) == 0:
+            model.set(item, 0, False)
+            model.set(item, 1, False)
+            model.set(item, 5, False)
 
         Gdk.threads_enter()
         self.tview.set_model(model)
