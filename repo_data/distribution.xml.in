@@ -734,5 +734,8 @@
 		<Package>gnome-twitch</Package>
 		<Package>gnome-twitch-devel</Package>
 		<Package>gnome-twitch-dbginfo</Package>
+
+		<!-- remove kstars-devel because contained only a static lib //-->
+		<Package>kstars-devel</Package>
 	</Obsoletes>
 </PISI>

@@ -506,5 +506,6 @@
 		<Package>gnome-twitch</Package>
 		<Package>gnome-twitch-devel</Package>
 		<Package>gnome-twitch-dbginfo</Package>
+		<Package>kstars-devel</Package>
 	</Obsoletes>
 </PISI>
