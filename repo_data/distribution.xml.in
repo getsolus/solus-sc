@@ -791,7 +791,10 @@
 		<Package>pantheon-files</Package>
 		<Package>pantheon-files-devel</Package>
 		<Package>pantheon-terminal</Package>
-		
+    
+    <!-- pytorch-devel got replaced by libpytorch //-->
+		<Package>pytorch-devel</Package>
+
 		<!-- Deprecated from FontForge developers //-->
 		<Package>fontforge-devel</Package>
 	</Obsoletes>
