@@ -584,6 +584,7 @@
 		<Package>google-play-music-desktop-player-dbginfo</Package>
 		<Package>uberwriter</Package>
 		<Package>python-wikipedia</Package>
+		<Package>vcmi-devel</Package>
 		<Package>gotop</Package>
 		<Package>digikam-docs</Package>
 		<Package>evolution-data-server-docs</Package>
