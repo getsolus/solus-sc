@@ -824,6 +824,9 @@
 		<!-- No longer desiring doc package //-->
 		<Package>evince-docs</Package>
 		<Package>gfbgraph-docs</Package>
+
+		<!-- Leftover of when cargo package.yml was separated from rust //-->
+		<Package>cargo-dbginfo</Package>
 		<Package>spice-gtk-docs</Package>
 
 		<!-- No more devel subpackage with update to 1.0 //-->

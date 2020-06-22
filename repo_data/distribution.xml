@@ -568,6 +568,7 @@
 		<Package>pgadmin3-dbginfo</Package>
 		<Package>evince-docs</Package>
 		<Package>gfbgraph-docs</Package>
+		<Package>cargo-dbginfo</Package>
 		<Package>spice-gtk-docs</Package>
 		<Package>inkscape-devel</Package>
 		<Package>kontalk</Package>
