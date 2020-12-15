@@ -26,14 +26,6 @@ APPS = {
         ('Enpass', 'enpass',
          'A multiplatform password manager.',
          'security/enpass/pspec.xml'),
-    'flash-player-npapi':
-        ('Flash Player (NPAPI)', 'flash',
-         'Flash Player (NPAPI) for browsers such as Firefox.',
-         'multimedia/video/flash-player-npapi/pspec.xml'),
-    'flash-player-ppapi':
-        ('Flash Player (PPAPI)', 'flash',
-         'Flash Player (PPAPI) for browsers such as Vivaldi.',
-         'multimedia/video/flash-player-ppapi/pspec.xml'),
     'google-chrome-stable':
         ('Google Chrome', 'google-chrome',
          'The web browser from Google',

@@ -37,10 +37,6 @@ APPS = {
         "multimedia/music/bitwig-studio/pspec.xml",
     "enpass":
         "security/enpass/pspec.xml",
-    "flash-player-npapi":
-        "multimedia/video/flash-player-npapi/pspec.xml",
-    "flash-player-ppapi":
-        "multimedia/video/flash-player-ppapi/pspec.xml",
     "gitkraken":
         "programming/gitkraken/pspec.xml",
     "google-chrome-stable":
