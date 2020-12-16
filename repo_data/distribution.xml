@@ -135,10 +135,17 @@
 		<Package>gnome-dictionary-devel</Package>
 		<Package>gnome-initial-setup</Package>
 		<Package>gnome-shell-extension-caffeine</Package>
+		<Package>libgee1</Package>
+		<Package>libgee1-devel</Package>
+		<Package>libgee1-dbginfo</Package>
 		<Package>mozjs17</Package>
 		<Package>mozjs17-devel</Package>
+		<Package>redo</Package>
 		<Package>spidermonkey</Package>
 		<Package>spidermonkey-devel</Package>
+		<Package>vte2</Package>
+		<Package>vte2-devel</Package>
+		<Package>vte2-dbginfo</Package>
 		<Package>zlib-minizip-32bit</Package>
 		<Package>zlib-minizip-devel-32bit</Package>
 		<Package>gnonlin</Package>
@@ -159,6 +166,8 @@
 		<Package>qupzilla</Package>
 		<Package>qupzilla-devel</Package>
 		<Package>cutegram</Package>
+		<Package>lilyterm</Package>
+		<Package>lilyterm-dbginfo</Package>
 		<Package>livestreamer</Package>
 		<Package>flat-plat-gtk-theme</Package>
 		<Package>flat-plat-gtk-theme-compact</Package>
@@ -327,10 +336,12 @@
 		<Package>nitrokey-app</Package>
 		<Package>openbazaar</Package>
 		<Package>openbazaard</Package>
+		<Package>osmo</Package>
 		<Package>packer</Package>
 		<Package>partclone</Package>
 		<Package>profanity</Package>
 		<Package>profanity-devel</Package>
+		<Package>pithos</Package>
 		<Package>python-deprecation</Package>
 		<Package>python-node-semver</Package>
 		<Package>python-patch</Package>
@@ -339,9 +350,13 @@
 		<Package>rolisteam-dbginfo</Package>
 		<Package>roxterm</Package>
 		<Package>sabnzbd</Package>
+		<Package>sunflower</Package>
+		<Package>syncplay</Package>
 		<Package>tellico</Package>
 		<Package>tellico-dbginfo</Package>
 		<Package>vault</Package>
+		<Package>yakyak</Package>
+		<Package>yakyak-dbginfo</Package>
 		<Package>libnfsidmap</Package>
 		<Package>libnfsidmap-devel</Package>
 		<Package>opal</Package>
@@ -654,6 +669,7 @@
 		<Package>wlc</Package>
 		<Package>wlc-dbginfo</Package>
 		<Package>wlc-devel</Package>
+		<Package>atkmm-docs</Package>
 		<Package>clutter-gst-2.0-docs</Package>
 		<Package>dconf-docs</Package>
 		<Package>digikam-docs</Package>
@@ -733,33 +749,8 @@
 		<Package>vino-dbginfo</Package>
 		<Package>ETL-devel</Package>
 		<Package>python-pygpgme</Package>
-		<Package>CGAL-dbginfo</Package>
-		<Package>apache-maven-32bit-dbginfo</Package>
-		<Package>breeze-gtk-theme-dbginfo</Package>
-		<Package>exfat-utils-dbginfo</Package>
-		<Package>finch-dbginfo</Package>
-		<Package>freefilesync-dbginfo</Package>
-		<Package>glm-dbginfo</Package>
-		<Package>gtk3-icon-browser-dbginfo</Package>
-		<Package>libcacard-dbginfo</Package>
-		<Package>libfakekey-dbginfo</Package>
-		<Package>liblouis-dbginfo</Package>
-		<Package>libparted-dbginfo</Package>
-		<Package>libpurple-dbginfo</Package>
-		<Package>libvala-devel-dbginfo</Package>
-		<Package>nettle-bin-dbginfo</Package>
-		<Package>nvidia-glx-driver-32bit-dbginfo</Package>
-		<Package>nvidia-glx-driver-dbginfo</Package>
-		<Package>openssh-server-dbginfo</Package>
-		<Package>psutils-dbginfo</Package>
-		<Package>qgis-32bit-dbginfo</Package>
-		<Package>soundtouch-32bit-dbginfo</Package>
-		<Package>soundtouch-dbginfo</Package>
-		<Package>tensorflow-dbginfo</Package>
-		<Package>the-widget-factory-3-dbginfo</Package>
-		<Package>unixodbc-32bit-dbginfo</Package>
-		<Package>unixodbc-dbginfo</Package>
-		<Package>vagrant-dbginfo</Package>
-		<Package>valadoc-dbginfo</Package>
+		<Package>kdepim-apps-libs</Package>
+		<Package>kdepim-apps-libs-devel</Package>
+		<Package>kdepim-apps-libs-dbginfo</Package>
 	</Obsoletes>
 </PISI>
