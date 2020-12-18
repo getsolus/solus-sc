@@ -46,7 +46,7 @@
 		<!-- libcairorename //-->
 		<Package>libcairomm</Package>
 		<Package>libcairomm-devel</Package>
-		<Package>libcairomm-docs</Package>
+		<Package>libcairomm</Package>
 
 		<!-- libatkmm rename //-->
 		<Package>libatkmm</Package>
@@ -193,10 +193,17 @@
 		<Package>gnome-shell-extension-caffeine</Package>
 
 		<!-- No longer used for anything //-->
+		<Package>libgee1</Package>
+		<Package>libgee1-devel</Package>
+		<Package>libgee1-dbginfo</Package>
 		<Package>mozjs17</Package>
 		<Package>mozjs17-devel</Package>
+		<Package>redo</Package>
 		<Package>spidermonkey</Package>
 		<Package>spidermonkey-devel</Package>
+		<Package>vte2</Package>
+		<Package>vte2-devel</Package>
+		<Package>vte2-dbginfo</Package>
 
 		<Package>zlib-minizip-32bit</Package>
 		<Package>zlib-minizip-devel-32bit</Package>
@@ -246,6 +253,8 @@
 
 		<!-- Dead upstream. Deprecating package. //-->
 		<Package>cutegram</Package>
+		<Package>lilyterm</Package>
+		<Package>lilyterm-dbginfo</Package>
 
 		<!-- Dead upstream, replaced by fork streamlink //-->
 		<Package>livestreamer</Package>
@@ -481,10 +490,12 @@
 		<Package>nitrokey-app</Package>
 		<Package>openbazaar</Package>
 		<Package>openbazaard</Package>
+		<Package>osmo</Package>
 		<Package>packer</Package>
 		<Package>partclone</Package>
 		<Package>profanity</Package>
 		<Package>profanity-devel</Package>
+		<Package>pithos</Package>
 		<Package>python-deprecation</Package>
 		<Package>python-node-semver</Package>
 		<Package>python-patch</Package>
@@ -493,9 +504,13 @@
 		<Package>rolisteam-dbginfo</Package>
 		<Package>roxterm</Package>
 		<Package>sabnzbd</Package>
+		<Package>sunflower</Package>
+		<Package>syncplay</Package>
 		<Package>tellico</Package>
 		<Package>tellico-dbginfo</Package>
 		<Package>vault</Package>
+		<Package>yakyak</Package>
+		<Package>yakyak-dbginfo</Package>
 
 		<!-- Replaced by nfs-utils //-->
 		<Package>libnfsidmap</Package>
@@ -874,6 +889,7 @@
 		<Package>gfbgraph-docs</Package>
 		<Package>glade-docs</Package>
 		<Package>glibmm-docs</Package>
+		<Package>gom-docs</Package>
 		<Package>gssdp-docs</Package>
 		<Package>gstreamer-1.0-docs</Package>
 		<Package>gstreamer-1.0-plugins-base-docs</Package>
@@ -881,9 +897,12 @@
 		<Package>gstreamer-1.0-plugins-ugly-docs</Package>
 		<Package>harfbuzz-docs</Package>
 		<Package>libcloudproviders-docs</Package>
+		<Package>libgtkmm-3-docs</Package>
+		<Package>libnotify-docs</Package>
 		<Package>libsoup-docs</Package>
 		<Package>libvirt-docs</Package>
 		<Package>nautilus-docs</Package>
+		<Package>pangomm-docs</Package>
 		<Package>totem-docs</Package>
 
 		<!-- Leftover of when cargo package.yml was separated from rust //-->
@@ -936,6 +955,7 @@
 		<Package>wlc-devel</Package>
 		
 		<!-- Some old docs //-->
+		<Package>atkmm-docs</Package>
 		<Package>clutter-gst-2.0-docs</Package>
 		<Package>dconf-docs</Package>
 		<Package>digikam-docs</Package>
@@ -1034,6 +1054,36 @@
 		<Package>libunique-docs</Package>
 		<Package>vino</Package>
 		<Package>vino-dbginfo</Package>
+		
+		<!-- Remove old dbginfo packages //-->
+		<Package>CGAL-dbginfo</Package>
+		<Package>apache-maven-32bit-dbginfo</Package>
+		<Package>breeze-gtk-theme-dbginfo</Package>
+		<Package>exfat-utils-dbginfo</Package>
+		<Package>finch-dbginfo</Package>
+		<Package>freefilesync-dbginfo</Package>
+		<Package>glm-dbginfo</Package>
+		<Package>gtk3-icon-browser-dbginfo</Package>
+		<Package>libcacard-dbginfo</Package>
+		<Package>libfakekey-dbginfo</Package>
+		<Package>liblouis-dbginfo</Package>
+		<Package>libparted-dbginfo</Package>
+		<Package>libpurple-dbginfo</Package>
+		<Package>libvala-devel-dbginfo</Package>
+		<Package>nettle-bin-dbginfo</Package>
+		<Package>nvidia-glx-driver-32bit-dbginfo</Package>
+		<Package>nvidia-glx-driver-dbginfo</Package>
+		<Package>openssh-server-dbginfo</Package>
+		<Package>psutils-dbginfo</Package>
+		<Package>qgis-32bit-dbginfo</Package>
+		<Package>soundtouch-32bit-dbginfo</Package>
+		<Package>soundtouch-dbginfo</Package>
+		<Package>tensorflow-dbginfo</Package>
+		<Package>the-widget-factory-3-dbginfo</Package>
+		<Package>unixodbc-32bit-dbginfo</Package>
+		<Package>unixodbc-dbginfo</Package>
+		<Package>vagrant-dbginfo</Package>
+		<Package>valadoc-dbginfo</Package>
 
 		<!-- All files has been patterned into main package, as ETL is a header-only library //-->
 		<Package>ETL-devel</Package>
@@ -1048,5 +1098,8 @@
 
 		<!-- The -devel package is no longer built //-->
 		<Package>dolphin-emu-devel</Package>
+
+		<!-- skrooge html doc -->
+		<Package>skrooge-doc</Package>
 	</Obsoletes>
 </PISI>
