@@ -368,10 +368,15 @@ class ScUpdatesView(Gtk.VBox):
 
         # Expand with a plan operation to be up front about new deps
         upgrades = pisi.api.list_upgradable()
-        n_updates = len(upgrades)
-
         obsol = pisi.api.list_obsoleted()
         replc = pisi.api.list_replaces()
+        n_updates = len(upgrades)
+        
+        if n_updates == 0:
+            self.stack.set_visible_child_name("check")
+            Gdk.threads_leave()
+            return False
+
         for item in sorted(upgrades):
 
             old_item = item
