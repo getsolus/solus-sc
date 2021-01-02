@@ -940,6 +940,8 @@
 
 		<!-- No more devel package //-->
 		<Package>vcmi-devel</Package>
+		<Package>cava-devel</Package>
+		<Package>scribus-devel</Package>
 		
 		<!-- Renamed from compton to picom //-->
 		<Package>compton</Package>
@@ -975,6 +977,19 @@
 		<Package>mutter-docs</Package>
 		<Package>openconnect-docs</Package>
 		<Package>totem-pl-parser-docs</Package>
+		<Package>gstreamer-1.0-libav-docs</Package>
+		<Package>libgdata-docs</Package>
+		<Package>libu2f-host-docs</Package>
+		<Package>libu2f-server-docs</Package>
+		<Package>libcairomm-docs</Package>
+		<Package>tepl-docs</Package>
+		<Package>tracker-docs</Package>
+
+		<!-- Dublicate of python-guessit //-->
+		<Package>python3-guessit</Package>
+
+		<!-- Not avalilable after converting to ypkg //-->
+		<Package>libidn-utils</Package>
 
 		<!-- The beginning of python2 nuking //-->
 		<Package>spyder</Package>
@@ -1085,6 +1100,11 @@
 		<Package>unixodbc-dbginfo</Package>
 		<Package>vagrant-dbginfo</Package>
 		<Package>valadoc-dbginfo</Package>
+		<Package>python-jedi-dbginfo</Package>
+		<Package>python3-jedi-dbginfo</Package>
+		<Package>python3-sip-dbginfo</Package>
+		<Package>bazel-dbginfo</Package>
+		<Package>python-mistune-dbginfo</Package>
 
 		<!-- All files has been patterned into main package, as ETL is a header-only library //-->
 		<Package>ETL-devel</Package>

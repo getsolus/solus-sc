@@ -664,6 +664,8 @@
 		<Package>uberwriter</Package>
 		<Package>python-wikipedia</Package>
 		<Package>vcmi-devel</Package>
+		<Package>cava-devel</Package>
+		<Package>scribus-devel</Package>
 		<Package>compton</Package>
 		<Package>gotop</Package>
 		<Package>ytop</Package>
@@ -693,6 +695,15 @@
 		<Package>mutter-docs</Package>
 		<Package>openconnect-docs</Package>
 		<Package>totem-pl-parser-docs</Package>
+		<Package>gstreamer-1.0-libav-docs</Package>
+		<Package>libgdata-docs</Package>
+		<Package>libu2f-host-docs</Package>
+		<Package>libu2f-server-docs</Package>
+		<Package>libcairomm-docs</Package>
+		<Package>tepl-docs</Package>
+		<Package>tracker-docs</Package>
+		<Package>python3-guessit</Package>
+		<Package>libidn-utils</Package>
 		<Package>spyder</Package>
 		<Package>python-chess</Package>
 		<Package>python-envparse</Package>
@@ -780,6 +791,11 @@
 		<Package>unixodbc-dbginfo</Package>
 		<Package>vagrant-dbginfo</Package>
 		<Package>valadoc-dbginfo</Package>
+		<Package>python-jedi-dbginfo</Package>
+		<Package>python3-jedi-dbginfo</Package>
+		<Package>python3-sip-dbginfo</Package>
+		<Package>bazel-dbginfo</Package>
+		<Package>python-mistune-dbginfo</Package>
 		<Package>ETL-devel</Package>
 		<Package>python-pygpgme</Package>
 		<Package>kdepim-apps-libs</Package>
