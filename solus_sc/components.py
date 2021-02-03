@@ -119,6 +119,27 @@ PAPER_MISSING_COMP = { # Does not include games.* since we're just going to over
     "programming.perl": "gnome-mime-application-x-perl",
 }
 
+YARU_MISSING_COMP = {
+    "desktop.kde": "package-x-generic",
+    "desktop.gnome": "start-here-symbolic",
+    "desktop.gnome.core": "package-x-generic",
+    "desktop.gnome.docs": "package-x-generic",
+    "desktop.gtk": "package-x-generic",
+    "desktop.mate": "package-x-generic",
+    "desktop.qt": "package-x-generic",
+    "games.action": "package-x-generic",
+    "games.arcade": "games-app",
+    "games.emulator": "package-x-generic",
+    "games.puzzle" : "package-x-generic",
+    "games.rpg": "package-x-generic",
+    "games.strategy": "package-x-generic",
+    "network.news" : "application-rss+xml",
+    "office.finance": "package-x-generic",
+    "office.viewers": "gnome-books",
+    "programming.tools": "package-x-generic",
+    "programming.devel": "text-x-chdr",
+}
+
 class ScComponentButton(Gtk.Button):
     """ Manage the monotony of a button """
 
@@ -149,8 +170,9 @@ class ScComponentButton(Gtk.Button):
                     icon = PAPER_MISSING_COMP[component.name]
                 elif "games." in component.name: # This is a game component
                     icon = "package-x-generic"
-            else:
-                icon = "package-x-generic"
+            elif icon_theme_name == "yaru": # If Yaru
+                if component.name in YARU_MISSING_COMP:
+                    icon = YARU_MISSING_COMP[component.name]
         else:
             icon = "package-x-generic"
         image = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.SMALL_TOOLBAR)
