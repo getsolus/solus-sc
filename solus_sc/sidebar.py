@@ -64,7 +64,7 @@ class ScSidebar(Gtk.ListBox):
         icon_theme = self.get_settings().get_property("gtk-icon-theme-name")
         icon_theme = icon_theme.lower().replace("-", "")
 
-        if icon_theme == "breeze":
+        if "breeze" in icon_theme:
             update_icon = "arrow-up"
         else:
             update_icon = "software-update-available-symbolic"

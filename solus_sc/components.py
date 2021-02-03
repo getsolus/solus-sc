@@ -133,7 +133,7 @@ class ScComponentButton(Gtk.Button):
         if component.name in ICON_MAPS:
             icon = ICON_MAPS[component.name]
 
-            if icon_theme_name == "adwaita" or "highconstrast": # If Adwaita (please, no) or High Contrast
+            if icon_theme_name == "adwaita" or icon_theme_name == "highconstrast": # If Adwaita (please, no) or High Contrast
                 if component.name in ADWAITA_HC_MISSING_COMP:
                     icon = ADWAITA_HC_MISSING_COMP[component.name]
                 elif "games." in component.name or "programming." in component.name: # This is a game or programming component
@@ -141,7 +141,7 @@ class ScComponentButton(Gtk.Button):
             elif icon_theme_name == "arc" or icon_theme_name == "moka": # If Arc or Moka
                 if component.name in ARC_MOKA_MISSING_COMP:
                     icon = ARC_MOKA_MISSING_COMP[component.name]
-            elif icon_theme_name == "breeze": # If Breeze
+            elif "breeze" in icon_theme_name: # If Breeze
                 if component.name in BREEZE_MISSING_COMP:
                     icon = BREEZE_MISSING_COMP[component.name]
             elif icon_theme_name == "paper" or icon_theme_name == "paper-mono-dark": # If Paper
@@ -149,6 +149,8 @@ class ScComponentButton(Gtk.Button):
                     icon = PAPER_MISSING_COMP[component.name]
                 elif "games." in component.name: # This is a game component
                     icon = "package-x-generic"
+            else:
+                icon = "package-x-generic"
         else:
             icon = "package-x-generic"
         image = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.SMALL_TOOLBAR)
