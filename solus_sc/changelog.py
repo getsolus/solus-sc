@@ -53,6 +53,8 @@ class ScChangelogEntry(Gtk.EventBox):
 
         # Iterate all the lines
         for r in text.split("\n"):
+            # Save number of leading spaces for bullet point indentation
+            lspaces = len(r) - len(r.lstrip())
             r = r.strip()
 
             # Handle Differential IDs by stylizing them
@@ -73,6 +75,10 @@ class ScChangelogEntry(Gtk.EventBox):
             # Check if this is a bullet point
             if (r.startswith("- ") or r.startswith("* ")) and len(r) > 2:
                 r = u' \u2022 ' + r[2:]
+                # add a tab for every indentation level
+                while (lspaces > 0):
+                    r = "\t" + r
+                    lspaces -= 1
 
             for i in r.split(" "):
                 uri = GENERAL_URI.match(i)
