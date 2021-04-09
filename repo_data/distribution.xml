@@ -878,5 +878,8 @@
 		<Package>beignet</Package>
 		<Package>beignet-devel</Package>
 		<Package>beignet-dbginfo</Package>
+		<Package>radare2</Package>
+		<Package>radare2-devel</Package>
+		<Package>radare2-dbginfo</Package>
 	</Obsoletes>
 </PISI>

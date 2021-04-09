@@ -1207,7 +1207,7 @@
 		<!-- No longer required -->
 		<Package>systemsettings-devel</Package>
 		<Package>snapd-glib-docs</Package>
-		
+
 		<!-- Headers no longer shipped -->
 		<Package>antimicrox-devel</Package>
 
@@ -1215,5 +1215,10 @@
 		<Package>beignet</Package>
 		<Package>beignet-devel</Package>
 		<Package>beignet-dbginfo</Package>
+
+		<!-- Replaced by rizin -->
+		<Package>radare2</Package>
+		<Package>radare2-devel</Package>
+		<Package>radare2-dbginfo</Package>
 	</Obsoletes>
 </PISI>
