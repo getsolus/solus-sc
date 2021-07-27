@@ -206,7 +206,7 @@ class PackageDetailsView(Gtk.VBox):
         # Project support links
         # Bugs
         self.bug_button = self.create_image_button(
-            _("Report issues"), "help-faq-symbolic")
+            _("Report issues"), "help-browser-symbolic")
         self.bug_button.set_no_show_all(True)
         self.bug_button.hide()
         self.bug_button.connect("clicked", self.on_bug)
@@ -214,7 +214,7 @@ class PackageDetailsView(Gtk.VBox):
 
         # Visit the website of the package
         self.website_button = self.create_image_button(
-            _("Visit Website"), "web-browser-symbolic")
+            _("Visit Website"), "view-web-browser-dom-tree")
         self.website_button.set_no_show_all(True)
         self.website_button.hide()
         self.website_button.connect("clicked", self.on_website)
