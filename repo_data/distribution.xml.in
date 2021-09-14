@@ -1387,5 +1387,10 @@
 		<!-- Renamed to keepassxc -->
 		<Package>keepassx</Package>
 		<Package>keepassx-dbginfo</Package>
+
+        <!-- mlt and apps update -->
+		<Package>webvfx</Package>
+		<Package>akregator-devel</Package>
+
 	</Obsoletes>
 </PISI>

@@ -995,5 +995,7 @@
 		<Package>indicator-application-dbginfo</Package>
 		<Package>keepassx</Package>
 		<Package>keepassx-dbginfo</Package>
+		<Package>webvfx</Package>
+		<Package>akregator-devel</Package>
 	</Obsoletes>
 </PISI>
