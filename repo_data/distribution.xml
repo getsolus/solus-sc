@@ -243,7 +243,6 @@
 		<Package>tarsnap-dbginfo</Package>
 		<Package>itch</Package>
 		<Package>itch-dbginfo</Package>
-		<Package>yt-dlc</Package>
 		<Package>adapta-kde</Package>
 		<Package>arc-kde</Package>
 		<Package>aglio</Package>
@@ -1023,5 +1022,8 @@
 		<Package>python-apscheduler</Package>
 		<Package>python-rawkit</Package>
 		<Package>youtube-dl</Package>
+		<Package>yt-dlc</Package>
+		<Package>lbry-desktop</Package>
+		<Package>lbry-desktop-dbginfo</Package>
 	</Obsoletes>
 </PISI>
