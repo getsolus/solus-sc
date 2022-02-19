@@ -107,11 +107,11 @@ APPS = {
         ('Spotify', 'spotify',
          'Spotify Music, Video and Podcast Streaming Client.',
          'multimedia/music/spotify/pspec.xml'),
-    'sublime-text-3':
+    'sublime-text':
         ('Sublime Text', 'sublime-text',
          'Sublime Text is a sophisticated text editor for code, markup and '
          'prose.',
-         'programming/sublime-text-3/pspec.xml'),
+         'programming/sublime-text/pspec.xml'),
     'viber':
         ('Viber', 'viber',
          'An instant messaging and VoIP app for various mobile operating '
