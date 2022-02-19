@@ -77,8 +77,8 @@ APPS = {
         "network/im/slack-desktop/pspec.xml",
     "spotify":
         "multimedia/music/spotify/pspec.xml",
-    "sublime-text-3":
-        "programming/sublime-text-3/pspec.xml",
+    "sublime-text":
+        "programming/sublime-text/pspec.xml",
     "viber":
         "network/im/viber/pspec.xml",
     "webstorm":
