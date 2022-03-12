@@ -1031,7 +1031,11 @@
 		<Package>qt6-location-devel</Package>
 		<Package>ruby_dep</Package>
 		<Package>python-getkey</Package>
-    <Package>ovmf</Package>
+		<Package>ovmf</Package>
+		<Package>gmime26</Package>
+		<Package>gmime26-docs</Package>
+		<Package>gmime26-devel</Package>
+		<Package>gmime26-dbginfo</Package>
 		<Package>monodevelop</Package>
 		<Package>monodevelop-dbginfo</Package>
 		<Package>monodevelop-devel</Package>
