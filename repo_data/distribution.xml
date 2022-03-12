@@ -1031,7 +1031,10 @@
 		<Package>qt6-location-devel</Package>
 		<Package>ruby_dep</Package>
 		<Package>python-getkey</Package>
-		<Package>ovmf</Package>
+    <Package>ovmf</Package>
+		<Package>monodevelop</Package>
+		<Package>monodevelop-dbginfo</Package>
+		<Package>monodevelop-devel</Package>
 		<Package>libgit2solbuild</Package>
 		<Package>libgit2solbuild-dbginfo</Package>
 		<Package>libgit2solbuild-devel</Package>

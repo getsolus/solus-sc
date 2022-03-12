@@ -1466,6 +1466,11 @@
 		<!-- ovmf package has been renamed to edk2-ovmf -->
 		<Package>ovmf</Package>
 
+		<!-- monodevelop has been abandoned by upstream -->
+		<Package>monodevelop</Package>
+		<Package>monodevelop-dbginfo</Package>
+		<Package>monodevelop-devel</Package>
+    
 		<!-- Temporary package which helped handle libgit2 rebuilds -->
 		<Package>libgit2solbuild</Package>
 		<Package>libgit2solbuild-dbginfo</Package>
