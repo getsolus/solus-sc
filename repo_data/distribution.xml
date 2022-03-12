@@ -1032,6 +1032,7 @@
 		<Package>ruby_dep</Package>
 		<Package>python-getkey</Package>
 		<Package>ovmf</Package>
+		<Package>arc-plank-theme</Package>
 		<Package>gmime26</Package>
 		<Package>gmime26-docs</Package>
 		<Package>gmime26-devel</Package>
