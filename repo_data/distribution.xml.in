@@ -1485,6 +1485,11 @@
 		<Package>libgit2solbuild-dbginfo</Package>
 		<Package>libgit2solbuild-devel</Package>
 
+		<!-- got merged into libpinyin -->
+		<Package>libzhuyin</Package>
+		<Package>libzhuyin-devel</Package>
+		<Package>libzhuyin-dbginfo</Package>
+
 		<!-- no longer used or required by fontforge -->
 		<Package>libuninameslist</Package>
 		<Package>libuninameslist-dbginfo</Package>
