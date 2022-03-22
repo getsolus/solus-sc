@@ -1500,6 +1500,11 @@
 		<Package>opencascade-dbginfo</Package>
 		<Package>opencascade-devel</Package>
 
+		<!-- Replaced by irrlichtmt -->
+		<Package>irrlicht</Package>
+		<Package>irrlicht-devel</Package>
+		<Package>irrlicht-dbginfo</Package>	
+
 		<!-- mlt 6.x is no longer used -->
 		<Package>mlt6</Package>
 		<Package>mlt6-devel</Package>
