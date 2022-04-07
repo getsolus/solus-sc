@@ -1099,6 +1099,12 @@
 		<Package>python-docker-pycred</Package>
 		<Package>python-dockerpty</Package>
 		<Package>python-dotenv</Package>
+		<Package>goffice0.8</Package>
+		<Package>goffice0.8-dbginfo</Package>
+		<Package>goffice0.8-devel</Package>
+		<Package>db4.8</Package>
+		<Package>db4.8-dbginfo</Package>
+		<Package>db4.8-devel</Package>
 		<Package>gnomint</Package>
 		<Package>gnomint-dbginfo</Package>
 	</Obsoletes>
