@@ -1143,6 +1143,7 @@
 		<Package>openjfx-8-dbginfo</Package>
 		<Package>kdev-python</Package>
 		<Package>kdev-python-dbginfo</Package>
+		<Package>eigen2</Package>
 		<Package>libkvkontakte</Package>
 		<Package>libkvkontakte-devel</Package>
 		<Package>libkvkontakte-dbginfo</Package>
