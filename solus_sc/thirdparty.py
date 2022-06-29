@@ -42,10 +42,6 @@ APPS = {
         ('Google Earth', 'google-earth',
          '3D interface for satellite imagery from Google',
          'network/web/google-earth/pspec.xml'),
-    'google-talkplugin':
-        ('Google Talk Plugin', 'im-google-talk',
-         'The Google Talk plugin for hangouts video and audio',
-         'network/im/google-talkplugin/pspec.xml'),
     'gitkraken':
         ('GitKraken', 'gitkraken',
          'The downright luxurious Git client, for Windows, Mac and Linux',
