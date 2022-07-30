@@ -1646,6 +1646,10 @@
 		<Package>kwayland-server-devel</Package>
 		<Package>kwayland-server-dbginfo</Package>
 
+		<!-- Renamed from go-ipfs to kubo -->
+		<Package>go-ipfs</Package>
+		<Package>go-ipfs-dbginfo</Package>
+
 		<!-- Dependency of deprecated package profanity -->
 		<Package>libstrophe</Package>
 		<Package>libstrophe-dbginfo</Package>
