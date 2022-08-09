@@ -45,7 +45,7 @@ ICON_MAPS = {
     "network.download": "transmission",
     "network.email": "internet-mail",
     "network.im": "empathy",
-    "network.irc": "hexchat",
+    "network.irc": "polari",
     "network.news": "internet-news-reader",
     "network.web": "internet-web-browser",
     "network.web.browser": "firefox",
