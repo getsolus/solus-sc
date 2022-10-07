@@ -1175,5 +1175,6 @@
 		<Package>appdata-tools</Package>
 		<Package>appdata-tools-dbginfo</Package>
 		<Package>python-stem</Package>
+		<Package>nautilus-folder-icons</Package>
 	</Obsoletes>
 </PISI>

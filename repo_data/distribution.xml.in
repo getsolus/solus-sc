@@ -1681,5 +1681,8 @@
 
 		<!-- Replaced with python-cepa fork from onionshare team -->
 		<Package>python-stem</Package>
+
+		<!-- Doesn't work with new nautilus-python and breaks nautilus -->
+		<Package>nautilus-folder-icons</Package>
 	</Obsoletes>
 </PISI>
