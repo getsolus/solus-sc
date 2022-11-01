@@ -23,6 +23,7 @@ class ScInstalledView(ScPackagesView):
         """ Go back to the main view """
         self.stack.set_visible_child_name("packages")
         self.owner.set_can_back(False)
+        self.details_view.is_install_page = False
 
     def can_back(self):
         """ Whether we can go back """
