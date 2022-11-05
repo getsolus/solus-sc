@@ -1189,6 +1189,7 @@
 		<Package>vala-panel-appmenu-devel</Package>
 		<Package>librsvg-docs</Package>
 		<Package>nautilus-terminal</Package>
+		<Package>font-weather-icons</Package>
 		<Package>nvidia-container-runtime</Package>
 	</Obsoletes>
 </PISI>
