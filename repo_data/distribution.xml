@@ -1191,5 +1191,6 @@
 		<Package>nautilus-terminal</Package>
 		<Package>font-weather-icons</Package>
 		<Package>nvidia-container-runtime</Package>
+		<Package>yuzu-devel</Package>
 	</Obsoletes>
 </PISI>
