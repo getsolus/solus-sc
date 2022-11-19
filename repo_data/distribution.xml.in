@@ -1710,6 +1710,12 @@
 		<!-- Integrated into nvidia-container-toolkit -->
 		<Package>nvidia-container-runtime</Package>
 
+		<!-- Abandoned upstream. Used to be a dependency for python-automat -->
+		<Package>python-m2r</Package>
+
+		<!-- virtualenv dropped this runtime dependency since version 20.11.0 -->
+		<Package>python-backports.entry_points_selectable</Package>
+
 		<!-- Now vendored inside upx itself -->
 		<Package>ucl</Package>
 		<Package>ucl-devel</Package>
