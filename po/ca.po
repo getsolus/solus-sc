@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Davidmp <medipas@gmail.com>, 2016-2017
+# Davidmp <medipas@gmail.com>, 2016-2017, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
@@ -653,7 +653,7 @@ msgstr "Aquesta selecció està disponible d'acord amb els termes establerts a l
 
 #: ../solus_sc/details.py:518
 msgid "Cannot remove core system software"
-msgstr "No es pot eliminar programari bàsic del sistema "
+msgstr "No es pot eliminar programari bàsic del sistema."
 
 #. "5 categories" - the number of categories within each group
 #: ../solus_sc/groups.py:72
@@ -763,7 +763,7 @@ msgstr "No instal·lat"
 
 #: ../solus_sc/updates_view.py:87
 msgid "Discombobulating update matrix"
-msgstr "Matriu d'actualització desconcertant"
+msgstr "Es desentortolliga la matriu d'actualització"
 
 #: ../solus_sc/updates_view.py:110
 msgid "Please check back later, updates are now applying"
@@ -786,7 +786,7 @@ msgstr "Comprova si hi ha actualitzacions noves"
 #. Apply the updates
 #: ../solus_sc/updates_view.py:302 ../solus_sc/updates_view.py:303
 msgid "Update Selected"
-msgstr "Actualització seleccionada"
+msgstr "Actualitza la selecció"
 
 #. "2 of 10 updates selected"
 #: ../solus_sc/updates_view.py:538
