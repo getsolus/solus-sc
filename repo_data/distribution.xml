@@ -188,7 +188,6 @@
 		<Package>autotrace</Package>
 		<Package>autotrace-devel</Package>
 		<Package>gnome-tweak-tool</Package>		
-		?
 		<Package>libatk</Package>
 		<Package>libatk-devel</Package>
 		<Package>libatk-dbginfo</Package>

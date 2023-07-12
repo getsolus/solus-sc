@@ -292,7 +292,7 @@
 		<!-- Replaced by gnome-tweaks //-->
 		<Package>gnome-tweak-tool</Package>		
 		
-		<!-- Replaced by at-spi2 //-->?
+		<!-- Replaced by at-spi2 //-->
 		<Package>libatk</Package>
 		<Package>libatk-devel</Package>
 		<Package>libatk-dbginfo</Package>
