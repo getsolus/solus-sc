@@ -1321,6 +1321,7 @@
 		<Package>perl-test-perltidy</Package>
 		<Package>budgie-trash-applet</Package>
 		<Package>ldc-devel</Package>
+		<Package>oxygen-sound-theme</Package>
 		<Package>cpphs</Package>
 		<Package>cpphs-devel</Package>
 		<Package>data-default-instances-containers</Package>

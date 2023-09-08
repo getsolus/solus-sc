@@ -1898,6 +1898,9 @@
 
 		<!-- ldc-devel moved to ldc, ldc moved to ldc-libs -->
 		<Package>ldc-devel</Package>
+				
+		<!-- Has been removed since release 75 of oxygen -->
+		<Package>oxygen-sound-theme</Package>
 
 		<!-- Haskell stack upgrade -->
 		<Package>cpphs</Package>
