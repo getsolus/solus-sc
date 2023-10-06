@@ -37,6 +37,7 @@ GENERAL_URI = re.compile(r"""(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d\
 MARKUP_URI_HIT = re.compile(r"\[({})\]\(({})\)".format("[^\]]+", "[^)]+"))
 MARKUP_CODE_HIT = re.compile(r"`([^`]+)`")
 MARKUP_BOLD_HIT = re.compile(r"\*{2}([^\*{2}]+)\*{2}")
+MARKUP_COMMENT_HIT = re.compile(r"&lt;!--.*--&gt;")
 
 
 class ScChangelogEntry(Gtk.EventBox):
@@ -53,6 +54,10 @@ class ScChangelogEntry(Gtk.EventBox):
 
         # Iterate all the lines
         for r in text.split("\n"):
+            # Skip this line early if it's an HTML comment
+            if MARKUP_COMMENT_HIT.match(r):
+                continue
+
             # Save number of leading spaces for bullet point indentation
             lspaces = len(r) - len(r.lstrip())
             r = r.strip()
