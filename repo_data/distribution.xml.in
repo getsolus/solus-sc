@@ -2779,6 +2779,10 @@
 		<!-- Replaced by eza -->
 		<Package>exa</Package>
 
+		<!-- Renamed to merkuro -->
+		<Package>kalendar</Package>
+		<Package>kalendar-dbginfo</Package>
+
 		<!-- Replaced by juliaup -->
 		<Package>julia</Package>
 		<Package>julia-devel</Package>
