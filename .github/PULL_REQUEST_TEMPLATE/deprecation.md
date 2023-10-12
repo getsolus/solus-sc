@@ -6,9 +6,9 @@ _Reason for deprecation or undeprecation_
 ## Does this request depend on package changes to land first?
 _This request depends on a package change to land before this can be merged._
 
-[ ] Yes
+- [ ] Yes
 
-## Package Diff
+## Package PR
 _The URL to the package change this depends on, if any_
 
-< Diff URL >
+< PR URL >
