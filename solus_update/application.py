@@ -309,6 +309,7 @@ class ScUpdateApp(Gio.Application):
 
         self.notification = Notify.Notification.new(title, body, icon_name)
         self.notification.set_timeout(UPDATE_NOTIF_TIMEOUT)
+        self.notification.set_hint_string("desktop-entry", "solus-update")
         self.notification.add_action("open-sc", _("Open Software Center"),
                                      self.action_show_updates, None)
         self.notification.show()
