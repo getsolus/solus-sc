@@ -2210,5 +2210,9 @@
 		<Package>libnm-legacy-dbginfo</Package>
 		<Package>libnm-legacy-32bit</Package>
 		<Package>libnm-legacy-32bit-dbginfo</Package>
+		<Package>pencil</Package>
+		<Package>pencil-dbginfo</Package>
+		<Package>simplenote</Package>
+		<Package>simplenote-dbginfo</Package>
 	</Obsoletes>
 </PISI>

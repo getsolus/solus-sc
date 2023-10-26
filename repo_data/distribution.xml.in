@@ -2813,5 +2813,12 @@
 		<Package>libnm-legacy-dbginfo</Package>
 		<Package>libnm-legacy-32bit</Package>
 		<Package>libnm-legacy-32bit-dbginfo</Package>
+
+		<!-- Old electron apps that have no clone3 support and -->
+		<Package>pencil</Package>
+		<Package>pencil-dbginfo</Package>
+		<Package>simplenote</Package>
+		<Package>simplenote-dbginfo</Package>
+
 	</Obsoletes>
 </PISI>
