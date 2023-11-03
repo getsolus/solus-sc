@@ -57,8 +57,6 @@ APPS = {
         "office/moneydance/pspec.xml",
     "ocenaudio":
         "multimedia/music/ocenaudio/pspec.xml",
-    "google-talkplugin":
-        "network/im/google-talkplugin/pspec.xml",
     "plexmediaserver":
         "multimedia/video/plexmediaserver/pspec.xml",
     "pycharm":
