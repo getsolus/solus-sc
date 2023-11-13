@@ -534,7 +534,7 @@ msgstr "Actualitzats {} de {}: {}"
 #. "Installed 1 of 10: bash"
 #: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
 msgid "Removed {} of {}: {}"
-msgstr "Eliminats {} de {}: {}"
+msgstr "Suprimits {} de {}: {}"
 
 #. "Downloading eopkg-index.xml.xz (10kb/s)
 #: ../solus_sc/basket.py:264
