@@ -2859,6 +2859,9 @@
 		<!-- Disabled libsplit for gtest -->
 		<Package>gtest-devel</Package>
 
+		<!-- Merged into pandoc -->
+		<Package>pandoc-citeproc</Package>
+
 		<!-- Superceded by libfido2 functionality -->
 		<Package>libu2f-host</Package>
 		<Package>libu2f-host-dbginfo</Package>
