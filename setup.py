@@ -13,7 +13,7 @@ setup(
     scripts         = ['solus-sc', 'solus-update-checker'],
     classifiers     = [ "License :: OSI Approved :: GPL-2.0 License"],
     package_data    = {'solus_sc': ['data/update_dialog.ui', 'data/styling.css', 'data/arc.css', 'data/settings.ui']},
-    data_files      = [("/usr/share/applications", ["data/solus-sc.desktop"]),
+    data_files      = [("/usr/share/applications", ["data/solus-sc.desktop", "data/solus-update.desktop"]),
                        ("/usr/share/dbus-1/system-services", ["data/dbus-1/system-services/com.solus_project.eopkgassist.service"]),
                        ("/usr/share/dbus-1/system.d", ["data/system.d/com.solus_project.eopkgassist.conf"]),
                        ("/usr/share/glib-2.0/schemas", ["data/com.solus-project.software-center.gschema.xml"]),
