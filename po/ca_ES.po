@@ -3,20 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Davidmp <medipas@gmail.com>, 2016-2017
-# NeoMahler <roc.humet@gmail.com>, 2016
+# Davidmp <medipas@gmail.com>, 2016-2017, 2023
 msgid ""
 msgstr ""
 "Project-Id-Version: solus-sc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-27 09:58+0100\n"
-"PO-Revision-Date: 2017-09-23 06:26+0000\n"
+"PO-Revision-Date: 2017-09-23 07:45+0000\n"
 "Last-Translator: Davidmp <medipas@gmail.com>\n"
-"Language-Team: Catalan (Spain) (http://www.transifex.com/solus-project/solus-sc/language/ca_ES/)\n"
+"Language-Team: Catalan (http://www.transifex.com/solus-project/solus-sc/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ca_ES\n"
+"Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../repo_data/components.xml.in.h:1
@@ -331,7 +330,7 @@ msgstr "Lletres per millorar l'escriptori"
 
 #: ../repo_data/components.xml.in.h:78
 msgid "Qt Runtime Libraries"
-msgstr " Biblioteques d'entorn d'execució Qt"
+msgstr "Biblioteques d'entorn d'execució Qt"
 
 #: ../repo_data/components.xml.in.h:79
 msgid "GTK Runtime Libraries"
@@ -343,7 +342,7 @@ msgstr "Escriptori Budgie"
 
 #: ../repo_data/components.xml.in.h:81
 msgid "Elements of the Solus Budgie Experience"
-msgstr "Elements de l'experiència Solus Budgie"
+msgstr "Elements de l'Experiència Solus Budgie"
 
 #: ../repo_data/components.xml.in.h:82
 msgid "GNOME Desktop"
@@ -493,7 +492,7 @@ msgstr "{} operacions pendents"
 
 #: ../solus_sc/basket.py:153
 msgid " - This may take <b>some time!</b>"
-msgstr "- Això pot trigar <b>una mica!</b>"
+msgstr " - Això pot trigar <b>una mica!</b>"
 
 #. Only one package operation to be performed
 #: ../solus_sc/basket.py:158
@@ -504,7 +503,7 @@ msgstr "Una operació pendent"
 #: ../solus_sc/basket.py:203
 #, python-format
 msgid "Updating %s repository"
-msgstr "Actualitzant el repositori %s"
+msgstr "Actualitzant el repositori %s "
 
 #. "Extracting 1 of 10: bash"
 #: ../solus_sc/basket.py:207
@@ -524,7 +523,7 @@ msgstr "Instal·lant {} de {}: {}"
 #. "Removing (1 of 10): bash"
 #: ../solus_sc/basket.py:222
 msgid "Removing {} of {}: {}"
-msgstr "Eliminant {} de {}: {}"
+msgstr "Suprimint {} de {}: {}"
 
 #. "Upgraded 1 of 10: bash"
 #: ../solus_sc/basket.py:231
@@ -535,12 +534,12 @@ msgstr "Actualitzats {} de {}: {}"
 #. "Installed 1 of 10: bash"
 #: ../solus_sc/basket.py:234 ../solus_sc/basket.py:237
 msgid "Removed {} of {}: {}"
-msgstr "Eliminats {} de {}: {}"
+msgstr "Suprimits {} de {}: {}"
 
 #. "Downloading eopkg-index.xml.xz (10kb/s)
 #: ../solus_sc/basket.py:264
 msgid "Downloading {} ({})"
-msgstr "Baixant {} ({}) "
+msgstr "Baixant {} ({})"
 
 #. "Downloading 1 of 10: bash (10kb/s)
 #: ../solus_sc/basket.py:268
@@ -567,7 +566,7 @@ msgstr "Cal eliminar les dependències següents per continuar:"
 
 #: ../solus_sc/basket.py:337
 msgid "Removal confirmation"
-msgstr "Confirmació de l'eliminació"
+msgstr "Confirmació de la supressió"
 
 #: ../solus_sc/basket.py:340
 msgid "The following dependencies need to be updated to continue"
@@ -594,7 +593,7 @@ msgstr "Actualitza"
 #. Remove button
 #: ../solus_sc/basket.py:377 ../solus_sc/details.py:234
 msgid "Remove"
-msgstr "Elimina"
+msgstr "Suprimeix"
 
 #: ../solus_sc/changelog.py:119
 msgid "Standard Update"
@@ -627,7 +626,7 @@ msgstr "Versió"
 #. Size of the package when installed locally
 #: ../solus_sc/details.py:409
 msgid "Installed size"
-msgstr "Mida un cop feta la instal·lació"
+msgstr "Mida instal·lada"
 
 #. Donation button launches website to donate to authors
 #: ../solus_sc/details.py:421
@@ -654,7 +653,7 @@ msgstr "Aquesta selecció està disponible d'acord amb els termes establerts a l
 
 #: ../solus_sc/details.py:518
 msgid "Cannot remove core system software"
-msgstr "No es pot eliminar programari bàsic del sistema "
+msgstr "No es pot eliminar programari bàsic del sistema."
 
 #. "5 categories" - the number of categories within each group
 #: ../solus_sc/groups.py:72
@@ -764,11 +763,11 @@ msgstr "No instal·lat"
 
 #: ../solus_sc/updates_view.py:87
 msgid "Discombobulating update matrix"
-msgstr "Matriu d'actualització desconcertant"
+msgstr "Es desentortolliga la matriu d'actualització..."
 
 #: ../solus_sc/updates_view.py:110
 msgid "Please check back later, updates are now applying"
-msgstr "Si us plau, torneu-ho a comprovar més tard, ara s'apliquen actualitzacions"
+msgstr "Si us plau, torneu-ho a comprovar més tard, ara s'apliquen actualitzacions."
 
 #: ../solus_sc/updates_view.py:207
 msgid "Software is up to date"
@@ -787,7 +786,7 @@ msgstr "Comprova si hi ha actualitzacions noves"
 #. Apply the updates
 #: ../solus_sc/updates_view.py:302 ../solus_sc/updates_view.py:303
 msgid "Update Selected"
-msgstr "Actualització seleccionada"
+msgstr "Actualitza la selecció"
 
 #. "2 of 10 updates selected"
 #: ../solus_sc/updates_view.py:538
@@ -807,7 +806,7 @@ msgstr "Actualitzacions de seguretat disponibles"
 msgid ""
 "Update at your earliest convenience to ensure continued security of your "
 "device"
-msgstr "Actualitzeu el sistema al més aviat possible per garantir la continuïtat de la seguretat del dispositiu"
+msgstr "Actualitzeu el sistema al més aviat possible per garantir la continuïtat de la seguretat del dispositiu."
 
 #: ../solus_update/application.py:306
 msgid "Software updates available"
