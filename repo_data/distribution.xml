@@ -2261,5 +2261,7 @@
 		<Package>libgcrypt11-dbginfo</Package>
 		<Package>libgcrypt11-32bit</Package>
 		<Package>libgcrypt11-32bit-dbginfo</Package>
+		<Package>arcanist</Package>
+		<Package>libphutil</Package>
 	</Obsoletes>
 </PISI>

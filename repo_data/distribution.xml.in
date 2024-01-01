@@ -2908,5 +2908,9 @@
 		<Package>libgcrypt11-dbginfo</Package>
 		<Package>libgcrypt11-32bit</Package>
 		<Package>libgcrypt11-32bit-dbginfo</Package>
+
+		<!-- Phabricator tools which we no longer need -->
+		<Package>arcanist</Package>
+		<Package>libphutil</Package>
 	</Obsoletes>
 </PISI>
