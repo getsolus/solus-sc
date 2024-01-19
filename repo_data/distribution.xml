@@ -2264,6 +2264,13 @@
 		<Package>polkit-qt-1-devel</Package>
 		<Package>qca</Package>
 		<Package>qca-devel</Package>
+		<Package>qcoro-qt5-dbginfo</Package>
+		<Package>qtkeychain</Package>
+		<Package>qtkeychain-devel</Package>
+		<Package>phonon</Package>
+		<Package>phonon-devel</Package>
+		<Package>kdsoap</Package>
+		<Package>kdsoap-devel</Package>
 		<Package>arcanist</Package>
 		<Package>libphutil</Package>
 	</Obsoletes>
