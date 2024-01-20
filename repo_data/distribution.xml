@@ -2281,5 +2281,7 @@
 		<Package>onevpl</Package>
 		<Package>onevpl-devel</Package>
 		<Package>onevpl-dbginfo</Package>
+		<Package>witchblast</Package>
+		<Package>witchblast-dbginfo</Package>
 	</Obsoletes>
 </PISI>
