@@ -1266,6 +1266,8 @@
 		<Package>cava-devel</Package>
 		<Package>scribus-devel</Package>
 		<Package>vgrep-devel</Package>
+		<Package>pandoc-devel</Package>
+		<Package>wireshark-devel</Package>
 
 		<!-- Replaced by libdispatch -->
 		<Package>libblocksruntime</Package>
