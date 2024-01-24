@@ -69,8 +69,6 @@ APPS = {
         "programming/rubymine/pspec.xml",
     "teamviewer":
         "network/util/teamviewer/pspec.xml",
-    "skype":
-        "network/im/skype/pspec.xml",
     "slack-desktop":
         "network/im/slack-desktop/pspec.xml",
     "spotify":
