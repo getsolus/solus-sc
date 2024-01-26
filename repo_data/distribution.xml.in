@@ -465,7 +465,6 @@
 		<Package>brackets-dbginfo</Package>
 		<Package>ccnet</Package>
 		<Package>ccnet-devel</Package>
-		<Package>clustershell</Package>
 		<Package>coin</Package>
 		<Package>coin-dbginfo</Package>
 		<Package>conan</Package>
@@ -1266,6 +1265,8 @@
 		<Package>cava-devel</Package>
 		<Package>scribus-devel</Package>
 		<Package>vgrep-devel</Package>
+		<Package>pandoc-devel</Package>
+		<Package>wireshark-devel</Package>
 
 		<!-- Replaced by libdispatch -->
 		<Package>libblocksruntime</Package>
@@ -1736,9 +1737,6 @@
 
 		<!-- No longer needed by openjdk-11 -->
 		<Package>jtreg5</Package>
-
-		<!-- Merged back into Kate package -->
-		<Package>kwrite</Package>
 
 		<!-- No longer used by only dependency scrot -->
 		<Package>giblib</Package>
@@ -2940,5 +2938,14 @@
 		<!-- Doesn't support SFML v2.6.* -->
 		<Package>witchblast</Package>
 		<Package>witchblast-dbginfo</Package>
+
+		<!-- Project is unmaintained -->
+		<Package>coffee</Package>
+		<Package>coffee-dbginfo</Package>
+		
+		<!-- Part of failed attempt to include dvdstyler -->
+		<Package>wxsvg</Package>
+		<Package>wxsvg-devel</Package>
+		<Package>wxsvg-dbginfo</Package>
 	</Obsoletes>
 </PISI>

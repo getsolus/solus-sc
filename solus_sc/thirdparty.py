@@ -90,11 +90,6 @@ APPS = {
         ('TeamViewer', 'teamviewer',
         'Application for remote control, desktop sharing, online meetings, web conferencing and file transfer between computers',
         'network/util/teamviewer/pspec.xml'),
-    'skype':
-        ('Skype', 'skype',
-         'Skype for Linux Beta - <i>Skype keeps the world talking, for free.'
-         '</i>',
-         'network/im/skype/pspec.xml'),
     'slack-desktop':
         ('Slack', 'slack',
          'Team communication for the 21st century.',
