@@ -311,7 +311,6 @@
 		<Package>brackets-dbginfo</Package>
 		<Package>ccnet</Package>
 		<Package>ccnet-devel</Package>
-		<Package>clustershell</Package>
 		<Package>coin</Package>
 		<Package>coin-dbginfo</Package>
 		<Package>conan</Package>
@@ -1204,7 +1203,6 @@
 		<Package>python-idna_ssl</Package>
 		<Package>python-cssutils</Package>
 		<Package>jtreg5</Package>
-		<Package>kwrite</Package>
 		<Package>giblib</Package>
 		<Package>gst-plugins-bad</Package>
 		<Package>gst-plugins-bad-dbginfo</Package>
@@ -2283,5 +2281,8 @@
 		<Package>onevpl-dbginfo</Package>
 		<Package>coffee</Package>
 		<Package>coffee-dbginfo</Package>
+		<Package>wxsvg</Package>
+		<Package>wxsvg-devel</Package>
+		<Package>wxsvg-dbginfo</Package>
 	</Obsoletes>
 </PISI>
