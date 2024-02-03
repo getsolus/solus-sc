@@ -2289,5 +2289,7 @@
 		<Package>wxsvg-dbginfo</Package>
 		<Package>latencytop</Package>
 		<Package>latencytop-dbginfo</Package>
+		<Package>curl-gnutls-dbginfo</Package>
+		<Package>curl-gnutls-32bit-dbginfo</Package>
 	</Obsoletes>
 </PISI>
