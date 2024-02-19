@@ -2292,5 +2292,6 @@
 		<Package>fsharp</Package>
 		<Package>curl-gnutls-dbginfo</Package>
 		<Package>curl-gnutls-32bit-dbginfo</Package>
+		<Package>gradio</Package>
 	</Obsoletes>
 </PISI>

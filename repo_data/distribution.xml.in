@@ -2959,5 +2959,8 @@
 		<!-- Merged into curl package -->
 		<Package>curl-gnutls-dbginfo</Package>
 		<Package>curl-gnutls-32bit-dbginfo</Package>
+
+		<!-- Replaced by shortwave -->
+		<Package>gradio</Package>
 	</Obsoletes>
 </PISI>
