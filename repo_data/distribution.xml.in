@@ -2975,5 +2975,7 @@
 		<Package>curl-gnutls-dbginfo</Package>
 		<Package>curl-gnutls-32bit-dbginfo</Package>
 
+		<!-- No longer used -->
+		<Package>bash-recovery</Package>
 	</Obsoletes>
 </PISI>
