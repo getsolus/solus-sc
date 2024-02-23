@@ -2931,6 +2931,11 @@
 		<Package>bro-devel</Package>
 		<Package>bro-dbginfo</Package>
 
+		<!-- Renamed to libwebkit-gtk6 to match upstream -->
+		<Package>libwebkit-gtk5</Package>
+		<Package>libwebkit-gtk5-devel</Package>
+		<Package>libwebkit-gtk5-dbginfo</Package>
+
 		<!-- Renamed to libvpl -->
 		<Package>onevpl</Package>
 		<Package>onevpl-devel</Package>
@@ -2970,5 +2975,8 @@
 		<Package>curl-gnutls-dbginfo</Package>
 		<Package>curl-gnutls-32bit-dbginfo</Package>
 
+		<!-- Not needed for Kodi -->
+		<Package>gcc-12</Package>
+		<Package>gcc-12-dbginfo</Package>
 	</Obsoletes>
 </PISI>
