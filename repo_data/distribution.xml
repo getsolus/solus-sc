@@ -2300,5 +2300,8 @@
 		<Package>curl-gnutls-dbginfo</Package>
 		<Package>curl-gnutls-32bit-dbginfo</Package>
 		<Package>bash-recovery</Package>
+		<Package>wlroots-11</Package>
+		<Package>wlroots-11-dbginfo</Package>
+		<Package>wlroots-11-devel</Package>
 	</Obsoletes>
 </PISI>

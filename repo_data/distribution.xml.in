@@ -2977,5 +2977,10 @@
 
 		<!-- No longer used -->
 		<Package>bash-recovery</Package>
+
+		<!-- No longer needed -->
+		<Package>wlroots-11</Package>
+		<Package>wlroots-11-dbginfo</Package>
+		<Package>wlroots-11-devel</Package>
 	</Obsoletes>
 </PISI>
