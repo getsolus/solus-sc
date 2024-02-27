@@ -42,6 +42,8 @@ MARKUP_CODE_BLOCK_HIT = re.compile(r"```(\r\n|\r|\n)([^`]+)```")
 MARKUP_BOLD_HIT = re.compile(r"\*{2}([^\*{2}]+)\*{2}")
 MARKUP_COMMENT_HIT = re.compile(r"&lt;!--.*--&gt;")
 MARKUP_GITHUB_TITLE_HIT = re.compile(r"[#]+ ([^#]+)")
+GIT_SIGNED_OFF_BY_LINE = "Signed-off-by:"
+MARKUP_SIGNED_OFF_BY_HIT = re.compile(r"{} (.*)".format(GIT_SIGNED_OFF_BY_LINE))
 
 
 class ScChangelogEntry(Gtk.EventBox):
@@ -80,6 +82,7 @@ class ScChangelogEntry(Gtk.EventBox):
             r = MARKUP_CODE_HIT.sub(r'<tt>\1</tt>', r)
             r = MARKUP_BOLD_HIT.sub(r'<b>\1</b>', r)
             r = MARKUP_GITHUB_TITLE_HIT.sub(r'<i>\1</i>\n', r)
+            r = MARKUP_SIGNED_OFF_BY_HIT.sub(r'<small><b>{}</b> <i>\1</i></small>'.format(GIT_SIGNED_OFF_BY_LINE), r)
             r = CVE_HIT.sub(r' <a href="{}\1">\1</a>'.format(CVE_URI), r)
             r = BUG_HIT.sub(r' <a href="{}/T\1">T\1</a>'.format(PHAB_URI), r)
             r = DIFF_HIT.sub(r' <a href="{}/D\1">D\1</a>'.format(PHAB_URI), r)
