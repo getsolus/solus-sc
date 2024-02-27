@@ -41,6 +41,7 @@ MARKUP_CODE_HIT = re.compile(r"`([^`]+)`")
 MARKUP_CODE_BLOCK_HIT = re.compile(r"```(\r\n|\r|\n)([^`]+)```")
 MARKUP_BOLD_HIT = re.compile(r"\*{2}([^\*{2}]+)\*{2}")
 MARKUP_COMMENT_HIT = re.compile(r"&lt;!--.*--&gt;")
+MARKUP_GITHUB_TITLE_HIT = re.compile(r"[#]+ ([^#]+)")
 
 
 class ScChangelogEntry(Gtk.EventBox):
@@ -55,7 +56,7 @@ class ScChangelogEntry(Gtk.EventBox):
         ]
         block_elem_ids = ["{}:".format(x) for x in block_elems]
 
-        text = MARKUP_CODE_BLOCK_HIT.sub(r'<tt>\r\n\2</tt>', text)
+        text = MARKUP_CODE_BLOCK_HIT.sub(r'<tt>\n\2</tt>', text)
 
         # Iterate all the lines
         for r in text.split("\n"):
@@ -78,6 +79,7 @@ class ScChangelogEntry(Gtk.EventBox):
             r = MARKUP_URI_HIT.sub(r'<a href="\2">\1</a>', r)
             r = MARKUP_CODE_HIT.sub(r'<tt>\1</tt>', r)
             r = MARKUP_BOLD_HIT.sub(r'<b>\1</b>', r)
+            r = MARKUP_GITHUB_TITLE_HIT.sub(r'<i>\1</i>\n', r)
             r = CVE_HIT.sub(r' <a href="{}\1">\1</a>'.format(CVE_URI), r)
             r = BUG_HIT.sub(r' <a href="{}/T\1">T\1</a>'.format(PHAB_URI), r)
             r = DIFF_HIT.sub(r' <a href="{}/D\1">D\1</a>'.format(PHAB_URI), r)
