@@ -38,6 +38,7 @@ GENERAL_URI = re.compile(r"""(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d\
 
 MARKUP_URI_HIT = re.compile(r"\[({})\]\(({})\)".format("[^\]]+", "[^)]+"))
 MARKUP_CODE_HIT = re.compile(r"`([^`]+)`")
+MARKUP_CODE_BLOCK_HIT = re.compile(r"```(\r\n|\r|\n)([^`]+)```")
 MARKUP_BOLD_HIT = re.compile(r"\*{2}([^\*{2}]+)\*{2}")
 MARKUP_COMMENT_HIT = re.compile(r"&lt;!--.*--&gt;")
 
@@ -53,6 +54,8 @@ class ScChangelogEntry(Gtk.EventBox):
             "Maniphest Tasks",
         ]
         block_elem_ids = ["{}:".format(x) for x in block_elems]
+
+        text = MARKUP_CODE_BLOCK_HIT.sub(r'<tt>\r\n\2</tt>', text)
 
         # Iterate all the lines
         for r in text.split("\n"):
