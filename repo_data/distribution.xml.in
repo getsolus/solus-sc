@@ -2991,5 +2991,9 @@
 		<Package>wlroots-11</Package>
 		<Package>wlroots-11-dbginfo</Package>
 		<Package>wlroots-11-devel</Package>
+
+		<!-- fotoxx has been renamed to fotocx -->
+		<Package>fotoxx</Package>
+		<Package>fotoxx-dbginfo</Package>
 	</Obsoletes>
 </PISI>
