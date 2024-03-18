@@ -2307,5 +2307,7 @@
 		<Package>wlroots-11-devel</Package>
 		<Package>gradio</Package>
 		<Package>gradio-dbginfo</Package>
+		<Package>bustle</Package>
+		<Package>bustle-dbginfo</Package>
 	</Obsoletes>
 </PISI>

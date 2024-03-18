@@ -2994,5 +2994,9 @@
 		<!-- Replaced by shortwave -->
 		<Package>gradio</Package>
 		<Package>gradio-dbginfo</Package>
+
+		<!-- No maintainer, flatpak avilable -->
+		<Package>bustle</Package>
+		<Package>bustle-dbginfo</Package>
 	</Obsoletes>
 </PISI>
