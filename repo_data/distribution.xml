@@ -2307,5 +2307,6 @@
 		<Package>wlroots-11-devel</Package>
 		<Package>gradio</Package>
 		<Package>gradio-dbginfo</Package>
+		<Package>flickcurl-docs</Package>
 	</Obsoletes>
 </PISI>

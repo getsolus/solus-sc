@@ -2994,5 +2994,8 @@
 		<!-- Replaced by shortwave -->
 		<Package>gradio</Package>
 		<Package>gradio-dbginfo</Package>
+
+		<!-- Missed in earlier deprecation -->
+		<Package>flickcurl-docs</Package>
 	</Obsoletes>
 </PISI>
