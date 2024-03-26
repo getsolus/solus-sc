@@ -2994,5 +2994,9 @@
 		<!-- Replaced by shortwave -->
 		<Package>gradio</Package>
 		<Package>gradio-dbginfo</Package>
+		
+		<!-- Unmaintained and Replaced by lbreakouthd -->
+		<Package>lbreakout2</Package>
+		<Package>lbreakout2-dbginfo</Package>
 	</Obsoletes>
 </PISI>
