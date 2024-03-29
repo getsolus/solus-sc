@@ -16,6 +16,9 @@ from gi.repository import Gtk, GObject, GLib
 import comar
 import pisi.db
 import dbus
+import os
+import subprocess
+import pisi.context as ctx
 from pisi.operations.install import plan_install_pkg_names
 from pisi.operations.remove import plan_remove
 from pisi.operations.upgrade import plan_upgrade
@@ -282,6 +285,10 @@ class BasketView(Gtk.Revealer):
             self.cb = None
             self.set_progress(None, None)
             self.update_ui()
+
+            if pisi.api.is_offline_upgrade_prepared() is True:
+                self.perform_offline_upgrades_now()
+
             return
         elif str(signal).startswith("tr.org.pardus.comar.Comar.PolicyKit"):
             if self.cb is not None:
@@ -317,6 +324,86 @@ class BasketView(Gtk.Revealer):
         self.current_dl_package = 0
         self.total_packages = 0
         self.emit('basket-changed', None)
+
+    def perform_offline_upgrades_now(self):
+        markup = "<big>{}</big>".format(
+            _("Offline updates successfully prepared. Reboot now?"))
+
+        flags = Gtk.DialogFlags.MODAL | Gtk.DialogFlags.USE_HEADER_BAR
+        dlg = Gtk.MessageDialog(self.owner,
+                                flags,
+                                Gtk.MessageType.QUESTION,
+                                Gtk.ButtonsType.OK_CANCEL)
+
+        dlg = Gtk.Dialog(use_header_bar=1)
+        dlg.set_transient_for(self.owner)
+        dlg.set_title(_("Perform offline upgrades"))
+
+        lab = Gtk.Label(markup)
+        lab.set_use_markup(True)
+        box = Gtk.HBox(0)
+        box.set_property("margin", 5)
+        box.pack_start(lab, True, True, 0)
+        dlg.get_content_area().pack_start(box, False, False, 0)
+        dlg.get_content_area().set_border_width(5)
+        dlg.get_action_area().set_border_width(5)
+        dlg.get_content_area().show_all()
+
+        btn = dlg.add_button(_("Cancel"), Gtk.ResponseType.CANCEL)
+        btn = dlg.add_button(_("Reboot"), Gtk.ResponseType.OK)
+        btn.get_style_context().add_class("destructive-action")
+        dlg.set_default_size(250, 50)
+        res = dlg.run()
+        dlg.destroy()
+        if res == Gtk.ResponseType.OK:
+            print("reboooooooooting mofo")
+            #subprocess.Popen(["systemctl", "soft-reboot"])
+
+    def confirm_offline_upgrade(self, pkgs):
+        markup = "<big>{}</big>".format(
+            _("The following dependencies meet the requirement for an offline upgrade.\nThe system will need to be rebooted to apply updates."))
+
+        flags = Gtk.DialogFlags.MODAL | Gtk.DialogFlags.USE_HEADER_BAR
+        dlg = Gtk.MessageDialog(self.owner,
+                                flags,
+                                Gtk.MessageType.QUESTION,
+                                Gtk.ButtonsType.OK_CANCEL)
+
+        dlg = Gtk.Dialog(use_header_bar=1)
+        dlg.set_transient_for(self.owner)
+        dlg.set_title(_("Offline upgrade confirmation"))
+
+        lab = Gtk.Label(markup)
+        lab.set_use_markup(True)
+        box = Gtk.HBox(0)
+        box.set_property("margin", 5)
+        box.pack_start(lab, True, True, 0)
+        dlg.get_content_area().pack_start(box, False, False, 0)
+        dlg.get_content_area().set_border_width(5)
+        dlg.get_action_area().set_border_width(5)
+
+        scroll = Gtk.ScrolledWindow(None, None)
+        lbox = Gtk.ListBox()
+        scroll.add(lbox)
+        scroll.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+        scroll.set_property("margin", 5)
+
+        for pkg in pkgs:
+            package = self.packagedb.get_package(pkg)
+            panel = PackageLabel(package, None, interactive=False)
+            lbox.add(panel)
+        dlg.get_content_area().pack_start(scroll, True, True, 0)
+        dlg.get_content_area().show_all()
+
+        btn = dlg.add_button(_("Cancel"), Gtk.ResponseType.CANCEL)
+        btn = dlg.add_button(_("OK"), Gtk.ResponseType.OK)
+        btn.get_style_context().add_class("destructive-action")
+        dlg.set_default_size(250, 400)
+        res = dlg.run()
+        dlg.destroy()
+        if res == Gtk.ResponseType.OK:
+            return True
+        return False
 
     def show_dialog(self, pkgs, remove=False, update=False, install=True):
         markup = "<big>{}</big>".format(
@@ -442,6 +529,25 @@ class BasketView(Gtk.Revealer):
                     else:
                         # print Not continuing
                         continue
+
+                requires_offline = ["system.base", "system.boot", "kernel.image", "kernel.drivers",
+                                    "desktop.core", "desktop.gnome.core", "desktop.kde.core"]
+                matches_offline_requirement = []
+                for pkg in pkgs:
+                    item = self.packagedb.get_package(pkg)
+                    for component in requires_offline:
+                        if item.partOf == component:
+                            print("YO BITCH WE'RE DOING AN OFFLINE UPDATE")
+                            matches_offline_requirement.append(pkg)
+
+                self.offline_upgrade = False
+                if len(matches_offline_requirement) > 0:
+                    # Require confirmation to perform offline upgrade
+                    if self.confirm_offline_upgrade(matches_offline_requirement):
+                        self.offline_upgrade = True
+                    else:
+                        continue
+
             self.total_packages = len(packageset)
             setAct = True
 
@@ -461,8 +567,13 @@ class BasketView(Gtk.Revealer):
 
             self.cb = self.invalidate_all
             if packageset == updates:
-                self.pmanager.updatePackage(
-                    ",".join(packageset), async=self.pisi_callback)
+                if self.offline_upgrade is True:
+                    print("we are offline right?")
+                    self.pmanager.updatePackage(
+                        ",".join(packageset), offline=True, async=self.pisi_callback)
+                else:
+                    self.pmanager.updatePackage(
+                        ",".join(packageset), async=self.pisi_callback)
             elif packageset == installs:
                 self.pmanager.installPackage(
                     ",".join(packageset), async=self.pisi_callback)
