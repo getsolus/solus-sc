@@ -3049,8 +3049,11 @@
 		<Package>fotoxx</Package>
 		<Package>fotoxx-dbginfo</Package>
 
-		<!-- No maintainer, flatpak avilable -->
+		<!-- No maintainer, flatpak available -->
 		<Package>bustle</Package>
 		<Package>bustle-dbginfo</Package>
+
+		<!-- Dead upstream and replaced by powerlevel10k -->
+		<Package>powerlevel9k</Package>
 	</Obsoletes>
 </PISI>
