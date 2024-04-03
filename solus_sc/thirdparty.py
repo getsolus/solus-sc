@@ -135,6 +135,17 @@ class ThirdPartyView(Gtk.VBox):
         self.theme = Gtk.IconTheme()
         self.theme.set_custom_theme("solus-sc")
 
+        do_not_use_label = Gtk.Label(
+            "<big>"
+            "Third party mechanism is deprecated! Please obtain any installed software "
+            "via other means, such as flatpak.</big>\n")
+        do_not_use_label.set_use_markup(True)
+        self.pack_start(do_not_use_label, False, False, 0)
+        do_not_use_label.set_property("margin-start", 20)
+        do_not_use_label.set_property("margin-top", 10)
+        do_not_use_label.set_property("margin-bottom", 10)
+        do_not_use_label.set_halign(Gtk.Align.START)
+
         label = Gtk.Label(
             "<small>"
             "Software provided via the third party tooling will be fetched "
@@ -186,22 +197,37 @@ class ThirdPartyView(Gtk.VBox):
 
             ibtn = None
             if self.basket.installdb.has_package(key):
+
+                # remove button
+                removebtn = Gtk.Button(_("Remove"))
+                removebtn.get_style_context().add_class("destructive-action")
+                removebtn.set_halign(Gtk.Align.END)
+                removebtn.set_valign(Gtk.Align.CENTER)
+                hbox.pack_end(removebtn, False, False, 0)
+                removebtn.set_property("margin", 6)
+
+                removebtn.package_name = key
+                removebtn.connect("clicked", self.on_remove_clicked)
+
+                # check for updates/reinstall button
                 ibtn = Gtk.Button(_("Check for updates"))
-            else:
-                ibtn = Gtk.Button(_("Install"))
-            ibtn.get_style_context().add_class("suggested-action")
-            ibtn.set_halign(Gtk.Align.END)
-            ibtn.set_valign(Gtk.Align.CENTER)
-            hbox.pack_end(ibtn, False, False, 0)
-            ibtn.set_property("margin", 6)
+                ibtn.set_halign(Gtk.Align.END)
+                ibtn.set_valign(Gtk.Align.CENTER)
+                hbox.pack_end(ibtn, False, False, 0)
+                ibtn.set_property("margin", 6)
 
-            # Runtime-mark it
-            ibtn.package_name = key
-            ibtn.connect("clicked", self.on_install_clicked)
+                ibtn.package_name = key
+                ibtn.connect("clicked", self.on_install_clicked)
 
-            hbox.show_all()
-            self.listbox.add(hbox)
+                hbox.show_all()
+                self.listbox.add(hbox)
 
     def on_install_clicked(self, btn, udata=None):
         """ Proxy the call """
         self.basket.build_package(btn.package_name)
+
+    def on_remove_clicked(self, btn, udata=None):
+        """ Nuke it """
+        pkg = self.basket.installdb.get_package(btn.package_name)
+        self.basket.remove_package(pkg)
+        self.basket.apply_operations()
