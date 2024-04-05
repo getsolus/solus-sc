@@ -3055,5 +3055,9 @@
 
 		<!-- Dead upstream and replaced by powerlevel10k -->
 		<Package>powerlevel9k</Package>
+
+		<!-- Unmaintained and Replaced by lbreakouthd -->
+		<Package>lbreakout2</Package>
+		<Package>lbreakout2-dbginfo</Package>
 	</Obsoletes>
 </PISI>
