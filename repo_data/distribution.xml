@@ -2356,5 +2356,6 @@
 		<Package>openastro-data</Package>
 		<Package>pyswisseph</Package>
 		<Package>pyswisseph-dbginfo</Package>
+		<Package>evopop-icon-theme</Package>
 	</Obsoletes>
 </PISI>

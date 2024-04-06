@@ -3071,5 +3071,8 @@
 		<!-- Dependency of openastro, now removed -->
 		<Package>pyswisseph</Package>
 		<Package>pyswisseph-dbginfo</Package>
+
+		<!-- Unmaintained since 2017 -->
+		<Package>evopop-icon-theme</Package>
 	</Obsoletes>
 </PISI>
