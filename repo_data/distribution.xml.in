@@ -3071,5 +3071,9 @@
 		<!-- Dependency of openastro, now removed -->
 		<Package>pyswisseph</Package>
 		<Package>pyswisseph-dbginfo</Package>
+
+		<!-- No longer needed -->
+		<Package>qt5pas</Package>
+		<Package>qt5pas-devel</Package>
 	</Obsoletes>
 </PISI>

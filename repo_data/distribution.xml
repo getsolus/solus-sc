@@ -2356,5 +2356,7 @@
 		<Package>openastro-data</Package>
 		<Package>pyswisseph</Package>
 		<Package>pyswisseph-dbginfo</Package>
+		<Package>qt5pas</Package>
+		<Package>qt5pas-devel</Package>
 	</Obsoletes>
 </PISI>
