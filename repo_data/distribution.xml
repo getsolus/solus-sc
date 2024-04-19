@@ -2365,5 +2365,7 @@
 		<Package>lua53</Package>
 		<Package>lua53-dbginfo</Package>
 		<Package>lua53-devel</Package>
+		<Package>flare-engine</Package>
+		<Package>flare-engine-dbginfo</Package>
 	</Obsoletes>
 </PISI>

@@ -3088,5 +3088,9 @@
 		<Package>lua53</Package>
 		<Package>lua53-dbginfo</Package>
 		<Package>lua53-devel</Package>
+
+		<!-- Incorporated to flare-game -->
+		<Package>flare-engine</Package>
+		<Package>flare-engine-dbginfo</Package>
 	</Obsoletes>
 </PISI>
