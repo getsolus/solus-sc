@@ -2365,5 +2365,7 @@
 		<Package>lua53</Package>
 		<Package>lua53-dbginfo</Package>
 		<Package>lua53-devel</Package>
+		<Package>docker-machine</Package>
+		<Package>docker-machine-dbginfo</Package>
 	</Obsoletes>
 </PISI>
