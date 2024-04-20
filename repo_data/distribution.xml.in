@@ -3088,5 +3088,9 @@
 		<Package>lua53</Package>
 		<Package>lua53-dbginfo</Package>
 		<Package>lua53-devel</Package>
+
+		<!-- No longer needed -->
+		<Package>ebtables</Package>
+		<Package>ebtables-dbginfo</Package>
 	</Obsoletes>
 </PISI>
