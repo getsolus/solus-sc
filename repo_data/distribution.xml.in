@@ -3116,5 +3116,8 @@
 
 		<!-- Merged back into cups (these were actually the webui files) -->
 		<Package>cups-docs</Package>
+
+		<!-- Source unavailable, license change -->
+		<Package>font-symbola-ttf</Package>
 	</Obsoletes>
 </PISI>
