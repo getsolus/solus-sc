@@ -2377,5 +2377,7 @@
 		<Package>pkg-config</Package>
 		<Package>pkg-config-dbginfo</Package>
 		<Package>cups-docs</Package>
+		<Package>flow-pomodoro</Package>
+		<Package>flow-pomodoro-dbginfo</Package>
 	</Obsoletes>
 </PISI>

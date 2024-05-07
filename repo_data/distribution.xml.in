@@ -3116,5 +3116,9 @@
 
 		<!-- Merged back into cups (these were actually the webui files) -->
 		<Package>cups-docs</Package>
+
+		<!-- No upstream releases since 2017 -->
+		<Package>flow-pomodoro</Package>
+		<Package>flow-pomodoro-dbginfo</Package>
 	</Obsoletes>
 </PISI>
