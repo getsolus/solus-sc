@@ -2396,5 +2396,7 @@
 		<Package>cni-plugins-dbginfo</Package>
 		<Package>slirp4netns</Package>
 		<Package>slirp4netns-dbginfo</Package>
+		<Package>dep</Package>
+		<Package>dep-dbginfo</Package>
 	</Obsoletes>
 </PISI>
