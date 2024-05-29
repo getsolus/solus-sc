@@ -3149,5 +3149,9 @@
 		<Package>cni-plugins-dbginfo</Package>
 		<Package>slirp4netns</Package>
 		<Package>slirp4netns-dbginfo</Package>
+
+		<!-- No longer needed in repository -->
+		<Package>libdnet</Package>
+		<Package>libdnet-devel</Package>
 	</Obsoletes>
 </PISI>
