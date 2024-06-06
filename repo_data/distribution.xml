@@ -2411,5 +2411,8 @@
 		<Package>dep-dbginfo</Package>
 		<Package>libdnet</Package>
 		<Package>libdnet-devel</Package>
+		<Package>redkite</Package>
+		<Package>redkite-devel</Package>
+		<Package>redkite-dbginfo</Package>
 	</Obsoletes>
 </PISI>
