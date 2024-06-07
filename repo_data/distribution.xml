@@ -2411,5 +2411,7 @@
 		<Package>dep-dbginfo</Package>
 		<Package>libdnet</Package>
 		<Package>libdnet-devel</Package>
+		<Package>antibody</Package>
+		<Package>antibody-dbginfo</Package>
 	</Obsoletes>
 </PISI>

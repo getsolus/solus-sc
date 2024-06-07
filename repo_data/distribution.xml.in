@@ -3176,5 +3176,9 @@
 		<!-- No longer needed in repository -->
 		<Package>libdnet</Package>
 		<Package>libdnet-devel</Package>
+
+		<!-- Deprecated upstream, replaced by antidote -->
+		<Package>antibody</Package>
+		<Package>antibody-dbginfo</Package>
 	</Obsoletes>
 </PISI>
