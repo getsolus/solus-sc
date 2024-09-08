@@ -25,7 +25,9 @@ CVE_URI = "https://cve.mitre.org/cgi-bin/cvename.cgi?name="
 # All TNNNN hits are Maniphest Tasks, DNNNN are Differential Revisions
 BUG_HIT = re.compile(r" T(\d+)")
 DIFF_HIT = re.compile(r" D(\d+)")
+GITHUB_ISSUE_HIT = re.compile(r"#(\d+)")
 PHAB_URI = "https://dev.getsol.us"
+GITHUB_URI = "https://github.com/getsolus/packages"
 
 # I know, it's evil. From:
 # http://daringfireball.net/2010/07/improved_regex_for_matching_urls
@@ -36,8 +38,15 @@ GENERAL_URI = re.compile(r"""(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d\
 
 MARKUP_URI_HIT = re.compile(r"\[({})\]\(({})\)".format("[^\]]+", "[^)]+"))
 MARKUP_CODE_HIT = re.compile(r"`([^`]+)`")
+MARKUP_CODE_BLOCK_HIT = re.compile(r"```(\r\n|\r|\n)([^`]+)```")
 MARKUP_BOLD_HIT = re.compile(r"\*{2}([^\*{2}]+)\*{2}")
+MARKUP_ITALIC_HIT = re.compile(r"^_([^_]+)_| _([^_]+)_")
 MARKUP_COMMENT_HIT = re.compile(r"&lt;!--.*--&gt;")
+MARKUP_GITHUB_CHECKED_TASK_HIT = re.compile(r"- \[x\](.*)")
+MARKUP_GITHUB_UNCHECKED_TASK_HIT = re.compile(r"- \[ \](.*)")
+MARKUP_GITHUB_TITLE_HIT = re.compile(r"[#]+ ([^#]+)")
+GIT_SIGNED_OFF_BY_LINE = "Signed-off-by:"
+MARKUP_SIGNED_OFF_BY_HIT = re.compile(r"{} (.*)".format(GIT_SIGNED_OFF_BY_LINE))
 
 
 class ScChangelogEntry(Gtk.EventBox):
@@ -51,6 +60,8 @@ class ScChangelogEntry(Gtk.EventBox):
             "Maniphest Tasks",
         ]
         block_elem_ids = ["{}:".format(x) for x in block_elems]
+
+        text = MARKUP_CODE_BLOCK_HIT.sub(r'<tt>\2</tt>', text)
 
         # Iterate all the lines
         for r in text.split("\n"):
@@ -73,9 +84,15 @@ class ScChangelogEntry(Gtk.EventBox):
             r = MARKUP_URI_HIT.sub(r'<a href="\2">\1</a>', r)
             r = MARKUP_CODE_HIT.sub(r'<tt>\1</tt>', r)
             r = MARKUP_BOLD_HIT.sub(r'<b>\1</b>', r)
+            r = MARKUP_ITALIC_HIT.sub(r'<i>\1</i>', r)
+            r = MARKUP_GITHUB_CHECKED_TASK_HIT.sub(r'&#x1F5F9; \1', r)
+            r = MARKUP_GITHUB_UNCHECKED_TASK_HIT.sub(r'&#x2610; \1', r)
+            r = MARKUP_GITHUB_TITLE_HIT.sub(r'<i>\1</i>\n', r)
+            r = MARKUP_SIGNED_OFF_BY_HIT.sub(r'<small><b>{}</b> <i>\1</i></small>'.format(GIT_SIGNED_OFF_BY_LINE), r)
             r = CVE_HIT.sub(r' <a href="{}\1">\1</a>'.format(CVE_URI), r)
             r = BUG_HIT.sub(r' <a href="{}/T\1">T\1</a>'.format(PHAB_URI), r)
             r = DIFF_HIT.sub(r' <a href="{}/D\1">D\1</a>'.format(PHAB_URI), r)
+            r = GITHUB_ISSUE_HIT.sub(r'<a href="{}/issues/\1">#\1</a>'.format(GITHUB_URI), r)
 
             # Check if this is a bullet point
             if (r.startswith("- ") or r.startswith("* ")) and len(r) > 2:
