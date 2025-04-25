@@ -13,7 +13,7 @@
 
 from gi.repository import Gtk
 from gi.repository import Gio
-from gi.repository import AppStreamGlib as As
+from gi.repository import AppStream as As
 from .imagewidget import ScImageWidget
 from .changelog import ScChangelogEntry
 from .licenses import license_to_spdx, spdx_to_uri
@@ -552,7 +552,7 @@ class PackageDetailsView(Gtk.VBox):
 
     def render_plain(self, input_string):
         """ Render a plain version of the description, no markdown """
-        plain = As.markup_convert_simple(input_string)
+        plain = As.markup_convert(input_string, As.MarkupKind.TEXT)
         plain = plain.replace("&quot;", "\"").replace("&apos;", "'").replace("&amp;", "&")
         return plain
 
