@@ -12,7 +12,8 @@
 #
 
 from gi.repository import Gtk
-from gi.repository import AppStreamGlib as As
+
+from appsystem import ImageConstants
 
 
 class ScImageWidget(Gtk.Frame):
@@ -38,11 +39,11 @@ class ScImageWidget(Gtk.Frame):
         Gtk.Frame.__init__(self)
         # Be at least the size of a thumbnail
         if thumbnail:
-            self.set_size_request(As.IMAGE_THUMBNAIL_WIDTH,
-                                  As.IMAGE_THUMBNAIL_HEIGHT)
+            self.set_size_request(ImageConstants.IMAGE_THUMBNAIL_WIDTH,
+                                  ImageConstants.IMAGE_THUMBNAIL_HEIGHT)
         else:
-            self.set_size_request(As.IMAGE_LARGE_WIDTH,
-                                  As.IMAGE_LARGE_HEIGHT)
+            self.set_size_request(ImageConstants.IMAGE_LARGE_WIDTH,
+                                  ImageConstants.IMAGE_LARGE_HEIGHT)
 
         self.stack = Gtk.Stack.new()
         self.stack.set_homogeneous(False)

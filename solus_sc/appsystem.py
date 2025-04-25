@@ -11,9 +11,19 @@
 #  (at your option) any later version.
 #
 
-from gi.repository import AppStreamGlib as As
+from gi.repository import AppStream as As
 from gi.repository import Gio, GLib, GdkPixbuf, Gtk
 from .media_fetcher import ScMediaFetcher
+
+
+class ImageConstants:
+    """ Old image constants from appstream-glib for appstream """
+    IMAGE_LARGE_WIDTH = 752
+    IMAGE_LARGE_HEIGHT = 423
+    IMAGE_NORMAL_WIDTH = 624
+    IMAGE_NORMAL_HEIGHT = 351
+    IMAGE_THUMBNAIL_WIDTH = 224 # in appstream-glib this was 114px
+    IMAGE_THUMBNAIL_HEIGHT = 116  # in appstream-glib this was 63px
 
 
 class Screenshot:
@@ -35,11 +45,11 @@ class Screenshot:
 
         # Loop em all with scale factor
         for image in asImg.get_images():
-            if image.get_width() == As.IMAGE_LARGE_WIDTH * scale:
+            if image.get_width() == ImageConstants.IMAGE_LARGE_WIDTH * scale:
                 large = image
-            elif image.get_width() == As.IMAGE_NORMAL_WIDTH * scale:
+            elif image.get_width() == ImageConstants.IMAGE_NORMAL_WIDTH * scale:
                 normal = image
-            elif image.get_width() == As.IMAGE_THUMBNAIL_WIDTH * scale:
+            elif image.get_width() == ImageConstants.IMAGE_THUMBNAIL_WIDTH * scale:
                 thumbnail = image
             if large and normal and thumbnail:
                 break
@@ -47,11 +57,11 @@ class Screenshot:
         if scale != 1:
             if not thumbnail or not normal:
                 for image in asImg.get_images():
-                    if image.get_width() == As.IMAGE_LARGE_WIDTH:
+                    if image.get_width() == ImageConstants.IMAGE_LARGE_WIDTH:
                         large = image
-                    elif image.get_width() == As.IMAGE_NORMAL_WIDTH:
+                    elif image.get_width() == ImageConstants.IMAGE_NORMAL_WIDTH:
                         normal = image
-                    elif image.get_width() == As.IMAGE_THUMBNAIL_WIDTH:
+                    elif image.get_width() == ImageConstants.IMAGE_THUMBNAIL_WIDTH:
                         thumbnail = image
                     if large and normal and thumbnail:
                         break
@@ -86,8 +96,10 @@ class AppSystem:
 
     def __init__(self):
         self.fetcher = ScMediaFetcher()
-        self.store = As.Store()
-        self.store.load(As.StoreLoadFlags.APP_INFO_SYSTEM)
+        self.pool = As.Pool()
+        self.pool.set_flags(As.PoolFlags.LOAD_OS_CATALOG)
+        self.pool.load()
+        self.components = self.pool.get_components()
 
         itheme = Gtk.IconTheme.get_default()
         try:
@@ -123,46 +135,51 @@ class AppSystem:
     def sanitize(self, text):
         return text.replace("&quot;", "\"")
 
+    def get_app_by_pkgname(self, package_name):
+        for component in self.components.as_array():
+            if component.get_pkgname() == package_name:
+                return component
+        return None
+
     def get_summary(self, package):
         """ Return a usable summary for a package """
-        app = self.store.get_app_by_pkgname(package.name)
+        app = self.get_app_by_pkgname(package.name)
         ret = None
         if not app:
             ret = GLib.markup_escape_text(str(package.summary))
         else:
-            ret = app.get_comment("C")
+            ret = app.get_summary()
         return self.sanitize(ret)
 
     def get_search_summary(self, package):
         """ Return a usable search summary for a package """
-        app = self.store.get_app_by_pkgname(package.name)
+        app = self.get_app_by_pkgname(package.name)
         ret = None
         if not app:
             summary = str(package.summary)
-            summary = summary.replace(" & ", " &amp; ")
-            ret = GLib.markup_escape_text(summary)
         else:
-            ret = app.get_comment("C")
-        return self.sanitize(ret)
+            summary = app.get_summary()
+        summary = summary.replace(" & ", " &amp; ")
+        return GLib.markup_escape_text(summary)
 
     def get_description(self, package):
         """ Return a usable description for a package """
-        app = self.store.get_app_by_pkgname(package.name)
+        app = self.get_app_by_pkgname(package.name)
         description = str(package.description)
         if not app:
             return self.sanitize(
                 GLib.markup_escape_text(description))
-        c = app.get_description("C")
+        c = app.get_description()
         if not c:
             return self.sanitize(
                 GLib.markup_escape_text(description))
         return c
 
     def get_name(self, package):
-        app = self.store.get_app_by_pkgname(package.name)
+        app = self.get_app_by_pkgname(package.name)
         if not app:
             return GLib.markup_escape_text(str(package.name))
-        return GLib.markup_escape_text(self.sanitize(app.get_name("C")))
+        return GLib.markup_escape_text(self.sanitize(app.get_pkgname()))
 
     def get_icon(self, package):
         """ Fallback method """
@@ -172,11 +189,11 @@ class AppSystem:
 
     def get_pixbuf(self, package):
         """ Get the AppStream GdkPixbuf for a package """
-        app = self.store.get_app_by_pkgname(package.name)
+        app = self.get_app_by_pkgname(package.name)
         if not app:
             return None
         # TODO: Incorporate HIDPI!
-        icon = app.get_icon_for_size(64, 64)
+        icon = app.get_icon_by_size(64, 64)
         if not icon:
             return self.default_pixbuf_lookup(app)
         kind = icon.get_kind()
@@ -184,10 +201,14 @@ class AppSystem:
             return None
         if kind == As.IconKind.STOCK:
             # Load up a gthemedicon version
-            im = Gio.ThemedIcon.new(icon.get_name())
+            im = Gio.ThemedIcon.new(icon.get_pkgname())
             return im
-        if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
-            return None
+        icon_filename = icon.get_filename()
+        try:
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_filename)
+            return pixbuf
+        except Exception as e:
+            print(e)
         return icon.get_pixbuf()
 
     def default_pixbuf_lookup(self, app):
@@ -195,17 +216,17 @@ class AppSystem:
         if app is None:
             return self.default_pixbuf
         kind = app.get_kind()
-        if kind == As.AppKind.ADDON:
+        if kind == As.ComponentKind.ADDON:
             return self.addon_pixbuf
         return self.default_pixbuf
 
     def get_pixbuf_only(self, package):
         """ Only get a pixbuf - no fallbacks  """
-        app = self.store.get_app_by_pkgname(package.name)
+        app = self.get_app_by_pkgname(package.name)
         if not app:
             return self.default_pixbuf_lookup(app)
         # TODO: Incorporate HIDPI!
-        icon = app.get_icon_for_size(64, 64)
+        icon = app.get_icon_by_size(64, 64)
         if not icon:
             return self.default_pixbuf_lookup(app)
         kind = icon.get_kind()
@@ -216,7 +237,7 @@ class AppSystem:
             try:
                 itheme = Gtk.IconTheme.get_default()
                 pbuf = itheme.load_icon(
-                    icon.get_name(),
+                    icon.get_pkgname(),
                     64,
                     Gtk.IconLookupFlags.GENERIC_FALLBACK)
                 if pbuf.get_height() != 64:
@@ -226,8 +247,12 @@ class AppSystem:
             except Exception as e:
                 print(e)
             return self.default_pixbuf
-        if not icon.load(As.IconLoadFlags.SEARCH_SIZE):
-            return self.default_pixbuf
+        icon_filename = icon.get_filename()
+        try:
+            pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_filename)
+            return pixbuf
+        except Exception as e:
+            print(e)
         pbuf = icon.get_pixbuf()
         if pbuf.get_height() != 64:
             pbuf = pbuf.scale_simple(
@@ -236,10 +261,10 @@ class AppSystem:
 
     def _get_appstream_url(self, package, ptype):
         """ Get an appstream link for the given package """
-        app = self.store.get_app_by_pkgname(package.name)
+        app = self.get_app_by_pkgname(package.name)
         if not app:
             return None
-        url = app.get_url_item(ptype)
+        url = app.get_url(ptype)
         return url
 
     def get_website(self, package):
@@ -261,17 +286,18 @@ class AppSystem:
 
     def get_developers(self, package):
         """ Get the developer names for the given package """
-        app = self.store.get_app_by_pkgname(package.name)
+        app = self.get_app_by_pkgname(package.name)
         if not app:
             return None
-        return app.get_developer_name("C")
+        as_dev = app.get_developer()
+        return as_dev.get_name()
 
     def get_screenshots(self, package):
         """ Return wrapped Screenshot objects for the package """
-        app = self.store.get_app_by_pkgname(package.name)
+        app = self.get_app_by_pkgname(package.name)
         if not app:
             return None
-        screens = app.get_screenshots()
+        screens = app.get_screenshots_all()
         if not screens:
             return None
         ret = []

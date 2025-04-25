@@ -12,7 +12,7 @@
 #
 
 from gi.repository import Gtk, GLib, GdkPixbuf
-from gi.repository import AppStreamGlib as As
+from gi.repository import AppStream as As
 
 """ enum for the model fields """
 INDEX_FIELD_DISPLAY = 0
@@ -48,7 +48,7 @@ class LoadingPage(Gtk.VBox):
 
 def render_plain(input_string):
     """ Render a plain version of the description, no markdown """
-    plain = As.markup_convert_simple(input_string)
+    plain = As.markup_convert(input_string, As.MarkupKind.TEXT)
     plain = plain.replace("&quot;", "\"").replace("&apos;", "'").replace("&amp;", "&")
     return plain
 
