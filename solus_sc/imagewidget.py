@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -13,7 +13,7 @@
 
 from gi.repository import Gtk
 
-from appsystem import ImageConstants
+from .appsystem import ImageConstants
 
 
 class ScImageWidget(Gtk.Frame):

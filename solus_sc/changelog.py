@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -96,7 +96,7 @@ class ScChangelogEntry(Gtk.EventBox):
 
             # Check if this is a bullet point
             if (r.startswith("- ") or r.startswith("* ")) and len(r) > 2:
-                r = u' \u2022 ' + r[2:]
+                r = ' \u2022 ' + r[2:]
                 # add a tab for every indentation level
                 while (lspaces > 0):
                     r = "\t" + r

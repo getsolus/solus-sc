@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -162,7 +162,7 @@ class EopkgAssistService(dbus.service.Object):
         pid = self.get_pid_from_connection(conn, sender)
 
         if sender not in self.pid_map:
-            print "Adding new sender: %s" % sender
+            print("Adding new sender: %s" % sender)
             self.pid_map[sender] = pid
 
         if action_id not in self.action_pids:
@@ -173,10 +173,10 @@ class EopkgAssistService(dbus.service.Object):
                 pid = None
                 try:
                     pid = self.pid_map[sender]
-                except:
+                except Exception as e:
                     # already removed, called twice.
                     return
-                print "Disconnected process: %d" % pid
+                print("Disconnected process: %d" % pid)
 
                 self.pid_map.pop(sender)
                 count = 0
@@ -252,8 +252,8 @@ class EopkgAssistService(dbus.service.Object):
 
         try:
             pisi.api.build(pkg)
-        except Exception, e:
-            print e
+        except Exception as e:
+            print(e)
             ok("ERROR: %s" % e)
             ok("DONE")
             self._do_purge(options.output_dir)
@@ -264,8 +264,8 @@ class EopkgAssistService(dbus.service.Object):
             subprocess.check_call(cmd, shell=True)
             cmd = "rm -f {}/*.eopkg".format(options.output_dir)
             subprocess.check_call(cmd, shell=True)
-        except Exception:
-            print e
+        except Exception as e:
+            print(e)
             ok("ERROR: %s" % e)
             ok("DONE")
             self._do_purge(options.output_dir)
@@ -303,7 +303,7 @@ class EopkgAssistService(dbus.service.Object):
     @dbus.service.method('com.solus_project.eopkgassist',
                          sender_keyword='sender', connection_keyword='conn')
     def ShutDown(self, sender=None, conn=None):
-        print "Shutdown requested"
+        print("Shutdown requested")
 
         # you can't just do a sys.exit(), this causes errors for clients
         self.loop.quit()

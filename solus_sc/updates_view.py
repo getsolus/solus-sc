@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -83,7 +83,7 @@ class LoadingPage(Gtk.VBox):
         self.spinner.set_size_request(-1, 64)
         self.spinner.start()
         # "Witty" loading message. Refreshing update list
-        self.label = Gtk.Label(u"<big>{}…</big>".format(
+        self.label = Gtk.Label("<big>{}…</big>".format(
             _("Discombobulating update matrix")))
         self.label.set_use_markup(True)
 
@@ -293,7 +293,7 @@ class ScUpdatesView(Gtk.VBox):
         self.view_details = Gtk.ToolButton(None, None)
         self.view_details.set_icon_name("dialog-information-symbolic")
         self.view_details.set_sensitive(False)
-        self.view_details.set_tooltip_text(u"{}…".format(_("Details")))
+        self.view_details.set_tooltip_text("{}…".format(_("Details")))
         self.view_details.get_style_context().add_class("flat")
         self.view_details.connect("clicked", self.on_details)
         self.toolbar.add(self.view_details)
@@ -371,7 +371,7 @@ class ScUpdatesView(Gtk.VBox):
         obsol = pisi.api.list_obsoleted()
         replc = pisi.api.list_replaces()
         n_updates = len(upgrades)
-        
+
         if n_updates == 0:
             self.stack.set_visible_child_name("check")
             Gdk.threads_leave()
@@ -464,7 +464,7 @@ class ScUpdatesView(Gtk.VBox):
             inactive_children = []
 
             # Find all inactive checkboxes
-            for i in xrange(0, num_children):
+            for i in range(0, num_children):
                 child = tmodel.iter_nth_child(parent, i)
                 child_path = tmodel.get_path(child)
                 active = tmodel[child_path][0]
@@ -481,7 +481,7 @@ class ScUpdatesView(Gtk.VBox):
             # Handle parent set children
             num_children = tmodel.iter_n_children(titer)
             active = tmodel[path][0]
-            for i in xrange(0, num_children):
+            for i in range(0, num_children):
                 child = tmodel.iter_nth_child(titer, i)
                 child_path = tmodel.get_path(child)
 
@@ -500,11 +500,11 @@ class ScUpdatesView(Gtk.VBox):
         total_available = 0
 
         # enumerate root nodes
-        for i in xrange(0, model.iter_n_children(None)):
+        for i in range(0, model.iter_n_children(None)):
             root_kid = model.iter_nth_child(None, i)
 
             # enumarate children in this root node
-            for j in xrange(0, model.iter_n_children(root_kid)):
+            for j in range(0, model.iter_n_children(root_kid)):
                 child = model.iter_nth_child(root_kid, j)
                 child_path = model.get_path(child)
 

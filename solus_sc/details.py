@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -443,7 +443,7 @@ class PackageDetailsView(Gtk.VBox):
             lic_wrap, "license", _("License"))
 
         reportURI = "https://issues.getsol.us/"
-        uriLab = Gtk.Label(u"\u2693 <a href=\"{}\">{}</a>".format(
+        uriLab = Gtk.Label("\u2693 <a href=\"{}\">{}</a>".format(
             reportURI,
             _("Report an invalid or missing license")))
         mainLab = Gtk.Label(
@@ -564,7 +564,7 @@ class PackageDetailsView(Gtk.VBox):
         for child in self.box_thumbnails.get_children():
             child.destroy()
             child = None
-        keys = self.screen_map.keys()
+        keys = list(self.screen_map.keys())
         for key in keys:
             del self.screen_map[key]
         self.screen_map = dict()
@@ -667,7 +667,7 @@ class PackageDetailsView(Gtk.VBox):
             if spdx is not None:
                 uri = spdx_to_uri(spdx)
                 lc = "<a href=\"{}\">{}</a>".format(uri, spdx)
-            lab = Gtk.Label(u"\u2022 " + lc)
+            lab = Gtk.Label("\u2022 " + lc)
             lab.set_use_markup(True)
             self.license_box.pack_start(lab, False, False, 0)
             lab.set_halign(Gtk.Align.START)

@@ -2,4 +2,4 @@
 
 source /usr/share/defaults/etc/profile
 
-python2.7 -m eopkg_assist.main
+python3 -m eopkg_assist.main

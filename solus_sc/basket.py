@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -13,13 +13,13 @@
 
 from gi.repository import Gtk, GObject, GLib
 
-import comar
+import scom
 import pisi.db
 import dbus
 from pisi.operations.install import plan_install_pkg_names
 from pisi.operations.remove import plan_remove
 from pisi.operations.upgrade import plan_upgrade
-from widgets import PackageLabel
+from .widgets import PackageLabel
 
 
 class BasketView(Gtk.Revealer):
@@ -72,7 +72,7 @@ class BasketView(Gtk.Revealer):
         self.update_ui()
 
         self.cb = None
-        self.link = comar.Link()
+        self.link = scom.Link()
         self.pmanager = self.link.System.Manager['pisi']
         self.link.listenSignals("System.Manager", self.pisi_callback)
 
@@ -106,7 +106,7 @@ class BasketView(Gtk.Revealer):
         pass
 
     def on_eopkg_err(self, o):
-        print("dbus error, shouldnt happen: {}".format(str(o)))
+        print(("dbus error, shouldnt happen: {}".format(str(o))))
         self.invalidate_all()
 
     def do_prog(self, pct, message):
@@ -283,7 +283,7 @@ class BasketView(Gtk.Revealer):
             self.set_progress(None, None)
             self.update_ui()
             return
-        elif str(signal).startswith("tr.org.pardus.comar.Comar.PolicyKit"):
+        elif str(signal).startswith("tr.org.sulin.scom.Scom.PolicyKit"):
             if self.cb is not None:
                 self.cb()
             self.cb = None
@@ -460,15 +460,16 @@ class BasketView(Gtk.Revealer):
             self.current_operations = packageset
 
             self.cb = self.invalidate_all
+            kwargs = {"async": self.pisi_callback}
             if packageset == updates:
                 self.pmanager.updatePackage(
-                    ",".join(packageset), async=self.pisi_callback)
+                    ",".join(packageset), **kwargs)
             elif packageset == installs:
                 self.pmanager.installPackage(
-                    ",".join(packageset), async=self.pisi_callback)
+                    ",".join(packageset), **kwargs)
             elif packageset == removals:
                 self.pmanager.removePackage(
-                    ",".join(packageset), async=self.pisi_callback)
+                    ",".join(packageset), **kwargs)
         if not setAct:
             self.invalidate_all()
             self.update_ui()

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -17,6 +17,7 @@ import os
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gio', '2.0')
 gi.require_version('AppStream', '1.0')
+gi.require_version('GdkPixbuf', '2.0')
 
 
 def get_resource_path():

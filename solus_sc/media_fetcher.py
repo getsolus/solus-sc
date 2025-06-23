@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -12,7 +12,7 @@
 #
 
 
-import Queue
+import queue
 import multiprocessing
 import threading
 from gi.repository import GObject, GdkPixbuf, Gio, Gdk
@@ -73,23 +73,23 @@ class ScMediaFetcher(GObject.Object):
             threadCount = 1
         else:
             threadCount = 2
-        print("{} CPUs detected, restricting to {} threads".format(
-            cpuCount, threadCount))
+        print(("{} CPUs detected, restricting to {} threads".format(
+            cpuCount, threadCount)))
 
         # Ensure we have a cache directory before we start
         cacheDir = self.get_cache_dir()
         try:
             if not os.path.exists(cacheDir):
-                os.makedirs(cacheDir, 00755)
+                os.makedirs(cacheDir, 0o755)
         except Exception as ex:
-            print("Check home directory permissions for {}: {}".format(
-                cacheDir, ex))
+            print(("Check home directory permissions for {}: {}".format(
+                cacheDir, ex)))
             pass
 
         # Set up the basics
         self.cache = dict()
         self.cache_lock = threading.Lock()
-        self.queue = Queue.LifoQueue(0)
+        self.queue = queue.LifoQueue(0)
 
         # We'll happily let the threads die if required
         for i in range(threadCount):
@@ -98,7 +98,7 @@ class ScMediaFetcher(GObject.Object):
             t.start()
 
         # Now start the main read queue
-        self.load_queue = Queue.LifoQueue(0)
+        self.load_queue = queue.LifoQueue(0)
         t = threading.Thread(target=self.begin_load)
         t.daemon = True
         t.start()
@@ -114,9 +114,9 @@ class ScMediaFetcher(GObject.Object):
         return os.path.join(home, ".cache", "solus-sc", "media")
 
     def get_cache_filename(self, url):
-        """ Return the unique local filename part for a URL """
+        """Return the unique local filename part for a URL"""
         f, ext = os.path.splitext(url)
-        h = hashlib.sha256(f).hexdigest()
+        h = hashlib.sha256(f.encode()).hexdigest()
         return "{}.{}".format(h, ext[1:])
 
     def get_cache_filename_full(self, url):
@@ -181,8 +181,8 @@ class ScMediaFetcher(GObject.Object):
                 pbuf = self.load_pixbuf(filename)
             except Exception as e:
                 pbuf = None
-                print("Failed to load pixbuf {}: {}".format(
-                    filename, e))
+                print(("Failed to load pixbuf {}: {}".format(
+                    filename, e)))
                 Gdk.threads_enter()
                 self.emit('fetch-failed', uri, str(e))
                 Gdk.threads_leave()
@@ -211,7 +211,7 @@ class ScMediaFetcher(GObject.Object):
                 Gdk.threads_enter()
                 self.emit('fetch-failed', uri, str(e))
                 Gdk.threads_leave()
-                print("Failed to fetch {}: {}".format(uri, e))
+                print(("Failed to fetch {}: {}".format(uri, e)))
                 fail = True
 
             # Request load on the main load thread

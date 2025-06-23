@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -63,7 +63,7 @@ class ScApplication(Gtk.Application):
                                                          css2,
                                                          prio)
         except Exception as e:
-            print("Error loading CSS: {}".format(e))
+            print(("Error loading CSS: {}".format(e)))
 
     def __init__(self):
         Gtk.Application.__init__(

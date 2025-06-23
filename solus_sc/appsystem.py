@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -307,5 +307,5 @@ class AppSystem:
                 img = Screenshot(screen, 1)
                 ret.append(img)
             except Exception as e:
-                print("Unable to load screen: {}".format(e))
+                print(("Unable to load screen: {}".format(e)))
         return ret

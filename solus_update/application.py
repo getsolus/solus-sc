@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -13,7 +13,7 @@
 
 from gi.repository import Gio, GObject, Notify, GLib
 
-import comar
+import scom
 import pisi.db
 import pisi.api
 from operator import attrgetter
@@ -204,7 +204,7 @@ class ScUpdateApp(Gio.Application):
 
     def load_comar(self):
         """ Load the d-bus comar link """
-        self.link = comar.Link()
+        self.link = scom.Link()
         self.pmanager = self.link.System.Manager['pisi']
         self.link.listenSignals("System.Manager", self.pisi_callback)
 
@@ -218,7 +218,7 @@ class ScUpdateApp(Gio.Application):
         if signal == 'finished' or signal is None:
             self.invalidate_all()
             self.build_available_updates()
-        elif str(signal).startswith("tr.org.pardus.comar.Comar.PolicyKit") or signal == 'error':
+        elif str(signal).startswith("tr.org.sulin.scom.Scom.PolicyKit") or signal == 'error':
             self.invalidate_all()
 
     def reload_repos(self):
@@ -277,7 +277,7 @@ class ScUpdateApp(Gio.Application):
             if candidate.partOf == "system.base":
                 mandatory_ups.append(sc)
 
-        pkg_hash.update(ssz)
+        pkg_hash.update(ssz.encode())
         hx = pkg_hash.hexdigest()
 
         # If this packageset is identical to the last package set that we

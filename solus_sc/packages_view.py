@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -43,7 +43,7 @@ class LoadingPage(Gtk.VBox):
         self.label.set_property("margin", 20)
 
     def set_message(self, message):
-        self.label.set_markup(u"<big>{}…</big>".format(message))
+        self.label.set_markup("<big>{}…</big>".format(message))
 
 
 def render_plain(input_string):

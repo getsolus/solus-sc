@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 #  This file is part of solus-sc
@@ -28,7 +28,7 @@ def sc_format_size_local(size, double_precision=False):
     """ Get the locale appropriate representation of the size """
     numeric, code = sc_format_size(size)
     fmt = "%.1f" if not double_precision else "%.2f"
-    dlSize = "%s %s" % (locale.format(fmt, numeric, grouping=True), code)
+    dlSize = "%s %s" % (locale.format_string(fmt, numeric, grouping=True), code)
 
     return dlSize
 
