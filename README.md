@@ -1,3 +1,7 @@
+# Archived
+>[!Warning]
+>As of October 2025, `solus-sc` is being deprecated in favor of packagekit-based software centers such as Discover and GNOME Software. Read the [project's blog archive](https://getsol.us/blog/) for further context.
+
 solus-sc
 --------
 
